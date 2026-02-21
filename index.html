@@ -168,6 +168,9 @@ h1 {
   -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(100,40,180,0.35);
   box-shadow: 0 2px 24px rgba(0,0,0,0.7), 0 1px 0 rgba(130,40,200,0.15);
+  /* Push nav below iPhone notch/status bar in standalone (PWA) mode */
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
 }
 .nav-inner {
   position: relative;
@@ -203,7 +206,13 @@ nav {
 }
 nav::-webkit-scrollbar { display: none; }
 /* Offset page content so fixed nav doesn't overlap */
-body { padding-top: 48px; }
+body { padding-top: 46px; }
+@supports (padding: env(safe-area-inset-top)) {
+  body { padding-top: calc(46px + env(safe-area-inset-top)); }
+}
+@supports (padding: constant(safe-area-inset-top)) {
+  body { padding-top: calc(46px + constant(safe-area-inset-top)); }
+}
 
 nav button {
   flex-shrink: 0;
@@ -216,11 +225,19 @@ nav button {
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 14px 16px;
+  padding: 12px 14px;
   cursor: pointer;
   transition: all var(--speed);
   white-space: nowrap;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (max-width: 480px) {
+  nav button { padding: 11px 12px; font-size: 9px; letter-spacing: 1.5px; }
+  body { padding-top: 42px; }
+  @supports (padding: env(safe-area-inset-top)) {
+    body { padding-top: calc(42px + env(safe-area-inset-top)); }
+  }
 }
 
 nav button:hover { color: var(--pale); background: rgba(136,34,238,0.10); }
@@ -1165,6 +1182,41 @@ textarea.note-area::placeholder { color: var(--ghost); }
 }
 .bpm-set-btn:hover { border-color: var(--ember); color: var(--pale); }
 
+/* ─── RECOMMENDATIONS PAGE ──────────────── */
+.rec-section { margin-bottom: 28px; }
+.rec-section-title {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 2px;
+  color: var(--blood); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+}
+.rec-section-title::after { content:''; flex:1; height:1px; background:var(--forge); }
+.rec-card {
+  background: linear-gradient(135deg, rgba(20,8,40,0.6), rgba(10,4,20,0.8));
+  border: 1px solid rgba(80,20,140,0.3);
+  border-radius: 8px; padding: 14px 16px; margin-bottom: 8px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.rec-card:hover { border-color: rgba(140,40,220,0.5); }
+.rec-card-priority {
+  position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+  border-radius: 8px 0 0 8px;
+}
+.rec-card-inner { padding-left: 10px; }
+.rec-card-title { font-family: var(--ui); font-size: 13px; color: var(--pale); font-weight: 700; margin-bottom: 4px; }
+.rec-card-body  { font-size: 12px; color: var(--mid); line-height: 1.6; }
+.rec-card-action {
+  display: inline-block; margin-top: 8px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1px;
+  background: rgba(120,30,200,0.2); border: 1px solid rgba(120,30,200,0.4);
+  color: var(--dim); padding: 4px 10px; border-radius: 3px; cursor: pointer;
+  transition: all 0.15s; text-decoration: none;
+}
+.rec-card-action:hover { background: var(--blood); border-color: var(--ember); color: #fff; }
+.rec-tag {
+  display: inline-block; font-family: var(--mono); font-size: 8px; letter-spacing: 1px;
+  border: 1px solid; border-radius: 2px; padding: 1px 6px; margin-right: 5px; margin-top: 4px;
+}
+
 /* ─── EXPORT / IMPORT ──────────────── */
 .data-actions {
   display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0;
@@ -1278,6 +1330,20 @@ textarea.note-area::placeholder { color: var(--ghost); }
   padding: 5px 10px; border-radius: 3px; cursor: pointer;
 }
 .focus-exit:hover { color: var(--pale); border-color: var(--dim); }
+.focus-detail {
+  font-size: clamp(12px, 2.5vw, 15px);
+  color: rgba(180,160,210,0.75);
+  line-height: 1.65;
+  text-align: center;
+  max-width: min(560px, 88vw);
+  margin: 12px auto 0;
+  padding: 12px 16px;
+  background: rgba(80,20,140,0.12);
+  border: 1px solid rgba(100,40,180,0.2);
+  border-radius: 8px;
+  display: none;
+}
+.focus-detail.visible { display: block; }
 
 /* ─── RIFF AUDIO PLAYBACK ─────────── */
 .riff-play-btn {
@@ -1290,32 +1356,59 @@ textarea.note-area::placeholder { color: var(--ghost); }
 .riff-play-btn.playing { border-color: var(--flame); color: var(--flame); background: rgba(200,80,20,0.1); }
 
 /* Achievements */
-.achieve-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin: 16px 0; }
+.achieve-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin: 8px 0 16px; }
+.achieve-category {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 2px;
+  color: var(--blood); margin: 20px 0 8px;
+  display: flex; align-items: center; gap: 10px;
+}
+.achieve-category::after { content:''; flex:1; height:1px; background:rgba(180,30,30,0.2); }
 .achieve-badge {
   background: var(--iron);
   border: 1px solid var(--edge);
   border-radius: var(--radius);
-  padding: 16px 12px;
+  padding: 14px 10px;
   text-align: center;
-  opacity: 0.35;
-  transition: all var(--speed);
+  opacity: 0.28;
+  transition: all 0.25s;
   position: relative;
+  overflow: hidden;
 }
 .achieve-badge.unlocked {
   opacity: 1;
+  background: linear-gradient(135deg, rgba(20,8,40,0.9), rgba(8,4,18,0.95));
   border-color: var(--gold);
-  box-shadow: 0 0 20px rgba(200,136,58,0.12);
+  box-shadow: 0 0 18px rgba(200,136,58,0.15), inset 0 0 8px rgba(200,136,58,0.04);
 }
 .achieve-badge.unlocked::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(200,136,58,0.05) 0%, transparent 60%);
-  border-radius: var(--radius);
-  pointer-events: none;
+  content: '✓';
+  position: absolute; top: 5px; right: 7px;
+  font-size: 8px; color: var(--gold); opacity: 0.7;
+  font-family: var(--mono);
 }
-.badge-icon { font-size: 26px; margin-bottom: 8px; }
-.badge-name { font-family: var(--ui); font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--pale); text-transform: uppercase; margin-bottom: 4px; }
-.badge-desc { font-size: 11px; color: var(--dim); }
+/* Rarity tiers */
+.achieve-badge.rare.unlocked     { border-color: #8888ff; box-shadow: 0 0 18px rgba(100,100,255,0.15); }
+.achieve-badge.rare.unlocked::before { background: rgba(80,80,200,0.06); }
+.achieve-badge.epic.unlocked     { border-color: #cc44ff; box-shadow: 0 0 20px rgba(180,40,255,0.2); }
+.achieve-badge.epic.unlocked::before { background: rgba(140,20,200,0.08); }
+.achieve-badge.legendary.unlocked { border-color: #ff6622; box-shadow: 0 0 24px rgba(255,80,20,0.25); }
+.achieve-badge.legendary.unlocked::before { background: rgba(200,60,10,0.08); }
+.achieve-badge::before {
+  content: ''; position: absolute; inset: 0;
+  border-radius: var(--radius); pointer-events: none;
+}
+@keyframes badgePop {
+  0%  { transform: scale(0.92); opacity: 0.5; }
+  60% { transform: scale(1.05); }
+  100%{ transform: scale(1);    opacity: 1;   }
+}
+.achieve-badge.just-unlocked { animation: badgePop 0.4s ease forwards; }
+.badge-icon { font-size: 24px; margin-bottom: 6px; line-height: 1; }
+.badge-name { font-family: var(--ui); font-size: 10px; font-weight: 700; letter-spacing: 1px; color: var(--pale); text-transform: uppercase; margin-bottom: 3px; line-height: 1.3; }
+.badge-desc { font-size: 10px; color: var(--dim); line-height: 1.4; }
+.badge-prog-bar { margin-top: 7px; height: 2px; background: var(--forge); border-radius: 1px; overflow: hidden; }
+.badge-prog-fill { height: 100%; background: linear-gradient(90deg, var(--blood), var(--ember)); border-radius: 1px; transition: width 0.6s ease; }
+.badge-prog-label { font-family: var(--mono); font-size: 8px; color: var(--dim); margin-top: 3px; }
 
 /* ═══════════════════════════════════════════
    CHECKLIST
@@ -2771,6 +2864,7 @@ footer {
     <button onclick="goTo('theory',this)">Theory</button>
     <button onclick="goTo('riff',this)">Riff Lab</button>
     <button onclick="goTo('roadmap',this)">Roadmap</button>
+    <button onclick="goTo('recommendations',this);buildRecommendations()">Recs</button>
   </nav>
   </div>
 </div>
@@ -2908,7 +3002,10 @@ footer {
   </div>
 
   <div class="fret-wrap" id="fret-wrap">
-    <svg id="fretboard-svg" viewBox="0 0 720 230" xmlns="http://www.w3.org/2000/svg"></svg>
+    <canvas id="fretboard-canvas" height="230" style="width:100%;border-radius:8px;border:1px solid var(--edge);margin:12px 0;display:block;cursor:crosshair;touch-action:none"></canvas>
+    <div id="fret-tooltip" style="position:fixed;display:none;pointer-events:none;background:rgba(10,5,25,0.95);border:1px solid var(--ember);border-radius:5px;padding:5px 10px;font-family:var(--mono);font-size:11px;color:var(--pale);z-index:500;white-space:nowrap"></div>
+    <div class="fret-key" id="fret-key"></div>
+    <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:4px">// CLICK ANY DOT TO HEAR THAT NOTE</div>
   </div>
 
   <div class="collapse-group" id="scales-group"></div>
@@ -3260,7 +3357,7 @@ footer {
 
   <hr class="divider">
   <h3>Achievements</h3>
-  <div class="achieve-grid" id="achievements"></div>
+  <div id="achievements"></div>
 </div>
 
 
@@ -3406,6 +3503,17 @@ footer {
 
 
 <!-- ═══════════════════════════════════ WEEKLY REVIEW ═══════ -->
+<!-- ═══════════════════════════════════ RECOMMENDATIONS ═══════ -->
+<div id="recommendations" class="page">
+  <div class="page-header">
+    <div class="page-title">Recommendations</div>
+    <div class="page-lead">Personalised suggestions based on your practice data, skill levels, and session history. Updated every time you visit.</div>
+  </div>
+  <div id="rec-body">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--dim);text-align:center;padding:40px">Loading recommendations…</div>
+  </div>
+</div>
+
 <!-- ═══════════════════════════════════ THEORY ═══════ -->
 <div id="theory" class="page">
   <div class="page-header">
@@ -3647,19 +3755,40 @@ function buildCollapse(containerId, items) {
   });
 }
 
-function toggleCollapse(id) {
-  const item = document.getElementById(id);
-  const body = item.querySelector('.collapse-body');
-  const isOpen = item.classList.contains('open');
-  if (isOpen) {
+function closeCollapse(el) {
+  if (!el || !el.classList.contains('open')) return;
+  const body = el.querySelector('.collapse-body');
+  if (body) {
     body.classList.remove('open');
     body.style.maxHeight = body.scrollHeight + 'px';
     requestAnimationFrame(() => body.style.maxHeight = '0');
-    item.classList.remove('open');
+  }
+  el.classList.remove('open');
+}
+
+function toggleCollapse(id) {
+  const item = document.getElementById(id);
+  if (!item) return;
+  const body = item.querySelector('.collapse-body');
+  const isOpen = item.classList.contains('open');
+
+  // Close all siblings in the same collapse-group first
+  const group = item.closest('.collapse-group');
+  if (group) {
+    group.querySelectorAll('.collapse-item.open').forEach(sibling => {
+      if (sibling !== item) closeCollapse(sibling);
+    });
+  }
+
+  if (isOpen) {
+    closeCollapse(item);
   } else {
     item.classList.add('open');
-    body.style.maxHeight = body.scrollHeight + 'px';
-    setTimeout(() => { body.style.maxHeight = 'none'; body.classList.add('open'); }, 400);
+    body.style.maxHeight = '0';
+    requestAnimationFrame(() => {
+      body.style.maxHeight = body.scrollHeight + 'px';
+    });
+    setTimeout(() => { body.style.maxHeight = 'none'; body.classList.add('open'); }, 380);
   }
 }
 
@@ -4540,15 +4669,66 @@ const milestonesData = [
   { title: 'Month 6', desc: 'Record yourself. Write an original 8-bar riff. Play a full song at performance speed without stopping.' },
 ];
 
+/*
+  achievementsData — 32 badges, 6 categories
+  type:
+    'streak'    → streak integer from grimoire-streak
+    'skill'     → skill percent via skillLabel substring match
+    'mins'      → total practice minutes (all time)
+    'sessions'  → total session count (grimoire_sess_count)
+    'bpm'       → highest BPM record across all skills (grimoire_bpm_*)
+    'favs'      → number of saved riffs (grimoire_riff_favs)
+    'intStreak' → interval trainer streak (intStreak var)
+    'manual'    → never auto-unlocks (manual achievement marker)
+    'skill2'    → both skill thresholds must be met (skillLabel + skillLabel2)
+*/
+// rarity: '' = common (gold), 'rare' = blue, 'epic' = purple, 'legendary' = orange
 const achievementsData = [
-  { icon: '🔥', name: 'First Blood', desc: '1 day streak', prog: 'streak', threshold: 1 },
-  { icon: '💀', name: 'Chug Lord', desc: '100+ palm-muted notes', prog: 'muting', threshold: 50 },
-  { icon: '⚡', name: 'Speed Demon', desc: '150+ BPM metronome', prog: 'altpick', threshold: 70 },
-  { icon: '🌑', name: 'Scale Master', desc: 'Natural Minor at 100%', prog: 'minor', threshold: 100 },
-  { icon: '◈', name: 'Sweep Initiate', desc: 'Arpeggio > 40%', prog: 'sweep', threshold: 40 },
-  { icon: '🎸', name: 'The Riff Wizard', desc: 'Write original riff', prog: null, threshold: null },
-  { icon: '⏱', name: 'Consistent', desc: '7-day streak', prog: 'streak', threshold: 7 },
-  { icon: '👑', name: 'Six Month Beast', desc: 'All milestones done', prog: null, threshold: null },
+
+  // ── 🔥 CONSISTENCY ─────────────────────────────────────
+  { cat: 'CONSISTENCY', icon: '🔥', name: 'First Blood',   desc: 'Earn your first streak day',    type: 'streak', threshold: 1,  rarity: '' },
+  { cat: 'CONSISTENCY', icon: '🗡️', name: 'On The Path',  desc: '3-day practice streak',          type: 'streak', threshold: 3,  rarity: '' },
+  { cat: 'CONSISTENCY', icon: '⚔️', name: 'War Machine',  desc: '7-day streak',                   type: 'streak', threshold: 7,  rarity: 'rare' },
+  { cat: 'CONSISTENCY', icon: '🩸', name: 'Blood Oath',   desc: '14-day streak',                  type: 'streak', threshold: 14, rarity: 'rare' },
+  { cat: 'CONSISTENCY', icon: '💀', name: 'Undying',      desc: '30-day streak',                  type: 'streak', threshold: 30, rarity: 'epic' },
+  { cat: 'CONSISTENCY', icon: '👁️', name: 'The Eternal',  desc: '60-day streak',                  type: 'streak', threshold: 60, rarity: 'legendary' },
+
+  // ── ⏱ TIME LOGGED ──────────────────────────────────────
+  { cat: 'TIME LOGGED', icon: '⏱',  name: 'First Hour',        desc: '60 minutes total practice',  type: 'mins', threshold: 60,   rarity: '' },
+  { cat: 'TIME LOGGED', icon: '🕯️', name: 'Night Shift',       desc: '5 hours total',              type: 'mins', threshold: 300,  rarity: '' },
+  { cat: 'TIME LOGGED', icon: '🏚️', name: 'Basement Dweller',  desc: '10 hours total',             type: 'mins', threshold: 600,  rarity: 'rare' },
+  { cat: 'TIME LOGGED', icon: '⛧',  name: 'Ritual',            desc: '25 hours total',             type: 'mins', threshold: 1500, rarity: 'epic' },
+  { cat: 'TIME LOGGED', icon: '🌑', name: 'Dark Matter',       desc: '50 hours total',             type: 'mins', threshold: 3000, rarity: 'legendary' },
+
+  // ── 🎸 SKILL MILESTONES ─────────────────────────────────
+  { cat: 'SKILL MILESTONES', icon: '🤘', name: 'Chug Initiate',   desc: 'Palm Muting 25%',          type: 'skill',  skillLabel: 'Palm Muting',   threshold: 25, rarity: '' },
+  { cat: 'SKILL MILESTONES', icon: '💥', name: 'Chug Lord',        desc: 'Palm Muting 80%',          type: 'skill',  skillLabel: 'Palm Muting',   threshold: 80, rarity: 'rare' },
+  { cat: 'SKILL MILESTONES', icon: '🦅', name: 'Gallop Rider',     desc: 'Gallop Rhythm 50%',        type: 'skill',  skillLabel: 'Gallop Rhythm', threshold: 50, rarity: '' },
+  { cat: 'SKILL MILESTONES', icon: '⚡', name: 'Machine Gun',      desc: 'Alternate Picking 60%',    type: 'skill',  skillLabel: 'Alternate Pick',threshold: 60, rarity: 'rare' },
+  { cat: 'SKILL MILESTONES', icon: '🌊', name: 'Sweep Initiate',   desc: 'Sweep/Tap 30%',            type: 'skill',  skillLabel: 'Sweep/Tap',     threshold: 30, rarity: '' },
+  { cat: 'SKILL MILESTONES', icon: '🔱', name: 'Sweep Master',     desc: 'Sweep/Tap 80%',            type: 'skill',  skillLabel: 'Sweep/Tap',     threshold: 80, rarity: 'epic' },
+  { cat: 'SKILL MILESTONES', icon: '🌑', name: 'Minor Prophet',    desc: 'Natural Minor 75%',        type: 'skill',  skillLabel: 'Natural Minor', threshold: 75, rarity: 'rare' },
+  { cat: 'SKILL MILESTONES', icon: '🐍', name: 'Phrygian Prince',  desc: 'Phrygian mode 60%',        type: 'skill',  skillLabel: 'Phrygian',      threshold: 60, rarity: 'rare' },
+  { cat: 'SKILL MILESTONES', icon: '👑', name: 'Scale Sovereign',  desc: 'Minor + Phrygian both 80%',type: 'skill2', skillLabel: 'Natural Minor', skillLabel2: 'Phrygian', threshold: 80, rarity: 'legendary' },
+
+  // ── ♩ SPEED ─────────────────────────────────────────────
+  { cat: 'SPEED', icon: '🐢',  name: 'Slow & Clean',   desc: 'Log any BPM record',        type: 'bpm', threshold: 1,   rarity: '' },
+  { cat: 'SPEED', icon: '🔩',  name: 'Picking Iron',   desc: 'BPM record ≥ 100',          type: 'bpm', threshold: 100, rarity: '' },
+  { cat: 'SPEED', icon: '💨',  name: 'Speed Demon',    desc: 'BPM record ≥ 150',          type: 'bpm', threshold: 150, rarity: 'rare' },
+  { cat: 'SPEED', icon: '🌪️', name: 'Blast Furnace',  desc: 'BPM record ≥ 180',          type: 'bpm', threshold: 180, rarity: 'epic' },
+  { cat: 'SPEED', icon: '☠️',  name: 'Death Tempo',    desc: 'BPM record ≥ 200',          type: 'bpm', threshold: 200, rarity: 'legendary' },
+
+  // ── 🎵 RIFF LAB ─────────────────────────────────────────
+  { cat: 'RIFF LAB', icon: '📌', name: 'First Save',      desc: 'Save your first riff',            type: 'favs',     threshold: 1,  rarity: '' },
+  { cat: 'RIFF LAB', icon: '📚', name: 'Riff Collector',  desc: '5 riffs saved to favourites',     type: 'favs',     threshold: 5,  rarity: 'rare' },
+  { cat: 'RIFF LAB', icon: '🗂️', name: 'The Archive',     desc: '10 riffs saved',                  type: 'favs',     threshold: 10, rarity: 'epic' },
+  { cat: 'RIFF LAB', icon: '🎸', name: 'Session Runner',  desc: '10 practice sessions completed',  type: 'sessions', threshold: 10, rarity: '' },
+  { cat: 'RIFF LAB', icon: '🏆', name: '50 Sessions',     desc: '50 sessions completed',           type: 'sessions', threshold: 50, rarity: 'epic' },
+
+  // ── 👂 EAR TRAINING ──────────────────────────────────────
+  { cat: 'EAR TRAINING', icon: '👂', name: 'First Listen',    desc: '3 intervals correct in a row', type: 'intStreak', threshold: 3,  rarity: '' },
+  { cat: 'EAR TRAINING', icon: '🎯', name: 'Ear of the Void', desc: '10 intervals streak',          type: 'intStreak', threshold: 10, rarity: 'rare' },
+  { cat: 'EAR TRAINING', icon: '🔮', name: 'Tritone Seer',    desc: '20 intervals streak',          type: 'intStreak', threshold: 20, rarity: 'epic' },
 ];
 
 // ── ROADMAP ──
@@ -4630,145 +4810,304 @@ const roadmapData = [
 /* ═══════════════════════════════════════
    FRETBOARD SVG RENDERER
 ═══════════════════════════════════════ */
-function renderFretboard(scaleId) {
-  const svg = document.getElementById('fretboard-svg');
-  if (!svg) return;
-  const scale = scalesData.find(s => s.id === scaleId) || scalesData[0];
+/* ══════════════════════════════════════════════
+   INTERACTIVE FRETBOARD — canvas, click-to-play
+══════════════════════════════════════════════ */
 
-  // ── Layout constants ──────────────────────────────────────
-  const strings = 7, frets = 12;
-  const W = 720, H = 230;
-  const ML = 36, MR = 16, MT = 44, MB = 26; // margins (extra top for open note markers)
-  const fw = (W - ML - MR) / frets;
-  const sh = (H - MT - MB) / (strings - 1);
-  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-
-  // ── Correct open-string semitones (Drop A 7-string) ──────
-  // Display: string 0 = HIGH e (E4=4), string 6 = LOW A7 (A1=9)
-  // Low to high display: A7 at bottom, e at top
-  const strNames = ['e','B','G','D','A','E','A7'];
-  // Semitones mod 12: E=4, B=11, G=7, D=2, A=9, E=4, A=9
-  const strSemi  = [4, 11, 7, 2, 9, 4, 9];
-
-  const rootSemi = 9; // A
-
-  // ── NOTE NAMES for tooltip ────────────────────────────────
-  const noteNames = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-
-  let html = '';
-
-  // Background
-  html += `<rect x="0" y="0" width="${W}" height="${H}" fill="#060610" rx="8"/>`;
-
-  // ── Fretboard body ────────────────────────────────────────
-  html += `<rect x="${ML}" y="${MT}" width="${W-ML-MR}" height="${H-MT-MB}" fill="#0d0b1a" rx="2"/>`;
-
-  // Fret position markers (dots on fretboard)
-  [3,5,7,9].forEach(f => {
-    const x = ML + (f - 0.5) * fw;
-    const y = MT + (H-MT-MB)/2;
-    html += `<circle cx="${x}" cy="${y}" r="4" fill="#1a1830" opacity="0.8"/>`;
-  });
-  // Double dot at 12
-  const x12 = ML + 11.5 * fw;
-  [-1,1].forEach(off => {
-    html += `<circle cx="${x12}" cy="${MT + (H-MT-MB)/2 + off*18}" r="4" fill="#1a1830" opacity="0.8"/>`;
-  });
-
-  // Fret lines + numbers
-  for (let f = 0; f <= frets; f++) {
-    const x = ML + f * fw;
-    if (f === 0) {
-      // Nut — thick, highlighted
-      html += `<rect x="${x-2}" y="${MT}" width="4" height="${H-MT-MB}" fill="#8b5e3c" rx="1"/>`;
-    } else {
-      html += `<line x1="${x}" y1="${MT}" x2="${x}" y2="${H-MB}" stroke="#2a2840" stroke-width="1"/>`;
-    }
-    // Fret number above
-    if ([1,3,5,7,9,12].includes(f)) {
-      const labelX = ML + (f - 0.5) * fw;
-      html += `<text x="${labelX}" y="${MT-8}" fill="#44445a" font-size="10" text-anchor="middle" font-family="ui-monospace,monospace" font-weight="600">${f}</text>`;
-    }
-  }
-
-  // ── String lines ──────────────────────────────────────────
-  for (let s = 0; s < strings; s++) {
-    const y = MT + s * sh;
-    const strokeW = 0.5 + s * 0.35;
-    const brightness = Math.round(50 + s * 8);
-    html += `<line x1="${ML}" y1="${y}" x2="${W-MR}" y2="${y}" stroke="rgb(${brightness},${brightness-5},${brightness+20})" stroke-width="${strokeW}"/>`;
-    // String label left
-    html += `<text x="${ML-8}" y="${y+4}" fill="#6a6484" font-size="10" text-anchor="middle" font-family="ui-monospace,monospace" font-weight="700">${strNames[s]}</text>`;
-  }
-
-  // ── Scale degree colors ───────────────────────────────────
-  const degreeColors = {
-    0: { fill: scale.color || '#7720cc', stroke: '#fff', label: 'R' },        // Root
-    1: { fill: '#2a3a6a', stroke: '#5a7aaa', label: '2' },
-    2: { fill: '#1e3a2a', stroke: '#4a8a5a', label: '3' },
-    3: { fill: '#2a2a4a', stroke: '#5a5aaa', label: '4' },
-    4: { fill: '#1e2e3a', stroke: '#4a7a9a', label: '5' },
-    5: { fill: '#3a2a1a', stroke: '#9a7a4a', label: '6' },
-    6: { fill: '#3a1e2a', stroke: '#9a4a6a', label: '7' },
+// Safari < 15.4 polyfill for CanvasRenderingContext2D.roundRect
+if (!CanvasRenderingContext2D.prototype.roundRect) {
+  CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+    const rad = Math.min(r, w / 2, h / 2);
+    this.beginPath();
+    this.moveTo(x + rad, y);
+    this.arcTo(x + w, y,     x + w, y + h, rad);
+    this.arcTo(x + w, y + h, x,     y + h, rad);
+    this.arcTo(x,     y + h, x,     y,     rad);
+    this.arcTo(x,     y,     x + w, y,     rad);
+    this.closePath();
+    return this;
   };
+}
+let _fbScale    = null;  // current scale object
+let _fbNotes    = [];    // [{cx,cy,freq,noteName,degree,interval,strIdx,fret}]
 
-  // ── Place note dots ───────────────────────────────────────
+// Drop A 7-string open string data
+const FB_STR_NAMES = ['e','B','G','D','A','E','A'];  // high to low (top to bottom)
+const FB_STR_SEMI  = [4, 11, 7, 2, 9, 4, 9];         // semitones mod 12
+const FB_STR_MIDI  = [64, 59, 55, 50, 45, 40, 33];    // MIDI note numbers (open)
+const FB_NOTE_NAMES= ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+
+// Degree display colors (canvas-drawable)
+const FB_DEG_FILLS   = ['#8822dd','#2a3a8a','#1e4a30','#2a2a6a','#1e3a4a','#4a3010','#4a1e30'];
+const FB_DEG_STROKES = ['#ffffff','#6a8aff','#5aaa6a','#7a7aff','#5a9abb','#caa060','#cc6090'];
+const FB_ROOT_GLOW   = 'rgba(136,34,221,0.22)';
+
+function renderFretboard(scaleId) {
+  const canvas = document.getElementById('fretboard-canvas');
+  if (!canvas) return;
+  const scale = scalesData.find(s => s.id === scaleId) || scalesData[0];
+  _fbScale = scale;
+
+  // Layout
+  const STRINGS = 7, FRETS = 12;
+  const DPR   = window.devicePixelRatio || 1;
+  const W_CSS = canvas.offsetWidth || 700;
+  const H_CSS = 230;
+  canvas.style.height = H_CSS + 'px';
+  canvas.width  = Math.round(W_CSS * DPR);
+  canvas.height = Math.round(H_CSS * DPR);
+  const ctx = canvas.getContext('2d');
+  ctx.scale(DPR, DPR);
+  const W = W_CSS, H = H_CSS;
+
+  const ML = 32, MR = 12, MT = 42, MB = 22;
+  const FW  = (W - ML - MR) / FRETS;
+  const SH  = (H - MT - MB) / (STRINGS - 1);
+
+  // ── Background ────────────────────────────────────────
+  ctx.fillStyle = '#060610';
+  ctx.beginPath();
+  ctx.roundRect(0, 0, W, H, 8);
+  ctx.fill();
+
+  // Fretboard body
+  ctx.fillStyle = '#0d0b1a';
+  ctx.beginPath();
+  ctx.roundRect(ML, MT, W - ML - MR, H - MT - MB, 2);
+  ctx.fill();
+
+  // ── Position markers ─────────────────────────────────
+  ctx.fillStyle = 'rgba(30,24,60,0.9)';
+  [3,5,7,9].forEach(f => {
+    const x = ML + (f - 0.5) * FW;
+    const y = MT + (H - MT - MB) / 2;
+    ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2); ctx.fill();
+  });
+  const x12 = ML + 11.5 * FW;
+  const ymid = MT + (H - MT - MB) / 2;
+  [-20, 20].forEach(off => {
+    ctx.beginPath(); ctx.arc(x12, ymid + off * 0.5, 4, 0, Math.PI*2); ctx.fill();
+  });
+
+  // ── Fret lines + numbers ──────────────────────────────
+  for (let f = 0; f <= FRETS; f++) {
+    const x = ML + f * FW;
+    if (f === 0) {
+      // Nut
+      ctx.fillStyle = '#8b5e3c';
+      ctx.fillRect(x - 2, MT, 4, H - MT - MB);
+    } else {
+      ctx.strokeStyle = '#2a2840';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(x, MT); ctx.lineTo(x, H - MB); ctx.stroke();
+    }
+    if ([1,3,5,7,9,12].includes(f)) {
+      ctx.fillStyle = '#44445a';
+      ctx.font = '600 10px ui-monospace,monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(String(f), ML + (f - 0.5) * FW, MT - 9);
+    }
+  }
+
+  // ── String lines ──────────────────────────────────────
+  for (let s = 0; s < STRINGS; s++) {
+    const y = MT + s * SH;
+    const brightness = 48 + s * 7;
+    ctx.strokeStyle = `rgb(${brightness},${brightness - 5},${brightness + 18})`;
+    ctx.lineWidth = 0.5 + s * 0.35;
+    ctx.beginPath(); ctx.moveTo(ML, y); ctx.lineTo(W - MR, y); ctx.stroke();
+    // String name
+    ctx.fillStyle = '#6a6484';
+    ctx.font = '700 9px ui-monospace,monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(FB_STR_NAMES[s], ML - 8, y + 3.5);
+  }
+
+  // ── Build note dot data ───────────────────────────────
+  const rootSemi = 9; // A
+  _fbNotes = [];
   scale.dots.forEach((interval, degree) => {
     const targetSemi = (rootSemi + interval) % 12;
-    for (let s = 0; s < strings; s++) {
-      const y = MT + s * sh;
-      for (let f = 0; f <= frets; f++) {
-        const noteSemi = (strSemi[s] + f) % 12;
+    for (let s = 0; s < STRINGS; s++) {
+      for (let f = 0; f <= FRETS; f++) {
+        const noteSemi = (FB_STR_SEMI[s] + f) % 12;
         if (noteSemi !== targetSemi) continue;
-
         const isRoot = degree === 0;
-        const dc = degreeColors[degree] || degreeColors[1];
         const r = isRoot ? 9 : 7;
-
-        let cx, cy, openNote = false;
+        const midiNote = FB_STR_MIDI[s] + f;
+        const freq = 440 * Math.pow(2, (midiNote - 69) / 12);
+        const noteName = FB_NOTE_NAMES[noteSemi];
+        let cx, cy;
         if (f === 0) {
-          // Open note — place ABOVE the nut, above fret area
-          cx = ML - 18;
-          cy = y;
-          openNote = true;
+          cx = ML - 18; cy = MT + s * SH;
         } else {
-          cx = ML + (f - 0.5) * fw;
-          cy = y;
+          cx = ML + (f - 0.5) * FW; cy = MT + s * SH;
         }
-
-        // Shadow / glow for root
-        if (isRoot) {
-          html += `<circle cx="${cx}" cy="${cy}" r="${r+4}" fill="${dc.fill}" opacity="0.2"/>`;
-        }
-        html += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${dc.fill}" stroke="${dc.stroke}" stroke-width="${isRoot ? 1.5 : 1}" opacity="0.95"/>`;
-        // Label
-        const label = isRoot ? 'R' : String(interval);
-        html += `<text x="${cx}" y="${cy+3.5}" fill="#fff" font-size="${isRoot ? 8 : 7}" text-anchor="middle" font-family="ui-monospace,monospace" font-weight="700">${label}</text>`;
-
-        // Open note indicator line from nut
-        if (openNote) {
-          html += `<line x1="${ML-9}" y1="${cy}" x2="${ML-2}" y2="${cy}" stroke="${dc.fill}" stroke-width="1" stroke-dasharray="2,2"/>`;
-        }
+        _fbNotes.push({ cx, cy, r, freq, noteName, degree, interval, strIdx: s, fret: f, isRoot });
       }
     }
   });
 
-  // ── Legend ────────────────────────────────────────────────
-  const legendY = H - 8;
-  const legendItems = [
-    { color: scale.color || '#7720cc', label: 'Root (R)' },
-    { color: '#4a6a9a', label: 'Scale tones (interval #)' },
-  ];
-  legendItems.forEach((li, i) => {
-    const lx = ML + i * 160;
-    html += `<circle cx="${lx+6}" cy="${legendY}" r="5" fill="${li.color}"/>`;
-    html += `<text x="${lx+15}" y="${legendY+4}" fill="#5a5470" font-size="9" font-family="ui-monospace,monospace">${li.label}</text>`;
+  // Draw dots
+  _fbNotes.forEach(n => {
+    if (n.isRoot) {
+      ctx.fillStyle = FB_ROOT_GLOW;
+      ctx.beginPath(); ctx.arc(n.cx, n.cy, n.r + 4, 0, Math.PI*2); ctx.fill();
+    }
+    ctx.fillStyle   = FB_DEG_FILLS[n.degree] || FB_DEG_FILLS[1];
+    ctx.strokeStyle = FB_DEG_STROKES[n.degree] || FB_DEG_STROKES[1];
+    ctx.lineWidth   = n.isRoot ? 1.5 : 1;
+    ctx.beginPath(); ctx.arc(n.cx, n.cy, n.r, 0, Math.PI*2);
+    ctx.fill(); ctx.stroke();
+    // Label
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `700 ${n.isRoot ? 8 : 7}px ui-monospace,monospace`;
+    ctx.textAlign = 'center';
+    const label = n.isRoot ? 'R' : String(n.interval);
+    ctx.fillText(label, n.cx, n.cy + 3.5);
+    // Open-string dashes
+    if (n.fret === 0) {
+      ctx.strokeStyle = FB_DEG_FILLS[n.degree] || FB_DEG_FILLS[1];
+      ctx.lineWidth = 1;
+      ctx.setLineDash([2, 2]);
+      ctx.beginPath(); ctx.moveTo(ML - 9, n.cy); ctx.lineTo(ML - 2, n.cy); ctx.stroke();
+      ctx.setLineDash([]);
+    }
   });
-  // "○ = open string" label
-  html += `<text x="${ML + 330}" y="${legendY+4}" fill="#5a5470" font-size="9" font-family="ui-monospace,monospace">○ left of nut = open string</text>`;
 
-  svg.innerHTML = html;
+  // ── Legend ────────────────────────────────────────────
+  const LY = H - 6;
+  ctx.fillStyle = scale.color || '#7720cc';
+  ctx.beginPath(); ctx.arc(ML, LY, 5, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#5a5470';
+  ctx.font = '9px ui-monospace,monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText('Root (R)', ML + 9, LY + 3.5);
+  ctx.fillStyle = '#2a4a5a';
+  ctx.beginPath(); ctx.arc(ML + 90, LY, 4, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#5a5470';
+  ctx.fillText('Scale tones', ML + 99, LY + 3.5);
+  ctx.fillStyle = '#5a5470';
+  ctx.fillText('Click dot = hear note', ML + 210, LY + 3.5);
+
+  // Update key display
+  const keyEl = document.getElementById('fret-key');
+  if (keyEl) {
+    keyEl.innerHTML = scale.dots.map((interval, deg) => {
+      const name = FB_NOTE_NAMES[(rootSemi + interval) % 12];
+      const label = deg === 0 ? 'Root' : `${interval} (${name})`;
+      const color = FB_DEG_FILLS[deg] || '#444';
+      const stroke = FB_DEG_STROKES[deg] || '#888';
+      return `<span class="fret-key-item">
+        <span class="fret-key-dot" style="background:${color};border:1px solid ${stroke}"></span>
+        ${label}
+      </span>`;
+    }).join('');
+  }
 }
+
+// ── Hit-test: which note dot is near a click/touch ────
+function fbHitTest(canvas, clientX, clientY) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / (canvas.getBoundingClientRect().width * (window.devicePixelRatio || 1));
+  const x = (clientX - rect.left);
+  const y = (clientY - rect.top);
+  let closest = null, minDist = 18;
+  for (const n of _fbNotes) {
+    const d = Math.sqrt((n.cx - x) ** 2 + (n.cy - y) ** 2);
+    if (d < minDist) { minDist = d; closest = n; }
+  }
+  return closest;
+}
+
+// ── Mouse / touch events on fretboard ─────────────────
+let _fbEventsInit = false;
+function initFretboardEvents() {
+  if (_fbEventsInit) return; // only register once
+  _fbEventsInit = true;
+  const canvas  = document.getElementById('fretboard-canvas');
+  const tooltip = document.getElementById('fret-tooltip');
+  if (!canvas || !tooltip) return;
+
+  const degNames = ['Root','2nd','3rd','4th','5th','6th','7th'];
+
+  function showTip(n, clientX, clientY) {
+    const scaleLabel = _fbScale ? _fbScale.name : '';
+    tooltip.innerHTML = `<strong>${n.noteName}</strong> — ${degNames[n.degree] || '?'} (${n.interval} semitones) · String ${FB_STR_NAMES[n.strIdx]} Fret ${n.fret} · ${scaleLabel}`;
+    tooltip.style.display = 'block';
+    tooltip.style.left = (clientX + 14) + 'px';
+    tooltip.style.top  = (clientY - 8) + 'px';
+  }
+  function hideTip() { tooltip.style.display = 'none'; }
+
+  canvas.addEventListener('mousemove', e => {
+    const n = fbHitTest(canvas, e.clientX, e.clientY);
+    if (n) { canvas.style.cursor = 'pointer'; showTip(n, e.clientX, e.clientY); }
+    else   { canvas.style.cursor = 'crosshair'; hideTip(); }
+  });
+  canvas.addEventListener('mouseleave', hideTip);
+
+  let _lastClickedNote = null;
+
+  function highlightNote(n) {
+    _lastClickedNote = n;
+    renderFretboard(_fbScale?.id || 'minor'); // redraw base
+    // Draw highlight ring on top
+    const canvas2 = document.getElementById('fretboard-canvas');
+    if (!canvas2) return;
+    const DPR = window.devicePixelRatio || 1;
+    const ctx2 = canvas2.getContext('2d');
+    ctx2.save();
+    ctx2.scale(DPR, DPR);
+    ctx2.beginPath();
+    ctx2.arc(n.cx, n.cy, n.r + 5, 0, Math.PI * 2);
+    ctx2.strokeStyle = '#ffffff';
+    ctx2.lineWidth = 2;
+    ctx2.globalAlpha = 0.7;
+    ctx2.stroke();
+    ctx2.restore();
+    // Fade out after 800ms
+    setTimeout(() => { renderFretboard(_fbScale?.id || 'minor'); }, 800);
+  }
+
+  canvas.addEventListener('click', e => {
+    const n = fbHitTest(canvas, e.clientX, e.clientY);
+    if (!n) return;
+    showTip(n, e.clientX, e.clientY);
+    highlightNote(n);
+    // Clean, sustaining guitar note for a fretboard explorer
+    const ctx = getACtx();
+    const dest = ctx.createGain();
+    dest.gain.setValueAtTime(0.5, ctx.currentTime);
+    dest.connect(ctx.destination);
+    scheduleGuitarNote(ctx, dest, n.freq, ctx.currentTime + 0.02, 1.8, 0.75);
+  });
+
+  // Touch support
+  canvas.addEventListener('touchend', e => {
+    e.preventDefault();
+    const t = e.changedTouches[0];
+    const n = fbHitTest(canvas, t.clientX, t.clientY);
+    if (!n) return;
+    showTip(n, t.clientX, t.clientY);
+    highlightNote(n);
+    const ctx = getACtx();
+    const dest = ctx.createGain();
+    dest.gain.setValueAtTime(0.5, ctx.currentTime);
+    dest.connect(ctx.destination);
+    scheduleGuitarNote(ctx, dest, n.freq, ctx.currentTime + 0.02, 1.8, 0.75);
+    setTimeout(hideTip, 1800);
+  }, { passive: false });
+}
+
+// Redraw on window resize (debounced)
+let _fbResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(_fbResizeTimer);
+  _fbResizeTimer = setTimeout(() => {
+    if (_fbScale) renderFretboard(_fbScale.id);
+  }, 120);
+});
 
 /* ═══════════════════════════════════════
    SCALES PAGE INIT
@@ -4788,7 +5127,11 @@ function initScales() {
     content: s.content
   })));
 
-  renderFretboard('minor');
+  // Small delay to allow canvas to get its layout width
+  setTimeout(() => {
+    renderFretboard('minor');
+    initFretboardEvents();
+  }, 80);
 }
 
 function selectScale(id, el) {
@@ -5286,9 +5629,27 @@ function skipBlock() {
 }
 
 /* ═══════════════════════════════════════
+   SHARED AUDIO CONTEXT
+   One context for metronome + interval + riff.
+   Created on first user gesture, never closed.
+═══════════════════════════════════════ */
+let audioCtx = null; // single shared context
+
+/** Get or create the shared AudioContext and ensure it is running. */
+function getACtx() {
+  if (!audioCtx || audioCtx.state === 'closed') {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  // Fire-and-forget resume — safe to call even if already running
+  if (audioCtx.state === 'suspended' || audioCtx.state === 'interrupted') {
+    audioCtx.resume().catch(() => {});
+  }
+  return audioCtx;
+}
+
+/* ═══════════════════════════════════════
    METRONOME
 ═══════════════════════════════════════ */
-let audioCtx = null;
 let metroRunning = false;
 let nextNoteTime = 0;
 let currentBeat = 0;
@@ -5297,14 +5658,10 @@ let bpm = 80;
 let metroTimeout;
 let tapTimes = [];
 
-function getACtx() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  return audioCtx;
-}
 function playClick(time, accent) {
   try {
     const ctx = getACtx();
-    if (ctx.state === 'suspended') return; // not ready yet
+    // Don't skip even if suspended — if context resumes before `time`, note plays fine
     const o = ctx.createOscillator();
     const g = ctx.createGain();
     o.connect(g); g.connect(ctx.destination);
@@ -5363,21 +5720,20 @@ function toggleMetro() {
   const doStart = () => {
     metroRunning = true;
     currentBeat  = 0;
-    nextNoteTime = ctx.currentTime + 0.05;
+    nextNoteTime = ctx.currentTime + 0.2;
     if (btn)   { btn.textContent = 'Stop'; btn.classList.add('running'); }
     if (mpBtn) { mpBtn.textContent = '■  STOP'; mpBtn.classList.add('running'); }
     if (fabEl) fabEl.classList.add('active-fab');
     scheduler();
   };
 
-  if (ctx.state === 'suspended' || ctx.state === 'interrupted') {
-    ctx.resume().then(doStart).catch(err => {
-      console.warn('AudioContext resume failed:', err);
-      doStart(); // try anyway
-    });
-  } else {
-    doStart();
+  // iOS Safari requires audio scheduling to happen synchronously within
+  // the user gesture. Call resume() as a side-effect, then start immediately.
+  // Notes are scheduled 200ms ahead so the context has time to actually run.
+  if (ctx.state !== 'running') {
+    ctx.resume().catch(() => {}); // fire-and-forget
   }
+  doStart(); // always synchronous — stays inside the gesture call stack
 }
 function updateBPM(v) {
   bpm = Math.min(240, Math.max(40, parseInt(v)));
@@ -5889,17 +6245,114 @@ function cycleProgress(i, label) {
 }
 function buildAchievements() {
   const grid = document.getElementById('achievements');
-  const streak = parseInt(document.getElementById('stat-streak')?.textContent||0);
-  grid.innerHTML = achievementsData.map(a => {
-    const unlocked = a.prog === 'streak' ? streak >= a.threshold :
-                     a.prog === null ? false :
-                     (progValues[skillsData.find(s=>s.label.toLowerCase().includes(a.prog.toLowerCase()))?.label]||0) >= (a.threshold||0);
-    return `<div class="achieve-badge ${unlocked?'unlocked':''}">
-      <div class="badge-icon">${a.icon}</div>
-      <div class="badge-name">${a.name}</div>
-      <div class="badge-desc">${a.desc}</div>
-    </div>`;
+  if (!grid) return;
+
+  // ── Gather live metrics ────────────────────────────────
+  // Read streak from localStorage directly — DOM element may not be updated yet
+  let streak = 0;
+  try {
+    const sd = JSON.parse(localStorage.getItem('grimoire-streak') || '{}');
+    streak = sd.streak || 0;
+  } catch(e) {}
+  // Also check DOM as fallback
+  const domStreak = parseInt(document.getElementById('stat-streak')?.textContent || '0');
+  streak = Math.max(streak, domStreak);
+  const sessCount  = parseInt(localStorage.getItem('grimoire_sess_count') || '0');
+
+  // Total practice minutes (all stored days)
+  let totalMins = 0;
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('grimoire_day_')) {
+      try { totalMins += (JSON.parse(localStorage.getItem(k)).mins || 0); } catch(e) {}
+    }
+  }
+  totalMins = Math.max(totalMins, Math.floor(totalSecsLogged / 60));
+
+  // Highest BPM record across all skills
+  let maxBpmRecord = 0;
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('grimoire_bpm_')) {
+      try {
+        const hist = JSON.parse(localStorage.getItem(k));
+        const best = hist.length ? Math.max(...hist.map(h => h.b)) : 0;
+        maxBpmRecord = Math.max(maxBpmRecord, best);
+      } catch(e) {}
+    }
+  }
+
+  // Saved riffs count
+  let favsCount = 0;
+  try { favsCount = JSON.parse(localStorage.getItem('grimoire_riff_favs') || '[]').length; } catch(e) {}
+
+  // Skill lookup helper
+  const getSkill = label => {
+    const match = skillsData.find(s => s.label.toLowerCase().includes(label.toLowerCase()));
+    return match ? (progValues[match.label] ?? match.pct) : 0;
+  };
+
+  // ── Track previously seen unlocks so we can toast new ones ──
+  let prevUnlocked = new Set();
+  try { prevUnlocked = new Set(JSON.parse(localStorage.getItem('grimoire_seen_badges') || '[]')); } catch(e) {}
+  const newlyUnlocked = [];
+  grid.innerHTML = cats.map(cat => {
+    const items = achievementsData.filter(a => a.cat === cat);
+    const rows = items.map(a => {
+      let unlocked = false;
+      switch(a.type) {
+        case 'streak':    unlocked = streak >= a.threshold; break;
+        case 'mins':      unlocked = totalMins >= a.threshold; break;
+        case 'sessions':  unlocked = sessCount >= a.threshold; break;
+        case 'bpm':       unlocked = maxBpmRecord >= a.threshold; break;
+        case 'favs':      unlocked = favsCount >= a.threshold; break;
+        case 'intStreak': unlocked = (typeof intStreak !== 'undefined' ? intStreak : 0) >= a.threshold; break;
+        case 'skill':     unlocked = getSkill(a.skillLabel) >= a.threshold; break;
+        case 'skill2':    unlocked = getSkill(a.skillLabel) >= a.threshold && getSkill(a.skillLabel2) >= a.threshold; break;
+        default:          unlocked = false;
+      }
+
+      // Progress indicator for near-unlocks
+      let prog = null;
+      if (!unlocked) {
+        switch(a.type) {
+          case 'streak':   prog = { cur: streak, max: a.threshold }; break;
+          case 'mins':     prog = { cur: totalMins, max: a.threshold }; break;
+          case 'sessions': prog = { cur: sessCount, max: a.threshold }; break;
+          case 'bpm':      prog = { cur: maxBpmRecord, max: a.threshold }; break;
+          case 'favs':     prog = { cur: favsCount, max: a.threshold }; break;
+          case 'skill':    prog = { cur: Math.round(getSkill(a.skillLabel)), max: a.threshold }; break;
+          case 'skill2':   prog = { cur: Math.min(Math.round(getSkill(a.skillLabel)), Math.round(getSkill(a.skillLabel2 || ''))), max: a.threshold }; break;
+        }
+      }
+      const pct = prog ? Math.min(100, Math.round((prog.cur / prog.max) * 100)) : 100;
+      const progBar = (!unlocked && prog)
+        ? `<div class="badge-prog-bar"><div class="badge-prog-fill" style="width:${pct}%"></div></div>
+           <div class="badge-prog-label">${prog.cur} / ${prog.max}</div>`
+        : '';
+      const rarityClass = a.rarity ? ` ${a.rarity}` : '';
+      const isNew = unlocked && !prevUnlocked.has(a.name);
+      if (unlocked) newlyUnlocked.push(a.name);
+
+      return `<div class="achieve-badge${rarityClass} ${unlocked ? 'unlocked' : ''}${isNew ? ' just-unlocked' : ''}" title="${a.name}: ${a.desc}">
+        <div class="badge-icon">${a.icon}</div>
+        <div class="badge-name">${a.name}</div>
+        <div class="badge-desc">${a.desc}</div>
+        ${progBar}
+      </div>`;
+    }).join('');
+
+    return `<div class="achieve-category">${cat}</div>
+      <div class="achieve-grid" style="margin-top:0">${rows}</div>`;
   }).join('');
+
+  // Save seen badges and toast any newly unlocked ones
+  try { localStorage.setItem('grimoire_seen_badges', JSON.stringify(newlyUnlocked)); } catch(e) {}
+  const brandNew = newlyUnlocked.filter(n => !prevUnlocked.has(n));
+  if (brandNew.length) {
+    const a = achievementsData.find(x => x.name === brandNew[0]);
+    if (a) setTimeout(() => showToast(`${a.icon} Badge unlocked: ${a.name}!`), 400);
+  }
 }
 
 /* ═══════════════════════════════════════
@@ -6105,6 +6558,237 @@ function buildRoadmap() {
 /* ═══════════════════════════════════════
    INIT
 ═══════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════
+   RECOMMENDATIONS ENGINE
+══════════════════════════════════════════════════════════ */
+function buildRecommendations() {
+  const body = document.getElementById('rec-body');
+  if (!body) return;
+
+  // ── Gather current data ──────────────────────────────
+  const streak    = parseInt(document.getElementById('stat-streak')?.textContent || '0');
+  const sessCount = parseInt(localStorage.getItem('grimoire_sess_count') || '0');
+  let   totalMins = 0;
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k?.startsWith('grimoire_day_')) try { totalMins += JSON.parse(localStorage.getItem(k)).mins||0; } catch(e){}
+  }
+  totalMins = Math.max(totalMins, Math.floor(totalSecsLogged/60));
+
+  let maxBpm = 0;
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k?.startsWith('grimoire_bpm_')) try { const h=JSON.parse(localStorage.getItem(k)); maxBpm=Math.max(maxBpm,...h.map(x=>x.b)); } catch(e){}
+  }
+  let favsCount = 0;
+  try { favsCount = JSON.parse(localStorage.getItem('grimoire_riff_favs')||'[]').length; } catch(e){}
+
+  const getSkill = label => {
+    const m = skillsData.find(s => s.label.toLowerCase().includes(label.toLowerCase()));
+    return m ? Math.round(progValues[m.label] ?? m.pct) : 0;
+  };
+  const skills = {
+    pick:    getSkill('Alternate Pick'),
+    palm:    getSkill('Palm Muting'),
+    gallop:  getSkill('Gallop Rhythm'),
+    sweep:   getSkill('Sweep/Tap'),
+    minor:   getSkill('Natural Minor'),
+    phrygian:getSkill('Phrygian'),
+    harmonic:getSkill('Harmonic Minor'),
+    chromatic:getSkill('Chromatic'),
+  };
+  const weakest = Object.entries(skills).sort((a,b)=>a[1]-b[1]).slice(0,3).map(e=>e[0]);
+
+  // ── Build recommendation blocks ──────────────────────
+  const sections = [];
+
+  // 1. NEXT SKILL TO FOCUS
+  const skillNames = {
+    pick:'Alternate Picking', palm:'Palm Muting', gallop:'Gallop Rhythm',
+    sweep:'Sweep/Tap', minor:'Natural Minor', phrygian:'Phrygian Mode',
+    harmonic:'Harmonic Minor', chromatic:'Chromatics'
+  };
+  const skillPages = {
+    pick:'techniques', palm:'techniques', gallop:'techniques',
+    sweep:'arpeggios', minor:'scales', phrygian:'scales', harmonic:'scales', chromatic:'fundamentals'
+  };
+  const skillDetail = {
+    pick: `Your alternate picking is at ${skills.pick}%. This is the engine behind every fast riff. Set a timer for 10 minutes, play nothing but 16th notes on open string 7 at 80 BPM. Record yourself. You\'ll hear which strokes are weaker — that\'s what to fix.`,
+    palm: `Palm muting is at ${skills.palm}%. Load the Riff Lab, select "Breakdown" genre, and practice the stomp pattern for 15 minutes straight. The goal is every note identical — same volume, same tone, same length.`,
+    gallop: `Your gallop rhythm sits at ${skills.gallop}%. The DU pattern on the upstroke is almost always the problem. Isolate just the DU pair at 60 BPM until it feels natural, then layer the D back in.`,
+    sweep: `Sweep arpeggios at ${skills.sweep}% — this is one of the highest-ceiling skills. Start with the 3-string Am shape (strings 7-5-4 open): down-sweep only, no turnaround. 30 consecutive clean reps before moving on.`,
+    minor: `Natural minor at ${skills.minor}%. Own every note\'s name before moving to other scales. Practice in thirds (A-C, B-D, C-E) — this unlocks melodic phrasing immediately.`,
+    phrygian: `Phrygian mode at ${skills.phrygian}%. The b2 (Bb at fret 1) is the defining note. Play the scale and pause on that Bb each time — listen to the tension it creates. That sound IS deathcore.`,
+    harmonic: `Harmonic minor at ${skills.harmonic}%. The raised 7th (G# in A) gives you the cinematic, Eastern tension in the best deathcore breakdowns. Compare it back-to-back with natural minor to hear the difference immediately.`,
+    chromatic: `Chromatics at ${skills.chromatic}%. Run the 1-2-3-4 warmup at 70 BPM across all 7 strings. The goal is fretting-hand efficiency — fingers staying close to the fretboard, not splaying.`
+  };
+
+  const focusRecs = weakest.slice(0,2).map((k,i) => ({
+    title: `Focus skill: ${skillNames[k]} (${skills[k]}%)`,
+    body: skillDetail[k],
+    priority: i === 0 ? '#c83030' : '#8822cc',
+    action: skillPages[k] ? `goTo('${skillPages[k]}',null)` : null,
+    actionLabel: `→ Go to ${skillNames[k]}`,
+    tags: [['WEAKEST SKILL', '#c83030'], ['HIGH ROI', '#4a8a5a']]
+  }));
+  sections.push({ title: '⚡ PRIORITY SKILLS', cards: focusRecs });
+
+  // 2. PRACTICE HABITS
+  const habitCards = [];
+  if (streak < 3) {
+    habitCards.push({
+      title: 'Build your practice streak',
+      body: `Your current streak is ${streak} day${streak!==1?'s':''}. Even 10 minutes counts toward your streak — it just needs to be 5 minutes or more. Set a phone alarm for the same time every day. The first 7 consecutive days is the hardest, after that it becomes automatic.`,
+      priority: '#c8883a',
+      action: "goTo('session',null)",
+      actionLabel: '→ Start Quick Session',
+      tags: [['HABIT', '#c8883a']]
+    });
+  } else if (streak < 7) {
+    habitCards.push({
+      title: `${streak}-day streak — push to 7`,
+      body: `You\'re ${7-streak} day${7-streak!==1?'s':''} from the War Machine badge. You\'ve already proven you can be consistent — don\'t break the chain now.`,
+      priority: '#c8883a',
+      tags: [['STREAK', '#c8883a'], [`${7-streak} DAYS TO GO`, '#5a9a5a']]
+    });
+  }
+  if (totalMins < 60) {
+    habitCards.push({
+      title: 'Log your first hour',
+      body: `You\'ve logged ${totalMins} minute${totalMins!==1?'s':''} so far. The first milestone badge (First Hour) unlocks at 60 minutes. A 20-minute session three days running gets you there.`,
+      priority: '#4a7a9a',
+      tags: [['TIME', '#4a7a9a']]
+    });
+  } else if (totalMins < 300) {
+    habitCards.push({
+      title: `${totalMins} min logged — ${300-totalMins} to Night Shift badge`,
+      body: `5 hours total is a real milestone. At your current pace it\'s close. The Night Shift badge unlocks a new level of recognition on your progress page.`,
+      priority: '#4a7a9a',
+      tags: [['TIME', '#4a7a9a'], ['BADGE UNLOCK', '#8822cc']]
+    });
+  }
+  if (sessCount < 5) {
+    habitCards.push({
+      title: 'Use the Session Timer',
+      body: 'You\'ve completed ' + sessCount + ' structured session' + (sessCount!==1?'s':'') + '. Sessions with a timer produce 40% more focused practice than free-form playing — the countdown creates urgency that keeps you on task. Load the Smart Session Builder and run one tonight.',
+      priority: '#3a6a3a',
+      action: "goTo('session',null);buildSmartSession()",
+      actionLabel: '→ Build Smart Session',
+      tags: [['WORKFLOW', '#3a6a3a']]
+    });
+  }
+  if (habitCards.length) sections.push({ title: '🗓 PRACTICE HABITS', cards: habitCards });
+
+  // 3. BPM & SPEED
+  const speedCards = [];
+  if (maxBpm === 0) {
+    speedCards.push({
+      title: 'Log your first BPM record',
+      body: 'Go to the Progress page, find any skill bar, and tap "+ Log BPM" after your next session. BPM records let you track speed improvement over time — the sparkline chart will show your progress across the last 14 days.',
+      priority: '#6a3060',
+      action: "goTo('progress',null)",
+      actionLabel: '→ Go to Progress',
+      tags: [['TRACKING', '#6a3060']]
+    });
+  } else if (maxBpm < 100) {
+    speedCards.push({
+      title: `BPM record: ${maxBpm} — target 100`,
+      body: `100 BPM is the first meaningful speed threshold for deathcore rhythm. Use Ramp Mode in the Riff Lab: set start BPM to ${maxBpm}, target 100, step 5 every 90 seconds. Your job is to stay clean, not to reach the target.`,
+      priority: '#6a3060',
+      tags: [['SPEED', '#6a3060']]
+    });
+  } else if (maxBpm < 150) {
+    speedCards.push({
+      title: `BPM record: ${maxBpm} — Speed Demon badge at 150`,
+      body: `You\'re ${150-maxBpm} BPM from the Speed Demon badge. Use the metronome\'s Ramp Trainer with 5 BPM steps and 2-minute holds. Only increase when the current tempo feels easy, not just possible.`,
+      priority: '#6a3060',
+      tags: [['SPEED', '#6a3060'], ['BADGE', '#8822cc']]
+    });
+  }
+  if (speedCards.length) sections.push({ title: '♩ SPEED DEVELOPMENT', cards: speedCards });
+
+  // 4. TOOL USAGE
+  const toolCards = [];
+  if (favsCount === 0) {
+    toolCards.push({
+      title: 'Save riffs to your bank',
+      body: 'Visit the Riff Lab, explore a few riffs across different genres, and star the ones that match where you are skill-wise. Building a personal bank of 5–10 riffs gives you ready practice material any time you sit down without a plan.',
+      priority: '#5a5a20',
+      action: "goTo('riff',null)",
+      actionLabel: '→ Open Riff Lab',
+      tags: [['RIFF LAB', '#5a5a20']]
+    });
+  }
+  if (skills.minor < 50 && skills.phrygian < 30) {
+    toolCards.push({
+      title: 'Use the interactive fretboard',
+      body: 'The Scales page has a clickable fretboard — tap any highlighted dot to hear that exact note through the guitar synth. Play the root (R), then walk up the scale degree by degree while listening. This is the fastest way to internalise a scale as sound rather than just finger positions.',
+      priority: '#2a5a7a',
+      action: "goTo('scales',null)",
+      actionLabel: '→ Open Scales',
+      tags: [['LEARNING TIP', '#2a5a7a']]
+    });
+  }
+  toolCards.push({
+    title: 'Try the Ear Training module',
+    body: 'The Theory page → Ear Training tab plays two notes sequentially. Your job is to name the interval. Even 5 minutes of this per day fundamentally changes how you hear music — you stop relying on tabs and start hearing riffs directly. The tritone (b5) is the most important interval in deathcore.',
+    priority: '#2a4a5a',
+    action: "goTo('theory',null)",
+    actionLabel: '→ Open Theory',
+    tags: [['EAR TRAINING', '#2a4a5a'], ['HIGH ROI', '#4a8a5a']]
+  });
+  sections.push({ title: '🛠 TOOL USAGE', cards: toolCards });
+
+  // 5. OVERALL IMPROVEMENT AREAS (always shown)
+  const overallCards = [
+    {
+      title: 'Record yourself once a week',
+      body: 'Your phone mic is enough. Record a 60-second clip of whatever you\'re working on, then listen back immediately. You will hear things you completely miss while playing — timing issues, inconsistent palm mute pressure, sloppy string noise. This is the highest-leverage free feedback available.',
+      priority: '#444',
+      tags: [['PRO TIP', '#888']]
+    },
+    {
+      title: 'Slow down further than you think you need to',
+      body: 'If you can\'t play something cleanly at 50% of target tempo, you can\'t play it cleanly at 100%. Your brain is just faster than your hands at perceiving what "clean" means. The slowest you are willing to practice is the fastest you will ever reliably perform it.',
+      priority: '#444',
+      tags: [['MINDSET', '#888']]
+    },
+    {
+      title: 'Focus on one technique per session',
+      body: 'Spreading attention across multiple techniques each session gives you mediocre progress in all of them. Pick one: either you are a palm muting session, a gallop session, or a scales session. The Smart Session Builder does this automatically — let it choose based on your weakest skills.',
+      priority: '#444',
+      action: "goTo('session',null)",
+      actionLabel: '→ Smart Session Builder',
+      tags: [['STRUCTURE', '#888']]
+    },
+    {
+      title: 'Train your ear alongside your hands',
+      body: 'Most players develop hands 10x faster than ears. This creates a ceiling: you can execute technique but can\'t write original music or play by ear. Even 5 minutes of interval training per session keeps the two developing in parallel.',
+      priority: '#444',
+      tags: [['LONG-TERM', '#888']]
+    },
+  ];
+  sections.push({ title: '📈 OVERALL IMPROVEMENT', cards: overallCards });
+
+  // ── Render ────────────────────────────────────────────
+  body.innerHTML = sections.map(sec => `
+    <div class="rec-section">
+      <div class="rec-section-title">${sec.title}</div>
+      ${sec.cards.map(card => `
+        <div class="rec-card">
+          <div class="rec-card-priority" style="background:${card.priority}"></div>
+          <div class="rec-card-inner">
+            <div class="rec-card-title">${card.title}</div>
+            <div class="rec-card-body">${card.body}</div>
+            ${(card.tags||[]).map(([t,c])=>`<span class="rec-tag" style="border-color:${c};color:${c}">${t}</span>`).join('')}
+            ${card.action ? `<div><span class="rec-card-action" onclick="${card.action}">${card.actionLabel}</span></div>` : ''}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   buildCollapse('fund-group', fundamentalsData);
   buildCollapse('arp-group', arpeggiosData);
@@ -6288,12 +6972,8 @@ const intervals = [
 ];
 
 let intScore = 0, intTotal = 0, intStreak = 0, intCurrent = null, intAnswered = false;
-let intACtx = null;
-
-function getIntACtx() {
-  if (!intACtx) intACtx = new (window.AudioContext || window.webkitAudioContext)();
-  return intACtx;
-}
+// Interval trainer uses the shared AudioContext
+const getIntACtx = getACtx;
 
 function playNote(freq, time, duration, ctx) {
   const o = ctx.createOscillator();
@@ -6307,12 +6987,11 @@ function playNote(freq, time, duration, ctx) {
 }
 
 function playIntervalSound(semitones) {
-  const ctx = getIntACtx();
-  if (ctx.state === 'suspended') ctx.resume();
-  const baseFreq = 110; // A2 — 7th string open
-  const now = ctx.currentTime + 0.05;
-  playNote(baseFreq, now, 0.8, ctx);
-  playNote(baseFreq * Math.pow(2, semitones/12), now + 0.9, 0.8, ctx);
+  const ctx = getIntACtx(); // shared ctx, already resumed
+  const baseFreq = 110; // A2 — 7th string open (Drop A)
+  const now = ctx.currentTime + 0.1;
+  playNote(baseFreq, now, 0.9, ctx);
+  playNote(baseFreq * Math.pow(2, semitones / 12), now + 1.0, 0.9, ctx);
 }
 
 function initIntervalTrainer() {
@@ -6946,14 +7625,25 @@ function buildFocusPips() {
 function updateFocusDisplay() {
   const b = sessionBlocks[focusIdx];
   if (!b) { closeFocusMode(); return; }
-  const timerEl = document.getElementById('focus-timer');
-  const nameEl  = document.getElementById('focus-block-name');
-  const bpmEl   = document.getElementById('focus-bpm');
-  const playBtn = document.getElementById('focus-play-btn');
+  const timerEl  = document.getElementById('focus-timer');
+  const nameEl   = document.getElementById('focus-block-name');
+  const bpmEl    = document.getElementById('focus-bpm');
+  const playBtn  = document.getElementById('focus-play-btn');
+  const detailEl = document.getElementById('focus-detail');
   if (timerEl) timerEl.textContent = fmtTime(b.secsLeft);
   if (nameEl)  nameEl.textContent  = b.name;
   if (bpmEl)   bpmEl.textContent   = '♩ ' + (b.bpm || bpm) + ' BPM';
   if (playBtn) playBtn.textContent = focusRunning ? '■ PAUSE' : (focusTotalSecs < sessionBlocks.reduce((s,x)=>s+x.secsLeft,0) ? '▶ RESUME' : '▶ START');
+  // Block instructions
+  if (detailEl) {
+    if (b.detail) {
+      detailEl.textContent = b.detail;
+      detailEl.classList.add('visible');
+    } else {
+      detailEl.textContent = '';
+      detailEl.classList.remove('visible');
+    }
+  }
   // Progress fill
   const totalAll = sessionBlocks.reduce((s,x) => s + x.mins * 60, 0);
   const done     = sessionBlocks.filter(x => x.done).reduce((s,x) => s + x.mins*60, 0);
@@ -8064,113 +8754,245 @@ function renderFavsList() {
 }
 
 /* ─── RIFF TAB AUDIO PLAYBACK ────────────────── */
-let riffAudioPlaying = false;
-let riffAudioTimers  = [];
+/* ═══════════════════════════════════════════════════════════
+   RIFF TAB AUDIO — Guitar synthesizer
+   Uses the shared AudioContext (getACtx).
+   Signal chain per note:
+     Osc1 (saw, freq)       ─┐
+     Osc2 (saw, freq+8¢)    ─┼→ [PreGain] → [HardClip] → [HighPass 80Hz]
+                               → [LowPass 4kHz «cabinet»] → [PlayGain] → Out
+   Stopping: set PlayGain to 0 — never close the shared context.
+═══════════════════════════════════════════════════════════ */
+let riffAudioPlaying  = false;
+let riffAutoStopTid   = null;
+let riffPlayGain      = null; // per-play master gain; null when idle
+let _riffHardClipCurve = null;  // cached waveshaper curve
+
+/** Asymmetric hard-clip curve — sounds like a cranked tube preamp */
+function buildHardClipCurve() {
+  if (_riffHardClipCurve) return _riffHardClipCurve;
+  const n = 512;
+  const curve = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    const x = (i * 2 / (n - 1)) - 1; // -1..+1
+    // Positive side: harder clip (emulates asymmetric tube saturation)
+    if (x >= 0) {
+      curve[i] = x < 0.4 ? x * 2.5 : 1.0;
+    } else {
+      curve[i] = x > -0.5 ? x * 2.0 : -1.0;
+    }
+  }
+  _riffHardClipCurve = curve;
+  return curve;
+}
+
+/**
+ * Schedule one guitar note.
+ * @param {AudioContext} ctx
+ * @param {AudioNode}    dest   — the play-level gain node to connect to
+ * @param {number}       freq   — fundamental frequency in Hz
+ * @param {number}       t      — AudioContext time to start
+ * @param {number}       dur    — note duration in seconds
+ * @param {number}       vol    — volume 0..1 (default 1)
+ */
+function scheduleGuitarNote(ctx, dest, freq, t, dur, vol = 1) {
+  try {
+    const safeT = Math.max(t, ctx.currentTime + 0.001);
+
+    // ── Two detuned oscillators for thickness ──────────────────────
+    const osc1 = ctx.createOscillator();
+    const osc2 = ctx.createOscillator();
+    osc1.type = 'sawtooth';
+    osc2.type = 'sawtooth';
+    osc1.frequency.setValueAtTime(freq, safeT);
+    osc2.frequency.setValueAtTime(freq * 1.0093, safeT); // +16 cents → chorus thickness
+
+    // ── Sub-octave square for low-end chunk (quieter) ──────────────
+    const osc3 = ctx.createOscillator();
+    osc3.type = 'square';
+    osc3.frequency.setValueAtTime(freq * 0.5, safeT); // one octave down
+
+    // ── Pre-gain drives distortion harder ──────────────────────────
+    const preGain = ctx.createGain();
+    preGain.gain.setValueAtTime(3.5, safeT);
+
+    const subGain = ctx.createGain();
+    subGain.gain.setValueAtTime(0.18, safeT); // sub is blended quietly
+
+    // ── Hard-clip waveshaper ───────────────────────────────────────
+    const dist = ctx.createWaveShaper();
+    dist.curve = buildHardClipCurve();
+    dist.oversample = '4x';
+
+    // ── Cabinet simulation: two-stage lowpass ─────────────────────
+    const cab1 = ctx.createBiquadFilter();
+    cab1.type = 'lowpass';
+    cab1.frequency.setValueAtTime(4800, safeT);
+    cab1.Q.setValueAtTime(0.5, safeT);
+
+    const cab2 = ctx.createBiquadFilter();
+    cab2.type = 'lowpass';
+    cab2.frequency.setValueAtTime(3200, safeT);
+    cab2.Q.setValueAtTime(0.4, safeT);
+
+    // ── High-pass to cut sub mud below 70Hz ──────────────────────
+    const hp = ctx.createBiquadFilter();
+    hp.type = 'highpass';
+    hp.frequency.setValueAtTime(70, safeT);
+
+    // ── Presence boost around 1.8kHz ──────────────────────────────
+    const presence = ctx.createBiquadFilter();
+    presence.type = 'peaking';
+    presence.frequency.setValueAtTime(1800, safeT);
+    presence.gain.setValueAtTime(4, safeT);
+    presence.Q.setValueAtTime(1.2, safeT);
+
+    // ── Note-level gain for envelope ──────────────────────────────
+    const noteGain = ctx.createGain();
+
+    // ── Wire up: osc→preGain→dist→hp→presence→cab1→cab2→noteGain→dest
+    osc1.connect(preGain);
+    osc2.connect(preGain);
+    osc3.connect(subGain);
+    subGain.connect(preGain); // blend sub into distortion
+    preGain.connect(dist);
+    dist.connect(hp);
+    hp.connect(presence);
+    presence.connect(cab1);
+    cab1.connect(cab2);
+    cab2.connect(noteGain);
+    noteGain.connect(dest);
+
+    // ── Envelope — metal palm-mute feel: sharp attack, mid sustain, fast release ──
+    const atk  = 0.006;                          // 6ms attack
+    const dec  = Math.min(0.07, dur * 0.28);     // decay to sustain
+    const susL = 0.28 * vol;                     // sustain level
+    const rel  = Math.min(0.12, dur * 0.35);     // release
+    const peak = 0.55 * vol;
+    const holdEnd = safeT + dur - rel;
+
+    noteGain.gain.setValueAtTime(0.001, safeT);
+    noteGain.gain.linearRampToValueAtTime(peak, safeT + atk);
+    noteGain.gain.linearRampToValueAtTime(susL, safeT + atk + dec);
+    if (holdEnd > safeT + atk + dec + 0.01) {
+      noteGain.gain.setValueAtTime(susL, holdEnd);
+    }
+    noteGain.gain.linearRampToValueAtTime(0.001, safeT + dur);
+
+    osc1.start(safeT); osc1.stop(safeT + dur + 0.04);
+    osc2.start(safeT); osc2.stop(safeT + dur + 0.04);
+    osc3.start(safeT); osc3.stop(safeT + dur + 0.04);
+
+  } catch(e) { /* scheduling errors — silently ignored */ }
+}
+
+function parseTabToNoteEvents(tab, bpm) {
+  const openFreqMap = {
+    'e': 329.63, 'B': 246.94, 'G': 196.00, 'D': 146.83,
+    'A': 110.00, 'E':  82.41, 'A7': 55.00,
+  };
+  const SEMI = Math.pow(2, 1 / 12);
+  const STEP = 60 / bpm / 4; // 16th-note column duration
+
+  const rows = tab.map(row => {
+    const name = row[0];
+    // Strip everything up to and including the first pipe
+    const line = row[1].replace(/^[^|]*\|/, '');
+    return { name, line, baseFreq: openFreqMap[name] || 110 };
+  });
+  const maxLen = Math.max(...rows.map(r => r.line.length));
+  const padded = rows.map(r => ({ ...r, line: r.line.padEnd(maxLen, '-') }));
+
+  // Column scan — gather fret numbers at each character position
+  const events = {};
+  let col = 0;
+  while (col < maxLen) {
+    for (const row of padded) {
+      const ch = row.line[col];
+      if (/[0-9]/.test(ch)) {
+        const next = row.line[col + 1] || '';
+        const fretStr = /[0-9]/.test(next) ? ch + next : ch;
+        const fret = parseInt(fretStr, 10);
+        const freq = row.baseFreq * Math.pow(SEMI, fret);
+        if (!events[col]) events[col] = [];
+        events[col].push(freq);
+      }
+    }
+    col++;
+  }
+
+  const cols = Object.keys(events).map(Number).sort((a, b) => a - b);
+  if (!cols.length) return null;
+
+  // Merge columns ≤ 1 apart into one strummed chord
+  const steps = [];
+  let i = 0;
+  while (i < cols.length) {
+    const freqs = [...events[cols[i]]];
+    while (i + 1 < cols.length && cols[i + 1] - cols[i] <= 1) {
+      i++;
+      freqs.push(...events[cols[i]]);
+    }
+    steps.push({ col: cols[i], freqs });
+    i++;
+  }
+
+  return { steps, STEP };
+}
 
 function playRiffAudio(btn) {
   if (riffAudioPlaying) { stopRiffAudio(); return; }
   if (!currentRiff) return;
+
   const r = currentRiff;
+  const parsed = parseTabToNoteEvents(r.tab, r.bpm);
+  if (!parsed || !parsed.steps.length) { showToast('No notes found in tab'); return; }
 
-  // Build a simple note sequence from the tab
-  // Parse each row: find numeric fret values and map to frequencies
-  const openFreqs = {
-    'e': 329.63, 'B': 246.94, 'G': 196.00,
-    'D': 146.83, 'A': 110.00, 'E': 82.41, 'A7': 55.00
-  };
-  // In Drop A: A7 = 55Hz, E6 = 82.41, A5 = 110, D4 = 146.83, G3 = 196, B2 = 246.94, e1 = 329.63
-  const semitoneRatio = Math.pow(2, 1/12);
-
-  // Collect all notes from ALL strings combined into a time grid
-  // We read column by column across all string rows
-  const strings = r.tab.map(row => ({ name: row[0], line: row[1] }));
-  
-  // Find the tab body (strip "|" separators and leading/trailing chars)
-  // Build column events: for each column position, collect which strings have a number there
-  // Simple approach: parse numbers at each position across strings
+  // Use the shared AudioContext — already resumed by user gesture path in getACtx()
   const ctx = getACtx();
-  
-  // Use beatDuration based on riff BPM (each "column unit" = 16th note)
-  const beatDur = 60 / r.bpm / 4; // 16th note duration in seconds
-  
-  // Parse tab: find all note positions
-  const noteEvents = []; // {col, stringName, fret}
-  strings.forEach(({ name, line }) => {
-    const baseFreq = openFreqs[name] || 110;
-    // Remove pipes and (PM) markers for scanning
-    const clean = line.replace(/\(PM\)/g, '   ').replace(/[/\\hpb()~]/g, ' ');
-    let i = 0;
-    while (i < clean.length) {
-      const ch = clean[i];
-      if (/[0-9]/.test(ch)) {
-        let numStr = ch;
-        if (i+1 < clean.length && /[0-9]/.test(clean[i+1])) { numStr += clean[i+1]; i++; }
-        noteEvents.push({ col: i, name, baseFreq, fret: parseInt(numStr) });
-      }
-      i++;
-    }
-  });
 
-  if (!noteEvents.length) { showToast('No notes to play in this tab'); return; }
-
-  // Sort by column and deduplicate closely-spaced notes into chords
-  noteEvents.sort((a,b) => a.col - b.col);
-  const colGroups = {};
-  noteEvents.forEach(n => {
-    const key = Math.round(n.col / 2); // group notes within 2 chars together
-    if (!colGroups[key]) colGroups[key] = [];
-    colGroups[key].push(n);
-  });
-
-  const cols = Object.keys(colGroups).sort((a,b)=>a-b);
-  const totalDur = cols.length * beatDur;
-  
   riffAudioPlaying = true;
   if (btn) { btn.textContent = '■ Stop'; btn.classList.add('playing'); }
 
-  // Resume context if needed
-  const startAudio = () => {
-    const startTime = ctx.currentTime + 0.05;
-    cols.forEach((colKey, stepIdx) => {
-      const notes = colGroups[colKey];
-      const t = startTime + stepIdx * beatDur;
-      notes.forEach(n => {
-        try {
-          const freq = n.baseFreq * Math.pow(semitoneRatio, n.fret);
-          const osc  = ctx.createOscillator();
-          const gain = ctx.createGain();
-          const dist = ctx.createWaveShaper();
-          // Light distortion curve for guitar-ish tone
-          const curve = new Float32Array(256);
-          for (let i=0; i<256; i++) { const x = (i*2/256)-1; curve[i] = (Math.PI + 300) * x / (Math.PI + 300 * Math.abs(x)); }
-          dist.curve = curve;
-          osc.connect(dist); dist.connect(gain); gain.connect(ctx.destination);
-          osc.type = 'sawtooth';
-          osc.frequency.value = freq;
-          gain.gain.setValueAtTime(0.001, t);
-          gain.gain.linearRampToValueAtTime(0.18, t + 0.01);
-          gain.gain.exponentialRampToValueAtTime(0.001, t + Math.max(0.08, beatDur * 0.9));
-          osc.start(t);
-          osc.stop(t + beatDur * 1.1);
-        } catch(e) {}
-      });
-    });
-    // Auto-stop
-    const stopId = setTimeout(() => stopRiffAudio(), (totalDur + 0.3) * 1000);
-    riffAudioTimers.push(stopId);
-  };
+  // Per-play output gain — set to 0 on stop instead of closing the context
+  riffPlayGain = ctx.createGain();
+  riffPlayGain.gain.setValueAtTime(0.65, ctx.currentTime);
+  riffPlayGain.connect(ctx.destination);
 
-  if (ctx.state === 'suspended') ctx.resume().then(startAudio);
-  else startAudio();
+  const { steps, STEP } = parsed;
+
+  // Schedule notes 250ms ahead — safe lead time for any browser
+  const startT   = ctx.currentTime + 0.25;
+  const firstCol = steps[0].col;
+  steps.forEach(step => {
+    const t   = startT + (step.col - firstCol) * STEP;
+    const dur = Math.max(STEP * 0.85, 0.08);
+    step.freqs.forEach(freq => scheduleGuitarNote(ctx, riffPlayGain, freq, t, dur));
+  });
+
+  // Auto-stop
+  const totalSecs = 0.25 + (steps[steps.length - 1].col - firstCol) * STEP + 0.9;
+  riffAutoStopTid = setTimeout(() => stopRiffAudio(), totalSecs * 1000);
 }
 
 function stopRiffAudio() {
-  riffAudioTimers.forEach(t => clearTimeout(t));
-  riffAudioTimers = [];
+  if (riffAutoStopTid) { clearTimeout(riffAutoStopTid); riffAutoStopTid = null; }
   riffAudioPlaying = false;
+  // Silence the current play gain — does NOT close the shared context
+  if (riffPlayGain) {
+    try {
+      const ctx = getACtx();
+      riffPlayGain.gain.cancelScheduledValues(ctx.currentTime);
+      riffPlayGain.gain.setValueAtTime(0, ctx.currentTime);
+    } catch(e) {}
+    riffPlayGain = null;
+  }
   const btn = document.getElementById('riff-play-audio-btn');
   if (btn) { btn.textContent = '▶ Play Tab'; btn.classList.remove('playing'); }
 }
+
+// Alias — riff audio now uses the shared context
+const getRiffACtx = getACtx;
 
 /* ─── COPY TAB (fixed to not rely on event) ─── */
 
@@ -8521,6 +9343,7 @@ if ('serviceWorker' in navigator) {
   <div class="focus-timer" id="focus-timer">--:--</div>
   <div class="focus-bpm" id="focus-bpm">♩ — BPM</div>
   <div class="focus-pips" id="focus-pips"></div>
+  <div class="focus-detail" id="focus-detail"></div>
   <div class="focus-controls">
     <button class="focus-btn primary" id="focus-play-btn" onclick="toggleFocusPlay()">▶ START</button>
     <button class="focus-btn" onclick="focusSkip()">Skip →</button>
