@@ -1377,6 +1377,53 @@ body.pa-open .fab-cluster{display:none}
 .iv-res.bad{border:1px solid rgba(255,106,106,.5)}
 .iv-score{display:flex;gap:14px;font-family:var(--mono);font-size:11px;color:var(--mid);margin:8px 0}
 .iv-q{display:flex;gap:6px}
+
+/* lesson */
+.ls-lead{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:14px}
+.ls-card{padding:14px 16px;border:1px solid rgba(145,38,248,.3);border-left:3px solid var(--flame);border-radius:var(--radius);background:rgba(80,15,150,.1);margin-bottom:14px}
+.ls-card.ls-inner{margin:10px 0;border-left-width:1px;background:rgba(5,4,14,.5)}
+.ls-resume{border-left-color:#e08a1e;background:rgba(224,138,30,.08)}
+.ls-eyebrow{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--flame);margin-bottom:6px}
+.ls-h{font-size:20px;color:var(--pale);font-weight:700;margin-bottom:6px}
+.ls-h2{font-size:16px;color:var(--pale);font-weight:700;margin:6px 0}
+.ls-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.ls-tag{font-family:var(--mono);font-size:9px;letter-spacing:1.5px;padding:3px 8px;border-radius:9px;border:1px solid var(--wire);color:var(--mid)}
+.ls-tag.ls-mine{border-color:#e08a1e;color:#ffc477}
+.ls-sub{font-size:12px;color:var(--mid);line-height:1.5;margin:4px 0}
+.ls-idea,.ls-say{font-size:14px;color:var(--pale);line-height:1.65;margin:8px 0}
+.ls-lbl{font-family:var(--mono);font-size:8px;letter-spacing:3px;color:var(--dim);margin:14px 0 6px}
+.ls-lbl2{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--dim)}
+.ls-chips{display:flex;gap:6px;flex-wrap:wrap}
+.ls-btns{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px;align-items:center}
+.ls-go{padding:12px 16px;border-radius:9px;border:1px solid #c466ff;background:#8822ee;color:#fff;font-family:var(--mono);font-size:11px;letter-spacing:1px;cursor:pointer;min-height:44px}
+.ls-ghost{padding:11px 14px;border-radius:9px;border:1px solid var(--wire);background:none;color:var(--mid);font-family:var(--mono);font-size:11px;cursor:pointer;min-height:44px}
+.ls-ghost:disabled{opacity:.35;cursor:default}
+.ls-skills{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.ls-sk{display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:10px;border-radius:9px;border:1px solid var(--wire);background:none;cursor:pointer;text-align:left}
+.ls-sk b{font-size:13px;color:var(--pale)}
+.ls-sk span{font-family:var(--mono);font-size:9px;color:var(--mid)}
+.ls-hw,.ls-cue,.ls-goal,.ls-tempo,.ls-notes{font-size:13px;color:var(--pale);line-height:1.55;margin:10px 0;padding:9px 12px;border-radius:8px;background:rgba(5,4,14,.55);border:1px solid rgba(255,255,255,.07)}
+.ls-goal{border-color:rgba(100,220,150,.4)}
+.ls-tempo{font-size:12px;color:var(--mid)}
+.ls-steps{margin:6px 0 6px 20px;padding:0;color:var(--pale);font-size:14px;line-height:1.6}
+.ls-steps li{margin-bottom:6px}
+.ls-logrow,.ls-plan,.ls-item{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid rgba(255,255,255,.06);font-size:12px;color:var(--mid);align-items:center}
+.ls-plan{color:var(--pale)}
+.ls-item b{color:var(--pale);font-size:13px}
+.ls-form{display:grid;gap:8px;margin-top:10px}
+.ls-ta{width:100%;box-sizing:border-box;background:rgba(5,4,14,.8);border:1px solid var(--wire);border-radius:6px;color:var(--pale);font-family:var(--mono);font-size:11px;padding:8px}
+.ls-runtop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.ls-stepname{font-size:15px;color:var(--pale);font-weight:600}
+.ls-min{font-family:var(--mono);font-size:10px;color:var(--mid);font-weight:400;margin-left:6px}
+.ls-bar{display:flex;gap:4px;margin:10px 0 14px}
+.ls-seg{flex:1;height:5px;border-radius:3px;background:var(--wire)}
+.ls-seg.done{background:#7a3ad0}
+.ls-seg.cur{background:var(--flame)}
+.ls-nav{display:flex;justify-content:space-between;gap:8px;margin:18px 0 8px}
+.ls-clock{font-family:var(--mono);font-size:10px;color:var(--dim);text-align:center}
+.ls-reps{display:flex;align-items:center;gap:8px;margin:10px 0}
+.ls-rep{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--wire);background:none;color:var(--mid);font-family:var(--mono);font-size:13px;cursor:pointer}
+.ls-rep.on{background:#2a8a55;border-color:#4ad48a;color:#fff}
 /* keyboard focus and reduced motion */
 button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--flame,#c060ff);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
@@ -4098,6 +4145,7 @@ body{padding-top:52px}
       <div class="nav-hub-section">
         <div class="nav-hub-section-label"><span class="nhs-icon">🎸</span> PRACTICE</div>
         <div class="nav-hub-grid">
+          <button class="nhc nhc-accent" data-page="lesson" onclick="navGoTo('lesson')"><span class="nhc-icon">🎓</span><span class="nhc-name">Lesson</span><span class="nhc-sub">Guided, new each time</span></button>
           <button class="nhc nhc-accent" data-page="session" onclick="navGoTo('session')"><span class="nhc-icon">⏱</span><span class="nhc-name">Session</span><span class="nhc-sub">Timed block practice</span></button>
           <button class="nhc" data-page="metronome" onclick="navGoTo('metronome')"><span class="nhc-icon">♩</span><span class="nhc-name">Metronome</span><span class="nhc-sub">Click · BPM ramp</span></button>
           <button class="nhc" data-page="riff" onclick="navGoTo('riff')"><span class="nhc-icon">⟳</span><span class="nhc-name">Riff Lab</span><span class="nhc-sub">35 riffs · song builder</span></button>
@@ -4212,6 +4260,11 @@ body{padding-top:52px}
   <!-- ── Quick nav ── -->
   <h3 style="margin-top:20px">Quick Jump</h3>
   <div class="quick-nav stagger">
+    <div class="quick-nav-btn" onclick="goTo('lesson',null)">
+      <div class="qn-icon">🎓</div>
+      <div class="qn-label">Lesson</div>
+      <div class="qn-sub">Guided, new each time</div>
+    </div>
     <div class="quick-nav-btn" onclick="goTo('session',null)">
       <div class="qn-icon">⏱</div>
       <div class="qn-label">Session</div>
@@ -4435,6 +4488,14 @@ body{padding-top:52px}
 </div>
 
 <!-- ═══════════════════════════════════ SESSION ═══════ -->
+<div id="lesson" class="page">
+  <div class="page-header">
+    <div class="page-title">Lesson</div>
+    <div class="page-lead" id="ls-page-lead">Take a guided lesson, anywhere.</div>
+  </div>
+  <div id="ls-root"></div>
+</div>
+
 <div id="session" class="page">
   <div id="sess-prog-rec"></div>
   <div class="page-header">
@@ -5463,6 +5524,7 @@ function goTo(id, btn) {
 
 function onPageOpen(id) {
   if (id === 'session' && window.btRender) btRender();
+  if (id === 'lesson' && window.lsRender) lsRender();
   if (id === 'dailytip' && tipCount === 0) setTimeout(fetchTip, 200);
   if (id === 'notepad') { if(!noteInited){noteInited=true;loadNotes();}else if(typeof npActiveProf!=='undefined'&&window._GP_ACTIVE!==npActiveProf){if(typeof npLoadProfile==='function')npLoadProfile(window._GP_ACTIVE);} }
   if (id === 'home') {
@@ -14530,7 +14592,7 @@ function adaptTip(skillLabel,tiers){
 
 
 /* ════ APP BAR + NAV HUB ════ */
-const _PAGE_CRUMBS={home:null,fundamentals:['LEARN','Fundamentals'],scales:['LEARN','Scales'],arpeggios:['LEARN','Arpeggios'],techniques:['LEARN','Techniques'],theory:['LEARN','Theory'],session:['PRACTICE','Session'],metronome:['PRACTICE','Metronome'],riff:['PRACTICE','Riff Lab'],progress:['TRACK','Progress'],review:['TRACK','Review'],recommendations:['TRACK','Song Lab'],dailytip:['TOOLS','Daily Tip'],notepad:['TOOLS','Notepad'],'ai-coach':['TOOLS','AI Coach'],roadmap:['TOOLS','Roadmap']};
+const _PAGE_CRUMBS={home:null,lesson:['PRACTICE','Lesson'],fundamentals:['LEARN','Fundamentals'],scales:['LEARN','Scales'],arpeggios:['LEARN','Arpeggios'],techniques:['LEARN','Techniques'],theory:['LEARN','Theory'],session:['PRACTICE','Session'],metronome:['PRACTICE','Metronome'],riff:['PRACTICE','Riff Lab'],progress:['TRACK','Progress'],review:['TRACK','Review'],recommendations:['TRACK','Song Lab'],dailytip:['TOOLS','Daily Tip'],notepad:['TOOLS','Notepad'],'ai-coach':['TOOLS','AI Coach'],roadmap:['TOOLS','Roadmap']};
 
 function _updateAppBar(pageId){
   const crumb=_PAGE_CRUMBS[pageId];const el=document.getElementById('app-bar-crumb');
@@ -17632,6 +17694,779 @@ function ivAnswer(s) {
 function ivQuizShow() { const c = _iq.cur; if (!c) return; _fg.iv = c.s; _fg.root = FG_PC[c.root % 12]; _fg.ivMode = 'learn'; fgRender(); }
 window.ivHear = ivHear; window.ivMode = ivMode; window.ivSet = ivSet; window.ivQuizPoolSet = ivQuizPoolSet; window.ivQuizNext = ivQuizNext;
 window.ivQuizPlay = ivQuizPlay; window.ivAnswer = ivAnswer; window.ivQuizShow = ivQuizShow;
+
+/* ════ PHASE 8a: LESSON LIBRARY (original teaching content, one core per skill and level) ════ */
+const LS_SKILLS = [
+  { k: 'chrom', label: 'Chromatic/Warmup', short: 'Warm-up' },
+  { k: 'palm', label: 'Palm Muting', short: 'Palm muting' },
+  { k: 'mute', label: 'String Muting', short: 'String muting' },
+  { k: 'alt', label: 'Alternate Pick', short: 'Picking' },
+  { k: 'nmin', label: 'Natural Minor', short: 'Natural minor' },
+  { k: 'phry', label: 'Phrygian', short: 'Phrygian' },
+  { k: 'hmin', label: 'Harmonic Minor', short: 'Harmonic minor' },
+  { k: 'gal', label: 'Gallop Rhythm', short: 'Gallops' },
+  { k: 'legato', label: 'Hammer/Pull', short: 'Legato' },
+  { k: 'sweep', label: 'Sweep Arpeggios', short: 'Sweeping' },
+  { k: 'bend', label: 'Bends & Vibrato', short: 'Bends and vibrato' },
+  { k: 'pinch', label: 'Pinch Harmonics', short: 'Pinch harmonics' }
+];
+const LS_TIERS = ['BEGINNER', 'DEVELOPING', 'SOLID', 'ADVANCED'];
+
+/* One core lesson per skill and level. Drills are chosen separately so the same core feels different each time. */
+const LS_CORES = [
+  /* ── Warm-up ── */
+  { k: 'chrom', t: 0, title: 'Four fingers, four frets', bpm: 60, style: 'click',
+    idea: 'Think of this as stretching before a run. We wake up the fretting hand and teach each finger to own one fret, which is the base for everything else.',
+    how: ['Keep your thumb behind the neck, about level with your middle finger, and your wrist fairly straight.', 'Index finger on fret 5, middle on 6, ring on 7, pinky on 8. Keep all four fingers hovering near the strings.', 'Pick every note with strict down, up, down, up. Press just hard enough for a clear note and lift fingers only a little off the string.'],
+    watch: 'Squeezing the neck. If your hand aches, you are pressing too hard or your thumb is too high.', goal: 'The 1-2-3-4 pattern clean and even on one string.', hw: 'Two minutes of one finger per fret before every session this week.' },
+  { k: 'chrom', t: 1, title: 'Crossing strings', bpm: 80, style: 'click',
+    idea: 'One string is easy. The real skill is moving the same four-finger shape to the next string without losing the rhythm.',
+    how: ['Play the pattern on your lowest string, then move the same hand shape to the next string up.', 'Move the whole hand as a unit. Do not rebuild the shape finger by finger.', 'Keep alternate picking the whole way so your pick hand never changes its pattern.'],
+    watch: 'The pick hand stopping while the fretting hand relocates. Keep the pick moving.', goal: 'A clean four-note pattern across the three lowest strings.', hw: 'Run the pattern across three strings each day and nudge the tempo up by 5 only when it is clean.' },
+  { k: 'chrom', t: 2, title: 'Finger patterns that fight back', bpm: 100, style: 'rock',
+    idea: 'Real riffs make your fingers jump around. We train that with permutations: the same four frets in a different finger order.',
+    how: ['Learn 1-3-2-4 on one string until you stop thinking about it.', 'Then try 1-4-2-3 and 2-1-4-3. Say the finger numbers out loud if you need to.', 'Add string crossing last. Slow and accurate beats fast and messy.'],
+    watch: 'Rushing the awkward finger pair. Slow down until the weakest finger is as even as the others.', goal: 'Three different finger orders clean at tempo.', hw: 'Pick one permutation a day and play it for two minutes.' },
+  { k: 'chrom', t: 3, title: 'Burst training', bpm: 120, style: 'metal',
+    idea: 'Speed comes from control. One reliable way to build it is bursts: play a short phrase faster than you can sustain, stop, and repeat.',
+    how: ['Pick a pattern you already own and set the metronome about 10 BPM above your clean tempo.', 'Play four notes at that speed, then rest four beats. Repeat.', 'When bursts are clean, extend to eight notes, then a full bar. Only then raise the tempo again.'],
+    watch: 'Tension. If your forearm burns, stop and shake it out before continuing.', goal: 'A full bar clean at the target tempo.', hw: 'Five minutes of burst practice a day, no more. Rest is part of the training.' },
+
+  /* ── Palm muting ── */
+  { k: 'palm', t: 0, title: 'Find the sweet spot', bpm: 70, style: 'rock',
+    idea: 'The palm mute is the heartbeat of heavy riffing. The tightness depends on where the edge of your picking hand rests: too far back and it sounds thin and dead, too far forward and it rings open.',
+    how: ['Rest the edge of your picking palm lightly on the strings right at the bridge saddles, where strings meet the bridge.', 'Pick the lowest open string and slide your palm toward the bridge and away until you hear a tight, pitched chug.', 'Keep the pressure light. You want a short, tight note, not a dead thud.'],
+    watch: 'Resting too much weight on the strings. The note dies and can sound flat.', goal: 'Even, tight chugs on the open low string.', hw: 'Ten minutes this week just finding the sweet spot on each of your guitars.' },
+  { k: 'palm', t: 1, title: 'Steady eighths and sixteenths', bpm: 90, style: 'rock',
+    idea: 'Now we keep that sound consistent while the rhythm gets busier. The mute stays the same and only the pick speeds up.',
+    how: ['Play steady eighth notes with down strokes first, then switch to alternate picking for sixteenths.', 'Keep your palm in one place. It tends to drift off the bridge as you speed up.', 'Listen for every note having the same length and volume.'],
+    watch: 'Rushing the sixteenths and letting the volume get uneven.', goal: 'Even eighths, then even sixteenths.', hw: 'Play one full minute of even sixteenths at a comfortable tempo daily.' },
+  { k: 'palm', t: 2, title: 'The 3-3-2 grouping', bpm: 110, style: 'metal',
+    idea: 'The classic metal grouping splits a bar of eight notes into 3 + 3 + 2. It makes a riff feel like it lurches forward and then snaps back to the beat.',
+    how: ['Count the eighths as 1-2-3, 1-2-3, 1-2 and play only the first note of each group.', 'Keep the mute tight and stop the string cleanly on the rests.', 'Once it is steady, accent the first note of each group slightly louder.'],
+    watch: 'Losing the count at the end of the bar. Count out loud until it is automatic.', goal: 'Four bars of 3-3-2 with no hesitation.', hw: 'Write your own 3-3-2 riff using only your open low string and one other fret.' },
+  { k: 'palm', t: 3, title: 'Muted against open', bpm: 130, style: 'metal',
+    idea: 'Advanced riffs switch between palm muted chugs and open ringing notes. That contrast is what makes a riff breathe instead of just chug.',
+    how: ['Play muted chugs, then lift your palm for one open accent note and drop it back down.', 'Practice only the palm lift on its own at a slow tempo until the motion is smooth.', 'Combine it with 3-3-2 so the open note lands on the start of a group.'],
+    watch: 'Lifting too early or too late, so the open note gets clipped or the chug rings.', goal: 'A clean mute to open switch landing on the beat.', hw: 'Add one open accent note to a riff you already know.' },
+
+  /* ── String muting ── */
+  { k: 'mute', t: 0, title: 'Quiet the rest', bpm: 60, style: 'click',
+    idea: 'Clean playing is mostly about what you do not play. The strings you are not using must stay silent, especially with a distorted amp.',
+    how: ['Fret a single note and let the underside of your fretting fingers lightly touch the neighboring strings.', 'Rest your picking palm lightly on the strings above the one you are playing.', 'Strum across without fretting anything and listen for anything still ringing.'],
+    watch: 'Noise from open strings you did not realize were ringing.', goal: 'A clean single note with no ghost ringing.', hw: 'Record yourself playing one note at a time and listen for stray noise.' },
+  { k: 'mute', t: 1, title: 'Stopping notes on time', bpm: 80, style: 'rock',
+    idea: 'Staccato stops are what make a riff tight. The silence is part of the rhythm, not just the gap between notes.',
+    how: ['Play a note and stop it by relaxing your fretting finger while keeping it on the string.', 'Do the same with your picking palm: land it on the strings to choke the sound.', 'Play hit, stop, hit, stop so the rests are as tight as the notes.'],
+    watch: 'Letting notes ring over the rests. Listen for the gap.', goal: 'Notes that start and stop exactly on the beat.', hw: 'Practice stopping every chug dead for two minutes a day.' },
+  { k: 'mute', t: 2, title: 'Chord stabs that stop dead', bpm: 100, style: 'hc',
+    idea: 'Power chord stabs with silent gaps use both hands. The fretting hand relaxes while the picking palm clamps down.',
+    how: ['Play a power chord on the lowest strings, then mute with both hands at the same moment.', 'Practice the rest as an action: palm down, fretting fingers relaxed but still touching.', 'Play stab, stop, stab, stop in time with the track.'],
+    watch: 'Only one hand muting, so the chord still hums.', goal: 'Tight chord stabs with zero ring out.', hw: 'Play four bars of stabs and rests over a drum track each day.' },
+  { k: 'mute', t: 3, title: 'Noise control at high gain', bpm: 120, style: 'half',
+    idea: 'At high gain every ring is amplified. Advanced players use every spare finger and the picking palm to keep unused strings silent.',
+    how: ['When you fret one note, lay an unused finger flat across the higher strings.', 'Use the side of your picking palm on the lower strings when playing higher ones.', 'Record a breakdown riff and check the gaps for noise.'],
+    watch: 'Trusting your ears while playing. Record and listen back.', goal: 'Dead-silent gaps in a breakdown.', hw: 'Record a breakdown riff three times and clean up the noise each time.' },
+
+  /* ── Alternate picking ── */
+  { k: 'alt', t: 0, title: 'Wrist, not arm', bpm: 60, style: 'click',
+    idea: 'Alternate picking means strictly down, up, down, up. It keeps your hand moving at an even rhythm and sets up speed later.',
+    how: ['Hold the pick firmly but not rigidly with thumb and index finger, with just the tip showing.', 'Pick from the wrist with a small motion. The pick only needs to travel as far as the string.', 'Start on an open string so the fretting hand does not distract you.'],
+    watch: 'Swinging from the elbow. That caps your speed.', goal: 'Even down-up on one string.', hw: 'Two minutes of open-string alternate picking before each session.' },
+  { k: 'alt', t: 1, title: 'Changing strings', bpm: 80, style: 'click',
+    idea: 'Alternate picking gets tricky when you change strings, because the pick has to pass between or around the strings. Strict alternation still has to hold.',
+    how: ['Play a short phrase on one string, then repeat it on the next string, never breaking the down-up flow.', 'Notice whether the pick travels between the strings or around them on each string change.', 'Slow down until the string change is as even as the notes on a single string.'],
+    watch: 'Switching to all down strokes to survive the string change.', goal: 'Strict alternate picking across two strings.', hw: 'Play the crossing pattern daily on a different pair of strings.' },
+  { k: 'alt', t: 2, title: 'Smaller is faster', bpm: 120, style: 'metal',
+    idea: 'The less the pick moves, the faster it can go. Aim to have the pick barely clear the string on each stroke.',
+    how: ['Angle the pick slightly so it slices through the string.', 'Reduce the motion until the pick only just passes through.', 'Play sixteenths at a tempo you can keep clean and relaxed for a full minute.'],
+    watch: 'Pressing the pick too deep into the strings. That adds drag.', goal: 'A relaxed minute of sixteenths at tempo.', hw: 'One minute of sixteenth notes daily at your clean tempo.' },
+  { k: 'alt', t: 3, title: 'Tremolo and endurance', bpm: 150, style: 'metal',
+    idea: 'Tremolo picking is very fast, small and relaxed. Endurance comes from relaxing, not from squeezing harder.',
+    how: ['Set a tempo and play sixteenths on a single note while keeping your hand loose.', 'Play for 30 seconds, rest for 30, and repeat. Add a few seconds each day.', 'If your forearm tightens, slow the tempo down.'],
+    watch: 'Gripping the pick tighter as you speed up.', goal: 'Thirty clean seconds at the target tempo.', hw: 'Three 30-second tremolo sets a day, with full rests between.' },
+
+  /* ── Natural minor ── */
+  { k: 'nmin', t: 0, title: 'Meet the scale', bpm: 60, style: 'click',
+    idea: 'Natural minor is the sound underneath most heavy music. Seven notes, one shape, and the root is your lowest open string, so you already know where home is.',
+    how: ['Play the open low string. That is your root note and your home.', 'Play the scale shape up and say each note name out loud.', 'Come back down slowly and finish on the root.'],
+    watch: 'Running the shape without knowing where the root is.', goal: 'Up and down with note names.', hw: 'Play the scale slowly once a day and name the notes.' },
+  { k: 'nmin', t: 1, title: 'Riffing, not running', bpm: 90, style: 'rock',
+    idea: 'A scale is a toolbox, not a pattern to run up and down. Today we use only a few notes from it to build rhythm riffs.',
+    how: ['Pick the root and two other notes from the shape.', 'Make a one bar rhythm with them using chugs or a gallop.', 'Play it twice, then change one note on the second pass.'],
+    watch: 'Using every note of the scale. Fewer notes make better riffs.', goal: 'A short riff made from three scale notes.', hw: 'Write two riffs using only three notes of the scale.' },
+  { k: 'nmin', t: 2, title: 'Sequences in threes', bpm: 100, style: 'rock',
+    idea: 'Patterns that skip through the scale in groups of three train your fingers and your ear to see the scale as a set of building blocks.',
+    how: ['Play notes 1-2-3, then 2-3-4, then 3-4-5 up the scale.', 'Keep the rhythm steady on sixteenths while your fretting hand does the thinking.', 'Come back down using the same idea in reverse.'],
+    watch: 'Losing your place in the scale. Say the note numbers quietly.', goal: 'A threes sequence up and down at tempo.', hw: 'Play the sequence for two minutes a day in a different position.' },
+  { k: 'nmin', t: 3, title: 'Chords from the scale', bpm: 110, style: 'metal',
+    idea: 'Natural minor gives you the chord movement heard everywhere in heavy music: root, flat six, flat seven. Played as power chords on the low strings, they make an instant riff.',
+    how: ['Root is your open low string. The flat six sits eight frets up and the flat seven sits ten frets up.', 'Play power chords on those three spots and listen to how they pull toward home.', 'Add a gallop or chug rhythm to the chords.'],
+    watch: 'Shifting without looking at the fret markers. Use the dots.', goal: 'A power chord riff moving between the root, flat six and flat seven.', hw: 'Write a four bar riff using the root, flat six and flat seven chords.' },
+
+  /* ── Phrygian ── */
+  { k: 'phry', t: 0, title: 'One note changes', bpm: 60, style: 'click',
+    idea: 'Phrygian is natural minor with the second note lowered by a half step. That tiny change, root to flat two, is the dark crunch you hear in a lot of extreme metal.',
+    how: ['Play your open low string, then the note one fret above it.', 'Alternate between the two and listen to the tension.', 'Always come back to the open root so the ear hears it as home.'],
+    watch: 'Not resolving to the root. The sound needs home to make sense.', goal: 'Hear and play the root to flat two movement.', hw: 'Play root and flat two for one minute daily and notice the tension.' },
+  { k: 'phry', t: 1, title: 'Riffing with the flat two', bpm: 90, style: 'half',
+    idea: 'The flat two works best as an accent note inside a chug rhythm. It gives a riff a sudden dark stab.',
+    how: ['Chug the open root in a steady rhythm.', 'Replace one chug per bar with the note one fret up.', 'Try moving the accent to different beats and hear how the feel changes.'],
+    watch: 'Overusing the flat two. One or two per bar is plenty.', goal: 'A chug riff with a flat two accent.', hw: 'Write a two bar Phrygian riff with one flat two accent per bar.' },
+  { k: 'phry', t: 2, title: 'Phrygian next to natural minor', bpm: 100, style: 'rock',
+    idea: 'Training the ear means hearing the difference. Same riff, one note changed, completely different mood.',
+    how: ['Play a riff using the note two frets above the root, which is the natural minor sound.', 'Play the same riff with the note one fret above the root, which is Phrygian.', 'Switch between them every two bars and describe how each feels.'],
+    watch: 'Not listening. Play slowly and let each version sink in.', goal: 'Switch between both sounds on cue.', hw: 'Make two versions of one riff, a natural minor one and a Phrygian one.' },
+  { k: 'phry', t: 3, title: 'Phrygian power chords', bpm: 120, style: 'metal',
+    idea: 'Moving a power chord from the root to one fret above is a staple of dark, heavy riffing. The half step slide is the whole trick.',
+    how: ['Play a power chord on the open low strings.', 'Slide to the same shape one fret up and back.', 'Add a rhythm so the half step becomes part of the riff.'],
+    watch: 'Sloppy slides. Aim to land exactly on the fret.', goal: 'A power chord riff that moves a half step and returns.', hw: 'Write a four bar riff built on the half step chord movement.' },
+
+  /* ── Harmonic minor ── */
+  { k: 'hmin', t: 0, title: 'The raised seventh', bpm: 60, style: 'click',
+    idea: 'Harmonic minor is natural minor with the seventh note raised by a half step. That note sits a half step below the root, so it pulls strongly toward home.',
+    how: ['Play the scale shape, noticing the seventh note near the top.', 'Play the seventh note and then the root and hear the pull.', 'Compare with natural minor where the seventh is a whole step below the root.'],
+    watch: 'Treating it as a new shape. It is only one note different.', goal: 'Hear and play the raised seventh resolving to the root.', hw: 'Play the seventh to root movement slowly for a minute a day.' },
+  { k: 'hmin', t: 1, title: 'The big gap', bpm: 80, style: 'rock',
+    idea: 'Harmonic minor has an unusual gap of three half steps between the sixth and seventh notes. That interval gives it the exotic, classical sound.',
+    how: ['Find the sixth and seventh notes in the scale shape.', 'Play them back to back and feel the larger stretch between them.', 'Play the run up to the root, ending on the raised seventh then home.'],
+    watch: 'Playing it too fast to hear the gap.', goal: 'A scale run that clearly lands the exotic gap.', hw: 'Play the scale daily, slowing down at the big gap to listen.' },
+  { k: 'hmin', t: 2, title: 'Neoclassical lines', bpm: 100, style: 'metal',
+    idea: 'Many neoclassical metal lines are simply harmonic minor played in patterns. Sequences make them sound composed instead of like a scale run.',
+    how: ['Play the scale in groups of three or four, moving up one note at a time.', 'Keep the rhythm steady and the picking strictly alternate.', 'End each phrase on a chord tone of the root.'],
+    watch: 'Rushing the sequences. Accuracy first.', goal: 'A sequence in harmonic minor clean at tempo.', hw: 'Play the sequence for two minutes a day.' },
+  { k: 'hmin', t: 3, title: 'The major five chord', bpm: 110, style: 'metal',
+    idea: 'Because of the raised seventh, harmonic minor gives you a major or strong dominant chord on the fifth. That chord resolving to the root is a classic dramatic cadence.',
+    how: ['The fifth is seven frets above your open low string root.', 'Play a power chord on the fifth, then resolve to the root.', 'Put it in a riff: root, root, fifth, root.'],
+    watch: 'Letting the fifth chord drag. It should feel urgent.', goal: 'A riff that resolves from the fifth to the root.', hw: 'Write a riff that ends on a fifth to root cadence.' },
+
+  /* ── Gallops ── */
+  { k: 'gal', t: 0, title: 'Say it before you play it', bpm: 70, style: 'rock',
+    idea: 'A gallop is one eighth note followed by two sixteenth notes. Say it out loud as one-da-da, one-da-da.',
+    how: ['Clap the rhythm and say it out loud with the metronome.', 'Play it on a single muted open string with down, down, up.', 'Keep your palm mute consistent from the first note to the last.'],
+    watch: 'Playing it as three even notes. The first note is longer.', goal: 'A steady gallop on one string.', hw: 'Say and play the rhythm for two minutes daily.' },
+  { k: 'gal', t: 1, title: 'Gallop with accents', bpm: 100, style: 'metal',
+    idea: 'A good gallop pushes forward, because the first note of each group carries the weight.',
+    how: ['Accent the first note of each gallop slightly louder.', 'Keep the two short notes quiet and light.', 'Play four bars without letting the speed creep up.'],
+    watch: 'Accenting the wrong note. The accent goes on the long note.', goal: 'Four bars of an accented gallop at tempo.', hw: 'Practice the gallop with accents daily for three minutes.' },
+  { k: 'gal', t: 2, title: 'Gallop with movement', bpm: 120, style: 'metal',
+    idea: 'A gallop on one note gets old quickly. Moving the pitch between groups turns it into a riff.',
+    how: ['Play a gallop on the open root, then move one group to a different fret.', 'Keep your picking hand steady while your fretting hand moves.', 'Try a pattern: two groups open, one group fretted.'],
+    watch: 'The picking hand changing speed on the move.', goal: 'A gallop riff with fretted notes.', hw: 'Write a gallop riff with three different notes.' },
+  { k: 'gal', t: 3, title: 'Fast gallops and the reverse', bpm: 150, style: 'metal',
+    idea: 'At high speed the gallop is a test of stamina and relaxed picking. The reverse gallop flips the rhythm to two sixteenths then an eighth.',
+    how: ['Play the forward gallop at a tempo where you can stay relaxed.', 'Switch to the reverse gallop and hear how the pushing feel changes.', 'Alternate bars of each and keep the mute even.'],
+    watch: 'Tensing up as the tempo rises.', goal: 'Both gallops clean at the target tempo.', hw: 'One minute of each gallop daily, no more.' },
+
+  /* ── Hammer-ons and pull-offs ── */
+  { k: 'legato', t: 0, title: 'Hammer-ons', bpm: 60, style: 'click',
+    idea: 'A hammer-on sounds a note by dropping a fretting finger onto the string, with no pick. It is the first step to smooth, flowing lines.',
+    how: ['Pick an open or fretted note, then drop another finger on a higher fret.', 'Bring the finger down from above with some force and land close to the fret wire.', 'Match the volume of the hammered note to the picked note.'],
+    watch: 'A weak hammer-on that sounds quiet or not at all.', goal: 'Hammer-ons as loud as picked notes.', hw: 'Two minutes of hammer-ons on each of your three lowest strings daily.' },
+  { k: 'legato', t: 1, title: 'Pull-offs', bpm: 80, style: 'click',
+    idea: 'A pull-off is the opposite: you pluck the string sideways with the fretting finger as it lifts off, leaving a lower note ringing.',
+    how: ['Fret two notes with two fingers on the same string.', 'Pick the higher note, then pull the finger down and off the string with a small sideways flick.', 'Combine a hammer-on and a pull-off into one flowing motion.'],
+    watch: 'Just lifting the finger. The sideways flick makes the sound.', goal: 'Hammer-on and pull-off phrases with even volume.', hw: 'Play hammer on then pull off for two minutes daily.' },
+  { k: 'legato', t: 2, title: 'Three notes per string', bpm: 100, style: 'rock',
+    idea: 'Legato lines often play three notes per string with one pick stroke. It sounds fast without needing fast picking.',
+    how: ['Pick the first note on a string, hammer on the second and third.', 'Pull off back down the same notes in the same string.', 'Move to the next string and repeat the pattern.'],
+    watch: 'The notes becoming uneven in volume. Aim for even.', goal: 'A three note per string legato run.', hw: 'Play the legato run for two minutes daily across three strings.' },
+  { k: 'legato', t: 3, title: 'Long flowing lines', bpm: 120, style: 'metal',
+    idea: 'Advanced legato connects strings smoothly. The skill is the move between strings without a gap or an accent.',
+    how: ['Play a three note run on one string, then pick the first note on the next string.', 'Keep the volume of the picked notes the same as the hammered notes.', 'Build to a full run across four strings.'],
+    watch: 'A bump in volume on every picked note.', goal: 'A multi-string legato run with even tone.', hw: 'Practice the run slowly each day, adding a string each week.' },
+
+  /* ── Sweeping ── */
+  { k: 'sweep', t: 0, title: 'Three-string sweep', bpm: 50, style: 'click',
+    idea: 'A sweep is one smooth pick motion across several strings, with each string played by one note. It is a slow, rolling movement, not a strum.',
+    how: ['Pick down across three strings in one motion while fretting one note per string.', 'Fret each note only as the pick arrives and release it as the pick leaves.', 'Practice just the fretting-hand roll without the picking at first.'],
+    watch: 'Letting the notes ring together as a chord.', goal: 'A clean three note sweep with separate notes.', hw: 'Practice the three string sweep for five minutes at 50 BPM.' },
+  { k: 'sweep', t: 1, title: 'Muting between notes', bpm: 60, style: 'click',
+    idea: 'The secret of a clean sweep is silence. Each note has to stop as the next begins.',
+    how: ['Fret one note at a time and release pressure as the pick moves on.', 'Let the next finger or the same finger roll into the next string.', 'Use your picking hand palm to muffle strings you have already played.'],
+    watch: 'Notes smearing together, which sounds like a strum.', goal: 'A sweep where every note is separate.', hw: 'Record the sweep and listen for notes blurring.' },
+  { k: 'sweep', t: 2, title: 'The five-string shape', bpm: 70, style: 'rock',
+    idea: 'A five string sweep arpeggio rises and falls through a minor chord. It is a typical shape in lead playing.',
+    how: ['Learn the shape in slow motion with a pause on each note.', 'Sweep up and back down in one smooth motion.', 'Add the tempo only when the shape is automatic.'],
+    watch: 'Speeding up before the shape is clean.', goal: 'A five string sweep both directions at the target tempo.', hw: 'Play the five string sweep for five minutes slowly each day.' },
+  { k: 'sweep', t: 3, title: 'Sweep into a lick', bpm: 90, style: 'metal',
+    idea: 'The final step is making a sweep sound musical. That means connecting it to a lick at the top and landing on a target note.',
+    how: ['Play the sweep up and finish with a hammer-on or tap at the top.', 'Pick a target note to land on after the descent.', 'Add a rhythmic stop so it fits a bar.'],
+    watch: 'Treating the sweep as a separate exercise. Fit it into a phrase.', goal: 'A phrase that includes a sweep and a landing.', hw: 'Write a one bar lick using a sweep.' },
+
+  /* ── Bends and vibrato ── */
+  { k: 'bend', t: 0, title: 'Bend to pitch', bpm: 60, style: 'click',
+    idea: 'A bend is only useful if it lands on the right note. The target for a whole step bend is the note two frets higher, and your ear is the judge.',
+    how: ['Play the note two frets higher so you know the target pitch.', 'Fret the lower note, push the string up and compare to the target.', 'Support the bend with your other fingers on the string behind the bending finger.'],
+    watch: 'Bending flat. Compare to the reference note every time.', goal: 'A whole step bend that matches the target pitch.', hw: 'Ten whole step bends daily, checking each one against the target.' },
+  { k: 'bend', t: 1, title: 'Pre-bends and releases', bpm: 70, style: 'click',
+    idea: 'A pre-bend raises the string before you pick it, so the first thing you hear is the target note. A release starts at the target and falls back.',
+    how: ['Bend the string silently to the target pitch.', 'Pick the already bent note, then release smoothly to the unbent pitch.', 'Compare how the pitch falls and keep it smooth.'],
+    watch: 'Jerking the release. Control the speed of the fall.', goal: 'A clean pre-bend and release.', hw: 'Practice the pre-bend release on two strings each day.' },
+  { k: 'bend', t: 2, title: 'Vibrato', bpm: 70, style: 'click',
+    idea: 'Vibrato is a small, steady wobble in pitch that makes a held note sound like it is singing. Most players use a gentle rotation of the wrist, not just the finger.',
+    how: ['Hold a note and rock your hand slightly so the string moves up and down.', 'Keep it even in speed and width.', 'Try a slow wide vibrato and a fast narrow one and compare them.'],
+    watch: 'A nervous, uneven wobble. Aim for steady.', goal: 'Steady vibrato on a held note.', hw: 'Hold a note with vibrato for ten seconds, repeat five times daily.' },
+  { k: 'bend', t: 3, title: 'Bend plus vibrato phrasing', bpm: 80, style: 'half',
+    idea: 'Great lead playing combines a bend with vibrato on the target note. The note is not finished until the vibrato ends.',
+    how: ['Bend up to the target pitch.', 'Add vibrato once you reach the target, then release at the end.', 'Fit the phrase to a slow backing track and hold the last note for the full bar.'],
+    watch: 'Adding vibrato before reaching the target.', goal: 'A bend, vibrato and release phrase in time.', hw: 'Write a one-bar lead phrase using a bend and vibrato.' },
+
+  /* ── Pinch harmonics ── */
+  { k: 'pinch', t: 0, title: 'The thumb brush', bpm: 60, style: 'click',
+    idea: 'A pinch harmonic happens when your thumb lightly touches the string just after the pick hits it. It cancels the base tone and leaves a squeal.',
+    how: ['Hold the pick so only a tiny bit of the tip shows, with your thumb just past it.', 'Pick the string and let the edge of your thumb brush it right away.', 'Do it near the bridge pickup and try different distances from the bridge.'],
+    watch: 'Giving up too early. The sweet spot is small and different for every note.', goal: 'Get a squeal on a note, even if it is inconsistent.', hw: 'Five minutes of exploring the sweet spot with no pressure to get it perfect.' },
+  { k: 'pinch', t: 1, title: 'Finding the sweet spot', bpm: 60, style: 'click',
+    idea: 'The sweet spot depends on the string and fret. A systematic search is faster than guessing.',
+    how: ['Fret a note and pick at a position near the bridge pickup.', 'Move the pick position a few millimeters at a time and listen for the squeal.', 'Note where it works for that string and fret.'],
+    watch: 'Moving too fast. Small changes make the difference.', goal: 'A reliable harmonic on one string and fret.', hw: 'Find the sweet spot on three different notes.' },
+  { k: 'pinch', t: 2, title: 'Add vibrato and a dive', bpm: 70, style: 'half',
+    idea: 'A squeal is much more expressive with vibrato. You can also bend the note slightly to add a vocal quality.',
+    how: ['Play the harmonic and immediately add a gentle vibrato.', 'Try a slight bend up while the harmonic is sounding.', 'Let it ring over a muted riff for impact.'],
+    watch: 'Bending too much and losing the harmonic.', goal: 'A harmonic with vibrato and a slight bend.', hw: 'Add a harmonic to the end of a riff you know.' },
+  { k: 'pinch', t: 3, title: 'Harmonics inside a riff', bpm: 90, style: 'half',
+    idea: 'Placed on the accent of a palm muted chug, a pinch harmonic is a signature heavy music move.',
+    how: ['Play a muted chug and hit a harmonic on the last note of the bar.', 'Keep your picking hand relaxed so the hand finds the sweet spot while moving.', 'Combine with a short bend or slide for variation.'],
+    watch: 'Tightening up your hand and missing the harmonic.', goal: 'A harmonic landing on the beat inside a riff.', hw: 'Play your best chug riff and end each bar with a pinch harmonic.' }
+];
+
+/* ── Warm-up bank (picked fresh each lesson) ── */
+const LS_WARM = [
+  { id: 'w1', name: 'One finger per fret', say: 'Four fingers on four frets, strict down-up picking, nice and loose.', gen: () => lsSpider(0, 5, [1, 2, 3, 4], 4), bpmMul: 0.8 },
+  { id: 'w2', name: 'Open string picking', say: 'Alternate pick the open low string. Relax your wrist and listen for an even sound.', gen: () => lsStr(0, '0000000000000000', 2) },
+  { id: 'w3', name: 'Reverse spider', say: 'Same four frets, but descending: 4-3-2-1. Your pinky leads.', gen: () => lsSpider(0, 5, [4, 3, 2, 1], 4), bpmMul: 0.8 },
+  { id: 'w4', name: 'Two string spider', say: 'The spider pattern moves up one string every bar.', gen: () => lsSpiderStrings(2, 5, [1, 2, 3, 4]) },
+  { id: 'w5', name: 'Slow chug pulse', say: 'Steady eighth note chugs with a light palm mute. Warm up the picking hand and the ear.', gen: () => lsStr(0, '0-0-0-0-0-0-0-0-', 2) }
+];
+
+/* ── Drill bank by skill. Each drill makes its own tab for the active guitar. ── */
+const LS_DRILLS = {
+  chrom: [
+    { id: 'chrom-s1', min: 0, max: 1, name: 'Spider 1-2-3-4', say: 'Fingers 1-2-3-4 on frets 5, 6, 7, 8, then down 4-3-2-1.', cue: 'One finger per fret and strict alternate picking.', gen: () => lsSpider(0, 5, [1, 2, 3, 4], 4).concat(lsShift(lsSpider(0, 5, [4, 3, 2, 1], 4), 16)), cols: 32 },
+    { id: 'chrom-s2', min: 1, max: 3, name: 'Spider across three strings', say: 'The same four frets on the lowest string, then the next, then the next.', cue: 'Move the hand shape as one piece when you change strings.', gen: () => lsSpiderStrings(3, 5, [1, 2, 3, 4]), cols: 48 },
+    { id: 'chrom-p1', min: 2, max: 3, name: 'Permutation 1-3-2-4', say: 'Same four frets in the order 1, 3, 2, 4.', cue: 'Say the finger numbers out loud.', gen: () => lsSpider(0, 5, [1, 3, 2, 4], 4).concat(lsShift(lsSpider(0, 5, [1, 3, 2, 4], 4), 16)), cols: 32 },
+    { id: 'chrom-p2', min: 2, max: 3, name: 'Permutation 1-4-2-3', say: 'Frets in the order 1, 4, 2, 3. Awkward on purpose.', cue: 'Slow down until the weakest finger is even.', gen: () => lsSpider(0, 5, [1, 4, 2, 3], 4).concat(lsShift(lsSpider(0, 5, [1, 4, 2, 3], 4), 16)), cols: 32 },
+    { id: 'chrom-b1', min: 3, max: 3, name: 'Burst: four on, four off', say: 'Play four fast notes then rest for four beats.', cue: 'Stay relaxed. Stop if you feel tension.', gen: () => lsStr(0, '5678----5678----').concat(lsShift(lsStr(0, '8765----8765----'), 16)), cols: 32 }
+  ],
+  palm: [
+    { id: 'palm-e8', min: 0, max: 1, name: 'Eighth note chugs', say: 'Steady eighth notes on the open low string with a light palm mute.', cue: 'Keep the palm in one spot.', gen: () => lsStr(0, '0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-'), cols: 32, pm: true },
+    { id: 'palm-s16', min: 1, max: 2, name: 'Sixteenth note chugs', say: 'Sixteenths with alternate picking, palm mute steady.', cue: 'Even volume, no rushing.', gen: () => lsStr(0, '00000000000000000000000000000000'), cols: 32, pm: true },
+    { id: 'palm-332', min: 2, max: 3, name: '3-3-2 chug', say: 'Count 1-2-3, 1-2-3, 1-2 on eighths and play the first note of each group.', cue: 'Stop the string dead on the rests.', gen: () => lsStr(0, '0--0--0-0--0--0-0--0--0-0--0--0-'), cols: 32, pm: true },
+    { id: 'palm-mix', min: 3, max: 3, name: 'Muted with an open accent', say: 'Muted chugs with one open note on the last group of the bar. Lift the palm for it.', cue: 'Palm lifts exactly on the accent note.', gen: () => lsStr(0, '0-0-0-0-0-0-0-0-').concat(lsShift(lsStr(0, '0-0-0-0-0-0-0-3-'), 16)), cols: 32, pm: true },
+    { id: 'palm-bk', min: 2, max: 3, name: 'Breakdown pattern', say: 'Sparse chugs with space between them, like a breakdown.', cue: 'Let the silences feel heavy.', gen: () => lsStr(0, '0---0---0-0-----0---0---0-0-----'), cols: 32, pm: true }
+  ],
+  mute: [
+    { id: 'mute-st', min: 0, max: 1, name: 'Hit and stop', say: 'Play a note then stop it dead on the next beat. x marks a muted rest.', cue: 'The silence must be as exact as the note.', gen: () => lsStr(0, '0-x-0-x-0-x-0-x-'), cols: 16 },
+    { id: 'mute-ss', min: 1, max: 2, name: 'Stab and stop', say: 'Power chord stabs with a full stop in between.', cue: 'Both hands mute together.', gen: () => lsPc('3-------3-------3---3---3-------'), cols: 32 },
+    { id: 'mute-bk', min: 2, max: 3, name: 'Stab pattern', say: 'Short stabs separated by silence, the way breakdown riffs are written.', cue: 'No ring out between stabs.', gen: () => lsPc('3--3----3--3----3--3-3--3-------'), cols: 32 },
+    { id: 'mute-lk', min: 0, max: 3, name: 'Ring versus mute', say: 'Let the first note ring for a beat, then play the next note fully muted.', cue: 'Listen for the difference between ring and mute.', gen: () => lsStr(0, '0---0-0-0---0-0-'), cols: 16, pm: true }
+  ],
+  alt: [
+    { id: 'alt-o', min: 0, max: 1, name: 'Open string sixteenths', say: 'Alternate pick the open low string. Keep it relaxed.', cue: 'Pick from the wrist, small motion.', gen: () => lsStr(0, '0000000000000000', 2), cols: 32 },
+    { id: 'alt-c', min: 1, max: 2, name: 'String changes', say: 'Three notes on one string, three on the next. Alternate picking throughout.', cue: 'Keep strict down and up through the string change.', gen: () => lsStrChange(0), cols: 32 },
+    { id: 'alt-s', min: 2, max: 3, name: 'Skipping a string', say: 'Alternate pick the lowest and the third string back and forth.', cue: 'The pick hand stays relaxed.', gen: () => lsSkip(), cols: 32 },
+    { id: 'alt-t', min: 3, max: 3, name: 'Tremolo burst', say: 'Fast bursts of one note then a short rest.', cue: 'Smaller motion and relaxed grip.', gen: () => lsStr(0, '00000000--------', 2), cols: 32 }
+  ],
+  nmin: [
+    { id: 'nmin-a', min: 0, max: 1, name: 'Scale up and down', say: 'Natural minor starting on the open low string.', cue: 'Say each note name as you play it.', gen: () => lsScale([0, 2, 3, 5, 7, 8, 10], 'updown'), cols: 40, scale: true },
+    { id: 'nmin-3', min: 1, max: 3, name: 'Sequence in threes', say: 'Notes 1-2-3, 2-3-4, 3-4-5 and so on through the scale.', cue: 'Keep the rhythm steady while your fingers think.', gen: () => lsScale([0, 2, 3, 5, 7, 8, 10], 'threes'), cols: 48, scale: true },
+    { id: 'nmin-r', min: 1, max: 2, name: 'Three note riff', say: 'A rhythm riff using the root, the note two frets up, and the note three frets up.', cue: 'Fewer notes, tighter groove.', gen: () => lsStr(0, '0-0-0-2-0-0-0-3-').concat(lsShift(lsStr(0, '0-0-0-2-0-0-5-3-'), 16)), cols: 32, pm: true },
+    { id: 'nmin-c', min: 2, max: 3, name: 'Root, flat six, flat seven', say: 'Power chords on the open low string root, the note eight frets up, then ten frets up.', cue: 'Use the fret markers to find the jumps.', gen: () => lsPcAt([[0, 0], [2, 0], [4, 8], [6, 8], [8, 10], [11, 10], [14, 8], [16, 8], [18, 0], [20, 0]]), cols: 24 }
+  ],
+  phry: [
+    { id: 'phry-a', min: 0, max: 1, name: 'Root and flat two', say: 'Alternate the open root with the note one fret up. Always return home.', cue: 'Hear the tension.', gen: () => lsStr(0, '0-1-0-1-0-1-0-0-', 2), cols: 32, pm: true },
+    { id: 'phry-b', min: 1, max: 2, name: 'Flat two accent', say: 'Chug the root and place the flat two on the offbeat.', cue: 'One flat two per bar is plenty.', gen: () => lsStr(0, '0-0-0-0-0-0-1-0-').concat(lsShift(lsStr(0, '0-0-0-1-0-0-0-0-'), 16)), cols: 32, pm: true },
+    { id: 'phry-c', min: 2, max: 3, name: 'Natural minor then Phrygian', say: 'First bar uses the note two frets up (natural minor). Second bar uses one fret up (Phrygian).', cue: 'Listen to how the mood changes.', gen: () => lsStr(0, '0-0-0-2-0-0-0-2-').concat(lsShift(lsStr(0, '0-0-0-1-0-0-0-1-'), 16)), cols: 32, pm: true },
+    { id: 'phry-d', min: 3, max: 3, name: 'Half step power chords', say: 'Power chord on the open strings then one fret up and back.', cue: 'Slide cleanly and land on the fret.', gen: () => lsPc('0-0-1-1-0-0-1-0-0-0-1-1-0-0-1-0-'), cols: 32 }
+  ],
+  hmin: [
+    { id: 'hmin-a', min: 0, max: 1, name: 'The raised seventh', say: 'The seventh note, then home. Notice how it pulls to the root.', cue: 'Slow it down and listen.', gen: () => lsScale([0, 2, 3, 5, 7, 8, 11], 'updown'), cols: 40, scale: true },
+    { id: 'hmin-b', min: 1, max: 2, name: 'The exotic gap', say: 'Play the sixth and seventh notes back to back and then resolve to the root.', cue: 'Listen to the large step.', gen: () => lsScale([0, 2, 3, 5, 7, 8, 11], 'up'), cols: 24, scale: true },
+    { id: 'hmin-c', min: 2, max: 3, name: 'Harmonic minor in threes', say: 'Sequence through the scale in groups of three.', cue: 'Keep alternate picking strict.', gen: () => lsScale([0, 2, 3, 5, 7, 8, 11], 'threes'), cols: 48, scale: true },
+    { id: 'hmin-d', min: 3, max: 3, name: 'Fifth to root', say: 'Power chord on the root, then the fifth seven frets up, then home.', cue: 'Make the fifth feel urgent.', gen: () => lsPc('0-0-0-0-7-7-7-7-0-0-0-0-----'), cols: 28 }
+  ],
+  gal: [
+    { id: 'gal-a', min: 0, max: 1, name: 'Basic gallop', say: 'One eighth and two sixteenths. Say one-da-da, one-da-da.', cue: 'The first note is the long one.', gen: () => lsStr(0, '0-000-000-000-00', 2), cols: 32, pm: true },
+    { id: 'gal-b', min: 1, max: 2, name: 'Gallop with accents', say: 'Same gallop, with the first note of each group slightly louder.', cue: 'Accent the long note.', gen: () => lsStr(0, '0-000-000-000-00', 2), cols: 32, pm: true },
+    { id: 'gal-c', min: 2, max: 3, name: 'Gallop with movement', say: 'Two groups on the open string, then one group on a fretted note.', cue: 'Pick hand steady while fretting hand moves.', gen: () => lsGallopMove(), cols: 32, pm: true },
+    { id: 'gal-r', min: 3, max: 3, name: 'Reverse gallop', say: 'Two sixteenths and an eighth: da-da-one, da-da-one.', cue: 'The long note is last now.', gen: () => lsStr(0, '00-000-000-000-0', 2), cols: 32, pm: true }
+  ],
+  legato: [
+    { id: 'leg-h', min: 0, max: 1, name: 'Hammer-on pairs', say: 'Pick the first note, hammer on the second.', cue: 'Make the hammered note as loud as the picked note.', gen: () => lsLegato(0, [[5, 'h', 7], [5, 'h', 8], [5, 'h', 6]]), cols: 32, mult: 2 },
+    { id: 'leg-p', min: 1, max: 2, name: 'Pull-off pairs', say: 'Pick the higher note, pull off to the lower.', cue: 'Flick the string sideways as you pull off.', gen: () => lsLegato(0, [[7, 'p', 5], [8, 'p', 5], [6, 'p', 5]]), cols: 32, mult: 2 },
+    { id: 'leg-t', min: 2, max: 3, name: 'Three notes per string', say: 'Pick one note, hammer on two more, then pull off back down.', cue: 'Even volume across all notes.', gen: () => lsLegato(0, [[5, 'h', 7, 'h', 8, 'p', 7, 'p', 5]]), cols: 24, mult: 2 },
+    { id: 'leg-r', min: 3, max: 3, name: 'Legato across strings', say: 'Three note runs moving from one string to the next.', cue: 'Keep volume even between strings.', gen: () => lsLegatoStrings(), cols: 40, mult: 2 }
+  ],
+  sweep: [
+    { id: 'sw-3', min: 0, max: 1, name: 'Three string minor sweep', say: 'One smooth pick motion across three strings, then back.', cue: 'One note per string, each note stops as the next begins.', gen: () => lsSweep(3), cols: 24, sweep: true },
+    { id: 'sw-4', min: 1, max: 2, name: 'Four string minor sweep', say: 'Sweep through four strings and return.', cue: 'Fret each note as the pick arrives.', gen: () => lsSweep(4), cols: 32, sweep: true },
+    { id: 'sw-5', min: 2, max: 3, name: 'Five string minor sweep', say: 'The full five string sweep shape, up and back.', cue: 'Slow and clean before fast.', gen: () => lsSweep(5), cols: 40, sweep: true },
+    { id: 'sw-r', min: 3, max: 3, name: 'Sweep with a landing', say: 'A sweep ending with a target note you hold.', cue: 'Land the last note on the beat.', gen: () => lsSweep(5, true), cols: 44, sweep: true }
+  ],
+  bend: [
+    { id: 'bend-w', min: 0, max: 1, name: 'Whole step bend to pitch', say: 'Hear the target note, then bend up to match it.', cue: 'Check every bend against the target.', bendDrill: { semi: 2 } },
+    { id: 'bend-h', min: 1, max: 2, name: 'Half step bend', say: 'A smaller bend: the target is one fret higher.', cue: 'Small bends need small motion.', bendDrill: { semi: 1 } },
+    { id: 'bend-v', min: 2, max: 3, name: 'Vibrato on a held note', say: 'Hold a note and add steady vibrato.', cue: 'Even speed and width.', bendDrill: { semi: 0 } },
+    { id: 'bend-p', min: 3, max: 3, name: 'Bend, vibrato and release', say: 'Bend up to the target, add vibrato, and release.', cue: 'Vibrato after reaching the target.', bendDrill: { semi: 2 } }
+  ],
+  pinch: [
+    { id: 'pinch-a', min: 0, max: 1, name: 'Find the squeal', say: 'Pick the string and brush it with the edge of your thumb, near the bridge pickup.', cue: 'No pressure to get it right. Explore.', feel: true },
+    { id: 'pinch-b', min: 1, max: 2, name: 'Map the sweet spot', say: 'Move your pick hand a few millimeters between attempts and listen.', cue: 'Note where it works on each string.', feel: true },
+    { id: 'pinch-c', min: 2, max: 3, name: 'Harmonic plus vibrato', say: 'Get the squeal and add a gentle vibrato.', cue: 'Keep the pick hand relaxed.', feel: true },
+    { id: 'pinch-d', min: 3, max: 3, name: 'Chug then squeal', say: 'A muted chug on the beat then a pinch harmonic on the last note.', cue: 'Let your hand find the sweet spot on the move.', gen: () => lsStr(0, '0-0-0-0-0-0-0-0-'), cols: 16, pm: true, feel: true }
+  ]
+};
+
+/* ════ PHASE 8b: LESSON ENGINE (a guided session that picks something new from your skill levels each time) ════ */
+const LS_KEY = 'grimoire_lessons_';
+const LS_CUSTOM = 'grimoire_lesson_custom';
+const LS_RATINGS = { nailed: { label: 'Nailed it', inc: 4 }, close: { label: 'Close', inc: 2 }, more: { label: 'Needs more time', inc: 1 } };
+let _lsRun = null, _lsSkip = 0, _lsMins = 20, _lsClock = null, _lsAdd = false, _lsImp = false, _lsBrowse = '';
+
+/* ── Tab generators (always built for the active guitar and tuning) ── */
+function lsShift(ev, d) { return ev.map(e => ({ c: e.c + d, s: e.s, f: e.f })); }
+function lsStr(s, str, rep) {
+  const ev = []; rep = rep || 1;
+  for (let r = 0; r < rep; r++) for (let i = 0; i < str.length; i++) {
+    const ch = str[i];
+    if (ch >= '0' && ch <= '9') ev.push({ c: r * str.length + i, s: s, f: ch });
+    else if (ch === 'x') ev.push({ c: r * str.length + i, s: s, f: 'x' });
+  }
+  return ev;
+}
+function lsFifth(f) { const T = fgTun(); return f + 7 - (T.midi[1] - T.midi[0]); }
+function lsPcAt(list) {
+  const ev = [];
+  list.forEach(p => { ev.push({ c: p[0], s: 0, f: p[1] }); const f5 = lsFifth(p[1]); if (T_OK() && f5 >= 0) ev.push({ c: p[0], s: 1, f: f5 }); });
+  return ev;
+}
+function T_OK() { return fgTun().n >= 2; }
+function lsPc(str) {
+  const list = [];
+  for (let i = 0; i < str.length; i++) { const ch = str[i]; if (ch >= '0' && ch <= '9') list.push([i, parseInt(ch, 10)]); }
+  return lsPcAt(list);
+}
+function lsSpider(s, base, order, reps) {
+  const ev = []; reps = reps || 1;
+  for (let r = 0; r < reps; r++) order.forEach((fg, i) => ev.push({ c: r * order.length + i, s: s, f: base + fg - 1 }));
+  return ev;
+}
+function lsSpiderStrings(k, base, order) {
+  let ev = []; const T = fgTun();
+  for (let i = 0; i < Math.min(k, T.n); i++) ev = ev.concat(lsShift(lsSpider(i, base, order, 4), i * 16));
+  return ev;
+}
+function lsStrChange() {
+  const ev = [];
+  for (let g = 0; g < 10; g++) [5, 6, 7].forEach((f, i) => ev.push({ c: g * 3 + i, s: g % 2, f: f }));
+  return ev;
+}
+function lsSkip() {
+  const T = fgTun(), ev = [], hi = Math.min(2, T.n - 1);
+  for (let c = 0; c < 32; c++) ev.push({ c: c, s: c % 2 === 0 ? 0 : hi, f: 5 + (Math.floor(c / 2) % 4) });
+  return ev;
+}
+function lsGallopMove() {
+  const fr = [0, 0, 3, 0, 0, 0, 5, 3], ev = [];
+  fr.forEach((f, g) => { [0, 2, 3].forEach(o => ev.push({ c: g * 4 + o, s: 0, f: f })); });
+  return ev;
+}
+function lsLegato(s, groups) {
+  const ev = []; let c = 0;
+  groups.forEach(g => { g.forEach(el => { ev.push({ c: c, s: s, f: el }); c++; }); c += 1; });
+  return ev;
+}
+function lsLegatoStrings() {
+  const ev = []; let c = 0, T = fgTun();
+  for (let si = 0; si < Math.min(3, T.n); si++) { [5, 'h', 7, 'h', 8, 'p', 7, 'p', 5].forEach(el => { ev.push({ c: c, s: si, f: el }); c++; }); c += 1; }
+  return ev;
+}
+function lsScaleNotes(ints, count) {
+  const T = fgTun(), notes = []; let cur = 0;
+  for (let k = 0; k < count; k++) {
+    const m = T.midi[0] + ints[k % ints.length] + 12 * Math.floor(k / ints.length);
+    let ok = false;
+    for (let s = cur; s < T.n; s++) { const f = m - T.midi[s]; if (f >= 0 && f <= 5) { notes.push({ s: s, f: f, m: m }); cur = s; ok = true; break; } }
+    if (!ok) break;
+  }
+  return notes;
+}
+function lsScale(ints, mode) {
+  const up = lsScaleNotes(ints, ints.length + 1), ev = []; let c = 0;
+  const put = n => { ev.push({ c: c, s: n.s, f: n.f }); c += 2; };
+  if (mode === 'threes') { for (let i = 0; i + 2 < up.length; i++) { put(up[i]); put(up[i + 1]); put(up[i + 2]); } }
+  else { up.forEach(put); if (mode === 'updown') for (let i = up.length - 2; i >= 0; i--) put(up[i]); }
+  return ev;
+}
+function lsScaleNames(ints) { const T = fgTun(); return ints.map(i => FG_PC[(T.midi[0] + i) % 12]); }
+function lsSweep(k, landing) {
+  const T = fgTun(), n = T.n; k = Math.min(k, n); const s0 = n - k, tones = [0, 3, 7], rootPc = T.midi[0] % 12;
+  let best = null;
+  for (let r0 = ((rootPc - T.midi[s0]) % 12 + 12) % 12; r0 <= 14 && !best; r0 += 12) {
+    if (r0 < 3) continue;
+    let prev = T.midi[s0] + r0; const frets = [r0]; let ok = true;
+    for (let i = 1; i < k; i++) {
+      const s = s0 + i, pcT = (rootPc + tones[i % 3]) % 12; let p = prev + 1;
+      while (p % 12 !== pcT) p++;
+      let f = p - T.midi[s]; while (f < 0) { p += 12; f = p - T.midi[s]; }
+      if (f > 14) { ok = false; break; } frets.push(f); prev = p;
+    }
+    if (ok) best = frets;
+  }
+  if (!best) { best = []; let prev = T.midi[s0] + 5; best.push(5); for (let i = 1; i < k; i++) { const s = s0 + i, pcT = (rootPc + tones[i % 3]) % 12; let p = prev + 1; while (p % 12 !== pcT) p++; let f = p - T.midi[s]; while (f < 0) { p += 12; f = p - T.midi[s]; } best.push(Math.min(f, 17)); prev = p; } }
+  const ev = []; let c = 0;
+  for (let i = 0; i < k; i++) { ev.push({ c: c, s: s0 + i, f: best[i] }); c += 2; }
+  for (let i = k - 2; i >= 0; i--) { ev.push({ c: c, s: s0 + i, f: best[i] }); c += 2; }
+  if (landing) ev.push({ c: c + 2, s: s0, f: best[0] });
+  return ev;
+}
+function lsRows(ev) {
+  const T = fgTun(), n = T.n, names = T.names.slice().reverse();
+  let cols = 0; ev.forEach(e => { cols = Math.max(cols, e.c + String(e.f).length); });
+  cols = Math.max(16, Math.ceil(cols / 4) * 4);
+  const grid = []; for (let r = 0; r < n; r++) grid.push(new Array(cols).fill('-'));
+  ev.forEach(e => { if (e.s < 0 || e.s >= n) return; const r = n - 1 - e.s, t = String(e.f); for (let k = 0; k < t.length; k++) if (e.c + k < cols) grid[r][e.c + k] = t[k]; });
+  return grid.map((g, i) => [names[i], g.join('')]);
+}
+
+/* ── Storage ── */
+function lsKey() { return LS_KEY + (window._GP_ACTIVE || '7drop'); }
+function lsHist() {
+  try { const o = JSON.parse(localStorage.getItem(lsKey()) || '{}') || {}; return { log: Array.isArray(o.log) ? o.log : [], best: (o.best && typeof o.best === 'object') ? o.best : {}, seen: Array.isArray(o.seen) ? o.seen : [], run: o.run || null }; }
+  catch (e) { return { log: [], best: {}, seen: [], run: null }; }
+}
+function lsSaveHist(h) {
+  h.log = h.log.slice(-200); h.seen = h.seen.slice(-60);
+  try { localStorage.setItem(lsKey(), JSON.stringify(h)); } catch (e) {}
+  try { if (typeof syncSchedulePush === 'function') syncSchedulePush(); } catch (e) {}
+}
+function lsCustomLoad() {
+  try { const o = JSON.parse(localStorage.getItem(LS_CUSTOM) || '{}') || {}; return { items: Array.isArray(o.items) ? o.items : [] }; } catch (e) { return { items: [] }; }
+}
+function lsCustomSave(o) {
+  try { localStorage.setItem(LS_CUSTOM, JSON.stringify(o)); } catch (e) {}
+  try { if (typeof syncSchedulePush === 'function') syncSchedulePush(); } catch (e) {}
+}
+function lsCustomClean(it) {
+  if (!it || typeof it.title !== 'string' || !it.title.trim()) return null;
+  const sk = LS_SKILLS.find(x => x.k === it.skill) ? it.skill : '';
+  const tier = (it.tier >= 0 && it.tier <= 3) ? Math.floor(it.tier) : -1;
+  const steps = (Array.isArray(it.steps) ? it.steps : []).map(x => String(x || '').trim().slice(0, 600)).filter(Boolean).slice(0, 25);
+  const links = (Array.isArray(it.links) ? it.links : []).filter(l => l && btUrlOk(l.url)).map(l => ({ title: String(l.title || '').trim().slice(0, 100) || l.url.replace(/^https:\/\//, '').slice(0, 50), url: l.url })).slice(0, 12);
+  if (!steps.length && !links.length) return null;
+  return { id: String(it.id || ('c' + Date.now().toString(36) + Math.floor(Math.random() * 1e4).toString(36))).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40), title: it.title.trim().slice(0, 90), skill: sk, tier: tier, steps: steps, links: links };
+}
+function lsHash(str) { let h = 5381; for (let i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) | 0; return Math.abs(h); }
+function lsToday() { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+function lsSkill(k) { return LS_SKILLS.find(x => x.k === k) || LS_SKILLS[0]; }
+function lsTier(k) { try { return getSkillTier(lsSkill(k).label); } catch (e) { return { tier: 0, v: 0, label: 'BEGINNER' }; } }
+function lsFind(id) {
+  const core = LS_CORES.find(c => c.k + c.t === id);
+  if (core) return { kind: 'core', k: core.k, t: core.t, title: core.title, core: core, id: id };
+  const cu = lsCustomLoad().items.find(c => c.id === id);
+  if (cu) return { kind: 'custom', k: cu.skill, t: cu.tier, title: cu.title, custom: cu, id: id };
+  return null;
+}
+
+/* ── Choosing the next lesson ── */
+function lsCandidates() {
+  const h = lsHist(), day = lsToday(), out = [];
+  const last = h.log.length ? h.log[h.log.length - 1] : null;
+  const byId = {}; h.log.forEach(l => { (byId[l.id] = byId[l.id] || []).push(l); });
+  const now = Date.now();
+  const score = (id, k, t, v, tier, extra) => {
+    let sc = (100 - v) / 100 * 3 + (extra || 0), why = '';
+    if (t === tier) sc += 2; else if (t === tier + 1) sc += 0.8; else if (t >= 0) sc -= 1;
+    const prev = byId[id] || [];
+    if (!prev.length) sc += 3;
+    else {
+      const l = prev[prev.length - 1], days = (now - l.ts) / 864e5;
+      if (l.result === 'nailed') sc -= 3; else if (days > 2) sc += 1; else sc -= 2;
+    }
+    if (last && last.k === k) sc -= 2;
+    sc += (lsHash(id + day) % 100) / 100 * 0.9;
+    return sc;
+  };
+  let weakest = null, wv = 101;
+  LS_SKILLS.forEach(sk => { const st = lsTier(sk.k); if (st.v < wv) { wv = st.v; weakest = sk.k; } });
+  LS_SKILLS.forEach(sk => {
+    const st = lsTier(sk.k);
+    LS_CORES.filter(c => c.k === sk.k && (c.t === st.tier || c.t === Math.min(3, st.tier + 1))).forEach(core => {
+      const id = core.k + core.t, prev = byId[id] || [];
+      let why = core.t > st.tier ? 'A stretch lesson toward your next level in ' + sk.short.toLowerCase() : 'Matched to your ' + LS_TIERS[st.tier].toLowerCase() + ' level in ' + sk.short.toLowerCase();
+      if (sk.k === weakest) why = 'Your weakest area right now';
+      if (prev.length && prev[prev.length - 1].result !== 'nailed') why = 'A second pass, since last time needed more work';
+      out.push({ id: id, k: sk.k, t: core.t, title: core.title, sc: score(id, sk.k, core.t, st.v, st.tier, sk.k === weakest ? 1.5 : 0), why: why, kind: 'core' });
+    });
+  });
+  lsCustomLoad().items.filter(c => c.steps.length).forEach(c => {
+    const st = c.skill ? lsTier(c.skill) : { tier: 1, v: 40 };
+    if (c.tier >= 0 && c.skill && (c.tier < st.tier - 1 || c.tier > st.tier + 1)) return;
+    out.push({ id: c.id, k: c.skill, t: c.tier, title: c.title, sc: score(c.id, c.skill, c.tier, st.v, st.tier, 4.5), why: 'From your own walkthroughs', kind: 'custom' });
+  });
+  out.sort((a, b) => b.sc - a.sc);
+  return out;
+}
+function lsNextPick() { const l = lsCandidates(); return l.length ? l[_lsSkip % l.length] : null; }
+function lsForSkill(k) {
+  const st = lsTier(k), h = lsHist(), byId = {}; h.log.forEach(l => { (byId[l.id] = byId[l.id] || []).push(l); });
+  const cores = LS_CORES.filter(c => c.k === k && (c.t === st.tier || c.t === Math.min(3, st.tier + 1)));
+  cores.sort((a, b) => ((byId[a.k + a.t] || []).length - (byId[b.k + b.t] || []).length) || (Math.abs(a.t - st.tier) - Math.abs(b.t - st.tier)));
+  return cores[0] ? cores[0].k + cores[0].t : null;
+}
+function lsTarget(k, core) {
+  const h = lsHist(), best = +h.best[k] || 0, base = core ? core.bpm : 80;
+  return Math.min(220, Math.max(40, best ? Math.round(Math.max(best + 5, base * 0.7) / 5) * 5 : base));
+}
+function lsPickDrills(core, mins) {
+  const h = lsHist(), seed = lsToday() + core.k + core.t + _lsSkip;
+  const all = LS_DRILLS[core.k] || [];
+  const order = (arr) => arr.slice().sort((a, b) => ((h.seen.indexOf(a.id) >= 0 ? 1 : 0) - (h.seen.indexOf(b.id) >= 0 ? 1 : 0)) || ((lsHash(a.id + seed) % 100) - (lsHash(b.id + seed) % 100)));
+  const exact = all.filter(d => d.min <= core.t && d.max >= core.t);
+  const near = all.filter(d => exact.indexOf(d) < 0 && d.min <= core.t + 1 && d.max >= core.t - 1);
+  const far = all.filter(d => exact.indexOf(d) < 0 && near.indexOf(d) < 0);
+  const n = mins <= 10 ? 1 : mins <= 20 ? 2 : 3;
+  return order(exact).concat(order(near)).concat(order(far)).slice(0, n).map(d => d.id);
+}
+function lsPickWarm() {
+  const h = lsHist(), seed = lsToday() + _lsSkip;
+  const w = LS_WARM.slice().sort((a, b) => ((h.seen.indexOf(a.id) >= 0 ? 1 : 0) - (h.seen.indexOf(b.id) >= 0 ? 1 : 0)) || ((lsHash(a.id + seed) % 100) - (lsHash(b.id + seed) % 100)));
+  return w[0].id;
+}
+function lsDrill(id) { for (const k in LS_DRILLS) { const d = LS_DRILLS[k].find(x => x.id === id); if (d) return d; } return null; }
+
+/* ── Building and running a lesson ── */
+function lsBuildStages(run) {
+  const f = lsFind(run.id); if (!f) return [];
+  const m = run.mins, tm = { 10: [1, 2, 4], 15: [2, 3, 3], 20: [3, 4, 4], 30: [4, 5, 6] }[m] || [3, 4, 4];
+  const st = [{ k: 'hello', title: 'Check in', mins: 1 }, { k: 'warm', title: 'Warm up', mins: tm[0] }];
+  if (f.kind === 'core') {
+    st.push({ k: 'learn', title: "Today's idea", mins: tm[1] });
+    run.drills.forEach((d, i) => st.push({ k: 'drill', i: i, title: 'Drill ' + (i + 1), mins: tm[2] }));
+    const extras = lsExtras(f.k);
+    if (extras.length) st.push({ k: 'extra', title: 'Go deeper', mins: 2 });
+  } else {
+    f.custom.steps.forEach((s, i) => st.push({ k: 'step', i: i, title: 'Step ' + (i + 1), mins: Math.max(2, Math.round(m / Math.max(3, f.custom.steps.length))) }));
+    if (f.custom.links.length) st.push({ k: 'extra', title: 'Resources', mins: 2 });
+  }
+  st.push({ k: 'show', title: 'Show me', mins: 2 }, { k: 'wrap', title: 'Wrap up', mins: 1 });
+  return st;
+}
+function lsExtras(k) {
+  return lsCustomLoad().items.filter(c => c.skill === k && c.links.length && !c.steps.length);
+}
+function lsStart(id, mins) {
+  const f = lsFind(id); if (!f) return;
+  const run = { id: id, mins: [10, 15, 20, 30].indexOf(mins) >= 0 ? mins : 20, stage: 0, reps: {}, rating: '', reached: 0, hw: '', started: Date.now() };
+  run.warm = lsPickWarm();
+  run.drills = f.kind === 'core' ? lsPickDrills(f.core, run.mins) : [];
+  run.reached = Math.round(lsTarget(f.k || 'chrom', f.core) * 0.85 / 5) * 5;
+  _lsRun = run; lsPersist(); lsRenderRun();
+  try { window.scrollTo(0, 0); } catch (e) {}
+}
+function lsPersist() { const h = lsHist(); h.run = _lsRun; lsSaveHist(h); }
+function lsResume() { const h = lsHist(); if (h.run && lsFind(h.run.id)) { _lsRun = h.run; lsRenderRun(); } }
+function lsDiscard() { _lsRun = null; const h = lsHist(); h.run = null; lsSaveHist(h); lsRender(); }
+function lsQuit() { try { paClose(); } catch (e) {} clearInterval(_lsClock); lsPersist(); _lsRun = null; lsRender(); }
+function lsGo(d) {
+  if (!_lsRun) return; const st = lsBuildStages(_lsRun);
+  _lsRun.stage = Math.max(0, Math.min(st.length - 1, _lsRun.stage + d)); lsPersist(); lsRenderRun();
+  try { window.scrollTo(0, 0); } catch (e) {}
+}
+function lsRep(key, i) {
+  if (!_lsRun) return; const r = _lsRun.reps[key] || 0; _lsRun.reps[key] = (i + 1 === r) ? i : i + 1; lsPersist(); lsRenderRun(true);
+}
+function lsRate(r) { if (!_lsRun) return; _lsRun.rating = r; lsPersist(); lsRenderRun(true); }
+function lsReached(d) { if (!_lsRun) return; _lsRun.reached = Math.min(240, Math.max(40, (_lsRun.reached || 80) + d)); lsPersist(); lsRenderRun(true); }
+function lsHwSet(v) { if (!_lsRun) return; _lsRun.hw = v; lsPersist(); lsRenderRun(true); }
+function lsFinish() {
+  if (!_lsRun) return; const run = _lsRun, f = lsFind(run.id); if (!f) { lsDiscard(); return; }
+  const h = lsHist(), rt = LS_RATINGS[run.rating] || LS_RATINGS.close;
+  h.log.push({ id: run.id, k: f.k, t: f.t, ts: Date.now(), mins: run.mins, result: run.rating || 'close', bpm: run.reached || 0, hw: run.hw || '' });
+  if (f.k && run.reached) h.best[f.k] = run.reached;
+  h.seen = h.seen.concat([run.warm]).concat(run.drills);
+  h.run = null; lsSaveHist(h);
+  let gain = '';
+  if (f.k) { try { autoProgressSkill(lsSkill(f.k).label, rt.inc); gain = '+' + rt.inc + '% ' + lsSkill(f.k).label; } catch (e) {} }
+  try { paClose(); } catch (e) {}
+  clearInterval(_lsClock); _lsRun = null; _lsSkip = 0;
+  try { showToast('Lesson saved' + (gain ? '. ' + gain : '')); } catch (e) {}
+  lsRender();
+  try { window.scrollTo(0, 0); } catch (e) {}
+}
+
+/* ── Rendering: lesson home ── */
+function lsRender() {
+  const el = document.getElementById('ls-root'); if (!el) return;
+  clearInterval(_lsClock);
+  const h = lsHist(), run = h.run && lsFind(h.run.id) ? h.run : null;
+  if (_lsRun) { lsRenderRun(); return; }
+  const pick = lsNextPick(), pp = gpGet();
+  let html = '<div class="ls-lead">A guided lesson, the way a teacher would run it: check in, warm up, one new idea, drills with a play-along, then a quick test and homework. Each one is picked from your skill levels on your <b>' + slEsc(pp.display) + '</b>, and it changes every time.</div>';
+  if (run) {
+    const f = lsFind(run.id), stages = lsBuildStages(run);
+    html += '<div class="ls-card ls-resume"><div class="ls-eyebrow">LESSON IN PROGRESS</div><div class="ls-h">' + slEsc(f.title) + '</div><div class="ls-sub">Step ' + (run.stage + 1) + ' of ' + stages.length + ' · ' + slEsc(stages[run.stage] ? stages[run.stage].title : '') + '</div><div class="ls-btns"><button class="ls-go" onclick="lsResume()">Resume lesson</button><button class="ls-ghost" onclick="lsDiscard()">Discard</button></div></div>';
+  }
+  if (pick) {
+    const sk = pick.k ? lsSkill(pick.k) : null, f = lsFind(pick.id);
+    html += '<div class="ls-card"><div class="ls-eyebrow">YOUR NEXT LESSON</div><div class="ls-h">' + slEsc(pick.title) + '</div>' +
+      '<div class="ls-tags">' + (sk ? '<span class="ls-tag">' + slEsc(sk.short) + '</span>' : '') + (pick.t >= 0 ? '<span class="ls-tag">' + LS_TIERS[pick.t] + '</span>' : '') + (pick.kind === 'custom' ? '<span class="ls-tag ls-mine">YOURS</span>' : '') + '</div>' +
+      '<div class="ls-sub">' + slEsc(pick.why) + '.</div>' +
+      (f && f.core ? '<div class="ls-idea">' + slEsc(f.core.idea) + '</div>' : '') +
+      '<div class="ls-lbl">HOW LONG DO YOU HAVE?</div><div class="ls-chips">' + [10, 15, 20, 30].map(m => '<button class="pa-chip' + (_lsMins === m ? ' on' : '') + '" onclick="lsMins(' + m + ')">' + m + ' min</button>').join('') + '</div>' +
+      '<div class="ls-btns"><button class="ls-go" onclick="lsStart(\'' + pick.id + '\',_lsMins)">▶ Start lesson</button><button class="ls-ghost" onclick="lsOther()">Show me another</button></div></div>';
+  } else html += '<div class="ls-card">No lessons available yet.</div>';
+  const last = h.log.length ? h.log[h.log.length - 1] : null;
+  if (last) {
+    const lf = lsFind(last.id);
+    html += '<div class="ls-card"><div class="ls-eyebrow">LAST LESSON</div><div class="ls-h2">' + slEsc(lf ? lf.title : 'Lesson') + '</div><div class="ls-sub">' + slEsc((LS_RATINGS[last.result] || LS_RATINGS.close).label) + (last.bpm ? ' · clean at ' + last.bpm + ' BPM' : '') + '</div>' +
+      (lf && lf.core ? '<div class="ls-hw"><b>Homework:</b> ' + slEsc(lf.core.hw) + '</div>' : '') + '</div>';
+  }
+  html += '<div class="ls-card"><div class="ls-eyebrow">OR PICK WHAT YOU WANT TO WORK ON</div><div class="ls-skills">' + LS_SKILLS.map(sk => {
+    const st = lsTier(sk.k), cnt = h.log.filter(l => l.k === sk.k).length;
+    return '<button class="ls-sk" onclick="lsStartSkill(\'' + sk.k + '\')"><b>' + slEsc(sk.short) + '</b><span>' + LS_TIERS[st.tier] + ' · ' + st.v + '%' + (cnt ? ' · ' + cnt + ' done' : '') + '</span></button>';
+  }).join('') + '</div></div>';
+  html += lsCustomHtml();
+  if (h.log.length) {
+    html += '<div class="ls-card"><div class="ls-eyebrow">RECENT LESSONS (' + h.log.length + ' TOTAL)</div>' + h.log.slice(-6).reverse().map(l => { const lf = lsFind(l.id), d = new Date(l.ts); return '<div class="ls-logrow"><span>' + slEsc(lf ? lf.title : 'Lesson') + '</span><span>' + (d.getMonth() + 1) + '/' + d.getDate() + ' · ' + slEsc((LS_RATINGS[l.result] || LS_RATINGS.close).label) + '</span></div>'; }).join('') + '</div>';
+  }
+  el.innerHTML = html;
+}
+function lsMins(m) { _lsMins = m; lsRender(); }
+function lsOther() { _lsSkip++; lsRender(); }
+function lsStartSkill(k) { const id = lsForSkill(k); if (id) lsStart(id, _lsMins); }
+
+/* ── Your own walkthroughs and links ── */
+function lsCustomHtml() {
+  const items = lsCustomLoad().items;
+  let h = '<div class="ls-card"><div class="ls-eyebrow">MY WALKTHROUGHS AND LINKS</div><div class="ls-sub">Add your own walkthroughs or links from a teacher, a course or a video. A walkthrough with steps becomes a lesson that comes up in your rotation. Links on their own show up in the Go deeper step of lessons for the skill you choose. Private to you.</div>';
+  h += items.map(c => '<div class="ls-item"><div><b>' + slEsc(c.title) + '</b><div class="ls-sub">' + (c.skill ? slEsc(lsSkill(c.skill).short) : 'Any skill') + (c.tier >= 0 ? ' · ' + LS_TIERS[c.tier] : '') + ' · ' + (c.steps.length ? c.steps.length + ' steps' : 'links only') + (c.links.length ? ' · ' + c.links.length + ' link' + (c.links.length > 1 ? 's' : '') : '') + '</div></div><div class="ls-btns">' + (c.steps.length ? '<button class="fg-play" onclick="lsStart(\'' + c.id + '\',_lsMins)">Start</button>' : '') + '<button class="sl-rm" onclick="lsCustomRemove(\'' + c.id + '\')">remove</button></div></div>').join('');
+  h += '<div class="ls-btns"><button class="fg-open" onclick="lsToggleAdd()">' + (_lsAdd ? 'Cancel' : '+ Add a walkthrough or link') + '</button><button class="sl-rm" onclick="lsToggleImp()">' + (_lsImp ? 'hide import' : 'import code') + '</button></div>';
+  if (_lsAdd) {
+    h += '<div class="ls-form"><input class="sl-add-in" id="ls-f-title" placeholder="Title (for example: Palm muting walkthrough)">' +
+      '<select class="fg-select" id="ls-f-skill"><option value="">Any skill</option>' + LS_SKILLS.map(s => '<option value="' + s.k + '">' + slEsc(s.label) + '</option>').join('') + '</select>' +
+      '<select class="fg-select" id="ls-f-tier"><option value="-1">Any level</option>' + LS_TIERS.map((t, i) => '<option value="' + i + '">' + t.charAt(0) + t.slice(1).toLowerCase() + '</option>').join('') + '</select>' +
+      '<textarea class="ls-ta" id="ls-f-steps" rows="5" placeholder="Walkthrough steps, one per line (optional if you are only adding links)"></textarea>' +
+      '<textarea class="ls-ta" id="ls-f-links" rows="3" placeholder="Links, one per line. Use: Title | https://link  (or just the link)"></textarea>' +
+      '<button class="fg-open" onclick="lsCustomAdd()">Save</button></div>';
+  }
+  if (_lsImp) h += '<div class="ls-form"><textarea class="ls-ta" id="ls-f-code" rows="5" placeholder="Paste import code"></textarea><button class="fg-open" onclick="lsCustomImport()">Import</button></div>';
+  return h + '</div>';
+}
+function lsToggleAdd() { _lsAdd = !_lsAdd; lsRender(); }
+function lsToggleImp() { _lsImp = !_lsImp; lsRender(); }
+function lsParseLinks(txt) {
+  return String(txt || '').split('\n').map(l => l.trim()).filter(Boolean).map(l => {
+    const p = l.split('|'); const url = (p.length > 1 ? p[p.length - 1] : p[0]).trim(), title = p.length > 1 ? p.slice(0, -1).join('|').trim() : '';
+    return { title: title, url: url };
+  });
+}
+function lsCustomAdd() {
+  const g = id => (document.getElementById(id) || {}).value || '';
+  const links = lsParseLinks(g('ls-f-links'));
+  if (links.some(l => !btUrlOk(l.url))) { try { showToast('Every link needs to start with https://'); } catch (e) {} return; }
+  const it = lsCustomClean({ title: g('ls-f-title'), skill: g('ls-f-skill'), tier: parseInt(g('ls-f-tier'), 10), steps: g('ls-f-steps').split('\n'), links: links });
+  if (!it) { try { showToast('Add a title and at least one step or link'); } catch (e) {} return; }
+  const d = lsCustomLoad(); d.items.push(it); lsCustomSave(d); _lsAdd = false; lsRender();
+}
+function lsCustomRemove(id) { const d = lsCustomLoad(); d.items = d.items.filter(x => x.id !== id); lsCustomSave(d); lsRender(); }
+function lsCustomImport() {
+  let o; try { o = JSON.parse(String((document.getElementById('ls-f-code') || {}).value || '').trim()); } catch (e) { try { showToast('That is not valid import code'); } catch (e2) {} return; }
+  const d = lsCustomLoad(); let n = 0;
+  (Array.isArray(o && o.items) ? o.items : []).slice(0, 60).forEach(x => { const c = lsCustomClean(x); if (c && !d.items.some(y => y.id === c.id)) { d.items.push(c); n++; } });
+  lsCustomSave(d); _lsImp = false; try { showToast('Imported ' + n + ' item' + (n === 1 ? '' : 's')); } catch (e) {} lsRender();
+}
+
+/* ── Rendering: the lesson itself ── */
+function lsTabHtml(d, target, label) {
+  let ev = [];
+  try { ev = d.gen ? d.gen() : []; } catch (e) { ev = []; }
+  if (!ev.length) return '';
+  const rows = lsRows(ev), shown = Math.min(240, Math.round(target * (d.mult || 1)));
+  const legend = (d.pm ? 'Palm mute every note (PM). ' : '') + (d.mult ? 'h = hammer-on, p = pull-off. ' : '') + 'x = muted note. Lowest string is the bottom line.';
+  return makeTab(label, rows, 'Play at ' + (d.mult ? Math.round(shown / d.mult) : shown) + ' BPM. Tap ▶ to hear it, 🖐 to see the fingers.', legend).replace(/playTabBlock\('([^']*)',\d+,this\)/, "playTabBlock('$1'," + shown + ",this)");
+}
+function lsRepsHtml(key, n) {
+  const r = (_lsRun && _lsRun.reps[key]) || 0; let h = '<div class="ls-reps"><span class="ls-lbl2">CLEAN REPS</span>';
+  for (let i = 0; i < n; i++) h += '<button class="ls-rep' + (i < r ? ' on' : '') + '" onclick="lsRep(\'' + key + '\',' + i + ')" aria-label="Clean rep ' + (i + 1) + '">' + (i < r ? '✓' : i + 1) + '</button>';
+  return h + '</div>';
+}
+function lsDrillHtml(d, f, target, key, label) {
+  let h = '<div class="ls-h2">' + slEsc(d.name) + '</div><div class="ls-say">' + slEsc(d.say) + '</div>';
+  if (d.bendDrill) h += lsBendHtml(d.bendDrill.semi);
+  if (d.gen) h += lsTabHtml(d, target, label || d.name);
+  if (d.feel && !d.gen) h += lsFeelHtml();
+  if (d.scale && f) { const nm = lsScaleNames(d.name.indexOf('raised') >= 0 || f.k === 'hmin' ? [0, 2, 3, 5, 7, 8, 11] : f.k === 'phry' ? [0, 1, 3, 5, 7, 8, 10] : [0, 2, 3, 5, 7, 8, 10]); h += '<div class="ls-notes">Notes: ' + nm.join(' ') + '</div>'; }
+  h += '<div class="ls-cue"><b>Listen for:</b> ' + slEsc(d.cue) + '</div>';
+  h += '<div class="ls-tempo">Start at <b>' + Math.max(40, Math.round(target * 0.75 / 5) * 5) + ' BPM</b>. After three clean reps in a row, add 5 BPM. Work up toward <b>' + target + ' BPM</b>.</div>';
+  h += '<div class="ls-btns"><button class="ls-go" onclick="paOpen({target:' + target + ',label:\'' + slEsc(d.name).replace(/&#39;/g, '') + '\'})">▶ Play along with a count-in</button></div>' + lsRepsHtml(key, 3);
+  return h;
+}
+function lsBendHtml(semi) {
+  const T = fgTun(), s = Math.min(3, T.n - 1), f = 7, m = T.midi[s] + f, tn = FG_PC[(m + semi) % 12], sn = FG_PC[m % 12], str = T.n - s;
+  if (!semi) return '<div class="ls-notes">Hold ' + sn + ' (string ' + str + ', fret ' + f + ') and wobble it with your wrist. Aim for a steady pulse about five or six times a second.</div>';
+  return '<div class="ls-notes">Fret ' + sn + ' on string ' + str + ' at fret ' + f + '. The target is <b>' + tn + '</b>, which is the note at fret ' + (f + semi) + '. Hear both, then bend until they match.</div><div class="ls-btns"><button class="fg-play" onclick="lsHearBend(' + semi + ',0,this)">▶ Start note</button><button class="fg-play" onclick="lsHearBend(' + semi + ',1,this)">▶ Target note</button><button class="fg-play" onclick="lsHearBend(' + semi + ',2,this)">▶ Both</button></div>';
+}
+function lsHearBend(semi, which, btn) {
+  const T = fgTun(), s = Math.min(3, T.n - 1), m = T.midi[s] + 7, a = sndMidiFreq(m), b = sndMidiFreq(m + semi);
+  const ev = which === 0 ? [{ f: [a], t: 0, d: 1.6 }] : which === 1 ? [{ f: [b], t: 0, d: 1.6 }] : [{ f: [a], t: 0, d: 1.0 }, { f: [b], t: 1.1, d: 1.6 }];
+  sndPlayEvents(ev, btn, which === 0 ? '▶ Start note' : which === 1 ? '▶ Target note' : '▶ Both');
+}
+function lsFeelHtml() { return '<div class="ls-notes">There is no tab for this one because it is about feel. Aim your pick near the bridge pickup, keep your thumb just past the pick, and be patient. Record a few attempts and listen back.</div>'; }
+function lsRenderRun(keepScroll) {
+  const el = document.getElementById('ls-root'); if (!el || !_lsRun) return;
+  const run = _lsRun, f = lsFind(run.id); if (!f) { lsDiscard(); return; }
+  const stages = lsBuildStages(run), st = stages[Math.min(run.stage, stages.length - 1)], h = lsHist();
+  const k = f.k || 'chrom', sk = lsSkill(k), tier = lsTier(k), target = lsTarget(k, f.core), pp = gpGet();
+  const y0 = keepScroll ? window.scrollY : 0;
+  let body = '';
+  if (st.k === 'hello') {
+    const last = h.log.length ? h.log[h.log.length - 1] : null, lf = last ? lsFind(last.id) : null;
+    body = '<div class="ls-say">Welcome back. Let us get set up and then dig into <b>' + slEsc(f.title) + '</b>' + (f.k ? ' (' + slEsc(sk.short.toLowerCase()) + ', ' + LS_TIERS[tier.tier].toLowerCase() + ' level)' : '') + '.</div>' +
+      '<div class="ls-cue"><b>Tune up first.</b> Your ' + slEsc(pp.display) + ' should read ' + fgTun().names.join(' ') + ' from the lowest string to the highest. A guitar that is slightly out of tune makes everything you practice sound worse.</div>' +
+      (last && lf && lf.core ? '<div class="ls-card ls-inner"><div class="ls-eyebrow">LAST TIME</div><div>' + slEsc(lf.title) + ': ' + slEsc((LS_RATINGS[last.result] || LS_RATINGS.close).label) + '</div><div class="ls-hw"><b>Homework was:</b> ' + slEsc(lf.core.hw) + '</div></div>' : '') +
+      '<div class="ls-card ls-inner"><div class="ls-eyebrow">TODAY\'S PLAN (ABOUT ' + run.mins + ' MIN)</div>' + stages.map((s, i) => '<div class="ls-plan"><span>' + (i + 1) + '. ' + slEsc(s.title) + '</span><span>' + s.mins + ' min</span></div>').join('') + '</div>';
+  } else if (st.k === 'warm') {
+    const w = LS_WARM.find(x => x.id === run.warm) || LS_WARM[0], wt = Math.round(target * (w.bpmMul || 0.8) / 5) * 5;
+    body = '<div class="ls-say">Warm up first. Nothing fast, nothing forced.</div>' + lsDrillHtml({ name: w.name, say: w.say, cue: 'Relaxed hands and an even sound.', gen: w.gen }, null, Math.max(40, wt), 'warm', 'WARM-UP');
+  } else if (st.k === 'learn') {
+    const c = f.core, sk2 = f.k;
+    body = '<div class="ls-h2">' + slEsc(c.title) + '</div><div class="ls-say">' + slEsc(c.idea) + '</div><div class="ls-lbl">HERE IS HOW</div><ol class="ls-steps">' + c.how.map(x => '<li>' + slEsc(x) + '</li>').join('') + '</ol>' +
+      '<div class="ls-cue"><b>Watch out for:</b> ' + slEsc(c.watch) + '</div><div class="ls-goal"><b>Goal for today:</b> ' + slEsc(c.goal) + '</div>' +
+      '<div class="ls-btns">' + (sk2 === 'nmin' ? '<button class="fg-open" onclick="fgOpen({interval:3,root:\'' + FG_PC[fgTun().midi[0] % 12] + '\'})">Hear the minor third</button>' : '') + (sk2 === 'phry' ? '<button class="fg-open" onclick="fgOpen({interval:1,root:\'' + FG_PC[fgTun().midi[0] % 12] + '\'})">Hear the half step</button>' : '') + (sk2 === 'hmin' ? '<button class="fg-open" onclick="fgOpen({interval:11,root:\'' + FG_PC[fgTun().midi[0] % 12] + '\'})">Hear the raised seventh</button>' : '') + '<button class="fg-open" onclick="fgOpen({})">🖐 Finger guide</button></div>';
+  } else if (st.k === 'drill') {
+    const d = lsDrill(run.drills[st.i]);
+    body = d ? lsDrillHtml(d, f, target, 'd' + st.i, d.name.toUpperCase()) : '<div class="ls-say">Free practice: work on the idea from this lesson.</div>';
+  } else if (st.k === 'step') {
+    const txt = f.custom.steps[st.i];
+    body = '<div class="ls-h2">Step ' + (st.i + 1) + ' of ' + f.custom.steps.length + '</div><div class="ls-say">' + slEsc(txt) + '</div><div class="ls-btns"><button class="ls-go" onclick="paOpen({target:' + target + ',label:\'' + slEsc(f.title).replace(/&#39;/g, '') + '\'})">▶ Play along with a count-in</button></div>' + lsRepsHtml('s' + st.i, 3);
+  } else if (st.k === 'extra') {
+    const links = f.kind === 'custom' ? f.custom.links : lsExtras(f.k).reduce((a, c) => a.concat(c.links), []);
+    body = '<div class="ls-say">If you want to go further, here are your saved resources for this skill. Pick one and spend a few minutes with it.</div>' + links.map(l => '<div class="bt-link"><a href="' + slEsc(l.url) + '" target="_blank" rel="noopener">' + slEsc(l.title) + '</a></div>').join('');
+  } else if (st.k === 'show') {
+    body = '<div class="ls-say">Time to show me. Play the goal for the lesson with a drum track: <b>' + slEsc(f.core ? f.core.goal : 'the idea from this lesson') + '</b> Four bars, no stopping, no fixing. If you can, record it.</div>' +
+      '<div class="ls-btns"><button class="ls-go" onclick="paOpen({target:' + target + ',label:\'Show me\'})">▶ Start the test with a count-in</button></div>' +
+      '<div class="ls-lbl">HOW DID IT GO?</div><div class="ls-chips">' + Object.keys(LS_RATINGS).map(r => '<button class="pa-chip' + (run.rating === r ? ' on' : '') + '" onclick="lsRate(\'' + r + '\')">' + LS_RATINGS[r].label + '</button>').join('') + '</div>' +
+      '<div class="ls-lbl">FASTEST TEMPO YOU PLAYED CLEANLY</div><div class="pa-row"><button class="fg-play" onclick="lsReached(-5)">−5</button><b class="pa-bpm">' + run.reached + '</b><button class="fg-play" onclick="lsReached(5)">+5</button><span class="ls-sub">BPM. Next lesson on this skill builds from here.</span></div>';
+  } else if (st.k === 'wrap') {
+    const rt = LS_RATINGS[run.rating] || null;
+    body = '<div class="ls-say">' + (run.rating === 'nailed' ? 'That is what I wanted to see. ' : run.rating === 'more' ? 'That is fine. Some ideas take a few passes, and I will bring it back. ' : 'Good work. ') + 'Here is what to do before next time.</div>' +
+      (f.core ? '<div class="ls-hw"><b>Homework:</b> ' + slEsc(f.core.hw) + '</div>' : '<div class="ls-hw"><b>Homework:</b> Revisit the steps from this walkthrough once a day.</div>') +
+      '<div class="ls-sub">' + (rt && f.k ? 'Saving this lesson adds ' + rt.inc + '% to ' + slEsc(sk.label) + '. ' : '') + (!run.rating ? 'You have not rated how it went. You can go back to the last step, or finish and it will count as close.' : '') + '</div>' +
+      '<div class="ls-btns"><button class="ls-go" onclick="lsFinish()">Save lesson and finish</button></div>';
+  }
+  const bar = stages.map((s, i) => '<span class="ls-seg' + (i < run.stage ? ' done' : i === run.stage ? ' cur' : '') + '"></span>').join('');
+  el.innerHTML = '<div class="ls-run"><div class="ls-runtop"><div><div class="ls-eyebrow">' + slEsc(f.title.toUpperCase()) + '</div><div class="ls-stepname">Step ' + (run.stage + 1) + ' of ' + stages.length + ': ' + slEsc(st.title) + ' <span class="ls-min">about ' + st.mins + ' min</span></div></div><button class="ls-ghost" onclick="lsQuit()">Pause</button></div><div class="ls-bar">' + bar + '</div>' +
+    '<div class="ls-body">' + body + '</div><div class="ls-nav"><button class="ls-ghost" onclick="lsGo(-1)"' + (run.stage === 0 ? ' disabled' : '') + '>Back</button>' + (run.stage < stages.length - 1 ? '<button class="ls-go" onclick="lsGo(1)">Next: ' + slEsc(stages[run.stage + 1].title) + '</button>' : '') + '</div><div class="ls-clock">Lesson time <span id="ls-clock">0:00</span></div></div>';
+  clearInterval(_lsClock);
+  const tick = () => { const e = document.getElementById('ls-clock'); if (!e || !_lsRun) return; const s = Math.floor((Date.now() - _lsRun.started) / 1000); e.textContent = Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); };
+  tick(); _lsClock = setInterval(tick, 1000);
+  if (keepScroll) { try { window.scrollTo(0, y0); } catch (e) {} }
+}
+window.lsRender = lsRender; window.lsStart = lsStart; window.lsResume = lsResume; window.lsDiscard = lsDiscard; window.lsQuit = lsQuit; window.lsGo = lsGo; window.lsRep = lsRep;
+window.lsRate = lsRate; window.lsReached = lsReached; window.lsFinish = lsFinish; window.lsMins = lsMins; window.lsOther = lsOther; window.lsStartSkill = lsStartSkill;
+window.lsToggleAdd = lsToggleAdd; window.lsToggleImp = lsToggleImp; window.lsCustomAdd = lsCustomAdd; window.lsCustomRemove = lsCustomRemove; window.lsCustomImport = lsCustomImport; window.lsHearBend = lsHearBend; window.lsHwSet = lsHwSet;
 
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
