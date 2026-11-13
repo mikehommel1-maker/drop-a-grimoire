@@ -1433,6 +1433,38 @@ body.pa-open .fab-cluster{display:none}
   .fab-toggle{display:flex}
   .fab-cluster:not(.open) .fab:not(.fab-toggle){display:none}
 }
+
+/* ════ PHASE 11 ════ */
+.rs-card{margin:28px 0 8px;padding:16px;border:1px solid var(--edge);border-radius:var(--radius);background:rgba(14,10,28,.5)}
+.rs-h{font-size:15px;color:#fff;font-weight:600;margin-bottom:4px}.rs-sub{font-size:12px;color:var(--mid);line-height:1.5;margin:4px 0 10px}
+.rs-btns{display:flex;gap:8px;flex-wrap:wrap}.rs-danger{border-color:#a33!important;color:#ff9a9a!important}
+.rs-overlay{position:fixed;inset:0;z-index:12000;background:rgba(3,2,10,.82);display:none;align-items:center;justify-content:center;padding:16px}
+.rs-box{max-width:420px;width:100%;background:#0e0a1c;border:1px solid var(--wire);border-radius:14px;padding:20px}
+.rs-list{font-size:13px;color:var(--pale);line-height:1.6;margin:10px 0}.rs-warn{font-size:12px;color:#ffcf7a;margin:8px 0}
+.mod-feel{font-size:13px;color:var(--pale);margin:8px 0 4px}.mod-line{font-family:var(--mono);font-size:11px;color:var(--mid);margin-bottom:6px}.mod-task{font-size:13px;color:var(--pale);margin-top:8px}
+.sm-wrap{margin:0 0 14px;border:1px solid var(--edge);border-radius:var(--radius);background:rgba(14,10,28,.5)}
+.sm-wrap>summary{cursor:pointer;list-style:none;padding:14px 16px;font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--flame);text-transform:uppercase}
+.sm-wrap>summary::-webkit-details-marker{display:none}.sm-wrap>summary::after{content:'+';float:right;color:var(--dim)}.sm-wrap[open]>summary::after{content:'–'}
+#sm-root{padding:0 16px 16px}.sm-lead{font-size:13px;color:var(--mid);line-height:1.5;margin-bottom:10px}
+.sm-chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.sm-tl{display:flex;gap:2px;height:38px;margin:10px 0 4px}
+.sm-seg{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:#fff;border-radius:4px;opacity:.55;min-width:0;overflow:hidden}
+.sm-seg.on{opacity:1;outline:2px solid #fff}
+.sm-vs{background:#2a5fb0}.sm-ch{background:#8a2be2}.sm-br{background:#b02a2a}.sm-so{background:#b8861a}.sm-io{background:#555}.sm-pr{background:#1f8a80}
+.sm-vs-t{color:#6fa8ff}.sm-ch-t{color:#c48bff}.sm-br-t{color:#ff6f6f}.sm-so-t{color:#ffd36a}.sm-io-t{color:#bbb}.sm-pr-t{color:#5fe0d0}
+.sm-meta{font-family:var(--mono);font-size:10px;color:var(--dim);margin-bottom:8px}
+.sm-now{text-align:center;padding:12px;margin:8px 0;border-radius:10px;background:rgba(5,4,14,.6);border:1px solid rgba(255,255,255,.08)}
+.sm-big{font-size:56px;font-family:var(--mono);color:var(--flame)}.sm-sec{font-size:26px;font-weight:700;letter-spacing:2px}
+.sm-bar{font-family:var(--mono);font-size:11px;color:var(--mid);margin-top:4px}.sm-next{margin-top:8px;font-family:var(--mono);font-size:13px;color:#ffcf7a;letter-spacing:2px}
+.sm-btns{margin:10px 0}.sm-edit{display:flex;align-items:center;gap:6px;font-size:12px}
+.wk-card{margin:0 0 18px;padding:16px;border:1px solid var(--edge);border-left:3px solid var(--ember);border-radius:var(--radius);background:linear-gradient(135deg,rgba(28,14,52,.7),rgba(12,8,24,.9))}
+.wk-eye,.wk-lbl{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--flame)}.wk-lbl{margin:14px 0 6px;color:var(--dim)}
+.wk-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.wk-t{text-align:center;padding:10px 2px;background:rgba(5,4,14,.55);border-radius:8px}.wk-t b{display:block;font-family:var(--mono);font-size:20px;color:var(--flame)}.wk-t span{font-size:9px;color:var(--dim);letter-spacing:1px}
+.wk-delta{font-family:var(--mono);font-size:10px;margin-top:8px}
+.wk-bars{display:flex;gap:6px;align-items:flex-end;height:64px;margin-top:12px}.wk-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px}
+.wk-bar{width:100%;border-radius:3px;background:rgba(255,255,255,.1)}.wk-bar.has{background:var(--ember)}.wk-col span{font-family:var(--mono);font-size:9px;color:var(--dim)}.wk-col span.now{color:var(--flame)}
+.wk-empty{font-size:13px;color:var(--mid);margin-top:12px}.wk-focus{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:var(--pale)}
 .ls-lbl2{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--dim)}
 .ls-chips{display:flex;gap:6px;flex-wrap:wrap}
 .ls-btns{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px;align-items:center}
@@ -5125,6 +5157,8 @@ body{padding-top:52px}
 
 
 
+  <details class="sm-wrap" ontoggle="if(this.open)smRender()"><summary>Song map trainer</summary><div id="sm-root"></div></details>
+
   <!-- Curated song library -->
   <div style="margin-top:20px">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
@@ -5416,6 +5450,8 @@ body{padding-top:52px}
     <div class="page-title">Review</div>
     <div class="page-lead" id="gp-review-lead">Your practice at a glance.</div>
   </div>
+
+  <div id="review-week"></div>
 
   <div class="time-filter-row">
     <span class="time-filter-lbl">PERIOD //</span>
@@ -11072,6 +11108,7 @@ function buildReviewChart() {
 }
 
 function buildReview() {
+  try { reviewWeekRender(); } catch (e) {}
   buildReviewChart();
   // Update h3 to reflect current period
   const h3 = document.getElementById('sess-log-h3');
@@ -16366,7 +16403,7 @@ function instrPlanRender() {
   el.innerHTML = '<div class="plan-card"><div class="plan-head"><span class="plan-title">TODAY\'S PLAN' + (done ? ' <span class="plan-done">✓ DONE TODAY</span>' : '') + '</span><div class="plan-chips">' + chips + '</div></div>' +
     '<div class="plan-sub">Built from your weakest skill (' + plan.focus.label + ', ' + plan.focus.pct + '%)' + (plan.song ? ' and a song to learn.' : '.') + '</div>' +
     '<ol class="plan-list">' + list + '</ol>' +
-    (window.instrFocusHtml ? '<details class="plan-more"><summary>Instructor note</summary>' + window.instrFocusHtml(plan.focus.label) + '</details>' : '') +
+    (window.instrFocusHtml ? '<details class="plan-more"><summary>Instructor note</summary>' + window.instrFocusHtml(plan.focus.label) + '</details>' : '') + modeOfDayHtml() +
     '<button class="sess-big-btn plan-go" onclick="instrPlanStart()">' + (done ? '▶ PRACTICE MORE' : '▶ START TODAY\'S SESSION') + '</button></div>';
 }
 function instrPlanMins(m) {
@@ -18710,6 +18747,205 @@ document.addEventListener('DOMContentLoaded', () => {
   try { accordionize('roadmap', 1); accordionize('session', 1); } catch (e) {}
   document.addEventListener('click', e => { const l = e.target.closest ? e.target.closest('.page-lead') : null; if (l) l.classList.toggle('open'); });
 });
+
+
+/* ════ PHASE 11: RESET, MODE OF THE DAY, SONG MAP, WEEKLY SUMMARY ════ */
+/* ── Reset progress ── */
+const RESET_UNDO_KEY = 'reset_undo_grimoire';
+function resetKeys() {
+  const out = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i); if (!k) continue;
+    const m = k.match(/^(?:gp_[A-Za-z0-9_]+?_)?(grimoire.*)$/); if (!m) continue;
+    const b = m[1];
+    if (/^grimoire(-progress|-streak|-stats|_grimoire-streak|_grimoire-stats|_seen_badges|_sess_|_bpm_|_day_|_snap_|_rm_)/.test(b) || b === 'grimoire_songs' || b.indexOf('grimoire_lessons_') === 0) out.push(k);
+  }
+  return out;
+}
+function resetCardHtml() {
+  let undo = null; try { undo = JSON.parse(localStorage.getItem(RESET_UNDO_KEY) || 'null'); } catch (e) {}
+  return '<div class="rs-card"><div class="rs-h">Start fresh</div><div class="rs-sub">Wipe your progress and be treated like a new user. Your links, walkthroughs, notes and settings stay.</div>' +
+    '<div class="rs-btns"><button class="btn rs-danger" onclick="resetOpen()">Reset my progress</button>' + (undo && undo.data ? '<button class="btn" onclick="resetUndo()">Undo last reset</button>' : '') + '</div></div>';
+}
+function resetMount() {
+  const pg = document.getElementById('progress'); if (!pg) return;
+  let c = document.getElementById('rs-mount');
+  if (!c) { c = document.createElement('div'); c.id = 'rs-mount'; pg.appendChild(c); }
+  c.innerHTML = resetCardHtml();
+}
+function resetOpen() {
+  const n = resetKeys().length;
+  let ov = document.getElementById('rs-overlay');
+  if (!ov) { ov = document.createElement('div'); ov.id = 'rs-overlay'; ov.className = 'rs-overlay'; document.body.appendChild(ov); }
+  const synced = (typeof _syncCode !== 'undefined' && _syncCode);
+  ov.innerHTML = '<div class="rs-box" role="dialog" aria-label="Reset progress"><div class="rs-h">Reset your progress?</div>' +
+    '<div class="rs-list"><b>Cleared:</b> skill levels, streaks, practice time and logs, tempo records, badges, milestones, lesson history, song progress.<br><b>Kept:</b> course links, your walkthroughs, notes, favorites, sounds and guitar settings.</div>' +
+    (synced ? '<div class="rs-warn">Sync is on, so this also resets your other linked devices.</div>' : '') +
+    '<div class="rs-sub">' + n + ' saved items will be removed. You can undo this right after.</div>' +
+    '<div class="rs-btns"><button class="btn rs-danger" onclick="resetDo()">Yes, start fresh</button><button class="btn" onclick="resetClose()">Cancel</button></div></div>';
+  ov.style.display = 'flex';
+}
+function resetClose() { const ov = document.getElementById('rs-overlay'); if (ov) ov.style.display = 'none'; }
+async function resetDo() {
+  const keys = resetKeys(), data = {};
+  keys.forEach(k => { data[k] = localStorage.getItem(k); });
+  try { localStorage.setItem(RESET_UNDO_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch (e) {}
+  keys.forEach(k => { try { localStorage.removeItem(k); } catch (e) {} });
+  try { if (typeof syncAutoPush === 'function' && typeof _syncCode !== 'undefined' && _syncCode) await Promise.race([syncAutoPush(), new Promise(r => setTimeout(r, 4000))]); } catch (e) {}
+  location.reload();
+}
+async function resetUndo() {
+  let u = null; try { u = JSON.parse(localStorage.getItem(RESET_UNDO_KEY) || 'null'); } catch (e) {}
+  if (!u || !u.data) return;
+  Object.keys(u.data).forEach(k => { try { if (u.data[k] !== null) localStorage.setItem(k, u.data[k]); } catch (e) {} });
+  try { localStorage.removeItem(RESET_UNDO_KEY); } catch (e) {}
+  try { if (typeof syncAutoPush === 'function' && typeof _syncCode !== 'undefined' && _syncCode) await Promise.race([syncAutoPush(), new Promise(r => setTimeout(r, 4000))]); } catch (e) {}
+  location.reload();
+}
+window.resetOpen = resetOpen; window.resetClose = resetClose; window.resetDo = resetDo; window.resetUndo = resetUndo; window.resetMount = resetMount;
+
+/* ── Mode of the day (shown in Today's Plan) ── */
+const MOD_ROTATION = ['Phrygian', 'Aeolian', 'Dorian', 'Phrygian', 'Mixolydian', 'Aeolian', 'Lydian', 'Dorian', 'Ionian'];
+const MOD_TASK = {
+  Aeolian: 'Write a four note riff that stays inside the box and ends on the root.',
+  Phrygian: 'Chug the root and place the flat second, one fret above it, on the offbeats.',
+  Dorian: 'Find the brighter sixth, land on it, then resolve back to the root.',
+  Mixolydian: 'Hold the flat seventh and listen to how it pulls toward a major sound.',
+  Lydian: 'Find the raised fourth, hold it, then slide up to the fifth.',
+  Ionian: 'Play the box, then compare it with your home minor. Which notes are shared?',
+  Locrian: 'Play the box and notice how unstable the home note feels.'
+};
+function modeOfDay() {
+  const idx = Math.floor(Date.now() / 864e5) % MOD_ROTATION.length;
+  return LS_MODES.find(m => m.n === MOD_ROTATION[idx]) || LS_MODES[0];
+}
+function modeOfDayHtml() {
+  try {
+    const md = modeOfDay(), root = FG_PC[(lsKeyPc() + LS_MINOR[md.d]) % 12];
+    const tab = makeTab('Mode of the day: ' + md.n, lsRows(lsBox(md.n)), 'Play at 70 BPM. Tap ▶ to hear it.', 'x = muted note. Lowest string is the bottom line.');
+    return '<details class="plan-more"><summary>Mode of the day: ' + md.n + ' on ' + root + '</summary><div class="mod-feel">' + slEsc(md.feel) + '</div><div class="mod-line">' + slEsc(lsBoxLine(md.n)) + '</div>' + tab + '<div class="mod-task"><b>Try this:</b> ' + slEsc(MOD_TASK[md.n] || '') + '</div></details>';
+  } catch (e) { return ''; }
+}
+window.modeOfDayHtml = modeOfDayHtml;
+
+/* ── Song map trainer ── */
+const SM_KEY = 'grimoire_songmap';
+const SM_TPL = {
+  metalcore: { n: 'Metalcore', s: [['Intro', 4], ['Verse', 8], ['Pre-chorus', 4], ['Chorus', 8], ['Verse', 8], ['Chorus', 8], ['Breakdown', 8], ['Chorus', 8], ['Outro', 4]] },
+  deathcore: { n: 'Deathcore', s: [['Intro', 4], ['Verse', 8], ['Verse', 8], ['Breakdown', 8], ['Verse', 8], ['Breakdown', 8], ['Solo', 8], ['Breakdown', 8], ['Outro', 4]] },
+  thrash: { n: 'Thrash', s: [['Intro', 8], ['Verse', 16], ['Chorus', 8], ['Verse', 16], ['Chorus', 8], ['Solo', 16], ['Chorus', 8], ['Outro', 4]] },
+  rock: { n: 'Rock', s: [['Intro', 4], ['Verse', 8], ['Chorus', 8], ['Verse', 8], ['Chorus', 8], ['Bridge', 8], ['Chorus', 8], ['Outro', 4]] }
+};
+const SM_ADD = ['Intro', 'Verse', 'Pre-chorus', 'Chorus', 'Breakdown', 'Solo', 'Bridge', 'Outro'];
+let _sm = { tpl: 'metalcore', secs: null, bpm: 100, style: 'rock', memory: false, loop: false, run: false, step: 0 };
+let _smTimer = null, _smNext = 0;
+function smLoad() {
+  try { const o = JSON.parse(localStorage.getItem(SM_KEY) || '{}') || {}; if (SM_TPL[o.tpl]) _sm.tpl = o.tpl; if (Array.isArray(o.secs) && o.secs.length) _sm.secs = o.secs.filter(x => x && x[0] && x[1] > 0).slice(0, 24).map(x => [String(x[0]).slice(0, 14), Math.min(32, Math.max(1, +x[1] || 4))]); if (o.bpm) _sm.bpm = Math.min(220, Math.max(40, +o.bpm)); if (PA_STYLES[o.style]) _sm.style = o.style; _sm.memory = !!o.memory; _sm.loop = !!o.loop; } catch (e) {}
+  if (!_sm.secs || !_sm.secs.length) _sm.secs = SM_TPL[_sm.tpl].s.map(x => x.slice());
+}
+function smSave() { try { localStorage.setItem(SM_KEY, JSON.stringify({ tpl: _sm.tpl, secs: _sm.secs, bpm: _sm.bpm, style: _sm.style, memory: _sm.memory, loop: _sm.loop })); } catch (e) {} try { if (typeof syncSchedulePush === 'function') syncSchedulePush(); } catch (e) {} }
+function smKind(n) { n = n.toLowerCase(); return /chorus/.test(n) && !/pre/.test(n) ? 'ch' : /pre|bridge/.test(n) ? 'pr' : /break/.test(n) ? 'br' : /solo/.test(n) ? 'so' : /intro|outro/.test(n) ? 'io' : 'vs'; }
+function smTotal() { return _sm.secs.reduce((a, s) => a + s[1], 0); }
+function smAt(bar) { let c = 0; for (let i = 0; i < _sm.secs.length; i++) { if (bar < c + _sm.secs[i][1]) return { i: i, b: bar - c }; c += _sm.secs[i][1]; } return { i: _sm.secs.length - 1, b: _sm.secs[_sm.secs.length - 1][1] - 1 }; }
+function smRender() {
+  const el = document.getElementById('sm-root'); if (!el) return;
+  if (!_sm.secs) smLoad();
+  const tot = smTotal(), secs = Math.round(tot * 4 * 60 / _sm.bpm), secLbl = Math.floor(secs / 60) + ':' + ('0' + secs % 60).slice(-2);
+  let h = '<div class="sm-lead">Know the shape of a song before you learn the notes. Pick a layout, then play it with a drum track that calls each section.</div>';
+  h += '<div class="sm-chips">' + Object.keys(SM_TPL).map(k => '<button class="pa-chip' + (_sm.tpl === k ? ' on' : '') + '" onclick="smTpl(\'' + k + '\')">' + SM_TPL[k].n + '</button>').join('') + '</div>';
+  h += '<div class="sm-tl" id="sm-tl">' + _sm.secs.map((s, i) => '<div class="sm-seg sm-' + smKind(s[0]) + '" id="sm-seg' + i + '" style="flex:' + s[1] + '" title="' + slEsc(s[0]) + ' ' + s[1] + ' bars">' + (_sm.memory ? '?' : slEsc(s[0].slice(0, 2).toUpperCase())) + '</div>').join('') + '</div>';
+  h += '<div class="sm-meta">' + tot + ' bars · about ' + secLbl + ' at ' + _sm.bpm + ' BPM</div>';
+  if (_sm.run) h += '<div class="sm-now" id="sm-now"></div>';
+  h += '<div class="sm-btns"><button class="ls-go" onclick="smToggle()">' + (_sm.run ? '■ Stop' : '▶ Play with a count-in') + '</button></div>';
+  h += '<div class="pa-row"><button class="fg-play" onclick="smBpm(-5)">−5</button><b class="pa-bpm">' + _sm.bpm + '</b><button class="fg-play" onclick="smBpm(5)">+5</button><span class="ls-sub">BPM</span></div>';
+  h += '<div class="sm-chips">' + Object.keys(PA_STYLES).map(k => '<button class="pa-chip' + (_sm.style === k ? ' on' : '') + '" onclick="smStyle(\'' + k + '\')">' + PA_STYLES[k].label.split(',')[0] + '</button>').join('') + '</div>';
+  h += '<div class="sm-chips"><button class="pa-chip' + (_sm.memory ? ' on' : '') + '" onclick="smFlag(\'memory\')">Memory mode</button><button class="pa-chip' + (_sm.loop ? ' on' : '') + '" onclick="smFlag(\'loop\')">Loop</button></div>';
+  if (_sm.memory) h += '<div class="ls-sub">Section names are hidden. Call the next one out loud before it comes.</div>';
+  h += '<details class="ls-list"><summary>Edit sections</summary>' + _sm.secs.map((s, i) => '<div class="ls-plan"><span>' + slEsc(s[0]) + '</span><span class="sm-edit"><button class="fg-play" onclick="smBars(' + i + ',-4)">−</button> ' + s[1] + ' bars <button class="fg-play" onclick="smBars(' + i + ',4)">+</button> <button class="sl-rm" onclick="smDel(' + i + ')">✕</button></span></div>').join('') +
+    '<div class="sm-chips">' + SM_ADD.map(n => '<button class="pa-chip" onclick="smAdd(\'' + n + '\')">+ ' + n + '</button>').join('') + '</div><button class="ls-ghost" onclick="smTpl(\'' + _sm.tpl + '\')">Reset to ' + SM_TPL[_sm.tpl].n + ' layout</button></details>';
+  el.innerHTML = h;
+}
+function smTpl(k) { if (_sm.run) smStop(); _sm.tpl = k; _sm.secs = SM_TPL[k].s.map(x => x.slice()); smSave(); smRender(); }
+function smBpm(d) { _sm.bpm = Math.min(220, Math.max(40, _sm.bpm + d)); smSave(); smRender(); }
+function smStyle(k) { _sm.style = k; smSave(); smRender(); }
+function smFlag(k) { _sm[k] = !_sm[k]; smSave(); smRender(); }
+function smBars(i, d) { const s = _sm.secs[i]; if (!s) return; s[1] = Math.min(32, Math.max(4, s[1] + d)); smSave(); smRender(); }
+function smDel(i) { if (_sm.secs.length > 1) { _sm.secs.splice(i, 1); smSave(); smRender(); } }
+function smAdd(n) { if (_sm.secs.length >= 24) return; _sm.secs.push([n, /intro|outro|pre/i.test(n) ? 4 : 8]); smSave(); smRender(); }
+function smToggle() { if (_sm.run) smStop(); else smStart(); }
+function smStart() {
+  try { if (paIsRunning()) paStop(true); } catch (e) {}
+  const ctx = getACtx(); if (ctx.state === 'suspended') { try { ctx.resume(); } catch (e) {} }
+  _sm.run = true; _sm.step = 0; _smNext = ctx.currentTime + 0.1; smRender(); smTick();
+}
+function smStop(quiet) {
+  _sm.run = false; clearTimeout(_smTimer); smRender();
+  if (!quiet) { try { showToast('Song map stopped'); } catch (e) {} }
+}
+function smTick() {
+  if (!_sm.run) return;
+  const el = document.getElementById('sm-root'); if (!el || !el.offsetParent) { smStop(true); return; }
+  const ctx = getACtx(), st = PA_STYLES[_sm.style] || PA_STYLES.rock, tot = smTotal();
+  while (_smNext < ctx.currentTime + 0.12) {
+    const t = _smNext, delay = Math.max(0, (t - ctx.currentTime) * 1000), n = _sm.step;
+    if (n < 16) {
+      if (n % 4 === 0) { paClickTone(ctx, t, n === 0); const beat = n / 4; setTimeout(() => smShow(-1, beat, 0), delay); }
+    } else {
+      const m = n - 16, s = m % 16, bar = Math.floor(m / 16);
+      if (bar >= tot) { if (_sm.loop) { _sm.step = 16; _smNext = t; continue; } setTimeout(() => { smStop(true); try { showToast('Song map finished'); } catch (e) {} }, delay + 600); _sm.step = 1e9; break; }
+      if (st.click) { if (s % 4 === 0) paClickTone(ctx, t, s === 0); }
+      else {
+        if (st.kick.indexOf(s) >= 0) playKick(ctx, t);
+        if (st.snare.indexOf(s) >= 0) playSnare(ctx, t);
+        if (st.hat.indexOf(s) >= 0) playHihat(ctx, t, false);
+        const a = smAt(bar); if (s === 0 && a.b === 0) playCymbalCrash(ctx, t);
+      }
+      if (s % 4 === 0) setTimeout(() => smShow(bar, s / 4, 1), delay);
+    }
+    _sm.step++; _smNext += 60 / _sm.bpm / 4;
+  }
+  _smTimer = setTimeout(smTick, 25);
+}
+function smShow(bar, beat, play) {
+  if (!_sm.run) return;
+  const now = document.getElementById('sm-now'); if (!now) return;
+  document.querySelectorAll('.sm-seg').forEach(e => e.classList.remove('on'));
+  if (bar < 0) { now.innerHTML = '<div class="sm-big">' + (beat + 1) + '</div><div class="sm-sec">COUNT-IN</div>'; return; }
+  const a = smAt(bar), s = _sm.secs[a.i], nxt = _sm.secs[a.i + 1] || (_sm.loop ? _sm.secs[0] : null), left = s[1] - a.b;
+  const seg = document.getElementById('sm-seg' + a.i); if (seg) seg.classList.add('on');
+  const warn = !_sm.memory && nxt && left <= 2;
+  now.innerHTML = '<div class="sm-sec sm-' + smKind(s[0]) + '-t">' + (_sm.memory ? 'Bar ' + (a.b + 1) : slEsc(s[0].toUpperCase())) + '</div><div class="sm-bar">Bar ' + (a.b + 1) + ' of ' + s[1] + ' · beat ' + (beat + 1) + '</div>' + (warn ? '<div class="sm-next">NEXT: ' + slEsc(nxt[0].toUpperCase()) + (left === 1 ? ' NOW' : ' IN 2') + '</div>' : '') +
+    (_sm.memory && left <= 1 ? '<div class="sm-next">CHANGE COMING</div>' : '');
+}
+window.smRender = smRender; window.smTpl = smTpl; window.smBpm = smBpm; window.smStyle = smStyle; window.smFlag = smFlag; window.smBars = smBars; window.smDel = smDel; window.smAdd = smAdd; window.smToggle = smToggle;
+
+/* ── Weekly summary (top of Review) ── */
+function reviewWeekRender() {
+  const el = document.getElementById('review-week'); if (!el) return;
+  const iso = n => { const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString().slice(0, 10); };
+  const days = []; for (let i = 6; i >= 0; i--) { const k = iso(i), dd = getDayData(k) || {}; days.push({ k: k, mins: dd.mins || 0, sess: dd.sessions || 0, wd: new Date(k + 'T12:00:00').getDay() }); }
+  let prev = 0; for (let i = 7; i <= 13; i++) prev += (getDayData(iso(i)).mins || 0);
+  const mins = days.reduce((a, d) => a + d.mins, 0), act = days.filter(d => d.mins > 0).length, sess = days.reduce((a, d) => a + d.sess, 0);
+  const first = days[0].k; let lessons = 0;
+  try { lessons = lsHist().log.filter(l => new Date(l.ts).toISOString().slice(0, 10) >= first).length; } catch (e) {}
+  const mx = Math.max(10, ...days.map(d => d.mins)), WD = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  let snap = null; for (let i = 7; i <= 14 && !snap; i++) { try { snap = JSON.parse(localStorage.getItem(gpKey('grimoire_snap_' + iso(i))) || 'null'); } catch (e) {} }
+  const movers = []; if (snap) skillsData.forEach(s => { const now = Math.round(progValues[s.label] ?? s.pct), was = snap[s.label]; if (typeof was === 'number' && now - was > 0) movers.push({ l: s.label, d: now - was }); });
+  movers.sort((a, b) => b.d - a.d);
+  const ranked = skillsData.map(s => ({ l: s.label, v: Math.round(progValues[s.label] ?? s.pct) })).sort((a, b) => a.v - b.v), weak = ranked[0];
+  const lsk = weak ? LS_SKILLS.find(x => x.label === weak.l) : null;
+  const dl = mins - prev, delta = prev || mins ? (dl >= 0 ? '▲ ' + dl : '▼ ' + Math.abs(dl)) + ' vs last week' : '';
+  let h = '<div class="wk-card"><div class="wk-head"><span class="wk-eye">LAST 7 DAYS</span></div>';
+  h += '<div class="wk-tiles"><div class="wk-t"><b>' + mins + '</b><span>minutes</span></div><div class="wk-t"><b>' + act + '/7</b><span>days played</span></div><div class="wk-t"><b>' + lessons + '</b><span>lessons</span></div><div class="wk-t"><b>' + sess + '</b><span>sessions</span></div></div>';
+  if (delta) h += '<div class="wk-delta ' + (dl >= 0 ? 'trend-up' : 'trend-down') + '">' + delta + '</div>';
+  h += '<div class="wk-bars">' + days.map((d, i) => '<div class="wk-col"><div class="wk-bar' + (d.mins ? ' has' : '') + '" style="height:' + Math.max(3, Math.round(d.mins / mx * 44)) + 'px"></div><span class="' + (i === 6 ? 'now' : '') + '">' + WD[d.wd] + '</span></div>').join('') + '</div>';
+  if (!mins && !lessons) h += '<div class="wk-empty">Nothing logged in the last 7 days. A 10 minute lesson gets the week going.</div>';
+  else if (movers.length) h += '<div class="wk-lbl">SKILLS THAT MOVED</div>' + movers.slice(0, 3).map(m => '<div class="ls-plan"><span>' + slEsc(m.l) + '</span><span class="trend-up">+' + m.d + '%</span></div>').join('');
+  if (weak) h += '<div class="wk-lbl">NEXT WEEK</div><div class="wk-focus"><div>Focus on <b>' + slEsc(weak.l) + '</b> (' + weak.v + '%). It is your lowest skill right now.</div>' + (lsk ? '<button class="ls-go" onclick="goTo(\'lesson\',null);lsStartSkill(\'' + lsk.k + '\')">Start a lesson on it</button>' : '') + '</div>';
+  el.innerHTML = h + '</div>';
+}
+window.reviewWeekRender = reviewWeekRender;
+document.addEventListener('DOMContentLoaded', () => { try { resetMount(); smLoad(); } catch (e) {} });
 
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
