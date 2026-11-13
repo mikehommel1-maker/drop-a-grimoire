@@ -1233,6 +1233,25 @@ h3 {
 .plan-t{font-family:var(--mono);font-size:10px;color:var(--flame);min-width:44px}
 .plan-n{color:var(--pale)}
 .plan-go{width:100%;margin-top:12px;padding:12px;letter-spacing:2px}
+
+/* sound + songsterr */
+.snd-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.snd-btn{font-size:9px;padding:4px 12px;letter-spacing:1px}
+.snd-on{border-color:var(--flame)!important;background:rgba(145,38,248,.25)!important;color:#fff!important}
+.sl-prev-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+.sl-prev-btn{padding:6px 14px;font-family:var(--mono);font-size:8px;letter-spacing:1.5px;border-radius:5px;border:1px solid rgba(145,38,248,.35);background:rgba(145,38,248,.08);color:var(--pale);cursor:pointer}
+.sl-prev-btn:hover{background:rgba(145,38,248,.22)}
+.sl-prev-line{font-size:10px;color:var(--dim);line-height:1.4}
+.sl-prev-line a{color:var(--flame)}
+.sl-rm{margin-left:8px;background:none;border:0;color:var(--dim);font-family:var(--mono);font-size:8px;letter-spacing:1px;text-decoration:underline;cursor:pointer}
+.sl-add{margin:0 0 16px;padding:14px 16px;border:1px solid rgba(30,180,100,.3);border-left:3px solid rgba(30,180,100,.8);border-radius:var(--radius);background:rgba(30,180,100,.05)}
+.sl-add-h{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--pale);margin-bottom:6px}
+.sl-add-p{font-size:12px;color:var(--mid);line-height:1.5;margin-bottom:10px}
+.sl-add textarea,.sl-add-in{width:100%;box-sizing:border-box;background:rgba(5,4,14,.8);border:1px solid var(--wire);border-radius:6px;color:var(--pale);font-family:var(--mono);font-size:12px;padding:8px}
+.sl-add-in.need{border-color:var(--gold,#e8b84a)}
+.sl-add-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.sl-add-row .sl-filter{width:100%}
+.sl-add-actions{display:flex;gap:8px;margin-top:10px}
 /* keyboard focus and reduced motion */
 button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--flame,#c060ff);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
@@ -4107,6 +4126,7 @@ body{padding-top:52px}
   <div class="page-header">
     <div class="page-title">Fundamentals</div>
     <div class="page-lead" id="gp-fund-lead">Core concepts for your setup.</div>
+    <div class="snd-row" style="margin-top:10px"><button class="btn snd-btn" onclick="sndPlayOpenStrings(this)">🔊 Hear your open strings</button></div>
   </div>
   <!-- Page Coach -->
   <div class="pc-wrap" id="pc-wrap-fundamentals">
@@ -4227,7 +4247,11 @@ body{padding-top:52px}
     <div class="fret-key" id="fret-key"></div>
     <div id="fb-controls-row" style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;flex-wrap:wrap;gap:8px">
       <div style="font-family:var(--mono);font-size:9px;color:var(--dim)" id="fb-hint-txt">// CLICK DOT = HEAR NOTE &nbsp;·&nbsp; CLICK EMPTY SPACE = TOGGLE LABELS</div>
-      <button id="fb-mode-btn" class="btn" onclick="toggleFretboardMode()" style="font-size:9px;padding:4px 12px;letter-spacing:1px">≡ Show Note Names</button>
+      <div class="snd-row">
+        <button class="btn snd-btn" onclick="sndPlayScale(this)">▶ Hear scale</button>
+        <button class="btn snd-btn" onclick="sndPlayOpenStrings(this)">🔊 Hear open strings</button>
+        <button id="fb-mode-btn" class="btn" onclick="toggleFretboardMode()" style="font-size:9px;padding:4px 12px;letter-spacing:1px">≡ Show Note Names</button>
+      </div>
     </div>
   </div>
 
@@ -4953,9 +4977,11 @@ body{padding-top:52px}
           <option value="new">Not Started</option>
           <option value="learned">Learned</option>
         </select>
+        <button class="sl-filter" onclick="slToggleAdd()" style="cursor:pointer;border:1px solid rgba(30,180,100,.35);background:rgba(30,180,100,.08);color:rgba(100,220,150,.95)" title="Add songs from your Songsterr list">+ Add Songsterr</button>
         <button class="sl-filter" onclick="slRandomSong()" style="cursor:pointer;border:1px solid rgba(145,38,248,.3);background:rgba(145,38,248,.08);color:var(--pale)" title="Random song from current filters">⚄ Random</button>
       </div>
     </div>
+    <div id="sl-add-panel" style="display:none"></div>
     <div id="sl-song-grid"></div>
     <div id="sl-empty" style="display:none;text-align:center;padding:32px;font-family:var(--mono);font-size:11px;color:var(--dim)">No songs match that filter — try loosening the criteria</div>
   </div>
@@ -14252,6 +14278,7 @@ window.cofAddFullSet=function(){if(!selKey)return;const pp=gpGet(),majKey=selKey
 let _tabSamplePlaying=false,_tabSampleTimer=null,_tabSampleGain=null,_tabSampleBtnEl=null;
 function _stripTabHtml(str){return str.replace(/<[^>]+>/g,'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');}
 window.playTabBlock=function(encodedRows,bpm,btnEl){
+  try{sndStop();slPreviewStop();}catch(e){}
   if(_tabSamplePlaying){_stopTabSample();if(_tabSampleBtnEl&&_tabSampleBtnEl===btnEl)return;}
   let rows;try{rows=JSON.parse(decodeURIComponent(encodedRows));}catch(e){return;}
   if(!rows||!rows.length)return;
@@ -14828,6 +14855,7 @@ window.arpShowPos = function(arpId, pos, btn) {
 
 /* ── Songsterr URL builder ── */
 function slSongsterrUrl(title, artist) {
+  try { const d = ssDirectUrl(title, artist); if (d) return d; } catch (e) {}
   const q = encodeURIComponent(title + ' ' + artist);
   return `https://www.songsterr.com/a/wa/search?pattern=${q}`;
 }
@@ -16141,6 +16169,277 @@ window.instrPlanRender = instrPlanRender;
 window.instrPlanMins = instrPlanMins;
 window.instrPlanStart = instrPlanStart;
 
+
+/* ════ PHASE 4: SOUND SAMPLES + SONGSTERR TIE-INS ════ */
+/* Everything that talks to the network is optional and fails quietly back to the old behavior. */
+function slEsc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function slNorm(s) {
+  return String(s || '').toLowerCase().replace(/\(.*?\)|\[.*?\]/g, ' ').replace(/&/g, ' and ')
+    .replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+/* ── Synth playback (reuses the app's guitar voice) ── */
+let _sndTimer = null, _sndGain = null, _sndBtn = null, _sndLabel = '';
+function sndStop() {
+  clearTimeout(_sndTimer); _sndTimer = null;
+  if (_sndGain) { try { _sndGain.gain.setValueAtTime(0, getACtx().currentTime + 0.03); } catch (e) {} _sndGain = null; }
+  if (_sndBtn) { _sndBtn.textContent = _sndLabel; _sndBtn.classList.remove('snd-on'); _sndBtn = null; }
+}
+function sndStopAll() {
+  try { if (typeof _stopTabSample === 'function') _stopTabSample(); } catch (e) {}
+  sndStop();
+  slPreviewStop();
+}
+function sndMidiFreq(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+/* events: [{f:[freq,...], t:secondsFromStart, d:seconds}] */
+function sndPlayEvents(events, btn, idleLabel) {
+  const same = btn && _sndBtn === btn;
+  sndStopAll();
+  if (same) return;
+  ensureAudio().then(ctx => {
+    _sndGain = ctx.createGain();
+    _sndGain.gain.setValueAtTime(0.55, ctx.currentTime);
+    _sndGain.connect(ctx.destination);
+    const t0 = ctx.currentTime + 0.12; let end = 0;
+    events.forEach(ev => {
+      ev.f.forEach(fr => scheduleGuitarNote(ctx, _sndGain, fr, t0 + ev.t, ev.d));
+      end = Math.max(end, ev.t + ev.d);
+    });
+    _sndBtn = btn || null; _sndLabel = idleLabel || '';
+    if (btn) { btn.textContent = '■ Stop'; btn.classList.add('snd-on'); }
+    _sndTimer = setTimeout(sndStop, (0.12 + end + 0.7) * 1000);
+  });
+}
+function sndPlayScale(btn) {
+  try {
+    const sc = (typeof _fbScale !== 'undefined' && _fbScale) ? _fbScale : scalesData[0];
+    const tun = _fbTun(), base = tun.midi[tun.midi.length - 1] + 12;
+    const up = sc.dots.map(d => base + d).concat([base + 12]);
+    const seq = up.concat(up.slice(0, -1).reverse());
+    const STEP = 0.34;
+    sndPlayEvents(seq.map((m, i) => ({ f: [sndMidiFreq(m)], t: i * STEP, d: STEP * 1.1 })), btn, '▶ Hear scale');
+  } catch (e) {}
+}
+function sndPlayOpenStrings(btn) {
+  try {
+    const tun = _fbTun(), low2high = tun.midi.slice().reverse();
+    sndPlayEvents(low2high.map((m, i) => ({ f: [sndMidiFreq(m)], t: i * 0.75, d: 1.1 })), btn, '🔊 Hear open strings');
+  } catch (e) {}
+}
+window.sndPlayScale = sndPlayScale;
+window.sndPlayOpenStrings = sndPlayOpenStrings;
+
+/* ── 30 second previews (Apple's free iTunes Search API, loaded via JSONP so CORS does not matter) ── */
+const _slPrevCache = {};
+let _slPrevAudio = null, _slPrevId = null, _slPrevBtn = null;
+function slJsonp(url, ms) {
+  return new Promise((resolve, reject) => {
+    const cb = '_slcb' + Date.now() + Math.floor(Math.random() * 1e5);
+    const sc = document.createElement('script');
+    let done = false;
+    const cleanup = () => { clearTimeout(timer); try { delete window[cb]; } catch (e) { window[cb] = undefined; } if (sc.parentNode) sc.parentNode.removeChild(sc); };
+    const fail = () => { if (done) return; done = true; cleanup(); reject(new Error('jsonp failed')); };
+    const timer = setTimeout(fail, ms || 7000);
+    window[cb] = d => { if (done) return; done = true; cleanup(); resolve(d); };
+    sc.onerror = fail;
+    sc.src = url + (url.indexOf('?') > -1 ? '&' : '?') + 'callback=' + cb;
+    document.head.appendChild(sc);
+  });
+}
+function slPickPreview(song, results) {
+  const ta = slNorm(song.title), aa = slNorm(song.artist);
+  const bad = /\b(live|karaoke|tribute|cover|instrumental|remix|acoustic|demo|version|edit)\b/;
+  const titleHasBad = bad.test(String(song.title).toLowerCase());
+  let best = null, bestScore = 0;
+  results.forEach(r => {
+    if (!r || !r.previewUrl || !/^https:\/\//.test(r.previewUrl)) return;
+    const rt = slNorm(r.trackName), ra = slNorm(r.artistName);
+    if (!(ra === aa || ra.indexOf(aa) > -1 || aa.indexOf(ra) > -1)) return;
+    let sc = 0;
+    if (rt === ta) sc = 10; else if (rt.indexOf(ta) === 0 || ta.indexOf(rt) === 0) sc = 6; else if (rt.indexOf(ta) > -1) sc = 3; else return;
+    if (!titleHasBad && bad.test(String(r.trackName || '').toLowerCase())) sc -= 5;
+    if (sc > bestScore) { best = r; bestScore = sc; }
+  });
+  return bestScore > 0 ? best : null;
+}
+function slPreviewStop() {
+  if (_slPrevAudio) { try { _slPrevAudio.pause(); } catch (e) {} _slPrevAudio = null; }
+  if (_slPrevBtn) { _slPrevBtn.textContent = '🔊 HEAR A PREVIEW'; _slPrevBtn.classList.remove('snd-on'); }
+  _slPrevBtn = null; _slPrevId = null;
+}
+async function slPreview(id, btn) {
+  if (_slPrevId === id) { slPreviewStop(); return; }
+  sndStopAll();
+  const song = (typeof SL_SONGS !== 'undefined' ? SL_SONGS : []).find(x => x.id === id);
+  if (!song) return;
+  const line = document.getElementById('sl-prev-' + id);
+  const reset = msg => { btn.textContent = '🔊 HEAR A PREVIEW'; btn.classList.remove('snd-on'); if (line) line.textContent = msg || ''; };
+  btn.textContent = 'SEARCHING...';
+  try {
+    let hit = _slPrevCache[id];
+    if (hit === undefined) {
+      const q = encodeURIComponent(song.artist + ' ' + song.title);
+      const d = await slJsonp('https://itunes.apple.com/search?term=' + q + '&media=music&entity=song&limit=10&country=us', 7000);
+      hit = slPickPreview(song, (d && d.results) || []);
+      _slPrevCache[id] = hit || null;
+    }
+    if (!hit) { reset('No preview found for this one. Try the YouTube link.'); return; }
+    const a = new Audio(hit.previewUrl);
+    a.onended = slPreviewStop;
+    _slPrevAudio = a; _slPrevId = id; _slPrevBtn = btn;
+    btn.textContent = '■ STOP'; btn.classList.add('snd-on');
+    const link = (hit.trackViewUrl && /^https:\/\//.test(hit.trackViewUrl)) ? ' · <a href="' + slEsc(hit.trackViewUrl) + '" target="_blank" rel="noopener">Apple Music</a>' : '';
+    if (line) line.innerHTML = '<b>' + slEsc(hit.trackName) + '</b> by ' + slEsc(hit.artistName) + link + ' · 30s preview';
+    await a.play();
+  } catch (e) {
+    slPreviewStop();
+    reset('Preview is not available right now.');
+  }
+}
+window.slPreview = slPreview;
+
+/* ── Songsterr: direct tab links when we can resolve them ── */
+const SS_KEY = 'grimoire_songsterr_ids';
+function ssKey(title, artist) { return slNorm(artist) + '|' + slNorm(title); }
+function ssLoad() { try { return JSON.parse(localStorage.getItem(SS_KEY) || '{}') || {}; } catch (e) { return {}; } }
+function ssSave(m) {
+  try { localStorage.setItem(SS_KEY, JSON.stringify(m)); } catch (e) {}
+  try { if (typeof syncSchedulePush === 'function') syncSchedulePush(); } catch (e) {}
+}
+function ssDirectUrl(title, artist) {
+  const sid = ssLoad()[ssKey(title, artist)];
+  return sid ? 'https://www.songsterr.com/a/wa/song?id=' + encodeURIComponent(sid) : null;
+}
+function ssPickMatch(song, list) {
+  const ta = slNorm(song.title), aa = slNorm(song.artist);
+  const arr = Array.isArray(list) ? list : (list && Array.isArray(list.songs) ? list.songs : []);
+  for (const it of arr) {
+    const art = typeof it.artist === 'string' ? it.artist : (it.artist && it.artist.name) || '';
+    const id = it.id != null ? it.id : it.songId;
+    if (id == null) continue;
+    const rt = slNorm(it.title), ra = slNorm(art);
+    if (rt === ta && (ra === aa || ra.indexOf(aa) > -1 || aa.indexOf(ra) > -1)) return String(id);
+  }
+  return null;
+}
+async function ssResolve(song) {
+  if (!song || ssDirectUrl(song.title, song.artist)) return;
+  try {
+    const ctl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    const to = setTimeout(() => { if (ctl) ctl.abort(); }, 4500);
+    const r = await fetch('https://www.songsterr.com/api/songs?size=8&pattern=' + encodeURIComponent(song.artist + ' ' + song.title), ctl ? { signal: ctl.signal } : undefined);
+    clearTimeout(to);
+    if (!r.ok) return;
+    const sid = ssPickMatch(song, await r.json());
+    if (!sid) return;
+    const m = ssLoad(); m[ssKey(song.title, song.artist)] = sid; ssSave(m);
+    const a = document.querySelector('[data-song-id="' + song.id + '"] .sl-songsterr-btn');
+    if (a) { a.href = ssDirectUrl(song.title, song.artist); a.title = 'Opens the exact tab'; }
+  } catch (e) { /* blocked or offline: the search link keeps working */ }
+}
+function ssResolveById(id) {
+  const song = (typeof SL_SONGS !== 'undefined' ? SL_SONGS : []).find(x => x.id === id);
+  if (song) ssResolve(song);
+}
+
+/* ── My songs from Songsterr: paste links or "Artist - Title" ── */
+const CS_KEY = 'grimoire_custom_songs';
+function csLoad() { try { const a = JSON.parse(localStorage.getItem(CS_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+function csSave(a) {
+  try { localStorage.setItem(CS_KEY, JSON.stringify(a)); } catch (e) {}
+  try { if (typeof syncSchedulePush === 'function') syncSchedulePush(); } catch (e) {}
+}
+function csApply() {
+  csLoad().forEach(c => { if (c && c.id && !SL_SONGS.some(x => x.id === c.id)) SL_SONGS.push(c); });
+}
+csApply();
+
+const CS_GENRE_FOR_TUNING = { drop_a:'deathcore', std_b:'djent', std_e:'indie_rock', std_d:'grunge', drop_d:'grunge', drop_c:'metalcore' };
+const CS_TUNING_LABELS = { drop_a:'Drop A (Schecter PT 7)', std_b:'Standard B (Fender 7)', std_e:'Standard E (Gibson SG)', std_d:'Standard D (Les Paul)', drop_d:'Drop D (Squier)', drop_c:'Drop C (Schecter Demon)' };
+let _slAddRows = [];
+
+function slSlug(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+function slTitleCase(s) { return s.replace(/-/g, ' ').replace(/\b[a-z]/g, c => c.toUpperCase()); }
+function slParseSongLines(text) {
+  const known = {};
+  SL_SONGS.forEach(s => { known[slSlug(s.artist)] = s.artist; });
+  const keys = Object.keys(known).sort((a, b) => b.length - a.length);
+  return String(text || '').split(/\r?\n/).map(l => l.trim()).filter(Boolean).slice(0, 40).map(line => {
+    let m = line.match(/songsterr\.com\/a\/(?:wsa|wa)\/([a-z0-9%-]+?)-(?:bass-tab|drum-tab|chords|tab)-s(\d+)/i);
+    if (m) {
+      const slug = decodeURIComponent(m[1]).toLowerCase(), sid = m[2];
+      const k = keys.find(x => slug.indexOf(x + '-') === 0);
+      return k ? { artist: known[k], title: slTitleCase(slug.slice(k.length + 1)), sid: sid }
+               : { artist: '', title: slTitleCase(slug), sid: sid };
+    }
+    m = line.match(/songsterr\.com\/a\/wa\/song\?id=(\d+)/i);
+    if (m) return { artist: '', title: '', sid: m[1] };
+    let by = line.match(/^(.+?)\s+by\s+(.+)$/i);
+    if (by) return { artist: by[2].trim(), title: by[1].trim(), sid: null };
+    const dash = line.split(/\s+[-–]\s+/);
+    if (dash.length >= 2) return { artist: dash[0].trim(), title: dash.slice(1).join(' - ').trim(), sid: null };
+    return { artist: '', title: line, sid: null };
+  });
+}
+function slToggleAdd() {
+  const p = document.getElementById('sl-add-panel'); if (!p) return;
+  if (p.style.display === 'none' || !p.style.display) { p.style.display = 'block'; slAddStep1(); } else { p.style.display = 'none'; }
+}
+function slAddStep1() {
+  const p = document.getElementById('sl-add-panel'); if (!p) return;
+  p.innerHTML = '<div class="sl-add"><div class="sl-add-h">ADD SONGS FROM SONGSTERR</div>' +
+    '<div class="sl-add-p">Open Songsterr while signed in, copy the link of any tab you want, and paste it here. One per line. You can also type <b>Artist - Title</b>. Added songs get the same Learn This Song tracking as the rest.</div>' +
+    '<textarea id="sl-add-text" rows="4" placeholder="https://www.songsterr.com/a/wsa/...-tab-s12345&#10;Artist - Title"></textarea>' +
+    '<div class="sl-add-actions"><button class="btn" onclick="slAddParse()">NEXT</button><button class="btn" onclick="slToggleAdd()">CANCEL</button></div></div>';
+}
+function slAddParse() {
+  const t = document.getElementById('sl-add-text');
+  _slAddRows = slParseSongLines(t ? t.value : '');
+  if (!_slAddRows.length) { try { showToast('Paste at least one link or Artist - Title'); } catch (e) {} return; }
+  const act = slGetActiveTuningKey();
+  const p = document.getElementById('sl-add-panel');
+  const tunOpts = sel => Object.keys(CS_TUNING_LABELS).map(k => '<option value="' + k + '"' + (k === sel ? ' selected' : '') + '>' + CS_TUNING_LABELS[k] + '</option>').join('');
+  const genreOpts = sel => Object.keys(SL_GENRE_LABELS).map(k => '<option value="' + k + '"' + (k === sel ? ' selected' : '') + '>' + SL_GENRE_LABELS[k] + '</option>').join('');
+  const rows = _slAddRows.map((r, i) =>
+    '<div class="sl-add-row">' +
+    '<input class="sl-add-in' + (r.artist ? '' : ' need') + '" id="sl-ar-' + i + '" value="' + slEsc(r.artist) + '" placeholder="Artist">' +
+    '<input class="sl-add-in' + (r.title ? '' : ' need') + '" id="sl-ti-' + i + '" value="' + slEsc(r.title) + '" placeholder="Song title">' +
+    '<select class="sl-filter" id="sl-tu-' + i + '">' + tunOpts(act) + '</select>' +
+    '<select class="sl-filter" id="sl-ge-' + i + '">' + genreOpts(CS_GENRE_FOR_TUNING[act] || 'metalcore') + '</select>' +
+    '<select class="sl-filter" id="sl-di-' + i + '"><option value="1">Beginner</option><option value="2" selected>Intermediate</option><option value="3">Advanced</option><option value="4">Expert</option></select>' +
+    '</div>').join('');
+  p.innerHTML = '<div class="sl-add"><div class="sl-add-h">CHECK THE DETAILS</div>' +
+    '<div class="sl-add-p">Fill in anything highlighted. Pick the tuning shown on the Songsterr tab, since that decides which guitar the song appears under.</div>' + rows +
+    '<div class="sl-add-actions"><button class="btn" onclick="slAddCommit()">ADD ' + _slAddRows.length + ' SONG' + (_slAddRows.length > 1 ? 'S' : '') + '</button><button class="btn" onclick="slAddStep1()">BACK</button></div></div>';
+}
+function slAddCommit() {
+  const list = csLoad(); const keys = new Set(SL_SONGS.map(s => ssKey(s.title, s.artist)));
+  let added = 0, skipped = 0, bad = 0; const map = ssLoad();
+  _slAddRows.forEach((r, i) => {
+    const artist = (document.getElementById('sl-ar-' + i) || {}).value || '', title = (document.getElementById('sl-ti-' + i) || {}).value || '';
+    if (!artist.trim() || !title.trim()) { bad++; return; }
+    const k = ssKey(title, artist);
+    if (keys.has(k)) { skipped++; return; }
+    keys.add(k);
+    const song = { id: 'cs_' + Date.now().toString(36) + i, title: title.trim(), artist: artist.trim(), diff: parseInt((document.getElementById('sl-di-' + i) || {}).value, 10) || 2,
+      genre: (document.getElementById('sl-ge-' + i) || {}).value || 'metalcore', tunings: [(document.getElementById('sl-tu-' + i) || {}).value || 'std_e'],
+      techniques: [], why: 'Added from your Songsterr list.', skillReq: {}, custom: true };
+    list.push(song); SL_SONGS.push(song); if (r.sid) map[k] = r.sid; added++;
+  });
+  csSave(list); ssSave(map);
+  const msg = added + ' song' + (added === 1 ? '' : 's') + ' added' + (skipped ? ', ' + skipped + ' already in Song Lab' : '') + (bad ? ', ' + bad + ' need an artist and title' : '');
+  try { showToast(msg); } catch (e) {}
+  if (!bad) { const p = document.getElementById('sl-add-panel'); if (p) p.style.display = 'none'; }
+  slFilterSongs();
+}
+function slRemoveCustom(id) {
+  csSave(csLoad().filter(c => c.id !== id));
+  const i = SL_SONGS.findIndex(x => x.id === id); if (i > -1) SL_SONGS.splice(i, 1);
+  slFilterSongs();
+}
+window.slToggleAdd = slToggleAdd; window.slAddStep1 = slAddStep1; window.slAddParse = slAddParse;
+window.slAddCommit = slAddCommit; window.slRemoveCustom = slRemoveCustom;
+
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
   const id = window._GP_ACTIVE || '7drop';
@@ -16213,6 +16512,7 @@ function slSongGuitars(song) {
 }
 
 function slFilterSongs() {
+  csApply();
   slUpdateLead();
   const genreVal  = document.getElementById('sl-filter-genre')?.value || '';
   const diffVal   = document.getElementById('sl-filter-diff')?.value || '';
@@ -16301,11 +16601,11 @@ function slFilterSongs() {
         <div class="sl-card-diff ${diffClasses[s.diff]}">${diffLabels[s.diff]}</div>
       </div>
       <div class="sl-card-body">
-        <div class="sl-card-title">${s.title}</div>
-        <div class="sl-card-artist">${s.artist}</div>
+        <div class="sl-card-title">${slEsc(s.title)}</div>
+        <div class="sl-card-artist">${slEsc(s.artist)}${s.custom ? ` <button class="sl-rm" onclick="slRemoveCustom('${s.id}')" title="Remove from Song Lab">remove</button>` : ''}</div>
         ${!tuningOk ? `<div class="sl-wrong-tuning-msg">Not playable on ${SL_TUNING_GUITARS[filterTuning]||filterTuning} — switch guitar to unlock</div>` : ''}
         <div class="sl-tuning-chips">${tuningChips}</div>
-        <div class="sl-card-why">${s.why}</div>
+        <div class="sl-card-why">${slEsc(s.why)}</div>
         <div class="sl-card-techs">
           <span class="sl-card-tech sl-card-genre">${SL_GENRE_LABELS[s.genre]||s.genre||''}</span>
           ${s.techniques.map(t => `<span class="sl-card-tech">${techLabels[t]||t}</span>`).join('')}
@@ -16313,9 +16613,10 @@ function slFilterSongs() {
         ${tuningOk && window.instrSongHtml ? window.instrSongHtml(s) : ''}
         ${!unlocked && tuningOk ? `<div style="font-family:var(--mono);font-size:8px;color:var(--dim);margin-bottom:8px">Needs: ${skillNeeds}</div>` : ''}
         <div class="sl-ai-song-links" style="${tuningOk ? '' : 'opacity:.4;pointer-events:none'}">
-          <a href="${slSongsterrUrl(s.title, s.artist)}" target="_blank" class="sl-songsterr-btn">🎸 Songsterr</a>
+          <a href="${slSongsterrUrl(s.title, s.artist)}" target="_blank" rel="noopener" class="sl-songsterr-btn" onpointerenter="ssResolveById('${s.id}')" onfocus="ssResolveById('${s.id}')" ontouchstart="ssResolveById('${s.id}')">🎸 Songsterr</a>
           <a href="${slYoutubeUrl(s.title, s.artist)}" target="_blank" class="sl-youtube-btn">▶ YouTube</a>
         </div>
+        <div class="sl-prev-row" style="${tuningOk ? '' : 'opacity:.4;pointer-events:none'}"><button class="sl-prev-btn" onclick="slPreview('${s.id}', this)">🔊 HEAR A PREVIEW</button><span class="sl-prev-line" id="sl-prev-${s.id}"></span></div>
         ${tuningOk && window.slLearnHtml ? window.slLearnHtml(s) : ''}
       </div>
     </div>`;
