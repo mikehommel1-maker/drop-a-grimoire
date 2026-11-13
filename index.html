@@ -1259,6 +1259,52 @@ h3 {
 .sl-sp-box iframe{border-radius:12px;border:0;display:block}
 .sl-sp-attach{display:flex;gap:6px;align-items:center}
 .sl-sp-attach .sl-add-in{flex:1}
+
+/* finger guide */
+.fg-tab-btn{font-size:11px}
+.fg-panel:empty{display:none}
+.fg-panel{margin-top:10px;padding:10px;border:1px solid rgba(145,38,248,.25);border-radius:8px;background:rgba(10,6,24,.6)}
+.fg-open{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;margin:6px 6px 0 0;font-family:var(--mono);font-size:9px;letter-spacing:1.5px;border-radius:6px;border:1px solid rgba(145,38,248,.45);background:rgba(145,38,248,.12);color:var(--pale);cursor:pointer}
+.fg-open:hover{background:rgba(145,38,248,.28)}
+.fg-riff-btn{margin:0 0 0 8px;padding:3px 8px}
+.fg-chips{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 0 4px}
+.fg-chips-l{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--dim);margin-right:4px}
+.fg-chip{padding:5px 11px;border-radius:14px;border:1px solid rgba(200,120,255,.5);background:rgba(145,38,248,.15);color:#fff;font-family:var(--mono);font-size:11px;cursor:pointer}
+.fg-chip-note{border-color:rgba(100,220,150,.5);background:rgba(30,180,100,.1)}
+.fg-block{margin-top:6px}
+.fg-modal{display:none;position:fixed;inset:0;z-index:9800;background:rgba(0,0,0,.72);align-items:flex-end;justify-content:center}
+.fg-sheet{width:100%;max-width:560px;max-height:92vh;overflow:auto;background:#0b0818;border:1px solid rgba(145,38,248,.4);border-radius:16px 16px 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+@media (min-width:700px){.fg-modal{align-items:center}.fg-sheet{border-radius:16px}}
+.fg-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.fg-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:4px;color:var(--flame)}
+.fg-sub{font-size:12px;color:var(--mid);margin-top:3px}
+.fg-x{background:none;border:0;color:var(--dim);font-size:26px;line-height:1;cursor:pointer;padding:0 4px}
+.fg-tabs{display:flex;gap:6px;margin:12px 0}
+.fg-tab{flex:1;padding:9px 6px;border-radius:8px;border:1px solid var(--wire);background:none;color:var(--mid);font-family:var(--mono);font-size:10px;letter-spacing:1px;cursor:pointer}
+.fg-tab.on{background:rgba(145,38,248,.22);border-color:var(--flame);color:#fff}
+.fg-lbl{font-family:var(--mono);font-size:8px;letter-spacing:3px;color:var(--dim);margin:10px 0 6px}
+.fg-pills{display:flex;flex-wrap:wrap;gap:5px}
+.fg-pill{min-width:38px;padding:7px 6px;border-radius:7px;border:1px solid var(--wire);background:none;color:var(--mid);font-family:var(--mono);font-size:12px;cursor:pointer}
+.fg-pill.on{background:#8822ee;border-color:#c466ff;color:#fff}
+.fg-select{width:100%;padding:9px;border-radius:7px;border:1px solid var(--wire);background:rgba(5,4,14,.8);color:var(--pale);font-family:var(--mono);font-size:12px}
+.fg-title{font-size:14px;font-weight:700;color:var(--pale);margin:16px 0 8px}
+.fg-voice{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;padding:10px 0;border-top:1px solid rgba(255,255,255,.06)}
+.fg-voice-svg{flex:0 0 auto;max-width:100%}
+.fg-voice-svg svg{display:block;max-width:100%;height:auto}
+.fg-voice-txt{flex:1 1 180px;min-width:0}
+.fg-voice-h{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;color:var(--flame);margin-bottom:6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.fg-steps{margin:0;padding-left:18px;font-size:12px;color:var(--mid);line-height:1.6}
+.fg-play{padding:5px 11px;border-radius:6px;border:1px solid rgba(145,38,248,.45);background:rgba(145,38,248,.12);color:var(--pale);font-family:var(--mono);font-size:10px;cursor:pointer}
+.fg-note{font-size:11px;color:var(--dim);line-height:1.5;margin:8px 0}
+.fg-legend{font-size:10px;color:var(--dim);line-height:1.5;margin:8px 0 6px}
+.fg-list{margin:8px 0;padding-left:18px;font-size:12px;color:var(--mid);line-height:1.7}
+.fg-strings{display:grid;gap:6px;margin:10px 0}
+.fg-str{display:flex;align-items:center;gap:12px;padding:8px 10px;border:1px solid var(--wire);border-radius:8px;font-size:12px;color:var(--mid)}
+.fg-str b{font-size:16px;color:#fff;min-width:28px}
+.fg-str .fg-play{margin-left:auto}
+.fg-all{width:100%;margin-top:6px;padding:10px}
+body.fg-open-body{overflow:hidden}
+#pbm-fg{margin-top:10px}
 /* keyboard focus and reduced motion */
 button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--flame,#c060ff);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
@@ -5832,6 +5878,8 @@ function loadFromPlan(plan) {
     bpm: b.bpm || 80,
     skill: b.skill || null,
     detail: b.detail || '',
+    tab: b.tab || null,
+    fingerTips: b.fingerTips || null,
     secsLeft: b.mins * 60,
     done: false
   }));
@@ -6077,7 +6125,7 @@ function makeTab(label, rows, comment, legend, showDiagram = false) {
   const cleanRows = rows.map(r => [r[0], r[1].replace(/<[^>]+>/g,'')]);
   const encodedRows = encodeURIComponent(JSON.stringify(cleanRows));
   const bpmHint = comment ? (comment.match(/(\d{2,3})\s*BPM/i)?.[1] || 80) : 80;
-  const playBtn = `<button class="tab-play-btn" onclick="event.stopPropagation();playTabBlock('${encodedRows}',${bpmHint},this)" title="Hear this tab">▶</button>`;
+  const playBtn = `<button class="tab-play-btn" onclick="event.stopPropagation();playTabBlock('${encodedRows}',${bpmHint},this)" title="Hear this tab">▶</button>${cleanRows.some(r => /\d/.test(r[1])) ? `<button class="tab-play-btn fg-tab-btn" data-rows="${encodedRows}" onclick="event.stopPropagation();fgToggleTab(this)" title="Show finger positions" aria-label="Show finger positions">🖐</button>` : ''}`;
   const tabBlock = `
     <div class="tab-block">
       <div class="tab-block-header"><div class="tab-block-label">${label}</div>${playBtn}</div>
@@ -7292,7 +7340,7 @@ function renderBlocks() {
         <div class="block-detail-inner">
           <div class="block-detail-text">${b.detail}</div>
           ${fingerTipsHtml}
-          ${blockDiagram ? `<div style="margin-top:10px">${blockDiagram}</div>` : ''}
+          ${window.fgBlockHtml ? window.fgBlockHtml(b, i) : (blockDiagram ? `<div style="margin-top:10px">${blockDiagram}</div>` : '')}
           <div class="block-detail-actions">
             <button class="block-jump-btn" onclick="event.stopPropagation(); jumpToBlock(${i})">
               ▶ ${isActive ? 'Current Block' : 'Jump Here + Set BPM'}
@@ -8089,6 +8137,7 @@ function openPlanBlockModal(blockIdx, planObj) {
     <span class="pbm-badge" style="border-color:var(--gold);color:var(--gold)">♩ ${b.bpm||'—'} BPM</span>
     ${b.skill ? `<span class="pbm-badge" style="border-color:var(--wire);color:var(--dim)">${b.skill}</span>` : ''}`;
   document.getElementById('pbm-body').textContent = b.detail || b.label;
+  const pf = document.getElementById('pbm-fg'); if (pf && window.fgChipsHtml) pf.innerHTML = fgChipsHtml((b.label || '') + ' ' + (b.detail || ''), true);
   const modal = document.getElementById('plan-block-modal');
   modal.style.display = 'flex';
 }
@@ -11445,6 +11494,7 @@ function updateFocusDisplay() {
           <div style="font-size:13px;color:rgba(220,200,255,0.9);line-height:1.6;text-align:center;max-width:440px;margin:0 auto">${b.fingerTips}</div>
         </div>`;
       }
+      if (window.fgFocusHtml) html += window.fgFocusHtml(b);
       detailEl.innerHTML = html;
       detailEl.classList.add('visible');
     } else {
@@ -12154,7 +12204,7 @@ function renderRiff() {
         <div class="riff-tab-block" style="border-left-color:${col}">
           <div class="riff-tab-header">
             <span class="riff-tab-genre-lbl">// ${r.genre.toUpperCase()} — TAB NOTATION (e=high, A7=low)</span>
-            <span class="riff-tab-bpm">♩${r.bpm} BPM</span>
+            <span class="riff-tab-bpm">♩${r.bpm} BPM <button class="fg-open fg-riff-btn" onclick="fgToggleRiff(this)">🖐 Fingers</button></span>
           </div>
           ${tabRows}
           <div class="riff-picking-row">
@@ -16593,6 +16643,470 @@ function slRemoveCustom(id) {
 window.slToggleAdd = slToggleAdd; window.slAddStep1 = slAddStep1; window.slAddParse = slAddParse;
 window.slAddCommit = slAddCommit; window.slRemoveCustom = slRemoveCustom;
 
+
+/* ════ PHASE 5: FINGER GUIDE (chord shapes, note positions, tab fingering, for the active guitar) ════ */
+const FG_PC = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const FG_FLAT = { Db:'C#', Eb:'D#', Gb:'F#', Ab:'G#', Bb:'A#', Cb:'B', Fb:'E' };
+const FG_QUAL = [
+  { k:'',     label:'Major',      iv:[0,4,7] },
+  { k:'m',    label:'Minor',      iv:[0,3,7] },
+  { k:'5',    label:'Power (5)',  iv:[0,7], power:true },
+  { k:'7',    label:'Dominant 7', iv:[0,4,7,10] },
+  { k:'maj7', label:'Major 7',    iv:[0,4,7,11] },
+  { k:'m7',   label:'Minor 7',    iv:[0,3,7,10] },
+  { k:'sus2', label:'Sus 2',      iv:[0,2,7] },
+  { k:'sus4', label:'Sus 4',      iv:[0,5,7] },
+  { k:'dim',  label:'Diminished', iv:[0,3,6] },
+  { k:'aug',  label:'Augmented',  iv:[0,4,8] },
+  { k:'6',    label:'Major 6',    iv:[0,4,7,9] },
+  { k:'add9', label:'Add 9',      iv:[0,2,4,7] },
+];
+const FG_FINGER = { 1:'index', 2:'middle', 3:'ring', 4:'pinky' };
+function fgTun() {
+  const t = _fbTun(), midi = t.midi.slice().reverse(), names = t.names.slice().reverse();
+  return { midi: midi, names: names, n: midi.length };
+}
+function fgPcOf(name) {
+  const m = String(name || '').match(/^([A-G])([#b]?)/); if (!m) return -1;
+  let nm = m[1] + m[2]; if (FG_FLAT[nm]) nm = FG_FLAT[nm];
+  return FG_PC.indexOf(nm);
+}
+function fgChordName(root, qk) { return root + qk; }
+function fgParseChord(str) {
+  const m = String(str || '').trim().match(/^([A-G][#b]?)(maj7|m7|m6|dim7|dim|aug|sus2|sus4|add9|m|5|6|7|9|)$/);
+  if (!m) return null;
+  const q = FG_QUAL.find(x => x.k === m[2]) || (m[2] === '9' ? { k:'9', label:'Dominant 9', iv:[0,4,7,10,2] } : m[2] === 'm6' ? { k:'m6', label:'Minor 6', iv:[0,3,7,9] } : m[2] === 'dim7' ? { k:'dim7', label:'Dim 7', iv:[0,3,6,9] } : null);
+  const pc = fgPcOf(m[1]); if (!q || pc < 0) return null;
+  return { name: str, root: FG_PC[pc], pc: pc, q: q };
+}
+
+/* Finger assignment: one finger per fret by default, a flat finger across same-fret notes on power chords,
+   and an index barre when a chord needs more than four fingers. Returns null if it cannot be played. */
+function fgAssign(frets, power) {
+  const fr = []; frets.forEach((f, i) => { if (f > 0) fr.push({ i: i, f: f }); });
+  const res = { fingers: frets.map(() => 0), barre: null, count: 0 };
+  if (!fr.length) return res;
+  const minF = Math.min.apply(null, fr.map(x => x.f)), maxF = Math.max.apply(null, fr.map(x => x.f));
+  if (maxF - minF > 3) return null;
+  const sounding = frets.map((f, i) => f >= 0 ? i : -1).filter(i => i >= 0);
+  const group = {}; fr.forEach(x => { (group[x.f] = group[x.f] || []).push(x.i); });
+  const useBarre = power || fr.length > 4;
+  let cur = 1;
+  const fretsAsc = Object.keys(group).map(Number).sort((a, b) => a - b);
+  for (let gi = 0; gi < fretsAsc.length; gi++) {
+    const f = fretsAsc[gi], strs = group[f].sort((a, b) => a - b);
+    let want = Math.max(cur, 1 + (f - minF));
+    if (useBarre && (power || f === minF) && strs.length >= 2) {
+      if (f === minF) {
+        const lo = strs[0], hi = strs[strs.length - 1];
+        if (sounding.some(si => si > lo && si < hi && frets[si] === 0)) return null;
+        res.barre = { fret: f, from: lo, to: hi, finger: want };
+      }
+      strs.forEach(si => { res.fingers[si] = want; });
+      cur = want + 1;
+    } else {
+      strs.forEach(si => { res.fingers[si] = want; want++; });
+      cur = want;
+    }
+    if (cur - 1 > 4) return null;
+  }
+  const used = {}; res.fingers.forEach(x => { if (x) used[x] = 1; });
+  res.count = Object.keys(used).length;
+  if (res.count > 4 || Math.max.apply(null, res.fingers) > 4) return null;
+  return res;
+}
+
+
+/* The shapes every teacher shows first (written for standard E tuning, then moved to the active tuning). */
+const FG_CANON = {
+  '': { E:'0 2 2 1 0 0', A:'x 0 2 2 2 0', D:'x x 0 2 3 2', G:'3 2 0 0 0 3', C:'x 3 2 0 1 0', F:'1 3 3 2 1 1', B:'x 2 4 4 4 2' },
+  'm': { E:'0 2 2 0 0 0', A:'x 0 2 2 1 0', D:'x x 0 2 3 1', B:'x 2 4 4 3 2', 'F#':'2 4 4 2 2 2', G:'3 5 5 3 3 3', C:'x 3 5 5 4 3' },
+  '7': { E:'0 2 0 1 0 0', A:'x 0 2 0 2 0', D:'x x 0 2 1 2', G:'3 2 0 0 0 1', C:'x 3 2 3 1 0', B:'x 2 1 2 0 2' },
+  'maj7': { E:'0 2 1 1 0 0', A:'x 0 2 1 2 0', D:'x x 0 2 2 2', C:'x 3 2 0 0 0', G:'3 2 0 0 0 2', F:'x x 3 2 1 0' },
+  'm7': { E:'0 2 0 0 0 0', A:'x 0 2 0 1 0', D:'x x 0 2 1 1' },
+  'sus2': { A:'x 0 2 2 0 0', D:'x x 0 2 3 0', E:'0 2 4 4 0 0' },
+  'sus4': { A:'x 0 2 2 3 0', D:'x x 0 2 3 3', E:'0 2 2 2 0 0' },
+};
+const FG_ESTD = [40, 45, 50, 55, 59, 64];
+function fgCanonical(chord) {
+  const T = fgTun(), n = T.n; if (n < 6) return null;
+  const tab = FG_CANON[chord.q.k]; if (!tab) return null;
+  const d = T.midi[n - 1] - 64;
+  for (let j = 1; j < 6; j++) if (T.midi[n - 6 + j] !== FG_ESTD[j] + d) return null;
+  const nm = FG_PC[((chord.pc - d) % 12 + 12) % 12]; const shape = tab[nm]; if (!shape) return null;
+  const f6 = shape.split(' '), frets = [];
+  for (let i = 0; i < n - 6; i++) frets.push(-1);
+  for (let j = 0; j < 6; j++) {
+    if (f6[j] === 'x') { frets.push(-1); continue; }
+    const fr = FG_ESTD[j] + parseInt(f6[j], 10) + d - T.midi[n - 6 + j];
+    if (fr < 0 || fr > 12) return null; frets.push(fr);
+  }
+  const a = fgAssign(frets, false); if (!a) return null;
+  const opens = frets.filter(f => f === 0).length, fretted = frets.filter(f => f > 0);
+  return { frets: frets, a: a, cost: 0, opens: opens, minF: fretted.length ? Math.min.apply(null, fretted) : 0, snd: frets.filter(f => f >= 0).length, chord: chord, label: 'Standard shape', canon: true };
+}
+
+/* Find playable root-position shapes for a chord on the active tuning, best first. */
+function fgVoicings(chord, maxResults) {
+  const T = fgTun(), n = T.n, power = !!chord.q.power;
+  const tones = chord.q.iv.map(x => (chord.pc + x) % 12);
+  const set = {}; tones.forEach(t => { set[t] = 1; });
+  const fifth = (chord.pc + 7) % 12;
+  const required = tones.filter(t => !(tones.length >= 4 && t === fifth));
+  const out = [];
+  const minStr = power ? 2 : Math.min(4, n);
+  const maxStr = power ? 3 : n;
+  function rec(i, frets, mn, mx) {
+    const sounded = frets.filter(f => f >= 0).length;
+    if (sounded >= minStr) finish(frets);
+    if (i === n || sounded >= maxStr) return;
+    for (let f = 0; f <= 12; f++) {
+      const pc = (T.midi[i] + f) % 12;
+      if (!set[pc]) continue;
+      if (sounded === 0 && pc !== chord.pc) continue;
+      let nmn = mn, nmx = mx;
+      if (f > 0) { nmn = Math.min(mn, f); nmx = Math.max(mx, f); if (nmx - nmn > 3) continue; }
+      frets.push(f); rec(i + 1, frets, nmn, nmx); frets.pop();
+    }
+  }
+  function finish(fr) {
+    const frets = fr.slice(); while (frets.length < n) frets.push(-1);
+    const snd = frets.filter(f => f >= 0).length; if (snd < minStr) return;
+    const pcs = {}; frets.forEach((f, i) => { if (f >= 0) pcs[(T.midi[i] + f) % 12] = 1; });
+    if (!required.every(t => pcs[t])) return;
+    const a = fgAssign(frets, power); if (!a) return;
+    const fretted = frets.filter(f => f > 0), opens = frets.filter(f => f === 0).length;
+    const minF = fretted.length ? Math.min.apply(null, fretted) : 0, maxF = fretted.length ? Math.max.apply(null, fretted) : 0;
+    let cost = 4 * a.count + 0.6 * minF + 0.4 * (maxF - minF) - 0.7 * opens + (a.barre && !power ? 3 : 0);
+    if (power) cost += Math.abs(snd - 3) * 0.6; else { if (snd < 6) cost += (6 - snd) * 1.8; if (snd > 6) cost += (snd - 6) * 1.5; }
+    out.push({ frets: frets, a: a, cost: cost, minF: minF, opens: opens, snd: snd, chord: chord });
+  }
+  for (let s = 0; s < n; s++) {
+    const pre = []; for (let k = 0; k < s; k++) pre.push(-1);
+    rec(s, pre, 99, 0);
+  }
+  out.sort((x, y) => x.cost - y.cost);
+  const picks = [], seen = {};
+  out.forEach(v => { const k = v.frets.join(','); if (!seen[k]) { seen[k] = 1; picks.push(v); } });
+  const canon = fgCanonical(chord);
+  if (canon) { const k = canon.frets.join(','); const i0 = picks.findIndex(v => v.frets.join(',') === k); if (i0 >= 0) picks.splice(i0, 1); picks.unshift(canon); }
+  const best = picks[0]; if (!best) return [];
+  const res = [best];
+  if (maxResults > 1) {
+    const alt = picks.find(v => v !== best && v.opens === 0 && v.minF >= 1 && v.frets.join(',') !== best.frets.join(','));
+    if (alt) { alt.label = 'Moveable shape (slides up the neck)'; res.push(alt); }
+    else { const alt2 = picks.find(v => v !== best && Math.abs(v.minF - best.minF) >= 2); if (alt2) { alt2.label = 'Another position'; res.push(alt2); } }
+  }
+  if (!best.canon) best.label = best.opens > 0 || best.minF <= 3 ? 'Easiest shape' : 'Best shape';
+  return res;
+}
+
+/* ── Rendering ── */
+function fgNoteOf(si, fret) { return FG_PC[(fgTun().midi[si] + fret) % 12]; }
+function fgBoxSvg(o) {
+  /* o: {n, names, frets:[-1 mute, 0 open, >0], fingers:[], barre, startFret, notesUnder:true} strings low to high, left to right */
+  const n = o.n, SP = n > 6 ? 19 : 22, ML = 26, MT = 28, FH = 25, ROWS = 5;
+  const W = ML + (n - 1) * SP + 18, H = MT + ROWS * FH + 30;
+  const fretted = o.frets.filter(f => f > 0);
+  const maxF = fretted.length ? Math.max.apply(null, fretted) : 1;
+  const start = o.startFret || (maxF <= 5 ? 1 : Math.min.apply(null, fretted));
+  const x = i => ML + i * SP, y = r => MT + r * FH;
+  let s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="Chord diagram">';
+  s += '<rect x="' + x(0) + '" y="' + y(0) + '" width="' + (n - 1) * SP + '" height="' + ROWS * FH + '" fill="#0d0b18"/>';
+  for (let r = 0; r <= ROWS; r++) s += '<line x1="' + x(0) + '" y1="' + y(r) + '" x2="' + x(n - 1) + '" y2="' + y(r) + '" stroke="' + (r === 0 && start === 1 ? '#c8a0ff' : '#4a3c70') + '" stroke-width="' + (r === 0 && start === 1 ? 4 : 1.2) + '"/>';
+  for (let i = 0; i < n; i++) s += '<line x1="' + x(i) + '" y1="' + y(0) + '" x2="' + x(i) + '" y2="' + y(ROWS) + '" stroke="#6a5a98" stroke-width="' + (1 + (n - 1 - i) * 0.12) + '"/>';
+  if (start > 1) s += '<text x="' + (ML - 8) + '" y="' + (y(0) + FH / 2 + 4) + '" text-anchor="end" font-family="monospace" font-size="11" fill="#b99cff">' + start + 'fr</text>';
+  if (o.barre) {
+    const r = o.barre.fret - start;
+    if (r >= 0 && r < ROWS) s += '<rect x="' + (x(o.barre.from) - 8) + '" y="' + (y(r) + FH / 2 - 8) + '" width="' + ((o.barre.to - o.barre.from) * SP + 16) + '" height="16" rx="8" fill="#8822ee" stroke="#c466ff" stroke-width="1.5"/>';
+  }
+  for (let i = 0; i < n; i++) {
+    const f = o.frets[i];
+    if (f < 0) s += '<text x="' + x(i) + '" y="' + (MT - 9) + '" text-anchor="middle" font-family="monospace" font-size="13" fill="#ff6a6a">x</text>';
+    else if (f === 0) s += '<circle cx="' + x(i) + '" cy="' + (MT - 12) + '" r="5" fill="none" stroke="#9fe6b0" stroke-width="1.8"/>';
+    else {
+      const r = f - start; if (r < 0 || r >= ROWS) continue;
+      const isBar = o.barre && o.barre.fret === f && i >= o.barre.from && i <= o.barre.to && o.fingers[i] === o.barre.finger;
+      const fg = o.fingers && o.fingers[i];
+      s += (isBar ? '' : '<circle cx="' + x(i) + '" cy="' + (y(r) + FH / 2) + '" r="9" fill="#8822ee" stroke="#c466ff" stroke-width="1.5"/>');
+      if (fg) s += '<text x="' + x(i) + '" y="' + (y(r) + FH / 2 + 4) + '" text-anchor="middle" font-family="monospace" font-size="12" font-weight="bold" fill="#fff">' + fg + '</text>';
+      else s += '<text x="' + x(i) + '" y="' + (y(r) + FH / 2 + 4) + '" text-anchor="middle" font-family="monospace" font-size="10" fill="#fff">' + f + '</text>';
+    }
+  }
+  if (o.notesUnder !== false) {
+    for (let i = 0; i < n; i++) {
+      const f = o.frets[i]; if (f < 0) continue;
+      s += '<text x="' + x(i) + '" y="' + (y(ROWS) + 16) + '" text-anchor="middle" font-family="monospace" font-size="10" fill="#9a8cc4">' + fgNoteOf(i, f) + '</text>';
+    }
+  }
+  return s + '</svg>';
+}
+function fgSteps(v) {
+  const T = fgTun(), n = T.n, lines = [];
+  const strLbl = i => 'string ' + (n - i) + ' (' + T.names[i] + ')';
+  if (v.a.barre) {
+    const b = v.a.barre;
+    lines.push('Finger ' + b.finger + ' (' + FG_FINGER[b.finger] + ') lies flat across ' + strLbl(b.from) + ' to ' + strLbl(b.to) + ' at fret ' + b.fret + '.');
+  }
+  for (let i = 0; i < n; i++) {
+    const f = v.frets[i]; if (f <= 0) continue;
+    const fg = v.a.fingers[i];
+    if (v.a.barre && v.a.barre.fret === f && fg === v.a.barre.finger && i >= v.a.barre.from && i <= v.a.barre.to) continue;
+    lines.push('Finger ' + fg + ' (' + FG_FINGER[fg] + '): ' + strLbl(i) + ', fret ' + f + '.');
+  }
+  const open = [], mute = [];
+  for (let i = 0; i < n; i++) { if (v.frets[i] === 0) open.push(T.names[i]); else if (v.frets[i] < 0) mute.push(T.names[i]); }
+  if (open.length) lines.push('Let ring (open): ' + open.join(', ') + '.');
+  if (mute.length) lines.push('Do not play: ' + mute.join(', ') + ' (touch lightly to mute).');
+  if (!lines.length) lines.push('No fingers needed.');
+  return lines;
+}
+function fgVoicingHtml(v, withPlay) {
+  const T = fgTun();
+  const svg = fgBoxSvg({ n: T.n, frets: v.frets, fingers: v.a.fingers, barre: v.a.barre });
+  const enc = encodeURIComponent(JSON.stringify(v.frets));
+  return '<div class="fg-voice"><div class="fg-voice-svg">' + svg + '</div><div class="fg-voice-txt"><div class="fg-voice-h">' + slEsc(v.label || '') +
+    (withPlay ? ' <button class="fg-play" onclick="fgStrum(\'' + enc + '\',this)">▶ Strum</button>' : '') + '</div><ol class="fg-steps">' +
+    fgSteps(v).map(l => '<li>' + slEsc(l) + '</li>').join('') + '</ol></div></div>';
+}
+function fgStrum(enc, btn) {
+  try {
+    const frets = JSON.parse(decodeURIComponent(enc)), T = fgTun();
+    const ev = []; let k = 0;
+    frets.forEach((f, i) => { if (f >= 0) { ev.push({ f: [sndMidiFreq(T.midi[i] + f)], t: k * 0.045, d: 1.8 }); k++; } });
+    sndPlayEvents(ev, btn, '▶ Strum');
+  } catch (e) {}
+}
+window.fgStrum = fgStrum;
+
+/* note positions across the neck (strings drawn like the app fretboard: high on top) */
+function fgNoteSvg(pc) {
+  const T = fgTun(), n = T.n, FW = 27, ML = 22, MT = 12, SH = 19, FRETS = 12;
+  const W = ML + (FRETS + 1) * FW + 8, H = MT + n * SH + 22;
+  let s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" width="100%" style="max-width:' + W + 'px" role="img" aria-label="Note positions">';
+  s += '<rect x="' + ML + '" y="' + MT + '" width="' + (FRETS + 1) * FW + '" height="' + n * SH + '" fill="#0d0b18"/>';
+  for (let f = 0; f <= FRETS + 1; f++) s += '<line x1="' + (ML + f * FW) + '" y1="' + MT + '" x2="' + (ML + f * FW) + '" y2="' + (MT + n * SH) + '" stroke="' + (f === 1 ? '#c8a0ff' : '#3a2f5c') + '" stroke-width="' + (f === 1 ? 3 : 1) + '"/>';
+  for (let r = 0; r < n; r++) {
+    const si = n - 1 - r, y = MT + r * SH + SH / 2;
+    s += '<line x1="' + ML + '" y1="' + y + '" x2="' + (ML + (FRETS + 1) * FW) + '" y2="' + y + '" stroke="#6a5a98" stroke-width="' + (0.8 + si * 0.25 * 0.5) + '"/>';
+    s += '<text x="' + (ML - 6) + '" y="' + (y + 4) + '" text-anchor="end" font-family="monospace" font-size="10" fill="#8f82b8">' + T.names[si] + '</text>';
+    for (let f = 0; f <= FRETS; f++) {
+      if ((T.midi[si] + f) % 12 !== pc) continue;
+      const cx = ML + f * FW + FW / 2;
+      s += '<circle cx="' + cx + '" cy="' + y + '" r="8" fill="' + (f <= 5 ? '#8822ee' : '#4a2a8a') + '" stroke="#c466ff" stroke-width="1.3"/><text x="' + cx + '" y="' + (y + 4) + '" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#fff">' + f + '</text>';
+    }
+  }
+  [3, 5, 7, 9, 12].forEach(f => { s += '<text x="' + (ML + f * FW + FW / 2) + '" y="' + (H - 4) + '" text-anchor="middle" font-family="monospace" font-size="9" fill="#6f6496">' + f + '</text>'; });
+  return s + '</svg>';
+}
+function fgNoteList(pc) {
+  const T = fgTun(), n = T.n, rows = [];
+  for (let si = n - 1; si >= 0; si--) {
+    const f = []; for (let k = 0; k <= 12; k++) if ((T.midi[si] + k) % 12 === pc) f.push(k === 0 ? 'open' : k);
+    if (f.length) rows.push('String ' + (n - si) + ' (' + T.names[si] + '): fret ' + f.join(', '));
+  }
+  return rows;
+}
+
+/* ── Reading tabs: turn tab rows into shapes with fingers ── */
+function fgTabNotes(rows) {
+  const T = fgTun(), n = T.n, cols = {};
+  const numeric = rows.every(r => /^\d/.test(String(r[0]).trim()));
+  rows.forEach((row, ri) => {
+    let num;
+    if (numeric) num = parseInt(String(row[0]).trim(), 10);
+    else if (rows.length > n) num = n - (rows.length - 1 - ri);
+    else num = ri + 1;
+    if (!(num >= 1 && num <= n)) return;
+    const si = n - num;
+    const txt = String(row[1] || '').replace(/<[^>]+>/g, '').replace(/\([^)]*\)/g, m => ' '.repeat(m.length));
+    const re = /\d{1,2}/g; let m;
+    while ((m = re.exec(txt))) {
+      const c = m.index; (cols[c] = cols[c] || []).push({ si: si, fret: parseInt(m[0], 10) });
+    }
+  });
+  return Object.keys(cols).map(Number).sort((a, b) => a - b).map(c => cols[c]);
+}
+function fgShapeName(frets) {
+  const T = fgTun(), pcs = []; let low = -1;
+  frets.forEach((f, i) => { if (f >= 0) { const pc = (T.midi[i] + f) % 12; if (low < 0) low = pc; if (pcs.indexOf(pc) < 0) pcs.push(pc); } });
+  if (low < 0) return '';
+  const iv = pcs.map(p => (p - low + 12) % 12).sort((a, b) => a - b).join(',');
+  const tbl = { '0,7': '5', '0,4,7': '', '0,3,7': 'm', '0,5,7': 'sus4', '0,2,7': 'sus2', '0,3,6': 'dim', '0,4,7,10': '7', '0,3,7,10': 'm7', '0,4,7,11': 'maj7' };
+  return tbl[iv] !== undefined ? FG_PC[low] + tbl[iv] : '';
+}
+function fgTabPanelHtml(rows) {
+  const T = fgTun(), n = T.n, cols = fgTabNotes(rows);
+  if (!cols.length) return '<div class="fg-note">This block lists note names instead of frets. Use the Notes tab in the finger guide to see where each note lives on your neck.</div>';
+  const shapes = [], seen = {}, singles = [];
+  cols.forEach(col => {
+    const uniq = {}; col.forEach(x => { uniq[x.si] = x.fret; });
+    const sis = Object.keys(uniq).map(Number);
+    if (sis.length >= 2) {
+      const frets = []; for (let i = 0; i < n; i++) frets.push(uniq[i] === undefined ? -1 : uniq[i]);
+      const k = frets.join(','); if (!seen[k]) { seen[k] = 1; shapes.push(frets); }
+    } else singles.push({ si: sis[0], fret: uniq[sis[0]] });
+  });
+  let html = '<div class="fg-legend">Numbers are fingers: 1 index, 2 middle, 3 ring, 4 pinky. Green circle = open string, x = not played.</div>';
+  const shown = shapes.slice(0, 6);
+  shown.forEach(frets => {
+    const nm = fgShapeName(frets);
+    let a = fgAssign(frets, true) || fgAssign(frets, false);
+    if (!a) { html += '<div class="fg-note">One shape in this tab spans too many frets to hold at once. Slide into it instead.</div>'; return; }
+    const v = { frets: frets, a: a, label: nm ? nm + ' chord shape' : 'Chord shape' };
+    html += fgVoicingHtml(v, true);
+  });
+  if (shapes.length > shown.length) html += '<div class="fg-note">' + (shapes.length - shown.length) + ' more shapes in this tab are not shown.</div>';
+  const pos = {}; singles.forEach(x => { if (x.fret > 0) pos[x.si + ':' + x.fret] = x; });
+  const list = Object.keys(pos).map(k => pos[k]);
+  if (list.length) {
+    const frs = Array.from(new Set(list.map(x => x.fret))).sort((a, b) => a - b), wins = [];
+    while (frs.length) { const st = frs[0], w = frs.filter(f => f <= st + 3); wins.push({ start: st, frets: w }); frs.splice(0, w.length); }
+    wins.slice(0, 3).forEach(w => {
+      const dots = list.filter(x => w.frets.indexOf(x.fret) >= 0);
+      const fr = []; for (let i = 0; i < n; i++) fr.push(-1);
+      const fing = []; for (let i = 0; i < n; i++) fing.push(0);
+      const svgDots = dots.map(d => ({ si: d.si, fret: d.fret, finger: d.fret - w.start + 1 }));
+      svgDots.forEach(d => { fr[d.si] = d.fret; fing[d.si] = d.finger; });
+      html += '<div class="fg-voice"><div class="fg-voice-svg">' + fgPositionSvg(svgDots, w.start) + '</div><div class="fg-voice-txt"><div class="fg-voice-h">Single notes, hand at fret ' + w.start + '</div><ol class="fg-steps">' +
+        w.frets.map(f => '<li>Fret ' + f + ': finger ' + (f - w.start + 1) + ' (' + FG_FINGER[f - w.start + 1] + ')</li>').join('') + '</ol><div class="fg-note">One finger per fret. Keep your index finger over fret ' + w.start + ' and let the others fall in order.</div></div></div>';
+    });
+    if (wins.length > 3) html += '<div class="fg-note">The tab moves through more positions than shown here.</div>';
+  }
+  const opensOnly = cols.every(c => c.every(x => x.fret === 0));
+  if (opensOnly) html += '<div class="fg-note">Every note here is an open string, so no fretting fingers are needed. Focus on picking and muting.</div>';
+  else if (singles.some(x => x.fret === 0) && !list.length) html += '<div class="fg-note">Open strings only, no fretting fingers needed.</div>';
+  return html;
+}
+function fgPositionSvg(dots, start) {
+  const T = fgTun(), n = T.n, frets = [], fingers = [];
+  for (let i = 0; i < n; i++) { frets.push(-1); fingers.push(0); }
+  dots.forEach(d => { frets[d.si] = d.fret; fingers[d.si] = d.finger; });
+  return fgBoxSvg({ n: n, frets: frets, fingers: fingers, barre: null, startFret: start, notesUnder: true });
+}
+
+/* ── Finding chords and notes mentioned in practice text ── */
+function fgScan(text) {
+  const t = String(text || '').replace(/<[^>]+>/g, ' ');
+  const chords = [], notes = [];
+  const add = (arr, v) => { if (v && arr.indexOf(v) < 0) arr.push(v); };
+  let m;
+  const r1 = /(^|[^A-Za-z#])([A-G][#b]?)(maj7|m7|m6|dim7|dim|aug|sus2|sus4|add9|m|5|6|7|9)(?![A-Za-z0-9])/g;
+  while ((m = r1.exec(t))) { const c = fgParseChord(m[2] + m[3]); if (c) add(chords, m[2] + m[3]); }
+  const r2 = /(^|[^A-Za-z#])([A-G][#b]?)\s+(?:(major|minor|power)\s+)?chords?(?![A-Za-z])/g;
+  while ((m = r2.exec(t))) { const q = m[3] === 'minor' ? 'm' : m[3] === 'power' ? '5' : ''; add(chords, m[2] + q); }
+  const r3 = /\b[Nn]otes?\s+([A-G][#b]?)(?![A-Za-z])/g;
+  while ((m = r3.exec(t))) add(notes, m[1]);
+  return { chords: chords.slice(0, 8), notes: notes.slice(0, 6), strings: /open strings?|string names|name each|tuning/i.test(t) };
+}
+function fgChipsHtml(text, withButton) {
+  const sc = fgScan(text);
+  const chips = sc.chords.map(c => '<button class="fg-chip" onclick="event.stopPropagation();fgOpen({chord:\'' + c + '\'})">' + slEsc(c) + '</button>').join('') +
+    sc.notes.map(c => '<button class="fg-chip fg-chip-note" onclick="event.stopPropagation();fgOpen({note:\'' + c + '\'})">note ' + slEsc(c) + '</button>').join('') +
+    (sc.strings ? '<button class="fg-chip fg-chip-note" onclick="event.stopPropagation();fgOpen({tab:\'strings\'})">open strings</button>' : '');
+  const btn = withButton === false ? '' : '<button class="fg-open" onclick="event.stopPropagation();fgOpen({ctx:' + JSON.stringify(sc.chords).replace(/"/g, '&quot;') + '})">🖐 Finger guide</button>';
+  return '<div class="fg-chips"><span class="fg-chips-l">' + (chips ? 'SHOW ME THE FINGERING' : 'NEED A SHAPE?') + '</span>' + chips + btn + '</div>';
+}
+
+/* ── The guide itself (a sheet you can open from anywhere) ── */
+let _fg = { tab: 'chords', root: 'E', q: '', note: 'E', ctx: [] };
+function fgEnsure() {
+  let el = document.getElementById('fg-modal');
+  if (el) return el;
+  el = document.createElement('div'); el.id = 'fg-modal'; el.className = 'fg-modal';
+  el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Finger guide');
+  el.addEventListener('click', e => { if (e.target === el) fgClose(); });
+  document.body.appendChild(el);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') fgClose(); });
+  return el;
+}
+function fgOpen(o) {
+  o = o || {};
+  const pp = gpGet();
+  _fg.ctx = o.ctx || _fg.ctx || [];
+  if (o.chord) { const c = fgParseChord(o.chord); if (c) { _fg.root = c.root; _fg.q = c.q.k; _fg.tab = 'chords'; } }
+  if (o.note) { const p = fgPcOf(o.note); if (p >= 0) { _fg.note = FG_PC[p]; _fg.tab = 'notes'; } }
+  if (o.tab) _fg.tab = o.tab;
+  if (!o.chord && !o.note && !o.tab) {
+    const hk = fgPcOf(pp.homeKey); if (hk >= 0 && !_fg.touched) { _fg.root = FG_PC[hk]; _fg.q = '5'; }
+  }
+  fgEnsure().style.display = 'flex';
+  document.body.classList.add('fg-open-body');
+  fgRender();
+}
+function fgClose() {
+  const el = document.getElementById('fg-modal'); if (el) el.style.display = 'none';
+  document.body.classList.remove('fg-open-body');
+  try { sndStopAll(); } catch (e) {}
+}
+function fgSet(k, v) { _fg[k] = v; _fg.touched = true; fgRender(); }
+function fgTabSet(t) { _fg.tab = t; fgRender(); }
+function fgRender() {
+  const el = fgEnsure(), pp = gpGet(), T = fgTun();
+  const pills = (cur, fn) => FG_PC.map(p => '<button class="fg-pill' + (p === cur ? ' on' : '') + '" onclick="' + fn + '(\'' + p + '\')">' + p + '</button>').join('');
+  let body = '';
+  if (_fg.tab === 'chords') {
+    const ch = fgParseChord(_fg.root + _fg.q) || fgParseChord(_fg.root);
+    const vs = ch ? fgVoicings(ch, 2) : [];
+    const ctxChips = (_fg.ctx || []).length ? '<div class="fg-chips"><span class="fg-chips-l">IN THIS EXERCISE</span>' + _fg.ctx.map(c => '<button class="fg-chip" onclick="fgOpen({chord:\'' + c + '\'})">' + slEsc(c) + '</button>').join('') + '</div>' : '';
+    body = ctxChips + '<div class="fg-lbl">ROOT</div><div class="fg-pills">' + pills(_fg.root, 'fgSetRoot') + '</div>' +
+      '<div class="fg-lbl">TYPE</div><select class="fg-select" onchange="fgSet(\'q\',this.value)">' + FG_QUAL.map(q => '<option value="' + q.k + '"' + (q.k === _fg.q ? ' selected' : '') + '>' + q.label + '</option>').join('') + '</select>' +
+      '<div class="fg-title">' + slEsc(_fg.root + _fg.q) + ' on your ' + slEsc(pp.display) + '</div>' +
+      (vs.length ? vs.map(v => fgVoicingHtml(v, true)).join('') : '<div class="fg-note">No easy shape found for this chord on your tuning. Try a power chord or another type.</div>');
+  } else if (_fg.tab === 'notes') {
+    const pc = fgPcOf(_fg.note), lst = fgNoteList(pc);
+    body = '<div class="fg-lbl">NOTE</div><div class="fg-pills">' + pills(_fg.note, 'fgSetNote') + '</div>' +
+      '<div class="fg-title">Where to find ' + slEsc(_fg.note) + ' on your ' + slEsc(pp.display) + '</div>' +
+      '<div class="fg-noteSvg">' + fgNoteSvg(pc) + '</div><div class="fg-note">Number in the circle = fret. Bright circles are the easiest spots (frets 0 to 5). Strings run high on top, low at the bottom.</div>' +
+      '<ul class="fg-list">' + lst.map(l => '<li>' + slEsc(l) + '</li>').join('') + '</ul>';
+  } else {
+    body = '<div class="fg-title">Your open strings</div><div class="fg-note">String 1 is the thinnest and highest. Tap one to hear it.</div><div class="fg-strings">' +
+      T.names.map((nm, i) => '<div class="fg-str"><span>String ' + (T.n - i) + '</span><b>' + slEsc(nm) + '</b><button class="fg-play" onclick="fgOpenStr(' + i + ',this)">▶</button></div>').reverse().join('') + '</div>' +
+      '<button class="fg-play fg-all" onclick="sndPlayOpenStrings(this)">▶ Play all, low to high</button>';
+  }
+  el.innerHTML = '<div class="fg-sheet"><div class="fg-head"><div><div class="fg-eyebrow">FINGER GUIDE</div><div class="fg-sub">' + slEsc(pp.display) + ' · ' + T.names.join(' ') + '</div></div><button class="fg-x" onclick="fgClose()" aria-label="Close">×</button></div>' +
+    '<div class="fg-tabs">' + [['chords', 'Chords'], ['notes', 'Notes'], ['strings', 'Open strings']].map(t => '<button class="fg-tab' + (_fg.tab === t[0] ? ' on' : '') + '" onclick="fgTabSet(\'' + t[0] + '\')">' + t[1] + '</button>').join('') + '</div>' +
+    '<div class="fg-body">' + body + '</div><div class="fg-legend">Numbers are fingers: 1 index, 2 middle, 3 ring, 4 pinky. Green circle = open string. x = do not play. The note names under the diagram show what each string sounds.</div></div>';
+}
+function fgSetRoot(p) { fgSet('root', p); } function fgSetNote(p) { fgSet('note', p); }
+function fgOpenStr(i, btn) { const T = fgTun(); sndPlayEvents([{ f: [sndMidiFreq(T.midi[i])], t: 0, d: 1.6 }], btn, '▶'); }
+window.fgOpen = fgOpen; window.fgClose = fgClose; window.fgSet = fgSet; window.fgTabSet = fgTabSet; window.fgSetRoot = fgSetRoot; window.fgSetNote = fgSetNote; window.fgOpenStr = fgOpenStr;
+
+/* ── Hooks: tabs, riffs, session blocks, focus mode ── */
+function fgToggleTab(btn) {
+  const blk = btn.closest('.tab-block'); if (!blk) return;
+  let p = blk.querySelector('.fg-panel');
+  if (p && p.innerHTML) { p.innerHTML = ''; btn.classList.remove('tab-play-active'); return; }
+  if (!p) { p = document.createElement('div'); p.className = 'fg-panel'; blk.appendChild(p); }
+  let rows = []; try { rows = JSON.parse(decodeURIComponent(btn.getAttribute('data-rows'))); } catch (e) {}
+  p.innerHTML = fgTabPanelHtml(rows) + '<button class="fg-open" onclick="fgOpen({})">🖐 Open full finger guide</button>';
+  btn.classList.add('tab-play-active');
+}
+function fgToggleRiff(btn) {
+  const blk = btn.closest('.riff-tab-block'); if (!blk) return;
+  let p = blk.querySelector('.fg-panel');
+  if (p && p.innerHTML) { p.innerHTML = ''; btn.textContent = '🖐 Fingers'; return; }
+  if (!p) { p = document.createElement('div'); p.className = 'fg-panel'; blk.appendChild(p); }
+  const r = gpAdaptRiff(currentRiff);
+  p.innerHTML = fgTabPanelHtml(r ? r.tab : []) + '<button class="fg-open" onclick="fgOpen({})">🖐 Open full finger guide</button>';
+  btn.textContent = '🖐 Hide fingers';
+}
+const _fgBlockOpen = {};
+function fgBlockHtml(b, i) {
+  const open = _fgBlockOpen[i] !== undefined ? !!_fgBlockOpen[i] : !!b.tab;
+  let panel = '';
+  if (open) {
+    try { const rows = b.tab ? parseTabStringToRows(b.tab) : []; panel = rows.length ? fgTabPanelHtml(rows) : ''; } catch (e) {}
+  }
+  const hasTab = !!b.tab;
+  return '<div class="fg-block">' + fgChipsHtml((b.name || '') + ' ' + (b.detail || ''), true) +
+    (hasTab ? '<button class="fg-open" onclick="event.stopPropagation();fgBlockToggle(' + i + ')">' + (open ? 'Hide fingers for this tab' : '🖐 Fingers for this tab') + '</button>' : '') +
+    '<div class="fg-panel">' + panel + '</div></div>';
+}
+function fgBlockToggle(i) { const b = sessionBlocks[i]; const cur = _fgBlockOpen[i] !== undefined ? !!_fgBlockOpen[i] : !!(b && b.tab); _fgBlockOpen[i] = !cur; try { renderBlocks(); } catch (e) {} }
+function fgFocusHtml(b) { return '<div style="margin-top:12px;text-align:center">' + fgChipsHtml((b.name || '') + ' ' + (b.detail || ''), true) + '</div>'; }
+window.fgToggleTab = fgToggleTab; window.fgToggleRiff = fgToggleRiff; window.fgBlockHtml = fgBlockHtml; window.fgBlockToggle = fgBlockToggle; window.fgFocusHtml = fgFocusHtml; window.fgChipsHtml = fgChipsHtml;
+
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
   const id = window._GP_ACTIVE || '7drop';
@@ -16899,6 +17413,7 @@ if ('serviceWorker' in navigator) {
     </div>
     <div class="pbm-meta" id="pbm-meta"></div>
     <div class="pbm-body" id="pbm-body"></div>
+    <div id="pbm-fg"></div>
     <button class="pbm-start" onclick="closePlanModal()">✓ GOT IT — LOAD SESSION</button>
   </div>
 </div>
@@ -16938,6 +17453,12 @@ if ('serviceWorker' in navigator) {
     <span id="fab-sess-icon">⏱</span>
     <span class="fab-label">SESSION TIMER</span>
     <span class="fab-timer-val" id="fab-timer-val">00:00</span>
+  </div>
+
+  <!-- Finger guide fab -->
+  <div class="fab" onclick="fgOpen({})" title="Finger guide: chords, notes, open strings">
+    🖐
+    <span class="fab-label">FINGERS</span>
   </div>
 
   <!-- Notepad fab -->
