@@ -1181,6 +1181,9 @@ h3 {
 /* ═══════════════════════════════════════════
    DAILY TIP
 ═══════════════════════════════════════════ */
+.instr-note{margin-top:10px;padding:10px 12px;border-left:2px solid var(--gold);background:rgba(255,255,255,.03);font-size:12px;line-height:1.55;color:var(--mid)}
+.instr-lbl{display:block;font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--gold);margin-bottom:4px}
+.instr-src{display:block;margin-top:4px;font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--dim)}
 .tip-card {
   background: linear-gradient(135deg, #0e0b18, #120f1e);
   border: 1px solid var(--edge);
@@ -12063,6 +12066,7 @@ function renderRiff() {
           <span class="riff-tip-label" style="color:var(--gold)">💡 TIP</span>
           <span>${r.tip}</span>
         </div>
+        ${window.instrRiffHtml?window.instrRiffHtml(r):''}
 
         <!-- COMMON MISTAKE -->
         ${r.commonMistake ? `<div class="riff-mistake">
@@ -14344,6 +14348,85 @@ function setFbPosition(pos,btn){
   if(_fbScale)renderFretboard(_fbScale.id);
 }
 
+/* ════ INSTRUCTOR NOTES (INSTR_DB) ════ */
+;(function(){
+const DB=[
+{id:'pm1',t:['palmmute'],c:'technique',s:'Riffhard lessons',x:"Rest the edge of your picking palm on the strings right at the bridge. Find the contact point where each chug is tight and percussive but still has a clear pitch, then keep that pressure identical on every note."},
+{id:'pm2',t:['palmmute','breakdown'],c:'technique',s:'Riffhard metalcore guide',x:"Treat palm pressure as a dynamics control: lighter for a more open sound, heavier for the tight chug. Mix chugs and rests on purpose, and write the rests in as deliberately as the notes."},
+{id:'mu1',t:['mute','palmmute','altpick'],c:'technique',s:'Making a Scene',x:"Muting is a two-hand job. Your picking palm near the bridge deadens the strings above the one you are playing, and your fretting hand has to damp whatever is left. Noise usually means one hand is not doing its half."},
+{id:'dp1',t:['altpick','gallop','palmmute'],c:'technique',s:'Riffhard deathcore guide',x:"Downpicking is the backbone of deathcore chugging, and it is about precision first and stamina second. Build it on one string at a steady tempo and only extend the time once every note matches the last."},
+{id:'ap1',t:['altpick','speed'],c:'technique',s:'Riffhard lessons',x:"Keep your picking hand close to the strings and your motion small. Working on a single string first removes string crossing as a variable, so you can hear and fix the picking motion itself."},
+{id:'sp1',t:['speed','warmup','altpick'],c:'rhythm',s:'Riffhard lessons',x:"Start at a tempo you can play cleanly and raise it 5 BPM at a time. Speed is a byproduct of accuracy, so if the notes smear, the tempo was too high."},
+{id:'sp2',t:['speed','practice'],c:'rhythm',s:'Premier Guitar',x:"Try a ladder with a step back: after a clean pass, drop the tempo about 2 BPM, then go up about 5. Moving around your limit builds control better than only ever pushing forward."},
+{id:'te1',t:['tension','speed'],c:'mindset',s:'Riffhard lessons',x:"Tension is the biggest barrier to speed and a direct route to fatigue or injury. When your shoulder, forearm or grip tightens, stop, shake it out, and drop the tempo until you are loose again."},
+{id:'rt1',t:['breakdown','gallop'],c:'rhythm',s:'Riffhard deathcore guide',x:"A breakdown is built from rhythm and timing. Pay attention to exactly where each chug lands against the click, and treat the gaps as part of the riff, not empty space."},
+{id:'dy1',t:['dynamics','palmmute','breakdown'],c:'technique',s:'Riffhard lessons',x:"Vary your pick attack as well as your palm pressure. Mixing soft and hard strokes inside one riff gives it contrast, so the heavy hits actually land as heavy."},
+{id:'pr1',t:['practice','warmup'],c:'mindset',s:'Riffhard lessons',x:"Consistency beats duration. Fifteen to twenty focused minutes a day with one concrete goal, like a target tempo or a single riff, does more than an occasional long session."},
+{id:'pr2',t:['hands','altpick','practice'],c:'technique',s:'Riffhard lessons',x:"When something will not lock in, isolate each hand. Work the fretting hand and the picking hand separately, then put them back together at a slower tempo."},
+{id:'mc1',t:['breakdown'],g:['metalcore','deathcore'],c:'rhythm',s:'Riffhard metalcore guide',x:"Metalcore songs split jobs: tight rhythmic verses, a melodic chorus, and the breakdown as the heavy rhythmic centerpiece. Practice each part with its own job in mind."},
+{id:'dj1',t:['palmmute'],g:['djent'],c:'technique',s:'Riffhard lessons',x:"For percussive djent playing, aim to make the guitar act like part of the drum kit: precise palm muting, a consistent picking angle, and a controlled attack."},
+{id:'tl1',u:['low'],c:'gear',s:'Riffhard drop tuning guide',x:"In low tunings, palm muting matters more, not less, to keep riffs clear. Tighten the muting up before you chase tempo."},
+{id:'ta1',u:['dropa'],c:'gear',s:'Riffhard drop tuning guide',x:"Drop A exposes weak muting, low string tension and a loose setup quickly. If the low string feels rubbery or the pitch wobbles when you dig in, check gauge and setup before blaming your hands."},
+{id:'tc1',u:['dropc'],c:'gear',s:"D'Addario Drop C guide",x:"Drop C needs heavier strings to stay firm. D'Addario puts the sweet spot for the low C around .052 to .062, and suggests getting palm muting clean before adding speed."},
+{id:'t71',u:['str7'],c:'gear',s:'Gearank 7-string guide',x:"Six-string muting habits tend to leave the extra low string ringing. Make a point of damping it deliberately while you play on the higher strings."}
+];
+const TUN={'7drop':['dropa','str7','low'],'7std':['str7','low'],'6drop_c':['dropc','low'],'6drop':['dropd'],'6std':[],'6std_d':[]};
+const SK={'Palm Muting':'palmmute','String Muting':'mute','Alternate Pick':'altpick','Gallop Rhythm':'gallop','Chromatic/Warmup':'warmup','Hammer/Pull':'hands','Sweep Arpeggios':'hands','Pinch Harmonics':'dynamics'};
+function hash(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h);}
+function tun(){return TUN[window._GP_ACTIVE]||[];}
+function pick(tags,genre,n,seed){
+  const pool=DB.filter(e=>!e.u).map(e=>{
+    let sc=0;(e.t||[]).forEach(t=>{if(tags.indexOf(t)>-1)sc+=3;});
+    if(e.g&&genre&&e.g.indexOf(genre)>-1)sc+=2;
+    return sc>0?{e:e,sc:sc}:null;
+  }).filter(Boolean).sort((a,b)=>b.sc-a.sc).slice(0,n+2).map(x=>x.e);
+  if(!pool.length)return[];
+  const st=hash(seed)%pool.length,out=[];
+  for(let i=0;i<Math.min(n,pool.length);i++)out.push(pool[(st+i)%pool.length]);
+  return out;
+}
+function tunNote(seed){
+  const t=tun();const pool=DB.filter(e=>e.u&&e.u.some(u=>t.indexOf(u)>-1));
+  return pool.length?[pool[hash(seed+'tun')%pool.length]]:[];
+}
+function note(e){return '<div class="instr-note"><span class="instr-lbl">INSTRUCTOR NOTE</span>'+e.x+'<em class="instr-src">'+e.s+'</em></div>';}
+function riffTags(r){
+  const s=((r.techniques||[]).join(' ')+' '+(r.genre||'')+' '+(r.title||'')).toLowerCase(),t=[];
+  if(/palm|chug|mute/.test(s))t.push('palmmute');
+  if(/gallop/.test(s))t.push('gallop');
+  if(/alt|tremolo|down/.test(s))t.push('altpick');
+  if(/breakdown|half-time|deathcore|metalcore/.test(s))t.push('breakdown');
+  if(+r.bpm>=140)t.push('speed','tension');
+  if(!t.length)t.push('palmmute');
+  return t;
+}
+function ladder(bpm){
+  bpm=+bpm||0;if(!bpm)return '';
+  const st=Math.max(40,Math.round(bpm*0.6/5)*5);
+  return '<div class="instr-note"><span class="instr-lbl">BPM LADDER</span>Start at '+st+' BPM. Add 5 BPM each time you hold a full minute clean and relaxed, up to '+bpm+'. If your form slips, step back about 2 BPM and rebuild.<em class="instr-src">Riffhard lessons, Premier Guitar</em></div>';
+}
+window.instrRiffHtml=function(r){
+  try{
+    if(!r)return '';
+    const list=pick(riffTags(r),r.genre||'',1,String(r.id||r.title||'riff'));
+    return list.map(note).join('')+ladder(r.bpm);
+  }catch(err){return '';}
+};
+window.instrCoachHtml=function(pid,skills){
+  try{
+    const tags=[];(skills||[]).forEach(s=>{if(SK[s])tags.push(SK[s]);});
+    if(pid==='session'||pid==='progress')tags.push('practice','speed','tension');
+    if(pid==='riff')tags.push('breakdown');
+    if(!tags.length)tags.push('practice');
+    const seed=pid+new Date().toISOString().slice(0,10);
+    const list=pick(tags,'',1,seed).concat(tunNote(seed));
+    return list.length?'<div class="instr-wrap">'+list.map(note).join('')+'</div>':'';
+  }catch(err){return '';}
+};
+window.INSTR_DB=DB;
+try{if(typeof tipsBank!=='undefined')DB.forEach(e=>{const k=tipsBank[e.c]?e.c:'technique';tipsBank[k].push(e.x+' (Source: '+e.s+')');});}catch(err){}
+})();
+
 /* ════ PER-PAGE COACH ════ */
 const _PAGE_COACH_TOPICS={
   fundamentals:{label:'Fundamentals Coach',skills:['Chromatic/Warmup','Palm Muting','Alternate Pick'],icon:'♦',prompts:{0:'Start here: get your guitar in tune and play a chromatic exercise on string 7 (open A) every day for 5 minutes. Muscle memory comes from repetition before it comes from understanding.',20:'Basic technique is forming. Your palm muting is the most important thing to lock in right now — a tight, consistent mute is what separates a beginner chug from a professional one.',50:'Solid foundation. The next level is consistency under tempo pressure. At 50% skill, most players can do the technique, but not for 3 minutes straight without slipping. That endurance gap is what you\'re closing now.',80:'Advanced foundation. Focus on integrating — palm muting while galloping, alternate picking while reading chord changes. The techniques need to work together under performance pressure, not just in isolation.'}},
@@ -14382,7 +14465,7 @@ function _pcBuild(pid){
     return`<div class="pc-skill-row"><span class="pc-skill-name">${sk}</span><div class="pc-skill-track"><div style="width:${v}%;height:100%;background:${col};border-radius:2px"></div></div><span class="pc-skill-pct" style="color:${col}">${v||'—'}${v>0?'%':''}</span></div>`;
   }).join('');
   const meta=`${streak>0?streak+'🔥 streak · ':''}${totalMins} min total · ${avg}% avg skill`;
-  body.innerHTML=`<div class="pc-prompt">${prompt}</div>${skillHtml}<div class="pc-meta">${meta}</div>`;
+  body.innerHTML=`<div class="pc-prompt">${prompt}</div>${skillHtml}<div class="pc-meta">${meta}</div>${window.instrCoachHtml?window.instrCoachHtml(pid,relSkills):''}`;
 }
 
 /* ════ CHORD PROGRESSION LOOPER ════ */
