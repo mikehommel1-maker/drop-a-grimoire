@@ -1392,6 +1392,47 @@ body.pa-open .fab-cluster{display:none}
 .ls-sub{font-size:12px;color:var(--mid);line-height:1.5;margin:4px 0}
 .ls-idea,.ls-say{font-size:14px;color:var(--pale);line-height:1.65;margin:8px 0}
 .ls-lbl{font-family:var(--mono);font-size:8px;letter-spacing:3px;color:var(--dim);margin:14px 0 6px}
+.ls-src{font-family:var(--mono);font-size:9px;letter-spacing:.5px;color:var(--dim);line-height:1.5;margin:10px 0 0}
+.ls-trigrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.ls-tri{background:rgba(5,4,14,.55);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:8px;text-align:center}
+.ls-tri-h{font-size:12px;color:var(--pale);margin-bottom:4px}.ls-tri-h span{font-family:var(--mono);color:var(--flame);margin-left:4px}
+.ls-tri-svg svg{max-height:150px}
+.ls-pathrow{cursor:pointer}.ls-pathrow:hover{color:var(--flame)}
+.ls-modefeel{color:var(--dim);font-size:11px;text-align:right;max-width:55%}
+
+/* ════ PHASE 10: CLEANUP ════ */
+.home-stats{grid-template-columns:repeat(4,1fr)!important;gap:8px;margin-bottom:16px}
+.home-stats .stat-card{padding:10px 4px}
+.home-stats .stat-card .streak-flame,.home-stats .stat-card>div:first-child:not(.stat-val),.home-stats .stat-sub,.home-stats .stat-trend{display:none}
+.home-stats .stat-val{font-size:22px}
+.home-stats .stat-label{font-size:8px;letter-spacing:1px;margin-top:6px}
+.home-more{margin:0 0 16px}
+.home-more>summary,.plan-more>summary,.ls-list>summary{cursor:pointer;font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--dim);padding:10px 2px;list-style:none}
+.home-more>summary::-webkit-details-marker,.plan-more>summary::-webkit-details-marker,.ls-list>summary::-webkit-details-marker,.acc-sum::-webkit-details-marker{display:none}
+.home-more>summary::before,.plan-more>summary::before,.ls-list>summary::before{content:'▸ '}
+.home-more[open]>summary::before,.plan-more[open]>summary::before,.ls-list[open]>summary::before{content:'▾ '}
+.instr-mini>summary{cursor:pointer;list-style:none;display:block}.instr-mini>summary::-webkit-details-marker{display:none}.instr-mini>summary::after{content:' +';color:var(--dim)}.instr-mini[open]>summary::after{content:' –'}
+.home-jump-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--dim);margin:8px 0}
+.home-more>.activity-chart-wrap{margin-top:8px}
+.quick-nav{grid-template-columns:repeat(4,1fr)}
+.quick-nav-btn{padding:12px 4px}.quick-nav-btn .qn-icon{margin-bottom:4px}
+.hl-card{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;margin-bottom:12px;border:1px solid var(--wire);border-left:3px solid var(--ember);border-radius:var(--radius);background:linear-gradient(135deg,rgba(40,18,72,.7),rgba(14,10,28,.9))}
+.hl-eye{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--flame);margin-bottom:4px}
+.hl-title{font-size:17px;color:#fff;font-weight:600;line-height:1.25}
+.hl-sub{font-size:12px;color:var(--mid);margin-top:3px}
+.acc{margin:0 0 10px;border:1px solid var(--edge);border-radius:var(--radius);background:rgba(14,10,28,.5)}
+.acc-sum{cursor:pointer;list-style:none;padding:14px 16px;font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--flame);text-transform:uppercase}
+.acc-sum::after{content:'+';float:right;color:var(--dim)}.acc[open]>.acc-sum::after{content:'–'}
+.acc>*:not(summary){margin-left:16px;margin-right:16px}.acc>*:last-child{margin-bottom:16px}
+.sl-more{text-align:center;padding:16px 0}.sl-more-n{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:1px;margin-bottom:8px}
+.page-header{margin-bottom:20px}
+.fab-toggle{display:none}
+@media (max-width:700px){
+  .page-lead{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
+  .page-lead.open{display:block}
+  .fab-toggle{display:flex}
+  .fab-cluster:not(.open) .fab:not(.fab-toggle){display:none}
+}
 .ls-lbl2{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--dim)}
 .ls-chips{display:flex;gap:6px;flex-wrap:wrap}
 .ls-btns{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px;align-items:center}
@@ -4133,39 +4174,39 @@ body{padding-top:52px}
     </div>
     <div class="nav-hub-body">
       <div class="nav-hub-section">
-        <div class="nav-hub-section-label"><span class="nhs-icon">📖</span> LEARN</div>
+        <div class="nav-hub-section-label"><span class="nhs-icon">🎸</span> PLAY</div>
         <div class="nav-hub-grid">
-          <button class="nhc" data-page="fundamentals" onclick="navGoTo('fundamentals')"><span class="nhc-icon">⊞</span><span class="nhc-name">Fundamentals</span><span class="nhc-sub">Tuning · power chords</span></button>
-          <button class="nhc" data-page="scales" onclick="navGoTo('scales')"><span class="nhc-icon">≡</span><span class="nhc-name">Scales</span><span class="nhc-sub">Fretboard explorer</span></button>
-          <button class="nhc" data-page="arpeggios" onclick="navGoTo('arpeggios')"><span class="nhc-icon">◈</span><span class="nhc-name">Arpeggios</span><span class="nhc-sub">Sweep patterns</span></button>
-          <button class="nhc" data-page="techniques" onclick="navGoTo('techniques')"><span class="nhc-icon">⚡</span><span class="nhc-name">Techniques</span><span class="nhc-sub">Chugs · gallops · legato</span></button>
-          <button class="nhc" data-page="theory" onclick="navGoTo('theory')"><span class="nhc-icon">◎</span><span class="nhc-name">Theory</span><span class="nhc-sub">CoF · progressions</span></button>
+          <button class="nhc nhc-accent" data-page="lesson" onclick="navGoTo('lesson')"><span class="nhc-icon">🎓</span><span class="nhc-name">Lesson</span><span class="nhc-sub">Guided, new each time</span></button>
+          <button class="nhc nhc-accent" data-page="session" onclick="navGoTo('session')"><span class="nhc-icon">⏱</span><span class="nhc-name">Session</span><span class="nhc-sub">Timed practice</span></button>
+          <button class="nhc" data-page="riff" onclick="navGoTo('riff')"><span class="nhc-icon">⟳</span><span class="nhc-name">Riff Lab</span><span class="nhc-sub">Riffs and builder</span></button>
+          <button class="nhc" data-page="recommendations" onclick="navGoTo('recommendations');buildRecommendations()"><span class="nhc-icon">🎵</span><span class="nhc-name">Song Lab</span><span class="nhc-sub">Songs to learn</span></button>
         </div>
       </div>
       <div class="nav-hub-section">
-        <div class="nav-hub-section-label"><span class="nhs-icon">🎸</span> PRACTICE</div>
+        <div class="nav-hub-section-label"><span class="nhs-icon">📖</span> LEARN</div>
         <div class="nav-hub-grid">
-          <button class="nhc nhc-accent" data-page="lesson" onclick="navGoTo('lesson')"><span class="nhc-icon">🎓</span><span class="nhc-name">Lesson</span><span class="nhc-sub">Guided, new each time</span></button>
-          <button class="nhc nhc-accent" data-page="session" onclick="navGoTo('session')"><span class="nhc-icon">⏱</span><span class="nhc-name">Session</span><span class="nhc-sub">Timed block practice</span></button>
-          <button class="nhc" data-page="metronome" onclick="navGoTo('metronome')"><span class="nhc-icon">♩</span><span class="nhc-name">Metronome</span><span class="nhc-sub">Click · BPM ramp</span></button>
-          <button class="nhc" data-page="riff" onclick="navGoTo('riff')"><span class="nhc-icon">⟳</span><span class="nhc-name">Riff Lab</span><span class="nhc-sub">35 riffs · song builder</span></button>
+          <button class="nhc" data-page="fundamentals" onclick="navGoTo('fundamentals')"><span class="nhc-icon">⊞</span><span class="nhc-name">Fundamentals</span><span class="nhc-sub">Tuning and chords</span></button>
+          <button class="nhc" data-page="scales" onclick="navGoTo('scales')"><span class="nhc-icon">≡</span><span class="nhc-name">Scales</span><span class="nhc-sub">Fretboard explorer</span></button>
+          <button class="nhc" data-page="arpeggios" onclick="navGoTo('arpeggios')"><span class="nhc-icon">◈</span><span class="nhc-name">Arpeggios</span><span class="nhc-sub">Sweep patterns</span></button>
+          <button class="nhc" data-page="techniques" onclick="navGoTo('techniques')"><span class="nhc-icon">⚡</span><span class="nhc-name">Techniques</span><span class="nhc-sub">Chugs, gallops, legato</span></button>
+          <button class="nhc" data-page="theory" onclick="navGoTo('theory')"><span class="nhc-icon">◎</span><span class="nhc-name">Theory</span><span class="nhc-sub">Circle of fifths</span></button>
         </div>
       </div>
       <div class="nav-hub-section">
         <div class="nav-hub-section-label"><span class="nhs-icon">📊</span> TRACK</div>
         <div class="nav-hub-grid">
-          <button class="nhc" data-page="progress" onclick="navGoTo('progress')"><span class="nhc-icon">⊕</span><span class="nhc-name">Progress</span><span class="nhc-sub">Skills · streaks · badges</span></button>
+          <button class="nhc" data-page="progress" onclick="navGoTo('progress')"><span class="nhc-icon">⊕</span><span class="nhc-name">Progress</span><span class="nhc-sub">Skills and streaks</span></button>
           <button class="nhc" data-page="review" onclick="navGoTo('review')"><span class="nhc-icon">⊛</span><span class="nhc-name">Review</span><span class="nhc-sub">Weekly analysis</span></button>
-          <button class="nhc" data-page="recommendations" onclick="navGoTo('recommendations');buildRecommendations()"><span class="nhc-icon">🎵</span><span class="nhc-name">Song Lab</span><span class="nhc-sub">Songs to learn</span></button>
+          <button class="nhc" data-page="notepad" onclick="navGoTo('notepad')"><span class="nhc-icon">📝</span><span class="nhc-name">Notepad</span><span class="nhc-sub">Practice journal</span></button>
+          <button class="nhc" data-page="roadmap" onclick="navGoTo('roadmap')"><span class="nhc-icon">🗺</span><span class="nhc-name">Roadmap</span><span class="nhc-sub">6-month plan</span></button>
         </div>
       </div>
       <div class="nav-hub-section">
         <div class="nav-hub-section-label"><span class="nhs-icon">🛠</span> TOOLS</div>
         <div class="nav-hub-grid">
+          <button class="nhc" data-page="metronome" onclick="navGoTo('metronome')"><span class="nhc-icon">♩</span><span class="nhc-name">Metronome</span><span class="nhc-sub">Click and BPM ramp</span></button>
           <button class="nhc" data-page="dailytip" onclick="navGoTo('dailytip')"><span class="nhc-icon">💡</span><span class="nhc-name">Daily Tip</span><span class="nhc-sub">Today's focus</span></button>
-          <button class="nhc" data-page="notepad" onclick="navGoTo('notepad')"><span class="nhc-icon">📝</span><span class="nhc-name">Notepad</span><span class="nhc-sub">Practice journal</span></button>
-          <button class="nhc" data-page="ai-coach" onclick="navGoTo('ai-coach')"><span class="nhc-icon">🤖</span><span class="nhc-name">AI Coach</span><span class="nhc-sub">Personalized coaching</span></button>
-          <button class="nhc" data-page="roadmap" onclick="navGoTo('roadmap')"><span class="nhc-icon">🗺</span><span class="nhc-name">Roadmap</span><span class="nhc-sub">6-month plan</span></button>
+          <button class="nhc" data-page="ai-coach" onclick="navGoTo('ai-coach')"><span class="nhc-icon">🤖</span><span class="nhc-name">AI Coach</span><span class="nhc-sub">Personal coaching</span></button>
         </div>
       </div>
     </div>
@@ -4186,11 +4227,14 @@ body{padding-top:52px}
     <div class="page-lead" id="gp-home-lead">Your 7-string deathcore codex.</div>
   </div>
 
+  <!-- ── Next lesson ── -->
+  <div id="home-lesson-card"></div>
+
   <!-- ── Today's Plan ── -->
   <div id="home-plan-card" style="margin-bottom:16px"></div>
 
   <!-- ── Stat cards ── -->
-  <div class="dashboard-grid stagger" id="home-stats">
+  <div class="dashboard-grid stagger home-stats" id="home-stats">
     <div class="stat-card" onclick="goTo('progress',null)">
       <span class="streak-flame">🔥</span>
       <div class="stat-val" id="stat-streak">0</div>
@@ -4220,6 +4264,7 @@ body{padding-top:52px}
   <!-- ── Today's Focus card ── -->
   <div id="home-focus-card" style="margin-bottom:16px"></div>
 
+  <details class="home-more"><summary>Activity, daily tip and skills</summary>
   <!-- ── Activity chart ── -->
   <div class="activity-chart-wrap stagger">
     <div class="activity-chart-header">
@@ -4257,44 +4302,15 @@ body{padding-top:52px}
 
   </div>
 
+  </details>
+
   <!-- ── Quick nav ── -->
-  <h3 style="margin-top:20px">Quick Jump</h3>
+  <div class="home-jump-label">QUICK JUMP</div>
   <div class="quick-nav stagger">
-    <div class="quick-nav-btn" onclick="goTo('lesson',null)">
-      <div class="qn-icon">🎓</div>
-      <div class="qn-label">Lesson</div>
-      <div class="qn-sub">Guided, new each time</div>
-    </div>
-    <div class="quick-nav-btn" onclick="goTo('session',null)">
-      <div class="qn-icon">⏱</div>
-      <div class="qn-label">Session</div>
-      <div class="qn-sub">Start practicing</div>
-    </div>
-    <div class="quick-nav-btn" onclick="goTo('riff',null)">
-      <div class="qn-icon">🎸</div>
-      <div class="qn-label">Riff Lab</div>
-      <div class="qn-sub">Instant ideas</div>
-    </div>
-    <div class="quick-nav-btn" onclick="goTo('scales',null)">
-      <div class="qn-icon">≡</div>
-      <div class="qn-label">Scales</div>
-      <div class="qn-sub">Fretboard explorer</div>
-    </div>
-    <div class="quick-nav-btn" onclick="goTo('techniques',null)">
-      <div class="qn-icon">⊕</div>
-      <div class="qn-label">Techniques</div>
-      <div class="qn-sub">Chugs · Gallops</div>
-    </div>
-    <div class="quick-nav-btn" onclick="goTo('recommendations',null);buildRecommendations()">
-      <div class="qn-icon">◎</div>
-      <div class="qn-label">Recs</div>
-      <div class="qn-sub">What to work on</div>
-    </div>
-    <div class="quick-nav-btn" onclick="goTo('metronome',null)">
-      <div class="qn-icon">♩</div>
-      <div class="qn-label">Metronome</div>
-      <div class="qn-sub">Tap tempo</div>
-    </div>
+    <div class="quick-nav-btn" onclick="goTo('session',null)"><div class="qn-icon">⏱</div><div class="qn-label">Session</div></div>
+    <div class="quick-nav-btn" onclick="goTo('riff',null)"><div class="qn-icon">🎸</div><div class="qn-label">Riff Lab</div></div>
+    <div class="quick-nav-btn" onclick="goTo('recommendations',null);buildRecommendations()"><div class="qn-icon">🎵</div><div class="qn-label">Song Lab</div></div>
+    <div class="quick-nav-btn" onclick="goTo('scales',null)"><div class="qn-icon">≡</div><div class="qn-label">Scales</div></div>
   </div>
 </div>
 
@@ -14592,7 +14608,7 @@ function adaptTip(skillLabel,tiers){
 
 
 /* ════ APP BAR + NAV HUB ════ */
-const _PAGE_CRUMBS={home:null,lesson:['PRACTICE','Lesson'],fundamentals:['LEARN','Fundamentals'],scales:['LEARN','Scales'],arpeggios:['LEARN','Arpeggios'],techniques:['LEARN','Techniques'],theory:['LEARN','Theory'],session:['PRACTICE','Session'],metronome:['PRACTICE','Metronome'],riff:['PRACTICE','Riff Lab'],progress:['TRACK','Progress'],review:['TRACK','Review'],recommendations:['TRACK','Song Lab'],dailytip:['TOOLS','Daily Tip'],notepad:['TOOLS','Notepad'],'ai-coach':['TOOLS','AI Coach'],roadmap:['TOOLS','Roadmap']};
+const _PAGE_CRUMBS={home:null,lesson:['PLAY','Lesson'],fundamentals:['LEARN','Fundamentals'],scales:['LEARN','Scales'],arpeggios:['LEARN','Arpeggios'],techniques:['LEARN','Techniques'],theory:['LEARN','Theory'],session:['PLAY','Session'],metronome:['TOOLS','Metronome'],riff:['PLAY','Riff Lab'],progress:['TRACK','Progress'],review:['TRACK','Review'],recommendations:['PLAY','Song Lab'],dailytip:['TOOLS','Daily Tip'],notepad:['TRACK','Notepad'],'ai-coach':['TOOLS','AI Coach'],roadmap:['TRACK','Roadmap']};
 
 function _updateAppBar(pageId){
   const crumb=_PAGE_CRUMBS[pageId];const el=document.getElementById('app-bar-crumb');
@@ -14785,7 +14801,7 @@ window.instrSongHtml=function(s){
     const list=pick(tags,s.genre||'',1,String(s.id||s.title));
     if(!list.length)return '';
     const e=list[0];
-    return '<div class="instr-note instr-mini"><span class="instr-lbl">WORK ON FIRST</span>'+first(e.x)+'<em class="instr-src">'+e.s+'</em></div>';
+    return '<details class="instr-note instr-mini"><summary class="instr-lbl">WORK ON FIRST</summary>'+first(e.x)+'<em class="instr-src">'+e.s+'</em></details>';
   }catch(err){return '';}
 };
 /* Techniques page: up to two notes under each section */
@@ -16337,6 +16353,7 @@ const SK_PLAN_TAGS = {'Palm Muting':['palmmute'],'String Muting':['mute'],'Alter
 function hashPlan(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return h; }
 
 function instrPlanRender() {
+  try { homeLessonRender(); } catch (e) {}
   const el = document.getElementById('home-plan-card'); if (!el) return;
   let plan; try { plan = planBuild(planMins()); } catch (e) { el.innerHTML = ''; return; }
   const mins = planMins();
@@ -16349,7 +16366,7 @@ function instrPlanRender() {
   el.innerHTML = '<div class="plan-card"><div class="plan-head"><span class="plan-title">TODAY\'S PLAN' + (done ? ' <span class="plan-done">✓ DONE TODAY</span>' : '') + '</span><div class="plan-chips">' + chips + '</div></div>' +
     '<div class="plan-sub">Built from your weakest skill (' + plan.focus.label + ', ' + plan.focus.pct + '%)' + (plan.song ? ' and a song to learn.' : '.') + '</div>' +
     '<ol class="plan-list">' + list + '</ol>' +
-    (window.instrFocusHtml ? window.instrFocusHtml(plan.focus.label) : '') +
+    (window.instrFocusHtml ? '<details class="plan-more"><summary>Instructor note</summary>' + window.instrFocusHtml(plan.focus.label) + '</details>' : '') +
     '<button class="sess-big-btn plan-go" onclick="instrPlanStart()">' + (done ? '▶ PRACTICE MORE' : '▶ START TODAY\'S SESSION') + '</button></div>';
 }
 function instrPlanMins(m) {
@@ -17308,7 +17325,7 @@ function btRender() {
   el.innerHTML = '<div class="bt-card"><div class="bt-h">BACKING TRACKS AND COURSE MATERIALS</div>' + '<button class="fg-open" style="margin:0 0 8px" onclick="paOpen({bpm:' + cur + (total ? ',src:\'tracks\'' : '') + '})">▶ Play along with a count-in</button>' +
     (total ? '<div class="bt-sub">Closest to your metronome tempo (' + cur + ' BPM) first.</div>' + rows +
       (total > 4 ? '<button class="fg-open" onclick="btToggleAll()">' + (_btAll ? 'Show fewer' : 'Show all ' + total + ' tracks') + '</button>' : '')
-      : '<div class="bt-sub">Add your own backing tracks and course links here. They stay private to you: saved in this browser and your synced data, not in the app.</div>') +
+      : '<div class="bt-sub">Add your own backing tracks and course links. Private to you.</div>') +
     (links ? '<div class="bt-lbl">YOUR LINKS</div>' + links : '') +
     '<div class="bt-add"><input class="sl-add-in" id="bt-title" placeholder="Name (for example Theory Guide)"><input class="sl-add-in" id="bt-url" placeholder="Paste a link"><button class="fg-open" onclick="btAddLink()">Add link</button></div>' +
     '<button class="sl-rm" onclick="btToggleImport()">' + (_btImportOpen ? 'hide import' : 'import code') + '</button>' +
@@ -18162,7 +18179,7 @@ function lsToday() { const d = new Date(); return d.getFullYear() + '-' + (d.get
 function lsSkill(k) { return LS_SKILLS.find(x => x.k === k) || LS_SKILLS[0]; }
 function lsTier(k) { try { return getSkillTier(lsSkill(k).label); } catch (e) { return { tier: 0, v: 0, label: 'BEGINNER' }; } }
 function lsFind(id) {
-  const core = LS_CORES.find(c => c.k + c.t === id);
+  const core = LS_CORES.find(c => (c.id || c.k + c.t) === id);
   if (core) return { kind: 'core', k: core.k, t: core.t, title: core.title, core: core, id: id };
   const cu = lsCustomLoad().items.find(c => c.id === id);
   if (cu) return { kind: 'custom', k: cu.skill, t: cu.tier, title: cu.title, custom: cu, id: id };
@@ -18216,10 +18233,12 @@ function lsForSkill(k) {
   return cores[0] ? cores[0].k + cores[0].t : null;
 }
 function lsTarget(k, core) {
+  if (core && core.path) return core.bpm;
   const h = lsHist(), best = +h.best[k] || 0, base = core ? core.bpm : 80;
   return Math.min(220, Math.max(40, best ? Math.round(Math.max(best + 5, base * 0.7) / 5) * 5 : base));
 }
 function lsPickDrills(core, mins) {
+  if (core.drills) return core.drills.slice(0, mins <= 10 ? 1 : mins <= 20 ? 2 : 3);
   const h = lsHist(), seed = lsToday() + core.k + core.t + _lsSkip;
   const all = LS_DRILLS[core.k] || [];
   const order = (arr) => arr.slice().sort((a, b) => ((h.seen.indexOf(a.id) >= 0 ? 1 : 0) - (h.seen.indexOf(b.id) >= 0 ? 1 : 0)) || ((lsHash(a.id + seed) % 100) - (lsHash(b.id + seed) % 100)));
@@ -18244,7 +18263,7 @@ function lsBuildStages(run) {
   if (f.kind === 'core') {
     st.push({ k: 'learn', title: "Today's idea", mins: tm[1] });
     run.drills.forEach((d, i) => st.push({ k: 'drill', i: i, title: 'Drill ' + (i + 1), mins: tm[2] }));
-    const extras = lsExtras(f.k);
+    const extras = lsExtras(f.k).concat(f.core.path ? lsCourseLinks() : []);
     if (extras.length) st.push({ k: 'extra', title: 'Go deeper', mins: 2 });
   } else {
     f.custom.steps.forEach((s, i) => st.push({ k: 'step', i: i, title: 'Step ' + (i + 1), mins: Math.max(2, Math.round(m / Math.max(3, f.custom.steps.length))) }));
@@ -18284,7 +18303,7 @@ function lsFinish() {
   if (!_lsRun) return; const run = _lsRun, f = lsFind(run.id); if (!f) { lsDiscard(); return; }
   const h = lsHist(), rt = LS_RATINGS[run.rating] || LS_RATINGS.close;
   h.log.push({ id: run.id, k: f.k, t: f.t, ts: Date.now(), mins: run.mins, result: run.rating || 'close', bpm: run.reached || 0, hw: run.hw || '' });
-  if (f.k && run.reached) h.best[f.k] = run.reached;
+  if (f.k && run.reached && !(f.core && f.core.path)) h.best[f.k] = run.reached;
   h.seen = h.seen.concat([run.warm]).concat(run.drills);
   h.run = null; lsSaveHist(h);
   let gain = '';
@@ -18303,7 +18322,7 @@ function lsRender() {
   const h = lsHist(), run = h.run && lsFind(h.run.id) ? h.run : null;
   if (_lsRun) { lsRenderRun(); return; }
   const pick = lsNextPick(), pp = gpGet();
-  let html = '<div class="ls-lead">A guided lesson, the way a teacher would run it: check in, warm up, one new idea, drills with a play-along, then a quick test and homework. Each one is picked from your skill levels on your <b>' + slEsc(pp.display) + '</b>, and it changes every time.</div>';
+  let html = '<div class="ls-lead">A lesson picked from your skill levels on your <b>' + slEsc(pp.display) + '</b>. It changes every time.</div>';
   if (run) {
     const f = lsFind(run.id), stages = lsBuildStages(run);
     html += '<div class="ls-card ls-resume"><div class="ls-eyebrow">LESSON IN PROGRESS</div><div class="ls-h">' + slEsc(f.title) + '</div><div class="ls-sub">Step ' + (run.stage + 1) + ' of ' + stages.length + ' · ' + slEsc(stages[run.stage] ? stages[run.stage].title : '') + '</div><div class="ls-btns"><button class="ls-go" onclick="lsResume()">Resume lesson</button><button class="ls-ghost" onclick="lsDiscard()">Discard</button></div></div>';
@@ -18323,6 +18342,7 @@ function lsRender() {
     html += '<div class="ls-card"><div class="ls-eyebrow">LAST LESSON</div><div class="ls-h2">' + slEsc(lf ? lf.title : 'Lesson') + '</div><div class="ls-sub">' + slEsc((LS_RATINGS[last.result] || LS_RATINGS.close).label) + (last.bpm ? ' · clean at ' + last.bpm + ' BPM' : '') + '</div>' +
       (lf && lf.core ? '<div class="ls-hw"><b>Homework:</b> ' + slEsc(lf.core.hw) + '</div>' : '') + '</div>';
   }
+  html += lsPathHtml();
   html += '<div class="ls-card"><div class="ls-eyebrow">OR PICK WHAT YOU WANT TO WORK ON</div><div class="ls-skills">' + LS_SKILLS.map(sk => {
     const st = lsTier(sk.k), cnt = h.log.filter(l => l.k === sk.k).length;
     return '<button class="ls-sk" onclick="lsStartSkill(\'' + sk.k + '\')"><b>' + slEsc(sk.short) + '</b><span>' + LS_TIERS[st.tier] + ' · ' + st.v + '%' + (cnt ? ' · ' + cnt + ' done' : '') + '</span></button>';
@@ -18340,7 +18360,7 @@ function lsStartSkill(k) { const id = lsForSkill(k); if (id) lsStart(id, _lsMins
 /* ── Your own walkthroughs and links ── */
 function lsCustomHtml() {
   const items = lsCustomLoad().items;
-  let h = '<div class="ls-card"><div class="ls-eyebrow">MY WALKTHROUGHS AND LINKS</div><div class="ls-sub">Add your own walkthroughs or links from a teacher, a course or a video. A walkthrough with steps becomes a lesson that comes up in your rotation. Links on their own show up in the Go deeper step of lessons for the skill you choose. Private to you.</div>';
+  let h = '<div class="ls-card"><div class="ls-eyebrow">MY WALKTHROUGHS AND LINKS</div><div class="ls-sub">Add a walkthrough from a teacher or course and it joins your lesson rotation. Private to you.</div>';
   h += items.map(c => '<div class="ls-item"><div><b>' + slEsc(c.title) + '</b><div class="ls-sub">' + (c.skill ? slEsc(lsSkill(c.skill).short) : 'Any skill') + (c.tier >= 0 ? ' · ' + LS_TIERS[c.tier] : '') + ' · ' + (c.steps.length ? c.steps.length + ' steps' : 'links only') + (c.links.length ? ' · ' + c.links.length + ' link' + (c.links.length > 1 ? 's' : '') : '') + '</div></div><div class="ls-btns">' + (c.steps.length ? '<button class="fg-play" onclick="lsStart(\'' + c.id + '\',_lsMins)">Start</button>' : '') + '<button class="sl-rm" onclick="lsCustomRemove(\'' + c.id + '\')">remove</button></div></div>').join('');
   h += '<div class="ls-btns"><button class="fg-open" onclick="lsToggleAdd()">' + (_lsAdd ? 'Cancel' : '+ Add a walkthrough or link') + '</button><button class="sl-rm" onclick="lsToggleImp()">' + (_lsImp ? 'hide import' : 'import code') + '</button></div>';
   if (_lsAdd) {
@@ -18395,6 +18415,7 @@ function lsRepsHtml(key, n) {
 function lsDrillHtml(d, f, target, key, label) {
   let h = '<div class="ls-h2">' + slEsc(d.name) + '</div><div class="ls-say">' + slEsc(d.say) + '</div>';
   if (d.bendDrill) h += lsBendHtml(d.bendDrill.semi);
+  if (d.line) { try { h += '<div class="ls-notes">' + slEsc(d.line()) + '</div>'; } catch (e) {} }
   if (d.gen) h += lsTabHtml(d, target, label || d.name);
   if (d.feel && !d.gen) h += lsFeelHtml();
   if (d.scale && f) { const nm = lsScaleNames(d.name.indexOf('raised') >= 0 || f.k === 'hmin' ? [0, 2, 3, 5, 7, 8, 11] : f.k === 'phry' ? [0, 1, 3, 5, 7, 8, 10] : [0, 2, 3, 5, 7, 8, 10]); h += '<div class="ls-notes">Notes: ' + nm.join(' ') + '</div>'; }
@@ -18423,7 +18444,7 @@ function lsRenderRun(keepScroll) {
   let body = '';
   if (st.k === 'hello') {
     const last = h.log.length ? h.log[h.log.length - 1] : null, lf = last ? lsFind(last.id) : null;
-    body = '<div class="ls-say">Welcome back. Let us get set up and then dig into <b>' + slEsc(f.title) + '</b>' + (f.k ? ' (' + slEsc(sk.short.toLowerCase()) + ', ' + LS_TIERS[tier.tier].toLowerCase() + ' level)' : '') + '.</div>' +
+    body = '<div class="ls-say">Welcome back. Let us get set up and then dig into <b>' + slEsc(f.title) + '</b>' + (f.k && !(f.core && f.core.path) ? ' (' + slEsc(sk.short.toLowerCase()) + ', ' + LS_TIERS[tier.tier].toLowerCase() + ' level)' : '') + '.</div>' +
       '<div class="ls-cue"><b>Tune up first.</b> Your ' + slEsc(pp.display) + ' should read ' + fgTun().names.join(' ') + ' from the lowest string to the highest. A guitar that is slightly out of tune makes everything you practice sound worse.</div>' +
       (last && lf && lf.core ? '<div class="ls-card ls-inner"><div class="ls-eyebrow">LAST TIME</div><div>' + slEsc(lf.title) + ': ' + slEsc((LS_RATINGS[last.result] || LS_RATINGS.close).label) + '</div><div class="ls-hw"><b>Homework was:</b> ' + slEsc(lf.core.hw) + '</div></div>' : '') +
       '<div class="ls-card ls-inner"><div class="ls-eyebrow">TODAY\'S PLAN (ABOUT ' + run.mins + ' MIN)</div>' + stages.map((s, i) => '<div class="ls-plan"><span>' + (i + 1) + '. ' + slEsc(s.title) + '</span><span>' + s.mins + ' min</span></div>').join('') + '</div>';
@@ -18432,9 +18453,9 @@ function lsRenderRun(keepScroll) {
     body = '<div class="ls-say">Warm up first. Nothing fast, nothing forced.</div>' + lsDrillHtml({ name: w.name, say: w.say, cue: 'Relaxed hands and an even sound.', gen: w.gen }, null, Math.max(40, wt), 'warm', 'WARM-UP');
   } else if (st.k === 'learn') {
     const c = f.core, sk2 = f.k;
-    body = '<div class="ls-h2">' + slEsc(c.title) + '</div><div class="ls-say">' + slEsc(c.idea) + '</div><div class="ls-lbl">HERE IS HOW</div><ol class="ls-steps">' + c.how.map(x => '<li>' + slEsc(x) + '</li>').join('') + '</ol>' +
-      '<div class="ls-cue"><b>Watch out for:</b> ' + slEsc(c.watch) + '</div><div class="ls-goal"><b>Goal for today:</b> ' + slEsc(c.goal) + '</div>' +
-      '<div class="ls-btns">' + (sk2 === 'nmin' ? '<button class="fg-open" onclick="fgOpen({interval:3,root:\'' + FG_PC[fgTun().midi[0] % 12] + '\'})">Hear the minor third</button>' : '') + (sk2 === 'phry' ? '<button class="fg-open" onclick="fgOpen({interval:1,root:\'' + FG_PC[fgTun().midi[0] % 12] + '\'})">Hear the half step</button>' : '') + (sk2 === 'hmin' ? '<button class="fg-open" onclick="fgOpen({interval:11,root:\'' + FG_PC[fgTun().midi[0] % 12] + '\'})">Hear the raised seventh</button>' : '') + '<button class="fg-open" onclick="fgOpen({})">🖐 Finger guide</button></div>';
+    body = '<div class="ls-h2">' + slEsc(c.title) + '</div><div class="ls-say">' + slEsc(c.idea) + '</div>' + (c.visual ? lsVisual(c.visual) : '') + '<div class="ls-lbl">HERE IS HOW</div><ol class="ls-steps">' + c.how.map(x => '<li>' + slEsc(x) + '</li>').join('') + '</ol>' +
+      '<div class="ls-cue"><b>Watch out for:</b> ' + slEsc(c.watch) + '</div><div class="ls-goal"><b>Goal for today:</b> ' + slEsc(c.goal) + '</div>' + lsSrcHtml(c) +
+      '<div class="ls-btns">' + (c.path ? '' : sk2 === 'nmin' ? '<button class="fg-open" onclick="fgOpen({interval:3,root:\'' + FG_PC[fgTun().midi[0] % 12] + '\'})">Hear the minor third</button>' : '') + (!c.path && sk2 === 'phry' ? '<button class="fg-open" onclick="fgOpen({interval:1,root:\'' + FG_PC[fgTun().midi[0] % 12] + '\'})">Hear the half step</button>' : '') + (!c.path && sk2 === 'hmin' ? '<button class="fg-open" onclick="fgOpen({interval:11,root:\'' + FG_PC[fgTun().midi[0] % 12] + '\'})">Hear the raised seventh</button>' : '') + '<button class="fg-open" onclick="fgOpen({})">🖐 Finger guide</button></div>';
   } else if (st.k === 'drill') {
     const d = lsDrill(run.drills[st.i]);
     body = d ? lsDrillHtml(d, f, target, 'd' + st.i, d.name.toUpperCase()) : '<div class="ls-say">Free practice: work on the idea from this lesson.</div>';
@@ -18442,7 +18463,7 @@ function lsRenderRun(keepScroll) {
     const txt = f.custom.steps[st.i];
     body = '<div class="ls-h2">Step ' + (st.i + 1) + ' of ' + f.custom.steps.length + '</div><div class="ls-say">' + slEsc(txt) + '</div><div class="ls-btns"><button class="ls-go" onclick="paOpen({target:' + target + ',label:\'' + slEsc(f.title).replace(/&#39;/g, '') + '\'})">▶ Play along with a count-in</button></div>' + lsRepsHtml('s' + st.i, 3);
   } else if (st.k === 'extra') {
-    const links = f.kind === 'custom' ? f.custom.links : lsExtras(f.k).reduce((a, c) => a.concat(c.links), []);
+    const links = f.kind === 'custom' ? f.custom.links : lsExtras(f.k).reduce((a, c) => a.concat(c.links), []).concat(f.core && f.core.path ? lsCourseLinks() : []);
     body = '<div class="ls-say">If you want to go further, here are your saved resources for this skill. Pick one and spend a few minutes with it.</div>' + links.map(l => '<div class="bt-link"><a href="' + slEsc(l.url) + '" target="_blank" rel="noopener">' + slEsc(l.title) + '</a></div>').join('');
   } else if (st.k === 'show') {
     body = '<div class="ls-say">Time to show me. Play the goal for the lesson with a drum track: <b>' + slEsc(f.core ? f.core.goal : 'the idea from this lesson') + '</b> Four bars, no stopping, no fixing. If you can, record it.</div>' +
@@ -18467,6 +18488,228 @@ function lsRenderRun(keepScroll) {
 window.lsRender = lsRender; window.lsStart = lsStart; window.lsResume = lsResume; window.lsDiscard = lsDiscard; window.lsQuit = lsQuit; window.lsGo = lsGo; window.lsRep = lsRep;
 window.lsRate = lsRate; window.lsReached = lsReached; window.lsFinish = lsFinish; window.lsMins = lsMins; window.lsOther = lsOther; window.lsStartSkill = lsStartSkill;
 window.lsToggleAdd = lsToggleAdd; window.lsToggleImp = lsToggleImp; window.lsCustomAdd = lsCustomAdd; window.lsCustomRemove = lsCustomRemove; window.lsCustomImport = lsCustomImport; window.lsHearBend = lsHearBend; window.lsHwSet = lsHwSet;
+
+/* ════ PHASE 9: COURSE PATH (lessons inspired by your Fretboard Mastermind material, written in my own words and credited) ════ */
+const LS_SRC_THEORY = 'Inspired by Fretboard Mastermind, Metalcore Scale Mastery (theory guide)';
+const LS_SRC_TABS = 'Inspired by Fretboard Mastermind, Metalcore Mastery Tabs';
+const LS_MODES = [
+  { n: 'Aeolian', d: 0, ints: [0, 2, 3, 5, 7, 8, 10], feel: 'Natural minor. The most used sound in heavy music, and your home key.' },
+  { n: 'Locrian', d: 1, ints: [0, 1, 3, 5, 6, 8, 10], feel: 'Furthest from major. Unstable and rarely used as a home.' },
+  { n: 'Ionian', d: 2, ints: [0, 2, 4, 5, 7, 9, 11], feel: 'The major scale. The reference everything else is measured from.' },
+  { n: 'Dorian', d: 3, ints: [0, 2, 3, 5, 7, 9, 10], feel: 'Minor with a brighter sixth. Familiar but different.' },
+  { n: 'Phrygian', d: 4, ints: [0, 1, 3, 5, 7, 8, 10], feel: 'Flat second. Dark and exotic. The second most common in metal.' },
+  { n: 'Lydian', d: 5, ints: [0, 2, 4, 6, 7, 9, 11], feel: 'Raised fourth. Dreamy but close to major.' },
+  { n: 'Mixolydian', d: 6, ints: [0, 2, 4, 5, 7, 9, 10], feel: 'Major with a flat seventh. Soulful, with attitude.' }
+];
+const LS_MINOR = [0, 2, 3, 5, 7, 8, 10];
+function lsKeyPc() { return fgTun().midi[0] % 12; }
+function lsKeyName() { return FG_PC[lsKeyPc()]; }
+
+/* every spot where the key note sits, one per string (lowest fret) */
+function lsFindRoot() {
+  const T = fgTun(), pc = lsKeyPc(), ev = [];
+  T.midi.forEach((m, i) => { let f = ((pc - m) % 12 + 12) % 12; ev.push({ c: i * 3, s: i, f: f }); });
+  return ev;
+}
+/* same pitch two ways: the fret that equals the next string open */
+function lsUnisons() {
+  const T = fgTun(), ev = []; let c = 0;
+  for (let i = 0; i + 1 < T.n; i++) {
+    const g = T.midi[i + 1] - T.midi[i];
+    if (g >= 0 && g <= 12) { ev.push({ c: c, s: i, f: g }); ev.push({ c: c + 3, s: i + 1, f: 0 }); c += 7; }
+  }
+  return ev;
+}
+function lsMajorMinor() {
+  return lsScale([0, 2, 4, 5, 7, 9, 11], 'up').concat(lsShift(lsScale(LS_MINOR, 'up'), 18));
+}
+/* a two string box: the 7 notes of a mode on the lowest two strings, up then back down */
+function lsBoxNotes(ints, rootMidi) {
+  const T = fgTun(), out = [], r = ((rootMidi - T.midi[0]) % 12 + 12) % 12;
+  for (let k = 0; k < 8; k++) {
+    const m = rootMidi + ints[k % 7] + (k >= 7 ? 12 : 0);
+    const f0 = m - T.midi[0];
+    const f1 = m - T.midi[1];
+    if (f0 >= r && f0 <= 15 && (f0 <= r + 4 || f1 < 0)) out.push({ s: 0, f: f0 });
+    else if (f1 >= 0 && f1 <= 16) out.push({ s: 1, f: f1 });
+    else break;
+  }
+  return out;
+}
+function lsBox(modeName) {
+  const T = fgTun(), md = LS_MODES.find(x => x.n === modeName) || LS_MODES[0];
+  let root = T.midi[0] + LS_MINOR[md.d];
+  const notes = lsBoxNotes(md.ints, root), ev = []; let c = 0;
+  notes.forEach(n => { ev.push({ c: c, s: n.s, f: n.f }); c += 2; });
+  for (let i = notes.length - 2; i >= 0; i--) { ev.push({ c: c, s: notes[i].s, f: notes[i].f }); c += 2; }
+  return ev;
+}
+function lsBoxLine(modeName) {
+  const T = fgTun(), md = LS_MODES.find(x => x.n === modeName) || LS_MODES[0], root = (T.midi[0] + LS_MINOR[md.d]) % 12;
+  return md.n + ' on ' + FG_PC[root] + ': ' + md.ints.map(i => FG_PC[(root + i) % 12]).join(' ') + '. Same seven notes as your key, starting from ' + FG_PC[root] + '.';
+}
+/* the first five intervals the guide points at, played as pairs from your key note */
+function lsFiveIntervals(together) {
+  const ev = []; let c = 0, T = fgTun();
+  [7, 3, 4, 5, 1].forEach(semi => {
+    const sh = ivPick(ivPositions(lsKeyPc(), semi))[0]; if (!sh) return;
+    ev.push({ c: c, s: sh.i, f: sh.r }); ev.push({ c: together ? (sh.i === sh.j ? c + 1 : c) : c + 2, s: sh.j, f: sh.u }); c += together ? 4 : 6;
+  });
+  return ev;
+}
+/* pedal tone: the open low string chugs between climbing scale notes on the same string */
+function lsPedal(down) {
+  const frets = down ? [10, 8, 7, 5, 3] : [3, 5, 7, 8, 10], ev = []; let c = 0;
+  frets.forEach(f => { ev.push({ c: c, s: 0, f: 0 }); ev.push({ c: c + 2, s: 0, f: 0 }); ev.push({ c: c + 4, s: 0, f: f }); c += 6; });
+  return ev;
+}
+function lsChordsTab() {
+  const T = fgTun(), root = lsKeyName(), ev = []; let c = 0;
+  ['', 'm', 'dim', 'aug'].forEach(q => {
+    const ch = fgParseChord(root + q), vs = ch ? fgVoicings(ch, 1) : [];
+    if (vs[0]) vs[0].frets.forEach((f, i) => { if (f >= 0) ev.push({ c: c, s: i, f: f }); });
+    c += 4;
+  });
+  return ev;
+}
+LS_CORES.push(
+  { id: 'path-1', k: 'nmin', t: -1, path: 1, title: 'Map your fretboard', bpm: 60, style: 'click', src: LS_SRC_THEORY, visual: 'fretboard',
+    idea: 'Every string is tuned a fourth above the one below it, which is five frets, with one exception: the gap between the G and B strings is a third, which is four frets. Once you know the gaps on your guitar, you can find any note anywhere.',
+    how: ['Look at the gap list above. It shows how many frets separate each pair of neighboring strings on your guitar.', 'Find your key note, the open lowest string, on every other string using the diagram.', 'Play a note, then find the same pitch on the next string up and say its name.'],
+    watch: 'Memorizing shapes instead of the gaps. The gaps work everywhere on the neck.', goal: 'Find your key note on every string without looking.', hw: 'Pick a random note each day and find it on every string.', drills: ['fb-root', 'fb-uni'] },
+  { id: 'path-2', k: 'nmin', t: -1, path: 2, title: 'The minor scale formula', bpm: 70, style: 'rock', src: LS_SRC_THEORY, visual: 'minor',
+    idea: 'Every scale is a pattern of whole steps (two frets) and half steps (one fret). The minor scale is whole, half, whole, whole, half, whole, whole, and the key note is the open lowest string. Compared with major it has a lowered third, sixth and seventh.',
+    how: ['Starting on the open low string, count the frets: 2, 1, 2, 2, 1, 2, 2.', 'Say each note name as you land on it.', 'Play the major scale and then the minor scale from the same note, and listen to what the three lowered notes do.'],
+    watch: 'Treating the shape as the scale. The formula is the scale, the shape is just where it lands.', goal: 'Say and play the minor scale from the formula alone.', hw: 'Write the formula on paper and say the notes of your key out loud once a day.', drills: ['mm-cmp', 'nmin-a'] },
+  { id: 'path-3', k: 'nmin', t: -1, path: 3, title: 'Two string riffing boxes', bpm: 80, style: 'rock', src: LS_SRC_THEORY,
+    idea: 'Most heavy riffs live on the two lowest strings. A box is the shape of a scale across just those two strings. There are two ways to learn them: study each one on purpose, or improvise in the scale until they feel natural. Do both.',
+    how: ['Play the box slowly, up and back down, saying the note names.', 'Keep the fingering the same and notice that the same shape lands on different notes as you move.', 'Spend 15 minutes improvising riffs inside the box over a drum track.'],
+    watch: 'Running the box like an exercise. Turn it into riffs by repeating two or three notes.', goal: 'Improvise a short riff using only the box.', hw: 'Improvise in your box for 15 minutes with a drum track.', drills: ['box-aeo', 'box-free'] },
+  { id: 'path-4', k: 'phry', t: -1, path: 4, title: 'The seven modes', bpm: 80, style: 'half', src: LS_SRC_THEORY, visual: 'modes',
+    idea: 'Each of the seven notes of your minor scale can be a starting point, and each one makes a mode with its own sound. You are still playing the same seven notes. Aeolian is the most used in heavy music, Phrygian is second and Dorian is third.',
+    how: ['Look at the table of modes in your key below.', 'Play the box for each mode and notice what changes from the minor scale.', 'Make a short riff in Phrygian and another in Dorian, and compare the mood.'],
+    watch: 'Thinking of modes as new scales. They are the same notes from a different starting point.', goal: 'Play and describe three modes.', hw: 'Write one riff in Phrygian and one in Dorian.', drills: ['mode-phr', 'mode-dor', 'mode-aeo'] },
+  { id: 'path-5', k: 'nmin', t: -1, path: 5, title: 'Intervals: the colors of a riff', bpm: 70, style: 'rock', src: LS_SRC_THEORY, visual: 'intervals',
+    idea: 'There are twelve distances between notes, and each has its own sound. You can play an interval as two notes one after another, or as a dyad, both at once. The minor third is the sound of minor and the major third is the sound of major. The fifth is the power chord, and the tritone is the interval that makes a diminished chord sound tense.',
+    how: ['Play the five intervals below one after another from your key note.', 'Play the same five as dyads, two notes at once.', 'Open the Interval Lab and pick the one you like most. Write a riff from it.'],
+    watch: 'Wide stretches that your hand does not like. Pick the shapes that feel natural.', goal: 'Hear and play five intervals as notes and as dyads.', hw: 'Use the Interval Lab quiz for five minutes a day.', drills: ['int-mel', 'int-dy'] },
+  { id: 'path-6', k: 'palm', t: -1, path: 6, title: 'Chug and climb', bpm: 90, style: 'metal', src: LS_SRC_TABS,
+    idea: 'A core metalcore move is the pedal tone: you keep chugging the open low string and let a moving note step up and down the same string between the chugs. It sounds like a riff and trains your palm mute, your picking and your fretting hand together.',
+    how: ['Chug the open string twice with a tight palm mute.', 'Land on the fretted note and let it sit in the same palm muted sound.', 'Climb through the scale notes one at a time, then come back down.'],
+    watch: 'The fretted note ringing louder than the chugs. Keep the dynamics even.', goal: 'The pedal tone climb and descent, clean and even.', hw: 'Play the climb and the descent for two minutes each day.', drills: ['ped-up', 'ped-dn'] },
+  { id: 'path-7', k: 'nmin', t: -1, path: 7, title: 'Triads: stacked thirds', bpm: 70, style: 'rock', src: LS_SRC_THEORY, visual: 'triads',
+    idea: 'A triad is a root, a third and a fifth. Major has a major third. Move that third down a half step and it becomes minor. Lower the fifth as well and you have diminished. Raise the fifth of a major chord and you have augmented. Changing one note changes the mood.',
+    how: ['Play the major shape below, then move one note to get the minor shape.', 'Play all four in a row from the same root.', 'Make a four chord riff from the four shapes and hear how each one feels.'],
+    watch: 'Strumming through notes you do not need. Mute strings outside the shape.', goal: 'Play major, minor, diminished and augmented from one root.', hw: 'Play the four triads from a different root each day.', drills: ['tri-four'] },
+  { id: 'path-8', k: 'nmin', t: -1, path: 8, title: 'Write a riff in a mode', bpm: 100, style: 'metal', src: LS_SRC_THEORY,
+    idea: 'Now put it all together. Pick a mode, pick three or four notes from its box, and give them a rhythm. This is how you write riffs on the spot.',
+    how: ['Choose a mode: Aeolian, Phrygian or Dorian.', 'Pick three or four notes from its two string box and decide on a 3-3-2 or gallop rhythm.', 'Loop it for four bars, then change one note and loop again.'],
+    watch: 'Using too many notes. Fewer notes make heavier riffs.', goal: 'A four bar riff in the mode of your choice.', hw: 'Record your riff and write down the mode and the notes.', drills: ['palm-332', 'phry-b'] }
+);
+LS_DRILLS.path = [
+  { id: 'fb-root', min: -9, max: -9, name: 'Your key note on every string', say: 'The lowest fret where your key note sits on each string, from the lowest string up.', cue: 'Say the note name for every note you play.', gen: () => lsFindRoot() },
+  { id: 'fb-uni', min: -9, max: -9, name: 'Same note, next string', say: 'Fret a note on one string and play the open next string. They are the same pitch.', cue: 'Check the odd gap, where the frets differ by one.', gen: () => lsUnisons() },
+  { id: 'mm-cmp', min: -9, max: -9, name: 'Major, then minor', say: 'First the major scale from your key note, then the minor scale. Listen for the lowered third, sixth and seventh.', cue: 'Hear three notes move down.', gen: () => lsMajorMinor(), scale: false },
+  { id: 'box-aeo', min: -9, max: -9, name: 'Aeolian box', say: 'The natural minor box on your two lowest strings, up and back.', cue: 'Name each note as you play it.', gen: () => lsBox('Aeolian'), line: () => lsBoxLine('Aeolian') },
+  { id: 'box-free', min: -9, max: -9, name: 'Improvise in the box', say: 'Play along with a drum track and make riffs using only notes from your box. Repeat two or three notes.', cue: 'Repeat what sounds good.', gen: () => lsBox('Aeolian'), freeform: true },
+  { id: 'mode-phr', min: -9, max: -9, name: 'Phrygian box', say: 'Phrygian on your two lowest strings. Note the flat second.', cue: 'Hear the dark step near the bottom.', gen: () => lsBox('Phrygian'), line: () => lsBoxLine('Phrygian') },
+  { id: 'mode-dor', min: -9, max: -9, name: 'Dorian box', say: 'Dorian on your two lowest strings. It is minor with a brighter sixth.', cue: 'Hear the brighter note near the top.', gen: () => lsBox('Dorian'), line: () => lsBoxLine('Dorian') },
+  { id: 'mode-aeo', min: -9, max: -9, name: 'Aeolian for comparison', say: 'Your home scale again, so you can hear the other modes against it.', cue: 'Compare with the Phrygian and Dorian boxes.', gen: () => lsBox('Aeolian'), line: () => lsBoxLine('Aeolian') },
+  { id: 'int-mel', min: -9, max: -9, name: 'Five intervals as notes', say: 'Perfect fifth, minor third, major third, perfect fourth, minor second. One note, then the other.', cue: 'Name the interval before you play it.', gen: () => lsFiveIntervals(false) },
+  { id: 'int-dy', min: -9, max: -9, name: 'Five intervals as dyads', say: 'The same five intervals with both notes played together.', cue: 'Mute any other strings.', gen: () => lsFiveIntervals(true) },
+  { id: 'ped-up', min: -9, max: -9, name: 'Pedal tone climb', say: 'Two chugs on the open string, then a climbing note. Up through the scale.', cue: 'Even volume between chugs and notes.', gen: () => lsPedal(false), pm: true },
+  { id: 'ped-dn', min: -9, max: -9, name: 'Pedal tone descent', say: 'The same pattern coming back down.', cue: 'Stay in the palm mute the whole way.', gen: () => lsPedal(true), pm: true },
+  { id: 'tri-four', min: -9, max: -9, name: 'Four triads from one root', say: 'Major, minor, diminished, augmented from your key note. Strum each one.', cue: 'Notice the one note that changes each time.', gen: () => lsChordsTab() }
+];
+
+/* ── Visuals shown in the idea step ── */
+function lsVisual(v) {
+  const T = fgTun(), n = T.n;
+  if (v === 'fretboard') {
+    const gaps = []; for (let i = 0; i + 1 < n; i++) gaps.push(T.names[i] + ' to ' + T.names[i + 1] + ': ' + (T.midi[i + 1] - T.midi[i]) + ' frets');
+    return '<div class="ls-lbl">YOUR KEY NOTE, ' + lsKeyName() + ', ON YOUR NECK</div><div class="fg-noteSvg">' + fgNoteSvg(lsKeyPc()) + '</div><div class="ls-lbl">FRETS BETWEEN NEIGHBORING STRINGS</div><div class="ls-notes">' + gaps.join('<br>') + '</div>';
+  }
+  if (v === 'minor') {
+    const names = LS_MINOR.map(i => FG_PC[(lsKeyPc() + i) % 12]).join(' ');
+    return '<div class="ls-lbl">YOUR MINOR SCALE</div><div class="ls-notes"><b>' + lsKeyName() + ' minor:</b> ' + names + '<br>Steps: whole, half, whole, whole, half, whole, whole</div>';
+  }
+  if (v === 'modes') {
+    return '<div class="ls-lbl">THE SEVEN MODES IN ' + lsKeyName().toUpperCase() + '</div>' + LS_MODES.map(m => '<div class="ls-plan"><span><b>' + m.n + '</b> from ' + FG_PC[(lsKeyPc() + LS_MINOR[m.d]) % 12] + '</span><span class="ls-modefeel">' + slEsc(m.feel) + '</span></div>').join('');
+  }
+  if (v === 'intervals') return '<div class="ls-btns"><button class="fg-open" onclick="fgOpen({interval:7,root:\'' + lsKeyName() + '\'})">Open the Interval Lab</button></div>';
+  if (v === 'triads') {
+    let h = '<div class="ls-lbl">FOUR TRIADS FROM ' + lsKeyName().toUpperCase() + '</div>', cards = '';
+    [['', 'Major'], ['m', 'Minor'], ['dim', 'Diminished'], ['aug', 'Augmented']].forEach(q => {
+      const ch = fgParseChord(lsKeyName() + q[0]), vs = ch ? fgVoicings(ch, 1) : [];
+      if (vs[0]) {
+        const v = vs[0], enc = encodeURIComponent(JSON.stringify(v.frets));
+        cards += '<div class="ls-tri"><div class="ls-tri-h">' + q[1] + ' <span>' + lsKeyName() + q[0] + '</span></div><div class="ls-tri-svg">' + fgBoxSvg({ n: T.n, frets: v.frets, fingers: v.a.fingers, barre: v.a.barre }) + '</div><button class="fg-play" onclick="fgStrum(\'' + enc + '\',this)">▶ Strum</button></div>';
+      }
+    });
+    return h + '<div class="ls-trigrid">' + cards + '</div>';
+  }
+  return '';
+}
+function lsCourseLinks() {
+  try { return btLoad().links.filter(l => l && l.url && l.title).slice(0, 8); } catch (e) { return []; }
+}
+function lsSrcHtml(core) {
+  return core && core.src ? '<div class="ls-src">' + slEsc(core.src) + '. Concepts only, in my own words. Your copy of the course has the full material.</div>' : '';
+}
+
+/* ── Path card on the Lesson page ── */
+function lsPathHtml() {
+  const h = lsHist(), done = {}; h.log.forEach(l => { done[l.id] = true; });
+  const steps = LS_CORES.filter(c => c.path).sort((a, b) => a.path - b.path);
+  const nd = steps.filter(c => done[c.id]).length, next = steps.find(c => !done[c.id]);
+  let html = '<div class="ls-card"><div class="ls-eyebrow">COURSE PATH · ' + nd + ' OF ' + steps.length + ' DONE</div><div class="ls-h2">Metalcore scale and riff path</div><div class="ls-sub">Fretboard map to writing riffs in a mode.</div>';
+  html += '<div class="ls-bar">' + steps.map(c => '<span class="ls-seg' + (done[c.id] ? ' done' : c === next ? ' cur' : '') + '"></span>').join('') + '</div>';
+  html += '<details class="ls-list"><summary>All 8 steps</summary>' + steps.map(c => '<div class="ls-plan ls-pathrow" onclick="lsStart(\'' + c.id + '\',_lsMins)"><span>' + (done[c.id] ? '✓ ' : c.path + '. ') + slEsc(c.title) + '</span><span>' + (done[c.id] ? 'done' : 'start') + '</span></div>').join('') + '</details>';
+  if (next) html += '<div class="ls-btns"><button class="ls-go" onclick="lsStart(\'' + next.id + '\',_lsMins)">▶ Next step: ' + slEsc(next.title) + '</button></div>';
+  return html + '<div class="ls-src">' + slEsc(LS_SRC_THEORY) + '.</div></div>';
+}
+/* credit the existing lessons that echo the guide */
+[['nmin0', LS_SRC_THEORY], ['nmin3', LS_SRC_THEORY], ['phry0', LS_SRC_THEORY], ['phry2', LS_SRC_THEORY], ['palm1', LS_SRC_TABS]].forEach(p => { const c = LS_CORES.find(x => (x.id || x.k + x.t) === p[0]); if (c) c.src = p[1]; });
+
+
+/* ════ PHASE 10: CLEANUP HELPERS ════ */
+function homeLessonRender() {
+  const el = document.getElementById('home-lesson-card'); if (!el) return;
+  let pick = null, h = null;
+  try { h = lsHist(); pick = lsNextPick(); } catch (e) {}
+  const run = h && h.run ? lsFind(h.run.id) : null;
+  if (!pick && !run) { el.innerHTML = ''; return; }
+  el.innerHTML = '<div class="hl-card"><div><div class="hl-eye">' + (run ? 'LESSON IN PROGRESS' : 'YOUR NEXT LESSON') + '</div><div class="hl-title">' + slEsc(run ? run.title : pick.title) + '</div><div class="hl-sub">' + slEsc(run ? 'Pick up where you left off' : pick.why) + '</div></div>' +
+    '<button class="ls-go" onclick="' + (run ? "goTo('lesson',null);lsResume()" : "goTo('lesson',null)") + '">' + (run ? 'Resume' : 'Start') + '</button></div>';
+}
+window.homeLessonRender = homeLessonRender;
+/* collapse every h3 section on a page into an accordion, first N open */
+function accordionize(pageId, openCount) {
+  const pg = document.getElementById(pageId); if (!pg || pg.dataset.acc) return; pg.dataset.acc = '1';
+  const kids = Array.prototype.slice.call(pg.children), heads = kids.filter(k => k.tagName === 'H3');
+  heads.forEach((hd, idx) => {
+    const det = document.createElement('details'); det.className = 'acc'; if (idx < (openCount || 1)) det.open = true;
+    const sum = document.createElement('summary'); sum.className = 'acc-sum';
+    sum.innerHTML = hd.innerHTML; hd.parentNode.insertBefore(det, hd); det.appendChild(sum);
+    let n = hd.nextSibling; hd.remove();
+    while (n && n.tagName !== 'H3') { const nx = n.nextSibling; det.appendChild(n); n = nx; }
+  });
+}
+window.accordionize = accordionize;
+function fabToggle() {
+  const c = document.getElementById('fab-cluster'); if (!c) return;
+  c.classList.toggle('open'); const b = document.getElementById('fab-toggle'); if (b) b.textContent = c.classList.contains('open') ? '×' : '⋯';
+}
+window.fabToggle = fabToggle;
+document.addEventListener('click', e => {
+  const c = document.getElementById('fab-cluster'); if (!c || !c.classList.contains('open')) return;
+  const f = e.target.closest ? e.target.closest('.fab') : null;
+  if (!f || (f.id !== 'fab-toggle')) setTimeout(() => { c.classList.remove('open'); const b = document.getElementById('fab-toggle'); if (b) b.textContent = '⋯'; }, 0);
+});
+document.addEventListener('DOMContentLoaded', () => {
+  try { accordionize('roadmap', 1); accordionize('session', 1); } catch (e) {}
+  document.addEventListener('click', e => { const l = e.target.closest ? e.target.closest('.page-lead') : null; if (l) l.classList.toggle('open'); });
+});
 
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
@@ -18539,6 +18782,8 @@ function slSongGuitars(song) {
     .map(([, name]) => name);
 }
 
+function slMore() { window._slLimit = (window._slLimit || 8) + 8; slFilterSongs(); }
+window.slMore = slMore;
 function slFilterSongs() {
   csApply();
   slUpdateLead();
@@ -18586,6 +18831,9 @@ function slFilterSongs() {
     return;
   }
   if (empty) empty.style.display = 'none';
+  const slSig = [genreVal, diffVal, techVal, tuningVal, statusVal, filterTuning].join('|');
+  if (window._slSig !== slSig) { window._slSig = slSig; window._slLimit = 8; }
+  const slTotal = songs.length; songs = songs.slice(0, window._slLimit || 8);
 
   const diffLabels  = { 1:'BEGINNER', 2:'INTERMEDIATE', 3:'ADVANCED', 4:'EXPERT' };
   const diffClasses = { 1:'sl-diff-1', 2:'sl-diff-2', 3:'sl-diff-3', 4:'sl-diff-4' };
@@ -18651,6 +18899,9 @@ function slFilterSongs() {
       </div>
     </div>`;
   }).join('');
+  let more = document.getElementById('sl-more');
+  if (!more) { more = document.createElement('div'); more.id = 'sl-more'; more.className = 'sl-more'; grid.parentNode.insertBefore(more, grid.nextSibling); }
+  more.innerHTML = slTotal > songs.length ? '<div class="sl-more-n">Showing ' + songs.length + ' of ' + slTotal + '</div><button class="btn" onclick="slMore()">Show 8 more</button>' : (slTotal > 8 ? '<div class="sl-more-n">All ' + slTotal + ' shown</div>' : '');
 }
 
 /* ── AI recommendations via Claude API ────────────────────── */
@@ -18808,6 +19059,8 @@ if ('serviceWorker' in navigator) {
 </div>
 
 <div class="fab-cluster" id="fab-cluster">
+
+  <div class="fab fab-toggle" id="fab-toggle" onclick="fabToggle()" title="Tools">⋯</div>
 
   <!-- Session timer fab -->
   <div class="fab" id="fab-session" onclick="fabSessionClick()" title="Session Timer">
