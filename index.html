@@ -1192,6 +1192,47 @@ h3 {
   body .fab-cluster{right:12px;bottom:calc(16px + env(safe-area-inset-bottom,0px));gap:8px}
   body .fab{width:44px;height:44px;font-size:17px}
 }
+
+/* learn this song */
+.sl-learn{margin-top:10px;border-top:1px solid rgba(255,255,255,.06);padding-top:8px}
+.sl-learn-toggle{width:100%;display:flex;align-items:center;gap:8px;background:none;border:0;color:var(--pale);font-family:var(--mono);font-size:10px;letter-spacing:2px;padding:6px 0;cursor:pointer;text-align:left}
+.sl-learn-arrow{color:var(--flame);width:10px}
+.sl-learn-count{margin-left:auto;color:var(--flame)}
+.sl-learned-badge{display:none;color:#5de85d;font-size:9px;letter-spacing:1px}
+.sl-learn.is-learned .sl-learned-badge{display:inline}
+.sl-learn.is-learned .sl-learn-count{display:none}
+.sl-learn-sec{font-family:var(--mono);font-size:8px;letter-spacing:3px;color:var(--dim);margin:12px 0 6px}
+.sl-step{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer}
+.sl-step input{margin-top:3px;accent-color:#9126f8;width:16px;height:16px;flex-shrink:0}
+.sl-step b{display:block;font-size:12px;color:var(--pale);font-weight:600}
+.sl-step small{display:block;font-size:11px;color:var(--mid);line-height:1.45;margin-top:1px}
+.sl-bpm-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--dim)}
+.sl-bpm-btn{min-width:36px;height:32px;border-radius:6px;border:1px solid var(--wire);background:rgba(145,38,248,.1);color:var(--pale);font-family:var(--mono);cursor:pointer}
+.sl-bpm-in{width:64px;height:32px;border-radius:6px;border:1px solid var(--wire);background:rgba(5,4,14,.8);color:var(--pale);font-family:var(--mono);font-size:13px;text-align:center}
+.sl-bpm-bar{height:4px;border-radius:2px;background:rgba(255,255,255,.07);margin-top:10px;overflow:hidden}
+.sl-bpm-bar>div{height:100%;background:linear-gradient(90deg,var(--ember),var(--hot));transition:width .25s}
+.sl-bpm-hint{font-size:10px;color:var(--dim);margin-top:5px}
+.sl-tone{font-size:11px;color:var(--mid);line-height:1.5}
+.sl-tone-chain{font-family:var(--mono);font-size:10px;color:var(--pale);margin-bottom:8px}
+.sl-knobs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.sl-knob{padding:3px 8px;border-radius:10px;border:1px solid rgba(145,38,248,.3);background:rgba(145,38,248,.08);font-family:var(--mono);font-size:9px;color:var(--mid)}
+.sl-knob b{color:var(--flame);font-weight:600}
+.sl-tone-tip{margin:6px 0;padding-left:10px;border-left:2px solid var(--gold)}
+.sl-tone-foot{font-size:9px;color:var(--dim);margin-top:8px}
+/* today's plan */
+.plan-card{background:rgba(80,15,150,.12);border:1px solid rgba(100,20,180,.3);border-left:3px solid var(--flame);border-radius:var(--radius);padding:14px 16px}
+.plan-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.plan-title{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--pale)}
+.plan-done{color:#5de85d;margin-left:6px;letter-spacing:1px}
+.plan-chips{display:flex;gap:5px}
+.plan-chip{padding:5px 10px;border-radius:12px;border:1px solid var(--wire);background:none;color:var(--dim);font-family:var(--mono);font-size:9px;letter-spacing:1px;cursor:pointer}
+.plan-chip.active{background:rgba(145,38,248,.2);border-color:var(--flame);color:var(--pale)}
+.plan-sub{font-size:12px;color:var(--mid);margin-bottom:10px;line-height:1.5}
+.plan-list{list-style:none;margin:0 0 10px;padding:0}
+.plan-list li{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px}
+.plan-t{font-family:var(--mono);font-size:10px;color:var(--flame);min-width:44px}
+.plan-n{color:var(--pale)}
+.plan-go{width:100%;margin-top:12px;padding:12px;letter-spacing:2px}
 /* keyboard focus and reduced motion */
 button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--flame,#c060ff);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
@@ -3953,6 +3994,9 @@ body{padding-top:52px}
     <div class="page-lead" id="gp-home-lead">Your 7-string deathcore codex.</div>
   </div>
 
+  <!-- ── Today's Plan ── -->
+  <div id="home-plan-card" style="margin-bottom:16px"></div>
+
   <!-- ── Stat cards ── -->
   <div class="dashboard-grid stagger" id="home-stats">
     <div class="stat-card" onclick="goTo('progress',null)">
@@ -4903,6 +4947,12 @@ body{padding-top:52px}
           <option value="drop_d">Drop D — Squier Strat</option>
           <option value="drop_c">Drop C — Schecter Demon</option>
         </select>
+        <select class="sl-filter" id="sl-filter-status" onchange="slFilterSongs()">
+          <option value="">All Songs</option>
+          <option value="progress">In Progress</option>
+          <option value="new">Not Started</option>
+          <option value="learned">Learned</option>
+        </select>
         <button class="sl-filter" onclick="slRandomSong()" style="cursor:pointer;border:1px solid rgba(145,38,248,.3);background:rgba(145,38,248,.08);color:var(--pale)" title="Random song from current filters">⚄ Random</button>
       </div>
     </div>
@@ -5760,7 +5810,7 @@ function loadFromPlan(plan) {
   if (firstBlock && firstBlock.bpm) updateBPM(firstBlock.bpm);
   renderBlocks();
   updateTimerDisplay();
-  showToast('Session loaded · tap any block for details');
+  if (performance.now() > 3000) showToast('Session loaded · tap any block for details');
   document.getElementById('session').scrollTo({ top: 0, behavior: 'smooth' });
   const btn = document.getElementById('sess-start-btn');
   if (btn) { btn.style.transform='scale(1.05)'; setTimeout(()=>btn.style.transform='',400); }
@@ -7168,7 +7218,7 @@ function loadPreset(name) {
   if (first && first.bpm) updateBPM(first.bpm);
   renderBlocks();
   updateTimerDisplay();
-  showToast('Session loaded · tap any block for details');
+  if (performance.now() > 3000) showToast('Session loaded · tap any block for details');
 }
 
 let selectedBlockIdx = null;
@@ -8894,6 +8944,7 @@ function buildTodayFocus() {
 
 function refreshHomeStats() {
   buildTodayFocus();
+  if (window.instrPlanRender) instrPlanRender();
   buildActivityChart();
   buildHomeSkillMini();
 
@@ -15859,6 +15910,237 @@ const SL_SONGS = [
   },
 ];
 
+
+/* ════ PHASE 3: LEARN THIS SONG, TONE CARDS, TODAY'S PLAN ════ */
+/* Song progress lives under one key that starts with "grimoire", so export and sync include it. */
+const SL_STORE_KEY = 'grimoire_songs';
+const SL_STEPS = [
+  {t:'Listen and count it in', d:'Listen through twice. Find where each riff repeats and count the bars.'},
+  {t:'Learn each part slowly', d:'Take one section at a time at a slow tempo. If it will not lock in, isolate each hand.'},
+  {t:'Climb the tempo ladder', d:'Add 5 BPM after each clean, relaxed minute. Step back 2 BPM if your form slips.'},
+  {t:'Play it start to finish', d:'Run the whole song without stopping at about 80 percent of tempo.'},
+  {t:'Play with the recording', d:'Play along at full speed, then record yourself and listen back.'}
+];
+let _slOpen = new Set();
+
+function slLoadSongs() {
+  try { return JSON.parse(localStorage.getItem(SL_STORE_KEY) || '{}') || {}; } catch (e) { return {}; }
+}
+function slSaveSongs(all) {
+  try { localStorage.setItem(SL_STORE_KEY, JSON.stringify(all)); } catch (e) {}
+  try { if (typeof syncSchedulePush === 'function') syncSchedulePush(); } catch (e) {}
+}
+function slSongState(id) {
+  const st = slLoadSongs()[id] || {};
+  return { st: Array.isArray(st.st) ? st.st.slice(0, 5) : [0,0,0,0,0], bpm: +st.bpm || 0, tgt: +st.tgt || 0, done: st.done || null };
+}
+function slPutState(id, s) {
+  const all = slLoadSongs(); all[id] = s; slSaveSongs(all);
+}
+/* 'new' | 'progress' | 'learned' */
+function slStatusOf(song) {
+  const s = slSongState(song.id);
+  if (s.done) return 'learned';
+  if (s.st.some(Boolean) || s.bpm > 0) return 'progress';
+  return 'new';
+}
+
+/* Tone starting points. Tips are paraphrased and credited; knob numbers are app suggestions. */
+const SL_TONE = {
+  heavy: {title:'Heavy rhythm tone', chain:'Noise gate, overdrive boost, high gain amp, cab',
+    knobs:{Gain:'6-7', Bass:'4-5', Mid:'6', Treble:'6', Gate:'On'},
+    tips:[{x:'Look for a tight, punchy low end with plenty of gain, and keep a noise gate in the chain.', s:'Riffhard metalcore guide'},
+          {x:'An overdrive in front adds saturation and sustain, and active pickups add clarity and output.', s:'Riffhard metalcore guide'}]},
+  hardcore: {title:'Hardcore tone', chain:'Noise gate, overdrive, high gain amp, cab',
+    knobs:{Gain:'6', Bass:'5', Mid:'6', Treble:'5', Gate:'On'},
+    tips:[{x:'Keep the rig simple: high output pickups, an amp that stays clear under high gain, and a noise gate to cut hum and feedback.', s:'Riffhard hardcore guide'},
+          {x:'A distortion or overdrive pedal can add to the tone, but fewer pedals keep the sound focused.', s:'Riffhard hardcore guide'}]},
+  punk: {title:'Punk tone', chain:'Distortion or overdrive, amp, cab',
+    knobs:{Gain:'4-5', Bass:'5', Mid:'6', Treble:'6', Gate:'Off'},
+    tips:[{x:'A distortion pedal gives crunch and sustain, while an overdrive is a subtler, warmer option.', s:'Riffhard punk guide'},
+          {x:'Too much distortion muddies chords. Keep it clear and use effects sparingly.', s:'Riffhard punk guide'}]},
+  grunge: {title:'Grunge tone', chain:'Fuzz or distortion, tube style amp pushed to overdrive, cab',
+    knobs:{Gain:'5-6', Bass:'5', Mid:'5', Treble:'6', Gate:'Off'},
+    tips:[{x:'DS-1 or Big Muff style distortion and fuzz give the thick crunch, and a tube amp pushed into natural overdrive, such as a JCM800, adds to it.', s:'Riffhard grunge guide'},
+          {x:'Chorus, delay and wah add depth and expression for solos, and bright guitars like Strats and Jaguars suit the sound.', s:'Riffhard grunge guide'}]},
+  indie_rock: {title:'Indie and British rock tone', chain:'Boost or compressor, low gain crunch amp, cab',
+    knobs:{Gain:'3', Bass:'5', Mid:'6', Treble:'6', Gate:'Off'},
+    tips:[{x:'Try a slight boost or compression with a crunch setting at relatively low gain, around 3 out of 10.', s:'Andy Guitar lessons'},
+          {x:'A Tube Screamer or fuzz helps a lead line cut through the mix.', s:'Andy Guitar lessons'}]}
+};
+function slToneKey(genre) {
+  return SL_TONE[genre] ? genre : 'heavy';
+}
+function slToneHtml(song) {
+  const t = SL_TONE[slToneKey(song.genre)];
+  const chips = Object.keys(t.knobs).map(k => '<span class="sl-knob"><b>' + k + '</b> ' + t.knobs[k] + '</span>').join('');
+  const tips = t.tips.map(x => '<div class="sl-tone-tip">' + x.x + '<em class="instr-src">' + x.s + '</em></div>').join('');
+  return '<div class="sl-tone"><div class="sl-tone-chain">' + t.chain + '</div><div class="sl-knobs">' + chips + '</div>' + tips +
+    '<div class="sl-tone-foot">Knob numbers are starting points from this app. Set them by ear for your guitar and amp.</div></div>';
+}
+
+function slBpmPct(s) {
+  return s.tgt > 0 ? Math.max(0, Math.min(100, Math.round(s.bpm / s.tgt * 100))) : 0;
+}
+function slLearnHtml(song) {
+  const s = slSongState(song.id), id = song.id;
+  const n = s.st.filter(Boolean).length;
+  const open = _slOpen.has(id);
+  const steps = SL_STEPS.map((x, i) =>
+    '<label class="sl-step"><input type="checkbox" ' + (s.st[i] ? 'checked ' : '') + 'onchange="slStepToggle(\'' + id + '\',' + i + ',this.checked)">' +
+    '<span><b>' + x.t + '</b><small>' + x.d + '</small></span></label>').join('');
+  return '<div class="sl-learn' + (s.done ? ' is-learned' : '') + '" data-sid="' + id + '">' +
+    '<button class="sl-learn-toggle" onclick="slToggleLearn(\'' + id + '\')"><span class="sl-learn-arrow">' + (open ? '▾' : '▸') + '</span> LEARN THIS SONG' +
+    '<span class="sl-learn-count">' + n + '/5</span><span class="sl-learned-badge">✓ LEARNED</span></button>' +
+    '<div class="sl-learn-panel" id="sl-lp-' + id + '" style="display:' + (open ? 'block' : 'none') + '">' +
+    '<div class="sl-learn-sec">STEPS</div>' + steps +
+    '<div class="sl-learn-sec">TEMPO</div>' +
+    '<div class="sl-bpm-row"><span>CLEAN AT</span>' +
+    '<button class="sl-bpm-btn" onclick="slBpmStep(\'' + id + '\',-5)">-5</button>' +
+    '<input class="sl-bpm-in" type="number" min="0" max="400" id="sl-bpm-' + id + '" value="' + (s.bpm || '') + '" placeholder="BPM" onchange="slBpmSet(\'' + id + '\',\'bpm\',this.value)">' +
+    '<button class="sl-bpm-btn" onclick="slBpmStep(\'' + id + '\',5)">+5</button>' +
+    '<span>TARGET</span><input class="sl-bpm-in" type="number" min="0" max="400" id="sl-tgt-' + id + '" value="' + (s.tgt || '') + '" placeholder="BPM" onchange="slBpmSet(\'' + id + '\',\'tgt\',this.value)"></div>' +
+    '<div class="sl-bpm-bar"><div id="sl-bar-' + id + '" style="width:' + slBpmPct(s) + '%"></div></div>' +
+    '<div class="sl-bpm-hint" id="sl-hint-' + id + '">' + (s.tgt ? slBpmPct(s) + '% of target tempo' : 'Set the original tempo as your target. Songsterr shows it for each tab.') + '</div>' +
+    '<div class="sl-learn-sec">TONE STARTING POINT</div>' + slToneHtml(song) +
+    '</div></div>';
+}
+function slToggleLearn(id) {
+  const p = document.getElementById('sl-lp-' + id); if (!p) return;
+  const open = p.style.display === 'none';
+  p.style.display = open ? 'block' : 'none';
+  if (open) _slOpen.add(id); else _slOpen.delete(id);
+  const a = document.querySelector('[data-sid="' + id + '"] .sl-learn-arrow'); if (a) a.textContent = open ? '▾' : '▸';
+}
+function slStepToggle(id, i, on) {
+  const s = slSongState(id);
+  s.st[i] = on ? 1 : 0;
+  const was = !!s.done;
+  const all = s.st.length === 5 && s.st.every(Boolean);
+  s.done = all ? (s.done || Date.now()) : null;
+  slPutState(id, s);
+  const wrap = document.querySelector('[data-sid="' + id + '"]');
+  if (wrap) {
+    wrap.classList.toggle('is-learned', all);
+    const c = wrap.querySelector('.sl-learn-count'); if (c) c.textContent = s.st.filter(Boolean).length + '/5';
+  }
+  if (all && !was) {
+    const song = (typeof SL_SONGS !== 'undefined' ? SL_SONGS : []).find(x => x.id === id);
+    try { showToast('Song learned: ' + (song ? song.title : '') + ' ✓'); } catch (e) {}
+  }
+}
+function slBpmSet(id, field, val) {
+  const s = slSongState(id);
+  let v = Math.max(0, Math.min(400, parseInt(val, 10) || 0));
+  s[field] = v;
+  slPutState(id, s);
+  slBpmRefresh(id, s);
+}
+function slBpmStep(id, d) {
+  const s = slSongState(id);
+  s.bpm = Math.max(0, Math.min(400, (s.bpm || 0) + d));
+  slPutState(id, s);
+  const el = document.getElementById('sl-bpm-' + id); if (el) el.value = s.bpm || '';
+  slBpmRefresh(id, s);
+}
+function slBpmRefresh(id, s) {
+  const bar = document.getElementById('sl-bar-' + id); if (bar) bar.style.width = slBpmPct(s) + '%';
+  const h = document.getElementById('sl-hint-' + id);
+  if (h) h.textContent = s.tgt ? slBpmPct(s) + '% of target tempo' : 'Set the original tempo as your target. Songsterr shows it for each tab.';
+}
+window.slLearnHtml = slLearnHtml;
+window.slToggleLearn = slToggleLearn;
+window.slStepToggle = slStepToggle;
+window.slBpmSet = slBpmSet;
+window.slBpmStep = slBpmStep;
+
+/* ── TODAY'S PLAN (Home) ── */
+const PLAN_SPLIT = { 15:[3,6,4,2], 20:[4,8,6,2], 30:[5,12,10,3] };
+const PLAN_SKILL_FOR_TECH = {palm:'Palm Muting', gallop:'Gallop Rhythm', alternate:'Alternate Pick', tremolo:'Alternate Pick', pinch:'Pinch Harmonics', sweep:'Sweep Arpeggios', bends:'Bends & Vibrato', legato:'Hammer/Pull'};
+
+function planMins() {
+  let m = 20; try { m = parseInt(localStorage.getItem('grimoire_plan_mins'), 10) || 20; } catch (e) {}
+  return PLAN_SPLIT[m] ? m : 20;
+}
+function planBestBpm(skill) {
+  try {
+    const h = JSON.parse(localStorage.getItem(gpKey('grimoire_bpm_' + skill.replace(/[^a-zA-Z0-9]/g, '_'))) || '[]');
+    return h.length ? Math.max.apply(null, h.map(x => x.b)) : 0;
+  } catch (e) { return 0; }
+}
+function planPickSong() {
+  if (typeof SL_SONGS === 'undefined') return null;
+  const key = slGetActiveTuningKey();
+  const pool = SL_SONGS.filter(s => slTuningMatch(s, key));
+  const inProg = pool.filter(s => slStatusOf(s) === 'progress');
+  if (inProg.length) return inProg[0];
+  const fresh = pool.filter(s => slStatusOf(s) === 'new').sort((a, b) => a.diff - b.diff);
+  const open = fresh.filter(s => slIsUnlocked(s));
+  return (open[0] || fresh[0]) || null;
+}
+function planBuild(mins) {
+  const split = PLAN_SPLIT[mins] || PLAN_SPLIT[20];
+  const pv = typeof progValues !== 'undefined' ? progValues : {};
+  const skills = skillsData.filter(x => x.label !== 'Chromatic/Warmup')
+    .map(x => ({ label: x.label, pct: Math.round(pv[x.label] ?? x.pct) })).sort((a, b) => a.pct - b.pct);
+  const focus = skills[0] || { label: 'Palm Muting', pct: 0 };
+  const best = planBestBpm(focus.label);
+  const fBpm = best ? Math.max(40, Math.round(best * 0.9 / 5) * 5) : 60;
+  const song = planPickSong();
+  const blocks = [];
+  blocks.push({ label: 'Warm up: easy material and gentle stretches', mins: split[0], color: '#c8883a', bpm: 60, skill: 'Chromatic/Warmup',
+    detail: 'Spend a few minutes on gentle finger stretches and wrist rotations, then play easy material you already know. Build speed gradually. If anything hurts as soon as you play, stop and rest instead of playing through it. (Riffhard, Lick Library)' });
+  let fnote = '';
+  try { const t = SK_PLAN_TAGS[focus.label] || ['practice']; const l = (window.INSTR_DB || []).filter(e => !e.u && !e.g && e.t && e.t.some(x => t.indexOf(x) > -1)); if (l.length) fnote = l[Math.abs(hashPlan(focus.label + new Date().toISOString().slice(0, 10))) % l.length]; } catch (e) {}
+  blocks.push({ label: 'Focus: ' + focus.label + ' (' + focus.pct + '%)', mins: split[1], color: '#7720cc', bpm: fBpm, skill: focus.label,
+    detail: (fnote ? fnote.x + ' (' + fnote.s + ') ' : '') + 'Ladder: start at ' + fBpm + ' BPM, add 5 BPM after each clean, relaxed minute, and step back 2 BPM if your form slips.' });
+  if (song) {
+    const s = slSongState(song.id);
+    const next = s.st.findIndex(x => !x);
+    const stepTxt = next >= 0 ? 'Next step: ' + SL_STEPS[next].t + '. ' + SL_STEPS[next].d : 'You have ticked every step. Run it once more and enjoy it.';
+    const sk = (song.techniques || []).map(t => PLAN_SKILL_FOR_TECH[t]).filter(Boolean)[0] || null;
+    blocks.push({ label: 'Song: ' + song.title + ' (' + song.artist + ')', mins: split[2], color: '#5a10a0', bpm: s.bpm || 70, skill: sk,
+      detail: stepTxt + ' Tick steps and log your tempo in Song Lab.' });
+  } else {
+    blocks.push({ label: 'Song or riff of your choice', mins: split[2], color: '#5a10a0', bpm: 80, skill: null,
+      detail: 'Pick a riff from Riff Lab or a song you are learning and work one section slowly.' });
+  }
+  blocks.push({ label: 'Record and listen back', mins: split[3], color: '#5a5248', bpm: 80, skill: null,
+    detail: 'Record about a minute of what you just worked on. Listen back and write down one thing to fix tomorrow. (Riffhard practice guide)' });
+  return { name: "Today's Plan (" + mins + ' min)', blocks: blocks, focus: focus, song: song };
+}
+const SK_PLAN_TAGS = {'Palm Muting':['palmmute'],'String Muting':['mute'],'Alternate Pick':['altpick'],'Gallop Rhythm':['gallop'],'Hammer/Pull':['hands'],'Sweep Arpeggios':['sweep'],'Pinch Harmonics':['harmonic'],'Bends & Vibrato':['leads']};
+function hashPlan(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return h; }
+
+function instrPlanRender() {
+  const el = document.getElementById('home-plan-card'); if (!el) return;
+  let plan; try { plan = planBuild(planMins()); } catch (e) { el.innerHTML = ''; return; }
+  const mins = planMins();
+  const today = new Date().toISOString().slice(0, 10);
+  let doneToday = 0; try { doneToday = getDayData(today).mins || 0; } catch (e) {}
+  const done = doneToday >= mins;
+  const chips = [15, 20, 30].map(m => '<button class="plan-chip' + (m === mins ? ' active' : '') + '" onclick="instrPlanMins(' + m + ')">' + m + ' MIN</button>').join('');
+  const list = plan.blocks.map(b => '<li><span class="plan-t">' + b.mins + ' min</span><span class="plan-n">' + b.label.replace(/</g, '&lt;') + '</span></li>').join('');
+  const hide = document.getElementById('home-focus-card'); if (hide) hide.style.display = 'none';
+  el.innerHTML = '<div class="plan-card"><div class="plan-head"><span class="plan-title">TODAY\'S PLAN' + (done ? ' <span class="plan-done">✓ DONE TODAY</span>' : '') + '</span><div class="plan-chips">' + chips + '</div></div>' +
+    '<div class="plan-sub">Built from your weakest skill (' + plan.focus.label + ', ' + plan.focus.pct + '%)' + (plan.song ? ' and a song to learn.' : '.') + '</div>' +
+    '<ol class="plan-list">' + list + '</ol>' +
+    (window.instrFocusHtml ? window.instrFocusHtml(plan.focus.label) : '') +
+    '<button class="sess-big-btn plan-go" onclick="instrPlanStart()">' + (done ? '▶ PRACTICE MORE' : '▶ START TODAY\'S SESSION') + '</button></div>';
+}
+function instrPlanMins(m) {
+  try { localStorage.setItem('grimoire_plan_mins', String(m)); } catch (e) {}
+  instrPlanRender();
+}
+function instrPlanStart() {
+  const plan = planBuild(planMins());
+  loadFromPlan({ name: plan.name, blocks: plan.blocks });
+  goTo('session', null);
+}
+window.instrPlanRender = instrPlanRender;
+window.instrPlanMins = instrPlanMins;
+window.instrPlanStart = instrPlanStart;
+
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
   const id = window._GP_ACTIVE || '7drop';
@@ -15936,6 +16218,7 @@ function slFilterSongs() {
   const diffVal   = document.getElementById('sl-filter-diff')?.value || '';
   const techVal   = document.getElementById('sl-filter-tech')?.value || '';
   const tuningVal = document.getElementById('sl-filter-tuning')?.value || '';
+  const statusVal = document.getElementById('sl-filter-status')?.value || '';
   const activeTuning = slGetActiveTuningKey();
   const filterTuning = tuningVal || activeTuning;
 
@@ -15946,6 +16229,7 @@ function slFilterSongs() {
     if (techVal  && !s.techniques.includes(techVal)) return false;
     // If a specific tuning is manually selected in the dropdown, hard-filter
     if (tuningVal && !slTuningMatch(s, tuningVal)) return false;
+    if (statusVal && slStatusOf(s) !== statusVal) return false;
     return true;
   });
 
@@ -15955,6 +16239,8 @@ function slFilterSongs() {
     const bm = slTuningMatch(b, filterTuning);
     if (am && !bm) return -1;
     if (!am && bm) return 1;
+    const ap = slStatusOf(a) === 'progress' ? 0 : 1, bp = slStatusOf(b) === 'progress' ? 0 : 1;
+    if (am && bm && ap !== bp) return ap - bp;
     const au = slIsUnlocked(a), bu = slIsUnlocked(b);
     if (au && !bu) return -1;
     if (!au && bu) return 1;
@@ -16030,6 +16316,7 @@ function slFilterSongs() {
           <a href="${slSongsterrUrl(s.title, s.artist)}" target="_blank" class="sl-songsterr-btn">🎸 Songsterr</a>
           <a href="${slYoutubeUrl(s.title, s.artist)}" target="_blank" class="sl-youtube-btn">▶ YouTube</a>
         </div>
+        ${tuningOk && window.slLearnHtml ? window.slLearnHtml(s) : ''}
       </div>
     </div>`;
   }).join('');
