@@ -4126,7 +4126,7 @@ body{padding-top:52px}
   <div class="page-header">
     <div class="page-title">Fundamentals</div>
     <div class="page-lead" id="gp-fund-lead">Core concepts for your setup.</div>
-    <div class="snd-row" style="margin-top:10px"><button class="btn snd-btn" onclick="sndPlayOpenStrings(this)">🔊 Hear your open strings</button></div>
+    <div class="snd-row" style="margin-top:10px"><button class="btn snd-btn" onclick="sndPlayOpenStrings(this)">🔊 Hear your open strings</button><button class="btn snd-btn snd-voice" onclick="sndVoiceToggle()" title="Switch between a clean guitar and the distorted metal tone">Voice: Clean</button></div>
   </div>
   <!-- Page Coach -->
   <div class="pc-wrap" id="pc-wrap-fundamentals">
@@ -4250,6 +4250,7 @@ body{padding-top:52px}
       <div class="snd-row">
         <button class="btn snd-btn" onclick="sndPlayScale(this)">▶ Hear scale</button>
         <button class="btn snd-btn" onclick="sndPlayOpenStrings(this)">🔊 Hear open strings</button>
+        <button class="btn snd-btn snd-voice" onclick="sndVoiceToggle()" title="Switch between a clean guitar and the distorted metal tone">Voice: Clean</button>
         <button id="fb-mode-btn" class="btn" onclick="toggleFretboardMode()" style="font-size:9px;padding:4px 12px;letter-spacing:1px">≡ Show Note Names</button>
       </div>
     </div>
@@ -12617,7 +12618,7 @@ function buildHardClipCurve() {
  * @param {number}       dur    — note duration in seconds
  * @param {number}       vol    — volume 0..1 (default 1)
  */
-function scheduleGuitarNote(ctx, dest, freq, t, dur, vol = 1) {
+function scheduleGuitarNoteHeavy(ctx, dest, freq, t, dur, vol = 1) {
   try {
     const safeT = Math.max(t, ctx.currentTime + 0.001);
 
@@ -16178,7 +16179,85 @@ function slNorm(s) {
     .replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-/* ── Synth playback (reuses the app's guitar voice) ── */
+/* ── Guitar voice: Clean (plucked string model) or Heavy (the original distorted synth) ── */
+const SND_VOICE_KEY = 'grimoire_voice';
+let _sndVoiceNow = 'clean';
+try { _sndVoiceNow = localStorage.getItem(SND_VOICE_KEY) === 'heavy' ? 'heavy' : 'clean'; } catch (e) {}
+function sndVoiceLabels() {
+  try { document.querySelectorAll('.snd-voice').forEach(b => { b.textContent = 'Voice: ' + (_sndVoiceNow === 'heavy' ? 'Heavy' : 'Clean'); }); } catch (e) {}
+}
+function sndVoiceToggle() {
+  _sndVoiceNow = _sndVoiceNow === 'heavy' ? 'clean' : 'heavy';
+  try { localStorage.setItem(SND_VOICE_KEY, _sndVoiceNow); } catch (e) {}
+  try { if (typeof syncSchedulePush === 'function') syncSchedulePush(); } catch (e) {}
+  sndVoiceLabels();
+  try { showToast(_sndVoiceNow === 'heavy' ? 'Voice: Heavy (distorted)' : 'Voice: Clean guitar'); } catch (e) {}
+}
+window.sndVoiceToggle = sndVoiceToggle;
+document.addEventListener('DOMContentLoaded', sndVoiceLabels);
+sndVoiceLabels();
+
+/* Karplus-Strong plucked string: noise burst through a tuned delay loop with a gentle low pass.
+   Rendered once per pitch into a buffer, then reused. */
+const _pluckCache = {}; let _pluckCount = 0;
+function sndPluckBuffer(ctx, freq) {
+  const sr = ctx.sampleRate, key = sr + ':' + Math.round(freq * 50);
+  if (_pluckCache[key]) return _pluckCache[key];
+  if (_pluckCount > 70) { for (const k in _pluckCache) delete _pluckCache[k]; _pluckCount = 0; }
+  const secs = Math.max(1.6, Math.min(2.8, 3.4 - Math.log2(freq / 82) * 0.5));
+  const len = Math.floor(sr * secs);
+  let d = sr / freq - 0.5, N = Math.floor(d), frac = d - N;
+  if (frac < 0.5) { N -= 1; frac += 1; }
+  const C = (1 - frac) / (1 + frac);
+  const t60 = Math.max(1.4, Math.min(3.6, 4.0 - Math.log2(freq / 82) * 0.45));
+  const g = Math.pow(10, -3 / (t60 * freq));
+  let seed = (12345 + Math.round(freq * 7)) >>> 0;
+  const rnd = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 2147483648 - 1; };
+  const raw = new Float32Array(N), ring = new Float32Array(N);
+  for (let i = 0; i < N; i++) raw[i] = rnd();
+  const pp = Math.max(1, Math.floor(N * 0.17));
+  let lp = 0, mean = 0;
+  for (let i = 0; i < N; i++) { lp += 0.7 * ((raw[i] - raw[(i - pp + N) % N]) - lp); ring[i] = lp; mean += lp; }
+  mean /= N; for (let i = 0; i < N; i++) ring[i] -= mean;
+  const out = new Float32Array(len);
+  let idx = 0, prev = 0, apX = 0, apY = 0, peak = 0;
+  for (let n = 0; n < len; n++) {
+    const x = ring[idx]; out[n] = x;
+    const f = 0.5 * (x + prev) * g; prev = x;
+    const ap = C * f + apX - C * apY; apX = f; apY = ap;
+    ring[idx] = ap; idx++; if (idx >= N) idx = 0;
+    const a = x < 0 ? -x : x; if (a > peak) peak = a;
+  }
+  const norm = peak > 0 ? 0.85 / peak : 1, fade = Math.floor(sr * 0.06);
+  for (let n = 0; n < len; n++) { let v = out[n] * norm; if (n > len - fade) v *= (len - n) / fade; out[n] = v; }
+  const buf = ctx.createBuffer(1, len, sr); buf.getChannelData(0).set(out);
+  _pluckCache[key] = buf; _pluckCount++;
+  return buf;
+}
+function sndPluckNote(ctx, dest, freq, t, dur, vol) {
+  try {
+    if (!(freq > 25 && freq < 4500)) return;
+    const safeT = Math.max(t, ctx.currentTime + 0.001);
+    const buf = sndPluckBuffer(ctx, freq);
+    const src = ctx.createBufferSource(); src.buffer = buf;
+    const body = ctx.createBiquadFilter(); body.type = 'peaking'; body.frequency.value = 190; body.Q.value = 0.9; body.gain.value = 3;
+    const tone = ctx.createBiquadFilter(); tone.type = 'lowpass'; tone.frequency.value = 4200; tone.Q.value = 0.6;
+    const g = ctx.createGain();
+    const v = 1.35 * (vol == null ? 1 : vol);
+    const hold = Math.max(0.06, dur * 1.15), rel = 0.14;
+    g.gain.setValueAtTime(v, safeT);
+    g.gain.setValueAtTime(v, safeT + hold);
+    g.gain.linearRampToValueAtTime(0.0001, safeT + hold + rel);
+    src.connect(body); body.connect(tone); tone.connect(g); g.connect(dest);
+    src.start(safeT); src.stop(safeT + Math.min(hold + rel + 0.05, buf.duration));
+  } catch (e) {}
+}
+function scheduleGuitarNote(ctx, dest, freq, t, dur, vol = 1) {
+  if (_sndVoiceNow === 'heavy') return scheduleGuitarNoteHeavy(ctx, dest, freq, t, dur, vol);
+  return sndPluckNote(ctx, dest, freq, t, dur, vol);
+}
+
+/* ── Synth playback (uses the selected guitar voice) ── */
 let _sndTimer = null, _sndGain = null, _sndBtn = null, _sndLabel = '';
 function sndStop() {
   clearTimeout(_sndTimer); _sndTimer = null;
@@ -16267,34 +16346,57 @@ function slPreviewStop() {
   if (_slPrevBtn) { _slPrevBtn.textContent = '🔊 HEAR A PREVIEW'; _slPrevBtn.classList.remove('snd-on'); }
   _slPrevBtn = null; _slPrevId = null;
 }
+const SL_SILENT = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=';
+async function slFindItunes(song) {
+  const q = encodeURIComponent(song.artist + ' ' + song.title);
+  const d = await slJsonp('https://itunes.apple.com/search?term=' + q + '&media=music&entity=song&limit=10&country=us', 6000);
+  return ((d && d.results) || []).map(x => ({ trackName: x.trackName, artistName: x.artistName, previewUrl: x.previewUrl, trackViewUrl: x.trackViewUrl, src: 'Apple Music' }));
+}
+async function slFindDeezer(song) {
+  const q = 'artist:"' + String(song.artist).replace(/"/g, '') + '" track:"' + String(song.title).replace(/"/g, '') + '"';
+  const d = await slJsonp('https://api.deezer.com/search?q=' + encodeURIComponent(q) + '&limit=10&output=jsonp', 6000);
+  return ((d && d.data) || []).map(x => ({ trackName: x.title, artistName: (x.artist || {}).name, previewUrl: x.preview, trackViewUrl: x.link, src: 'Deezer' }));
+}
 async function slPreview(id, btn) {
   if (_slPrevId === id) { slPreviewStop(); return; }
   sndStopAll();
   const song = (typeof SL_SONGS !== 'undefined' ? SL_SONGS : []).find(x => x.id === id);
   if (!song) return;
   const line = document.getElementById('sl-prev-' + id);
-  const reset = msg => { btn.textContent = '🔊 HEAR A PREVIEW'; btn.classList.remove('snd-on'); if (line) line.textContent = msg || ''; };
+  /* Create and unlock the player inside the tap. Phones only allow audio that starts from a tap. */
+  const a = new Audio();
+  try { a.src = SL_SILENT; const p = a.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {}
+  _slPrevAudio = a; _slPrevId = id; _slPrevBtn = btn;
+  const fin = msg => {
+    if (_slPrevId !== id) return;
+    try { a.pause(); } catch (e) {}
+    _slPrevAudio = null; _slPrevId = null; _slPrevBtn = null;
+    btn.textContent = '🔊 HEAR A PREVIEW'; btn.classList.remove('snd-on');
+    if (line) line.textContent = msg || '';
+  };
   btn.textContent = 'SEARCHING...';
-  try {
-    let hit = _slPrevCache[id];
-    if (hit === undefined) {
-      const q = encodeURIComponent(song.artist + ' ' + song.title);
-      const d = await slJsonp('https://itunes.apple.com/search?term=' + q + '&media=music&entity=song&limit=10&country=us', 7000);
-      hit = slPickPreview(song, (d && d.results) || []);
-      _slPrevCache[id] = hit || null;
-    }
-    if (!hit) { reset('No preview found for this one. Try the YouTube link.'); return; }
-    const a = new Audio(hit.previewUrl);
-    a.onended = slPreviewStop;
-    _slPrevAudio = a; _slPrevId = id; _slPrevBtn = btn;
-    btn.textContent = '■ STOP'; btn.classList.add('snd-on');
-    const link = (hit.trackViewUrl && /^https:\/\//.test(hit.trackViewUrl)) ? ' · <a href="' + slEsc(hit.trackViewUrl) + '" target="_blank" rel="noopener">Apple Music</a>' : '';
-    if (line) line.innerHTML = '<b>' + slEsc(hit.trackName) + '</b> by ' + slEsc(hit.artistName) + link + ' · 30s preview';
-    await a.play();
-  } catch (e) {
-    slPreviewStop();
-    reset('Preview is not available right now.');
+  let hit = _slPrevCache[id];
+  if (hit === undefined) {
+    const it = slFindItunes(song).then(r => slPickPreview(song, r)).catch(() => 'fail');
+    const dz = slFindDeezer(song).then(r => slPickPreview(song, r)).catch(() => 'fail');
+    let r1 = await it, r2 = null;
+    if (!r1 || r1 === 'fail') r2 = await dz;
+    if (_slPrevId !== id) return;
+    if (r1 && r1 !== 'fail') hit = r1;
+    else if (r2 && r2 !== 'fail') hit = r2;
+    else if (r1 === 'fail' && r2 === 'fail') { fin('Could not reach the preview services. Check your connection or any content blocker, then tap again.'); return; }
+    else { _slPrevCache[id] = null; fin('No preview found for this one. Try the YouTube link.'); return; }
+    _slPrevCache[id] = hit;
   }
+  if (!hit) { fin('No preview found for this one. Try the YouTube link.'); return; }
+  if (_slPrevId !== id) return;
+  a.onended = slPreviewStop;
+  a.onerror = () => { if (String(a.src).indexOf('data:') === 0) return; delete _slPrevCache[id]; fin('That clip would not load. Tap again to retry.'); };
+  a.src = hit.previewUrl;
+  btn.textContent = '■ STOP'; btn.classList.add('snd-on');
+  const link = (hit.trackViewUrl && /^https:\/\//.test(hit.trackViewUrl)) ? ' · <a href="' + slEsc(hit.trackViewUrl) + '" target="_blank" rel="noopener">' + slEsc(hit.src) + '</a>' : ' · ' + slEsc(hit.src);
+  if (line) line.innerHTML = '<b>' + slEsc(hit.trackName) + '</b> by ' + slEsc(hit.artistName) + link + ' · 30s preview';
+  try { await a.play(); } catch (e) { fin('Your browser blocked playback. Tap the button again.'); }
 }
 window.slPreview = slPreview;
 
