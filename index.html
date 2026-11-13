@@ -1323,6 +1323,60 @@ body.fg-open-body{overflow:hidden}
 .bt-link a{color:var(--flame);overflow:hidden;text-overflow:ellipsis}
 .bt-add{display:grid;gap:6px;margin-top:10px}
 .bt-import textarea{width:100%;box-sizing:border-box;background:rgba(5,4,14,.8);border:1px solid var(--wire);border-radius:6px;color:var(--pale);font-family:var(--mono);font-size:11px;padding:8px;margin-top:6px}
+
+/* play along dock + interval lab */
+.pa-dock{display:none;position:fixed;left:0;right:0;bottom:0;z-index:8900;background:#0b0818;border-top:1px solid rgba(145,38,248,.5);box-shadow:0 -8px 24px rgba(0,0,0,.5);padding-bottom:env(safe-area-inset-bottom,0px)}
+.pa-in{max-width:640px;margin:0 auto;padding:10px 14px 12px}
+.pa-top{display:flex;align-items:center;gap:8px}
+.pa-eyebrow{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--flame)}
+.pa-what{flex:1;min-width:0;font-size:12px;color:var(--pale);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pa-iconbtn{width:30px;height:30px;border-radius:7px;border:1px solid var(--wire);background:none;color:var(--mid);font-size:14px;cursor:pointer}
+.pa-stage{display:flex;align-items:center;gap:12px;margin:8px 0}
+.pa-big{width:64px;height:64px;flex:none;border-radius:12px;border:1px solid rgba(145,38,248,.45);background:rgba(145,38,248,.1);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:30px;font-weight:700;color:var(--pale)}
+.pa-big.pa-go-on{background:rgba(224,138,30,.25);border-color:#e08a1e;color:#ffc477}
+.pa-side{flex:1;min-width:0}
+.pa-lbl{font-family:var(--mono);font-size:9px;letter-spacing:1.5px;color:var(--mid);margin-bottom:6px;min-height:11px}
+.pa-dots,.pa-bars{display:flex;gap:6px;margin-bottom:5px}
+.pa-dot{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--wire)}
+.pa-dot.on{background:var(--flame);border-color:var(--flame)}
+.pa-pip{width:26px;height:5px;border-radius:3px;background:var(--wire)}
+.pa-pip.on{background:#b88cff}
+.pa-go{flex:none;padding:12px 14px;border-radius:10px;border:1px solid #c466ff;background:#8822ee;color:#fff;font-family:var(--mono);font-size:12px;letter-spacing:1px;cursor:pointer;min-height:48px}
+.pa-go.pa-stop{background:#3a1030;border-color:#ff6a6a}
+.pa-tabs{display:flex;gap:6px;margin:4px 0 8px}
+.pa-tab,.pa-chip{padding:7px 11px;border-radius:7px;border:1px solid var(--wire);background:none;color:var(--mid);font-family:var(--mono);font-size:10px;cursor:pointer}
+.pa-tab.on,.pa-chip.on{border-color:#c466ff;background:rgba(145,38,248,.25);color:var(--pale)}
+.pa-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0}
+.pa-k{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--dim);min-width:62px}
+.pa-bpm{font-family:var(--mono);font-size:15px;color:var(--pale);min-width:34px;text-align:center}
+.pa-sel{margin-left:auto;max-width:170px}
+.pa-up{margin:0 0 0 auto}
+.pa-trk{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0}
+.pa-note{font-size:11px;color:var(--mid);line-height:1.5;margin:4px 0}
+.pa-player iframe{border-radius:8px;border:0;display:block;background:#111;margin:6px 0}
+.pa-prog{height:6px;border-radius:3px;background:var(--wire);overflow:hidden;margin-top:6px}
+.pa-prog-bar{height:100%;background:linear-gradient(90deg,#8822ee,var(--flame))}
+body.pa-open{padding-bottom:var(--pa-h,230px)}
+body.pa-open .fab-cluster{display:none}
+.iv-mode{display:flex;gap:6px;margin-bottom:10px}
+.iv-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:10px}
+.iv-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px;border-radius:8px;border:1px solid var(--wire);background:none;color:var(--mid);font-family:var(--mono);cursor:pointer}
+.iv-btn b{font-size:12px;color:var(--pale)}
+.iv-btn span{font-size:10px}
+.iv-btn.on{border-color:#c466ff;background:rgba(145,38,248,.25)}
+.iv-card{padding:10px 12px;border:1px solid rgba(145,38,248,.3);border-left:3px solid var(--flame);border-radius:8px;background:rgba(80,15,150,.1);font-size:13px;line-height:1.5;color:var(--pale);margin:6px 0 12px}
+.iv-song{font-size:11px;color:var(--mid);margin-top:6px}
+.iv-shape{padding:10px 0;border-top:1px solid rgba(255,255,255,.06)}
+.iv-svg{margin-bottom:6px}
+.iv-answers{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.iv-ans{padding:10px;border-radius:8px;border:1px solid var(--wire);background:none;color:var(--pale);font-size:12px;cursor:pointer}
+.iv-ans.good{border-color:#4ad48a;background:rgba(74,212,138,.15)}
+.iv-ans.bad{border-color:#ff6a6a;background:rgba(255,106,106,.12)}
+.iv-res{padding:10px 12px;border-radius:8px;font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--pale)}
+.iv-res.good{border:1px solid rgba(74,212,138,.5)}
+.iv-res.bad{border:1px solid rgba(255,106,106,.5)}
+.iv-score{display:flex;gap:14px;font-family:var(--mono);font-size:11px;color:var(--mid);margin:8px 0}
+.iv-q{display:flex;gap:6px}
 /* keyboard focus and reduced motion */
 button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--flame,#c060ff);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
@@ -8027,6 +8081,7 @@ function toggleMetro() {
   // Start — use getACtxSync: fires resume as side-effect, schedules 300ms ahead
   const ctx = getACtxSync();
   const doStart = () => {
+    try { if (window.paIsRunning && paIsRunning()) paStop(true); } catch (e) {}
     metroRunning = true;
     currentBeat  = 0;
     nextNoteTime = ctx.currentTime + 0.2;
@@ -12225,7 +12280,7 @@ function renderRiff() {
         <div class="riff-tab-block" style="border-left-color:${col}">
           <div class="riff-tab-header">
             <span class="riff-tab-genre-lbl">// ${r.genre.toUpperCase()} — TAB NOTATION (e=high, A7=low)</span>
-            <span class="riff-tab-bpm">♩${r.bpm} BPM <button class="fg-open fg-riff-btn" onclick="fgToggleRiff(this)">🖐 Fingers</button></span>
+            <span class="riff-tab-bpm">♩${r.bpm} BPM <button class="fg-open fg-riff-btn" onclick="fgToggleRiff(this)">🖐 Fingers</button> <button class="fg-open fg-riff-btn" onclick="paOpenRiff()">▶ Play along</button></span>
           </div>
           ${tabRows}
           <div class="riff-picking-row">
@@ -17048,6 +17103,8 @@ function fgOpen(o) {
   if (o.chord) { const c = fgParseChord(o.chord); if (c) { _fg.root = c.root; _fg.q = c.q.k; _fg.tab = 'chords'; } }
   if (o.note) { const p = fgPcOf(o.note); if (p >= 0) { _fg.note = FG_PC[p]; _fg.tab = 'notes'; } }
   if (o.tab) _fg.tab = o.tab;
+  if (o.interval) { _fg.iv = +o.interval; _fg.tab = 'intervals'; _fg.ivMode = 'learn'; _fg.touched = true; }
+  if (o.root && fgPcOf(o.root) >= 0 && !o.chord) { _fg.root = FG_PC[fgPcOf(o.root)]; _fg.touched = true; }
   if (!o.chord && !o.note && !o.tab) {
     const hk = fgPcOf(pp.homeKey); if (hk >= 0 && !_fg.touched) { _fg.root = FG_PC[hk]; _fg.q = '5'; }
   }
@@ -17080,13 +17137,15 @@ function fgRender() {
       '<div class="fg-title">Where to find ' + slEsc(_fg.note) + ' on your ' + slEsc(pp.display) + '</div>' +
       '<div class="fg-noteSvg">' + fgNoteSvg(pc) + '</div><div class="fg-note">Number in the circle = fret. Bright circles are the easiest spots (frets 0 to 5). Strings run high on top, low at the bottom.</div>' +
       '<ul class="fg-list">' + lst.map(l => '<li>' + slEsc(l) + '</li>').join('') + '</ul>';
+  } else if (_fg.tab === 'intervals') {
+    body = ivBodyHtml();
   } else {
     body = '<div class="fg-title">Your open strings</div><div class="fg-note">String 1 is the thinnest and highest. Tap one to hear it.</div><div class="fg-strings">' +
       T.names.map((nm, i) => '<div class="fg-str"><span>String ' + (T.n - i) + '</span><b>' + slEsc(nm) + '</b><button class="fg-play" onclick="fgOpenStr(' + i + ',this)">▶</button></div>').reverse().join('') + '</div>' +
       '<button class="fg-play fg-all" onclick="sndPlayOpenStrings(this)">▶ Play all, low to high</button>';
   }
   el.innerHTML = '<div class="fg-sheet"><div class="fg-head"><div><div class="fg-eyebrow">FINGER GUIDE</div><div class="fg-sub">' + slEsc(pp.display) + ' · ' + T.names.join(' ') + '</div></div><button class="fg-x" onclick="fgClose()" aria-label="Close">×</button></div>' +
-    '<div class="fg-tabs">' + [['chords', 'Chords'], ['notes', 'Notes'], ['strings', 'Open strings']].map(t => '<button class="fg-tab' + (_fg.tab === t[0] ? ' on' : '') + '" onclick="fgTabSet(\'' + t[0] + '\')">' + t[1] + '</button>').join('') + '</div>' +
+    '<div class="fg-tabs">' + [['chords', 'Chords'], ['notes', 'Notes'], ['intervals', 'Intervals'], ['strings', 'Open strings']].map(t => '<button class="fg-tab' + (_fg.tab === t[0] ? ' on' : '') + '" onclick="fgTabSet(\'' + t[0] + '\')">' + t[1] + '</button>').join('') + '</div>' +
     '<div class="fg-body">' + body + '</div><div class="fg-legend">Numbers are fingers: 1 index, 2 middle, 3 ring, 4 pinky. Green circle = open string. x = do not play. The note names under the diagram show what each string sounds.</div></div>';
 }
 function fgSetRoot(p) { fgSet('root', p); } function fgSetNote(p) { fgSet('note', p); }
@@ -17120,12 +17179,12 @@ function fgBlockHtml(b, i) {
     try { const rows = b.tab ? parseTabStringToRows(b.tab) : []; panel = rows.length ? fgTabPanelHtml(rows) : ''; } catch (e) {}
   }
   const hasTab = !!b.tab;
-  return '<div class="fg-block">' + fgChipsHtml((b.name || '') + ' ' + (b.detail || ''), true) +
+  return '<div class="fg-block">' + fgChipsHtml((b.name || '') + ' ' + (b.detail || ''), true) + paBtnHtml({ target: b.bpm || 0, label: b.name || '' }) +
     (hasTab ? '<button class="fg-open" onclick="event.stopPropagation();fgBlockToggle(' + i + ')">' + (open ? 'Hide fingers for this tab' : '🖐 Fingers for this tab') + '</button>' : '') +
     '<div class="fg-panel">' + panel + '</div></div>';
 }
 function fgBlockToggle(i) { const b = sessionBlocks[i]; const cur = _fgBlockOpen[i] !== undefined ? !!_fgBlockOpen[i] : !!(b && b.tab); _fgBlockOpen[i] = !cur; try { renderBlocks(); } catch (e) {} }
-function fgFocusHtml(b) { return '<div style="margin-top:12px;text-align:center">' + fgChipsHtml((b.name || '') + ' ' + (b.detail || ''), true) + '</div>'; }
+function fgFocusHtml(b) { return '<div style="margin-top:12px;text-align:center">' + fgChipsHtml((b.name || '') + ' ' + (b.detail || ''), true) + paBtnHtml({ target: b.bpm || 0, label: b.name || '' }) + '</div>'; }
 window.fgToggleTab = fgToggleTab; window.fgToggleRiff = fgToggleRiff; window.fgBlockHtml = fgBlockHtml; window.fgBlockToggle = fgBlockToggle; window.fgFocusHtml = fgFocusHtml; window.fgChipsHtml = fgChipsHtml;
 
 
@@ -17184,7 +17243,7 @@ function btRender() {
       (open ? '<div class="bt-player"><iframe title="' + slEsc(t.title) + '" src="https://drive.google.com/file/d/' + encodeURIComponent(t.id) + '/preview" width="100%" height="90" frameborder="0" allow="autoplay"></iframe><div class="fg-note">Plays in Google Drive\'s player. You need to be signed in to the Google account the course shared with.</div></div>' : '') + '</div>';
   }).join('');
   const links = d.links.map((l, i) => '<div class="bt-link"><a href="' + slEsc(l.url) + '" target="_blank" rel="noopener">' + slEsc(l.title) + '</a><button class="sl-rm" onclick="btRemoveLink(' + i + ')">remove</button></div>').join('');
-  el.innerHTML = '<div class="bt-card"><div class="bt-h">BACKING TRACKS AND COURSE MATERIALS</div>' +
+  el.innerHTML = '<div class="bt-card"><div class="bt-h">BACKING TRACKS AND COURSE MATERIALS</div>' + '<button class="fg-open" style="margin:0 0 8px" onclick="paOpen({bpm:' + cur + (total ? ',src:\'tracks\'' : '') + '})">▶ Play along with a count-in</button>' +
     (total ? '<div class="bt-sub">Closest to your metronome tempo (' + cur + ' BPM) first.</div>' + rows +
       (total > 4 ? '<button class="fg-open" onclick="btToggleAll()">' + (_btAll ? 'Show fewer' : 'Show all ' + total + ' tracks') + '</button>' : '')
       : '<div class="bt-sub">Add your own backing tracks and course links here. They stay private to you: saved in this browser and your synced data, not in the app.</div>') +
@@ -17213,6 +17272,366 @@ function btRunImport() {
 }
 window.btRender = btRender; window.btPlay = btPlay; window.btTempo = btTempo; window.btToggleAll = btToggleAll; window.btToggleImport = btToggleImport;
 window.btAddLink = btAddLink; window.btRemoveLink = btRemoveLink; window.btRunImport = btRunImport;
+
+/* ════ PHASE 7a: PLAY ALONG (built-in drums with a real count-in, or your own backing tracks) ════ */
+const PA_KEY = 'grimoire_playalong';
+const PA_STYLES = {
+  rock:  { label: 'Rock', kick: [0, 8, 10], snare: [4, 12], hat: [0, 2, 4, 6, 8, 10, 12, 14] },
+  metal: { label: 'Metal, 8th kicks', kick: [0, 2, 4, 6, 8, 10, 12, 14], snare: [4, 12], hat: [0, 4, 8, 12] },
+  half:  { label: 'Half-time breakdown', kick: [0, 6, 10], snare: [8], hat: [0, 2, 4, 6, 8, 10, 12, 14] },
+  hc:    { label: 'Hardcore backbeat', kick: [0, 2, 8, 10], snare: [4, 12], hat: [0, 2, 4, 6, 8, 10, 12, 14] },
+  click: { label: 'Click only', kick: [], snare: [], hat: [], click: true }
+};
+let _pa = { open: false, run: false, phase: 'idle', src: 'drums', style: 'rock', count: 1, bpm: 100, target: 0, label: '', reps: 0, trackId: null, min: false, goAt: 0, lastSecs: 0 };
+let _paTimer = null, _paClock = null, _paNext = 0, _paStep = 0, _paCount = 0, _paPrefs = false;
+function paLoadPrefs() {
+  if (_paPrefs) return; _paPrefs = true;
+  try { const o = JSON.parse(localStorage.getItem(PA_KEY) || '{}') || {}; if (PA_STYLES[o.style]) _pa.style = o.style; if (o.count === 1 || o.count === 2) _pa.count = o.count; } catch (e) {}
+}
+function paSavePrefs() {
+  try { localStorage.setItem(PA_KEY, JSON.stringify({ style: _pa.style, count: _pa.count })); } catch (e) {}
+  try { if (typeof syncSchedulePush === 'function') syncSchedulePush(); } catch (e) {}
+}
+function paIsRunning() { return !!_pa.run; }
+function paTracks() {
+  const ref = _pa.target || _pa.bpm;
+  return btLoad().tracks.slice().sort((a, b) => Math.abs(a.bpm - ref) - Math.abs(b.bpm - ref) || a.bpm - b.bpm);
+}
+function paTrack() { const l = paTracks(); return l.find(t => t.id === _pa.trackId) || l[0] || null; }
+function paBpm() { if (_pa.src === 'tracks') { const t = paTrack(); if (t) return t.bpm; } return _pa.bpm; }
+function paEl(id) { return document.getElementById(id); }
+function paClickTone(ctx, t, accent) {
+  try {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination); o.type = 'sine';
+    o.frequency.value = accent ? 1480 : 920;
+    g.gain.setValueAtTime(0.001, t); g.gain.linearRampToValueAtTime(accent ? 0.8 : 0.45, t + 0.003); g.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+    o.start(t); o.stop(t + 0.1);
+  } catch (e) {}
+}
+function paStart() {
+  paLoadPrefs();
+  try { if (typeof metroRunning !== 'undefined' && metroRunning) toggleMetro(); } catch (e) {}
+  try { sndStopAll(); } catch (e) {}
+  const ctx = getACtxSync();
+  clearTimeout(_paTimer); clearInterval(_paClock);
+  _pa.run = true; _pa.phase = 'count'; _pa.goAt = 0; _pa.lastSecs = 0;
+  _paCount = 0; _paStep = 0; _paNext = ctx.currentTime + 0.25;
+  _pa.last = null;
+  _paClock = setInterval(paTime, 500);
+  paTick(); paRender();
+}
+function paTick() {
+  if (!_pa.run) return;
+  const ctx = getACtx();
+  while (_pa.phase !== 'track' && _paNext < ctx.currentTime + 0.12) {
+    const t = _paNext, delay = Math.max(0, (t - ctx.currentTime) * 1000), b = paBpm();
+    if (_pa.phase === 'count') {
+      const beat = _paCount % 4, left = _pa.count * 4 - _paCount;
+      paClickTone(ctx, t, beat === 0);
+      setTimeout(() => paShow('count', beat, 0, left), delay);
+      _paCount++; _paNext += 60 / b;
+      if (_paCount >= _pa.count * 4) {
+        if (_pa.src === 'tracks') {
+          _pa.phase = 'track'; _pa.goAt = Date.now() + (_paNext - ctx.currentTime) * 1000;
+          setTimeout(() => { paShow('track', 0, 0, 0); paRender(); }, Math.max(0, (_paNext - ctx.currentTime) * 1000));
+        } else { _pa.phase = 'play'; _paStep = 0; _pa.goAt = Date.now() + (_paNext - ctx.currentTime) * 1000; }
+      }
+    } else {
+      const s = _paStep % 16, bar = Math.floor(_paStep / 16), st = PA_STYLES[_pa.style] || PA_STYLES.rock;
+      if (st.click) { if (s % 4 === 0) paClickTone(ctx, t, s === 0); }
+      else {
+        if (st.kick.indexOf(s) >= 0) playKick(ctx, t);
+        if (st.snare.indexOf(s) >= 0) playSnare(ctx, t);
+        if (st.hat.indexOf(s) >= 0) playHihat(ctx, t, false);
+        if (s === 0 && bar % 4 === 0) playCymbalCrash(ctx, t);
+      }
+      if (s % 4 === 0) { const beat = s / 4; setTimeout(() => paShow('play', beat, bar, 0), delay); }
+      _paStep++; _paNext += 60 / b / 4;
+    }
+  }
+  _paTimer = setTimeout(paTick, 25);
+}
+function paShow(phase, beat, bar, left) {
+  if (!_pa.run) return;
+  _pa.last = [phase, beat, bar, left];
+  const big = paEl('pa-big'), lbl = paEl('pa-lbl'); if (!big || !lbl) return;
+  if (phase === 'track') { big.textContent = 'GO'; lbl.textContent = 'PRESS PLAY ON THE TRACK NOW'; big.classList.add('pa-go-on'); }
+  else {
+    big.textContent = String(beat + 1);
+    big.classList.toggle('pa-go-on', phase === 'play' && beat === 0 && bar % 4 === 0);
+    lbl.textContent = phase === 'count' ? 'COUNT-IN' : 'PLAYING · BAR ' + (bar % 4 + 1) + ' OF 4 · ROUND ' + (Math.floor(bar / 4) + 1);
+  }
+  document.querySelectorAll('#pa-dots .pa-dot').forEach((d, i) => d.classList.toggle('on', phase !== 'track' && i === beat));
+  document.querySelectorAll('#pa-bars .pa-pip').forEach((d, i) => d.classList.toggle('on', phase === 'play' && i === bar % 4));
+}
+function paTime() {
+  const el = paEl('pa-time'); if (!el) return;
+  const s = _pa.goAt && _pa.run ? Math.max(0, Math.floor((Date.now() - _pa.goAt) / 1000)) : _pa.lastSecs;
+  el.textContent = Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2);
+}
+function paStop(quiet) {
+  const was = _pa.run;
+  if (was && _pa.goAt) _pa.lastSecs = Math.max(0, Math.floor((Date.now() - _pa.goAt) / 1000));
+  _pa.run = false; _pa.phase = 'idle'; clearTimeout(_paTimer); clearInterval(_paClock);
+  if (was && !quiet) {
+    try { if (_pa.lastSecs >= 20) showToast('Nice work. ' + Math.floor(_pa.lastSecs / 60) + ':' + ('0' + (_pa.lastSecs % 60)).slice(-2) + ' of play-along' + (_pa.reps ? ', ' + _pa.reps + ' clean rep' + (_pa.reps > 1 ? 's' : '') : '')); } catch (e) {}
+  }
+  if (_pa.open) paRender();
+}
+function paToggle() { if (_pa.run) paStop(); else paStart(); }
+function paEnsure() {
+  let el = paEl('pa-dock'); if (el) return el;
+  el = document.createElement('div'); el.id = 'pa-dock'; el.className = 'pa-dock';
+  el.setAttribute('role', 'region'); el.setAttribute('aria-label', 'Play along');
+  document.body.appendChild(el); return el;
+}
+function paOpen(o) {
+  o = o || {}; paLoadPrefs();
+  if (_pa.run) paStop(true);
+  const tgt = Math.round(+o.target || 0), cur = (typeof bpm === 'number') ? bpm : 100;
+  _pa.target = tgt >= 40 ? Math.min(240, tgt) : 0;
+  const start = +o.bpm || (_pa.target ? Math.min(_pa.target, Math.max(60, Math.round(_pa.target * 0.75 / 5) * 5)) : cur);
+  _pa.bpm = Math.min(240, Math.max(40, Math.round(start)));
+  _pa.label = String(o.label || '').slice(0, 80);
+  _pa.reps = 0; _pa.lastSecs = 0; _pa.goAt = 0; _pa.open = true; _pa.min = false; _pa.src = o.src === 'tracks' ? 'tracks' : 'drums';
+  const l = paTracks(); _pa.trackId = l.length ? l[0].id : null;
+  document.body.classList.add('pa-open'); paRender();
+}
+function paClose() {
+  paStop(true); _pa.open = false;
+  const el = paEl('pa-dock'); if (el) { el.style.display = 'none'; el.innerHTML = ''; }
+  document.body.classList.remove('pa-open'); document.documentElement.style.removeProperty('--pa-h');
+}
+function paSet(k, v) {
+  if (k === 'src') { if (_pa.run) paStop(true); _pa.src = v; const l = paTracks(); _pa.trackId = l.length ? l[0].id : null; }
+  else if (k === 'style') { _pa.style = v; paSavePrefs(); }
+  else if (k === 'count') { _pa.count = v === 2 ? 2 : 1; paSavePrefs(); }
+  else if (k === 'track') { if (_pa.run) paStop(true); _pa.trackId = v; }
+  paRender();
+}
+function paTempo(d) { _pa.bpm = Math.min(240, Math.max(40, _pa.bpm + d)); paRender(); }
+function paStepUp() { _pa.bpm = Math.min(240, _pa.bpm + 5); _pa.reps = 0; paRender(); }
+function paRep(d) { _pa.reps = Math.max(0, _pa.reps + d); paRender(); }
+function paMin() { _pa.min = !_pa.min; paRender(); }
+function paUseTempo() { try { updateBPM(paBpm()); showToast('Metronome set to ' + paBpm() + ' BPM'); } catch (e) {} }
+function paRender() {
+  if (!_pa.open) return;
+  paLoadPrefs();
+  const el = paEnsure(); el.style.display = 'block';
+  const tr = paTracks(), trk = paTrack(), tracksMode = _pa.src === 'tracks', b = paBpm();
+  const pct = _pa.target ? Math.min(100, Math.round(b / _pa.target * 100)) : 0;
+  const atTarget = _pa.target && b >= _pa.target;
+  const dots = [0, 1, 2, 3].map(() => '<span class="pa-dot"></span>').join(''), pips = [0, 1, 2, 3].map(() => '<span class="pa-pip"></span>').join('');
+  let h = '<div class="pa-in"><div class="pa-top"><div class="pa-eyebrow">PLAY ALONG</div><div class="pa-what">' + slEsc(_pa.label || 'Pick a style and count in') + '</div>' +
+    '<button class="pa-iconbtn" onclick="paMin()" aria-label="' + (_pa.min ? 'Expand' : 'Collapse') + '">' + (_pa.min ? '▲' : '▼') + '</button><button class="pa-iconbtn" onclick="paClose()" aria-label="Close play along">×</button></div>';
+  h += '<div class="pa-stage"><div class="pa-big" id="pa-big">' + (_pa.run ? '' : '–') + '</div><div class="pa-side"><div class="pa-lbl" id="pa-lbl">' + (_pa.run ? '' : 'READY · ' + b + ' BPM') + '</div>' +
+    '<div class="pa-dots" id="pa-dots">' + dots + '</div><div class="pa-bars" id="pa-bars">' + pips + '</div></div>' +
+    '<button class="pa-go' + (_pa.run ? ' pa-stop' : '') + '" onclick="paToggle()">' + (_pa.run ? '■ Stop' : '▶ Count me in') + '</button></div>';
+  if (!_pa.min) {
+    h += '<div class="pa-tabs"><button class="pa-tab' + (!tracksMode ? ' on' : '') + '" onclick="paSet(\'src\',\'drums\')">Built-in drums</button><button class="pa-tab' + (tracksMode ? ' on' : '') + '" onclick="paSet(\'src\',\'tracks\')">My backing tracks' + (tr.length ? ' (' + tr.length + ')' : '') + '</button></div>';
+    if (!tracksMode) {
+      h += '<div class="pa-row"><span class="pa-k">TEMPO</span><button class="fg-play" onclick="paTempo(-5)">−5</button><b class="pa-bpm">' + _pa.bpm + '</b><button class="fg-play" onclick="paTempo(5)">+5</button>' +
+        '<select class="fg-select pa-sel" onchange="paSet(\'style\',this.value)" aria-label="Drum style">' + Object.keys(PA_STYLES).map(k => '<option value="' + k + '"' + (k === _pa.style ? ' selected' : '') + '>' + PA_STYLES[k].label + '</option>').join('') + '</select></div>';
+    } else if (!tr.length) {
+      h += '<div class="pa-note">No backing tracks yet. Add yours on the Session page, in the Backing Tracks card, and they show up here sorted by tempo. <button class="fg-open" onclick="paClose();goTo(\'session\',null)">Go to Session page</button></div>';
+    } else {
+      h += '<div class="pa-trk">' + tr.slice(0, 4).map(t => '<button class="pa-chip' + (trk && t.id === trk.id ? ' on' : '') + '" onclick="paSet(\'track\',\'' + t.id + '\')">' + t.bpm + ' · ' + slEsc(t.kind === 'drums+bass' ? 'drums+bass' : 'drums') + (t.key ? ' · ' + slEsc(t.key) : '') + '</button>').join('') + '</div>' +
+        '<div class="pa-note">The Google player cannot be started by the app, so after the count-in you press play on the track yourself. Tempo is set by the track.</div>';
+      if (_pa.run && _pa.phase === 'track' && trk) h += '<div class="pa-player"><iframe title="' + slEsc(trk.title) + '" src="https://drive.google.com/file/d/' + encodeURIComponent(trk.id) + '/preview" width="100%" height="90" frameborder="0" allow="autoplay"></iframe></div>';
+    }
+    h += '<div class="pa-row"><span class="pa-k">COUNT-IN</span><button class="pa-chip' + (_pa.count === 1 ? ' on' : '') + '" onclick="paSet(\'count\',1)">1 bar</button><button class="pa-chip' + (_pa.count === 2 ? ' on' : '') + '" onclick="paSet(\'count\',2)">2 bars</button>' +
+      '<span class="pa-k" style="margin-left:auto">TIME</span><b class="pa-bpm" id="pa-time">0:00</b></div>';
+    h += '<div class="pa-row"><span class="pa-k">CLEAN REPS</span><button class="fg-play" onclick="paRep(-1)">−</button><b class="pa-bpm">' + _pa.reps + '</b><button class="fg-play" onclick="paRep(1)">+</button>' +
+      (!tracksMode ? '<button class="fg-open pa-up" onclick="paStepUp()">Clean? Step up +5 BPM</button>' : '<button class="fg-open pa-up" onclick="paUseTempo()">Use ' + b + ' BPM on metronome</button>') + '</div>';
+    if (_pa.target) h += '<div class="pa-prog" title="Progress to the target tempo"><div class="pa-prog-bar" style="width:' + pct + '%"></div></div><div class="pa-note">' + (atTarget ? 'You are at the target tempo (' + _pa.target + ' BPM). Hold it for a few clean reps, then try +5.' : 'Target ' + _pa.target + ' BPM. You are at ' + b + ' (' + pct + '%). Get 3 clean reps, then step up.') + '</div>';
+    else if (!tracksMode) h += '<div class="pa-note">Tip: start 10 to 20 BPM below where you can play the part cleanly, and step up only after 3 clean reps.</div>';
+  }
+  el.innerHTML = h + '</div>';
+  paTime();
+  if (_pa.run && _pa.last) paShow(_pa.last[0], _pa.last[1], _pa.last[2], _pa.last[3]);
+  try { document.documentElement.style.setProperty('--pa-h', el.offsetHeight + 'px'); } catch (e) {}
+}
+window.paOpen = paOpen; window.paClose = paClose; window.paToggle = paToggle; window.paSet = paSet; window.paTempo = paTempo; window.paStepUp = paStepUp;
+window.paRep = paRep; window.paMin = paMin; window.paUseTempo = paUseTempo; window.paIsRunning = paIsRunning;
+function paBtnHtml(o) {
+  return '<button class="fg-open pa-open-btn" onclick="event.stopPropagation();paOpen(' + slEsc(JSON.stringify(o)) + ')">▶ Play along</button>';
+}
+window.paBtnHtml = paBtnHtml;
+function paOpenRiff() { try { paOpen({ target: currentRiff.bpm, label: currentRiff.title }); } catch (e) { paOpen({}); } }
+window.paOpenRiff = paOpenRiff;
+
+/* ════ PHASE 7b: INTERVAL LAB (inside the Finger Guide: shapes for any interval on your tuning, plus an ear quiz) ════ */
+const IV = [null,
+  { s: 1,  short: 'm2', name: 'Minor 2nd',     feel: 'Tense and dark. The half step that gives Phrygian and chromatic riffs their menace.', song: 'Jaws theme' },
+  { s: 2,  short: 'M2', name: 'Major 2nd',     feel: 'A whole step. Open and unresolved, the step you hear all through pentatonic and minor riffs.', song: 'Happy Birthday (first two notes)' },
+  { s: 3,  short: 'm3', name: 'Minor 3rd',     feel: 'The interval that makes a chord or riff sound minor: sad, heavy, serious.', song: 'Smoke on the Water (first two notes)' },
+  { s: 4,  short: 'M3', name: 'Major 3rd',     feel: 'The bright one. It makes a chord sound major and happy.', song: 'When the Saints Go Marching In' },
+  { s: 5,  short: 'P4', name: 'Perfect 4th',   feel: 'Stable and open. Neighboring strings are a 4th apart on most of the neck, so you play it all the time.', song: 'Here Comes the Bride' },
+  { s: 6,  short: 'TT', name: 'Tritone',       feel: 'The devil\'s interval. Unstable, restless, wants to resolve. A staple of dark riffs.', song: 'The Simpsons theme, and the opening of Black Sabbath' },
+  { s: 7,  short: 'P5', name: 'Perfect 5th',   feel: 'Strong and hollow. This is the power chord: root plus 5th.', song: 'Star Wars main theme' },
+  { s: 8,  short: 'm6', name: 'Minor 6th',     feel: 'Wistful and a little dramatic. Common in minor melodies and cinematic parts.', song: 'The Entertainer (opening)' },
+  { s: 9,  short: 'M6', name: 'Major 6th',     feel: 'Warm and open, a lift that does not feel tense.', song: 'My Bonnie Lies Over the Ocean' },
+  { s: 10, short: 'm7', name: 'Minor 7th',     feel: 'Bluesy and unfinished, it leans toward resolving.', song: 'Somewhere (West Side Story)' },
+  { s: 11, short: 'M7', name: 'Major 7th',     feel: 'Dreamy and tense, one half step short of the octave.', song: 'Take On Me (chorus)' },
+  { s: 12, short: 'P8', name: 'Octave',        feel: 'The same note, higher. Doubling riffs an octave up thickens them.', song: 'Somewhere Over the Rainbow' }
+];
+const IV_EASY = [3, 4, 5, 7, 12];
+let _iq = { pool: 'easy', cur: null, answered: false, pick: 0, right: 0, total: 0, streak: 0, best: 0, play: null };
+
+function ivNoteName(rootPc, semi) { return FG_PC[(rootPc + semi) % 12]; }
+function ivPositions(rootPc, semi) {
+  const T = fgTun(), n = T.n, out = [], seen = {};
+  for (let i = 0; i < n; i++) {
+    for (let r = 0; r <= 12; r++) {
+      const m = T.midi[i] + r; if (m % 12 !== rootPc) continue;
+      const target = m + semi;
+      for (let j = 0; j < n; j++) {
+        const u = target - T.midi[j]; if (u < 0 || u > 14) continue;
+        if (i === j && (semi > 5 || u === r)) continue;
+        if (r > 0 && u > 0 && Math.abs(u - r) > 3 && i !== j) continue;
+        if (i === j && r > 0 && u - r > 5) continue;
+        const key = i + ':' + r + '>' + j + ':' + u; if (seen[key]) continue; seen[key] = 1;
+        const frets = T.midi.map(() => -1); frets[i] = r; frets[j] = u;
+        let fingers = T.midi.map(() => 0), barre = null;
+        if (i === j) {
+          fingers[i] = r === 0 ? Math.min(u, 4) : 1;
+          const f2 = r === 0 ? 0 : Math.min(4, 1 + (u - r));
+          // same string: show the two notes as separate dots on one string
+          out.push({ i: i, r: r, j: j, u: u, fr: r, fu: u, f1: r === 0 ? 0 : 1, f2: r === 0 ? Math.min(u, 4) : f2, cost: ivCost(i, r, j, u, n) });
+          continue;
+        }
+        const a = fgAssign(frets, r === u && r > 0); if (!a) continue;
+        out.push({ i: i, r: r, j: j, u: u, f1: a.fingers[i], f2: a.fingers[j], barre: a.barre, cost: ivCost(i, r, j, u, n) });
+      }
+    }
+  }
+  out.sort((x, y) => x.cost - y.cost);
+  return out;
+}
+function ivCost(i, r, j, u, n) {
+  let c = Math.max(r, u) * 0.35 + i * 0.55;
+  if (r === 0) c -= 0.5; if (u === 0) c -= 0.5;
+  const gap = Math.abs(j - i); if (gap > 1) c += 1.3 * (gap - 1);
+  if (i === j) c += 1.6; if (j < i) c += 1.2;
+  return c;
+}
+function ivPick(list) {
+  const res = [], taken = {};
+  for (let k = 0; k < list.length && res.length < 4; k++) {
+    const p = list[k], key = p.i + ':' + p.j; if (taken[key]) continue; taken[key] = 1; res.push(p);
+  }
+  return res;
+}
+function ivSvg(p) {
+  const T = fgTun(), n = T.n, FW = 36, ML = 52, MT = 12, SH = 20;
+  const fr = [p.r, p.u].filter(f => f > 0);
+  const lo = fr.length ? Math.min.apply(null, fr) : 1, hi = fr.length ? Math.max.apply(null, fr) : 1;
+  const start = hi <= 5 ? 1 : lo, FR = Math.max(5, hi - start + 1);
+  const W = ML + FR * FW + 10, H = MT + n * SH + 22;
+  let s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" width="100%" style="max-width:' + W + 'px" role="img" aria-label="Interval shape">';
+  s += '<rect x="' + ML + '" y="' + MT + '" width="' + FR * FW + '" height="' + n * SH + '" fill="#0d0b18"/>';
+  for (let f = 0; f <= FR; f++) s += '<line x1="' + (ML + f * FW) + '" y1="' + MT + '" x2="' + (ML + f * FW) + '" y2="' + (MT + n * SH) + '" stroke="' + (f === 0 && start === 1 ? '#c8a0ff' : '#3a2f5c') + '" stroke-width="' + (f === 0 && start === 1 ? 3 : 1) + '"/>';
+  for (let row = 0; row < n; row++) {
+    const si = n - 1 - row, y = MT + row * SH + SH / 2;
+    s += '<line x1="' + ML + '" y1="' + y + '" x2="' + (ML + FR * FW) + '" y2="' + y + '" stroke="#6a5a98" stroke-width="' + (0.8 + si * 0.12) + '"/>';
+    s += '<text x="' + (ML - 28) + '" y="' + (y + 4) + '" text-anchor="end" font-family="monospace" font-size="10" fill="#8f82b8">' + (n - si) + '</text>';
+    s += '<text x="' + (ML - 24) + '" y="' + (y + 4) + '" text-anchor="start" font-family="monospace" font-size="10" fill="#6f6496">' + T.names[si] + '</text>';
+  }
+  const dot = (si, fret, fingerNum, root) => {
+    const row = n - 1 - si, y = MT + row * SH + SH / 2, col = root ? '#e08a1e' : '#8822ee', ring = root ? '#ffc477' : '#c466ff';
+    if (fret === 0) return '<circle cx="' + (ML - 8) + '" cy="' + y + '" r="6" fill="none" stroke="' + ring + '" stroke-width="2.2"/>';
+    const x = ML + (fret - start) * FW + FW / 2;
+    return '<circle cx="' + x + '" cy="' + y + '" r="8.5" fill="' + col + '" stroke="' + ring + '" stroke-width="1.5"/><text x="' + x + '" y="' + (y + 4) + '" text-anchor="middle" font-family="monospace" font-size="11" font-weight="bold" fill="#fff">' + (fingerNum || fret) + '</text>';
+  };
+  if (p.barre && p.r === p.u && p.r > 0) {
+    const x = ML + (p.r - start) * FW + FW / 2, y1 = MT + (n - 1 - Math.max(p.i, p.j)) * SH + SH / 2, y2 = MT + (n - 1 - Math.min(p.i, p.j)) * SH + SH / 2;
+    s += '<rect x="' + (x - 9) + '" y="' + (y1 - 9) + '" width="18" height="' + (y2 - y1 + 18) + '" rx="9" fill="#5a1aa8" opacity="0.6"/>';
+  }
+  s += dot(p.i, p.r, p.f1, true) + dot(p.j, p.u, p.f2, false);
+  for (let f = 0; f < FR; f++) s += '<text x="' + (ML + f * FW + FW / 2) + '" y="' + (H - 5) + '" text-anchor="middle" font-family="monospace" font-size="9" fill="#6f6496">' + (start + f) + '</text>';
+  return s + '</svg>';
+}
+function ivLine(role, name, si, fret, finger) {
+  const T = fgTun(), n = T.n, str = 'string ' + (n - si) + ' (' + T.names[si] + ')';
+  return role + ' ' + name + ': ' + (fret === 0 ? 'open ' + str : 'finger ' + finger + ' (' + FG_FINGER[finger] + '), ' + str + ', fret ' + fret);
+}
+function ivShapeHtml(p, rootName, upName, semi) {
+  const T = fgTun();
+  const enc = encodeURIComponent(JSON.stringify([T.midi[p.i] + p.r, T.midi[p.j] + p.u]));
+  const same = p.i === p.j;
+  const lines = [ivLine('Root', rootName, p.i, p.r, p.f1), ivLine('Upper', upName, p.j, p.u, p.f2)];
+  const kind = same ? 'Same string' : (Math.abs(p.j - p.i) === 1 ? 'Neighboring strings' : 'Skips ' + (Math.abs(p.j - p.i) - 1) + ' string' + (Math.abs(p.j - p.i) > 2 ? 's' : ''));
+  const flat = p.barre ? '<li>Use one flat finger across both notes.</li>' : '';
+  return '<div class="iv-shape"><div class="iv-svg">' + ivSvg(p) + '</div><div class="iv-txt"><div class="fg-voice-h">' + kind + ' <button class="fg-play" onclick="ivHear(\'' + enc + '\',this)">▶ Hear</button></div><ol class="fg-steps">' +
+    lines.map(l => '<li>' + slEsc(l) + '</li>').join('') + flat + '</ol></div></div>';
+}
+function ivHear(enc, btn) {
+  try { const m = JSON.parse(decodeURIComponent(enc)); sndPlayEvents([{ f: [sndMidiFreq(m[0])], t: 0, d: 1.1 }, { f: [sndMidiFreq(m[1])], t: 0.85, d: 1.1 }, { f: [sndMidiFreq(m[0]), sndMidiFreq(m[1])], t: 2.0, d: 1.8 }], btn, '▶ Hear'); } catch (e) {}
+}
+function ivBodyHtml() {
+  const pp = gpGet();
+  const mode = _fg.ivMode === 'quiz' ? 'quiz' : 'learn';
+  const toggle = '<div class="iv-mode"><button class="pa-chip' + (mode === 'learn' ? ' on' : '') + '" onclick="ivMode(\'learn\')">Learn shapes</button><button class="pa-chip' + (mode === 'quiz' ? ' on' : '') + '" onclick="ivMode(\'quiz\')">Ear quiz</button></div>';
+  if (mode === 'quiz') return toggle + ivQuizHtml();
+  const semi = IV[_fg.iv] ? _fg.iv : 3, info = IV[semi], rootPc = fgPcOf(_fg.root), rn = FG_PC[rootPc >= 0 ? rootPc : 4], up = ivNoteName(rootPc >= 0 ? rootPc : 4, semi);
+  const pills = FG_PC.map(p => '<button class="fg-pill' + (p === rn ? ' on' : '') + '" onclick="fgSetRoot(\'' + p + '\')">' + p + '</button>').join('');
+  const ivs = IV.slice(1).map(x => '<button class="iv-btn' + (x.s === semi ? ' on' : '') + '" onclick="ivSet(' + x.s + ')"><b>' + x.short + '</b><span>' + ivNoteName(fgPcOf(rn), x.s) + '</span></button>').join('');
+  const shapes = ivPick(ivPositions(rootPc >= 0 ? rootPc : 4, semi));
+  return toggle + '<div class="fg-lbl">ROOT NOTE</div><div class="fg-pills">' + pills + '</div><div class="fg-lbl">INTERVAL (the note under each is where it lands)</div><div class="iv-grid">' + ivs + '</div>' +
+    '<div class="fg-title">' + slEsc(info.name) + ': ' + slEsc(rn) + ' up to ' + slEsc(up) + '</div>' +
+    '<div class="iv-card"><div>' + slEsc(info.feel) + '</div><div class="iv-song">Ear reference: ' + slEsc(info.song) + '</div><div class="iv-song">It is ' + semi + ' fret' + (semi > 1 ? 's' : '') + ' (half steps) above the root on one string.</div></div>' +
+    (shapes.length ? '<div class="fg-lbl">EASIEST WAYS TO PLAY IT ON YOUR ' + slEsc(pp.display.toUpperCase()) + '</div>' + shapes.map(p => ivShapeHtml(p, rn, up, semi)).join('') +
+      '<div class="fg-note">Orange = root, purple = upper note, number in the circle = finger. Hollow circle left of the nut = open string. Strings are numbered at left, 1 is the thinnest.</div>'
+      : '<div class="fg-note">No comfortable shape found in the first frets. Try another root note.</div>');
+}
+function ivMode(m) { _fg.ivMode = m; _fg.touched = true; fgRender(); }
+function ivSet(s) { _fg.iv = s; _fg.touched = true; fgRender(); }
+
+/* ── Ear quiz ── */
+function ivQuizPool() { return _iq.pool === 'all' ? IV.slice(1).map(x => x.s) : IV_EASY; }
+function ivQuizHtml() {
+  const pool = ivQuizPool();
+  const poolBtns = '<div class="iv-mode"><button class="pa-chip' + (_iq.pool === 'easy' ? ' on' : '') + '" onclick="ivQuizPoolSet(\'easy\')">Starter set</button><button class="pa-chip' + (_iq.pool === 'all' ? ' on' : '') + '" onclick="ivQuizPoolSet(\'all\')">All 12</button></div>';
+  const score = '<div class="iv-score"><span>Score <b>' + _iq.right + '/' + _iq.total + '</b></span><span>Streak <b>' + _iq.streak + '</b></span><span>Best <b>' + _iq.best + '</b></span></div>';
+  if (!_iq.cur) return poolBtns + '<div class="iv-card">You will hear two notes, low to high. Name the interval. Use the ear references (songs) in Learn shapes to anchor each one.</div>' + score + '<button class="fg-open" onclick="ivQuizNext()">▶ Play first interval</button>';
+  const c = _iq.cur, info = IV[c.s];
+  const btns = pool.map(s => {
+    let cls = 'iv-ans';
+    if (_iq.answered) { if (s === c.s) cls += ' good'; else if (s === _iq.pick) cls += ' bad'; }
+    return '<button class="' + cls + '"' + (_iq.answered ? ' disabled' : '') + ' onclick="ivAnswer(' + s + ')">' + slEsc(IV[s].name) + '</button>';
+  }).join('');
+  let res = '';
+  if (_iq.answered) {
+    res = '<div class="iv-res ' + (_iq.pick === c.s ? 'good' : 'bad') + '">' + (_iq.pick === c.s ? 'Correct. ' : 'Not quite. ') + 'That was a ' + slEsc(info.name) + ': ' + slEsc(FG_PC[c.root % 12]) + ' up to ' + slEsc(FG_PC[(c.root + c.s) % 12]) + '. Ear reference: ' + slEsc(info.song) + '.</div>' +
+      '<button class="fg-open" onclick="ivQuizNext()">Next interval ▶</button><button class="fg-open" onclick="ivQuizShow()">Show shapes for this</button>';
+  }
+  return poolBtns + score + '<div class="iv-q"><button class="fg-play" onclick="ivQuizPlay(false)">▶ Hear again</button>' + (_iq.answered ? '<button class="fg-play" onclick="ivQuizPlay(true)">▶ Hear both together</button>' : '') + '</div><div class="iv-answers">' + btns + '</div>' + res;
+}
+function ivQuizPoolSet(p) { _iq.pool = p; _iq.cur = null; _iq.answered = false; fgRender(); }
+function ivQuizNext() {
+  const pool = ivQuizPool(), T = fgTun();
+  let s; do { s = pool[Math.floor(Math.random() * pool.length)]; } while (_iq.cur && pool.length > 1 && s === _iq.cur.s);
+  const si = Math.floor(Math.random() * Math.min(3, T.n)), midi = T.midi[si] + Math.floor(Math.random() * 8);
+  _iq.cur = { s: s, midi: midi, root: midi % 12 }; _iq.answered = false; _iq.pick = 0;
+  fgRender(); ivQuizPlay(false);
+}
+function ivQuizPlay(both) {
+  const c = _iq.cur; if (!c) return;
+  const a = sndMidiFreq(c.midi), b = sndMidiFreq(c.midi + c.s);
+  const ev = [{ f: [a], t: 0, d: 1.0 }, { f: [b], t: 0.8, d: 1.2 }];
+  if (both) ev.push({ f: [a, b], t: 2.1, d: 1.8 });
+  sndPlayEvents(ev, null, '');
+}
+function ivAnswer(s) {
+  const c = _iq.cur; if (!c || _iq.answered) return;
+  _iq.answered = true; _iq.pick = s; _iq.total++;
+  if (s === c.s) { _iq.right++; _iq.streak++; if (_iq.streak > _iq.best) _iq.best = _iq.streak; } else _iq.streak = 0;
+  fgRender();
+}
+function ivQuizShow() { const c = _iq.cur; if (!c) return; _fg.iv = c.s; _fg.root = FG_PC[c.root % 12]; _fg.ivMode = 'learn'; fgRender(); }
+window.ivHear = ivHear; window.ivMode = ivMode; window.ivSet = ivSet; window.ivQuizPoolSet = ivQuizPoolSet; window.ivQuizNext = ivQuizNext;
+window.ivQuizPlay = ivQuizPlay; window.ivAnswer = ivAnswer; window.ivQuizShow = ivQuizShow;
 
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
