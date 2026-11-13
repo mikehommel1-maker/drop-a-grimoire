@@ -1184,6 +1184,17 @@ h3 {
 .instr-note{margin-top:10px;padding:10px 12px;border-left:2px solid var(--gold);background:rgba(255,255,255,.03);font-size:12px;line-height:1.55;color:var(--mid)}
 .instr-lbl{display:block;font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--gold);margin-bottom:4px}
 .instr-src{display:block;margin-top:4px;font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--dim)}
+.instr-mini{margin:8px 0;padding:7px 10px;font-size:11px;line-height:1.5}
+.instr-tech{margin-top:14px}
+/* mobile: keep the floating buttons clear of the bottom action bar */
+@media (max-width:640px){
+  body #context-bar{padding:12px 78px calc(16px + env(safe-area-inset-bottom,0px)) 16px}
+  body .fab-cluster{right:12px;bottom:calc(16px + env(safe-area-inset-bottom,0px));gap:8px}
+  body .fab{width:44px;height:44px;font-size:17px}
+}
+/* keyboard focus and reduced motion */
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--flame,#c060ff);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 .tip-card {
   background: linear-gradient(135deg, #0e0b18, #120f1e);
   border: 1px solid var(--edge);
@@ -4859,6 +4870,10 @@ body{padding-top:52px}
           <option value="groove_metal">Groove / Nu-Metal</option>
           <option value="melodic_death">Melodic Death</option>
           <option value="classic_metal">Classic / Heavy Metal</option>
+          <option value="hardcore">Hardcore</option>
+          <option value="punk">Punk</option>
+          <option value="grunge">Grunge / 90s Alt</option>
+          <option value="indie_rock">Indie / British Rock</option>
         </select>
         <select class="sl-filter" id="sl-filter-diff" onchange="slFilterSongs()">
           <option value="">All Difficulty</option>
@@ -5335,7 +5350,7 @@ function buildCollapse(containerId, items) {
       </div>
       <div class="collapse-body">
         <div class="collapse-body-inner">
-          ${item.content}${tierHtml}
+          ${item.content}${tierHtml}${(containerId==='tech-group'&&window.instrTechHtml)?window.instrTechHtml(item.title):''}
           <div id="ai-panel-${itemId}" style="display:none">
             <div class="ai-exercise-panel">
               <div class="ai-exercise-header">
@@ -8870,6 +8885,7 @@ function buildTodayFocus() {
         <div style="font-family:var(--ui);font-size:13px;font-weight:700;color:var(--pale);margin-bottom:4px">${title}</div>
         <div style="font-size:12px;color:var(--mid);line-height:1.55;margin-bottom:8px">${body}</div>
         <div style="display:flex;flex-wrap:wrap;gap:5px">${pillsHtml}</div>
+        ${window.instrFocusHtml ? window.instrFocusHtml(weakest[0]?.label) : ''}
       </div>
       <button class="btn" style="font-size:9px;padding:5px 12px;flex-shrink:0;white-space:nowrap" onclick="goTo('session',null)">▶ Practice</button>
     </div>
@@ -13151,7 +13167,7 @@ function aicDiagnose(d) {
     const focusBpm = bpmMap[focusLabel];
     const targetBpm = aicNextBpm(focusLabel, focusBpm);
     const brutal = aicBrutalWeaknessAnalysis(focusLabel, focusPct, focusBpm, pp);
-    cards.push(aicCard('🎯', 'YOUR TARGET', `${focusLabel} · ${focusPct}% · This is where your improvement lives`, brutal, 'aic-urgent'));
+    cards.push(aicCard('🎯', 'YOUR TARGET', `${focusLabel} · ${focusPct}% · This is where your improvement lives`, brutal + (window.instrFocusHtml ? window.instrFocusHtml(focusLabel) : ''), 'aic-urgent'));
   }
 
   // ── BPM STAGNATION WARNING ──
@@ -14348,36 +14364,98 @@ function setFbPosition(pos,btn){
   if(_fbScale)renderFretboard(_fbScale.id);
 }
 
-/* ════ INSTRUCTOR NOTES (INSTR_DB) ════ */
+/* ════ INSTRUCTOR NOTES (INSTR_DB) v2 ════ */
+/* Paraphrased advice from published lessons. Source credited on every note.
+   t = skill tags, g = genre gate (only shown for those genres), u = tuning tags, c = daily tip category */
 ;(function(){
 const DB=[
+/* ── Core technique ── */
 {id:'pm1',t:['palmmute'],c:'technique',s:'Riffhard lessons',x:"Rest the edge of your picking palm on the strings right at the bridge. Find the contact point where each chug is tight and percussive but still has a clear pitch, then keep that pressure identical on every note."},
 {id:'pm2',t:['palmmute','breakdown'],c:'technique',s:'Riffhard metalcore guide',x:"Treat palm pressure as a dynamics control: lighter for a more open sound, heavier for the tight chug. Mix chugs and rests on purpose, and write the rests in as deliberately as the notes."},
 {id:'mu1',t:['mute','palmmute','altpick'],c:'technique',s:'Making a Scene',x:"Muting is a two-hand job. Your picking palm near the bridge deadens the strings above the one you are playing, and your fretting hand has to damp whatever is left. Noise usually means one hand is not doing its half."},
 {id:'dp1',t:['altpick','gallop','palmmute'],c:'technique',s:'Riffhard deathcore guide',x:"Downpicking is the backbone of deathcore chugging, and it is about precision first and stamina second. Build it on one string at a steady tempo and only extend the time once every note matches the last."},
 {id:'ap1',t:['altpick','speed'],c:'technique',s:'Riffhard lessons',x:"Keep your picking hand close to the strings and your motion small. Working on a single string first removes string crossing as a variable, so you can hear and fix the picking motion itself."},
+{id:'dy1',t:['dynamics','palmmute','breakdown'],c:'technique',s:'Riffhard lessons',x:"Vary your pick attack as well as your palm pressure. Mixing soft and hard strokes inside one riff gives it contrast, so the heavy hits actually land as heavy."},
+{id:'pr2',t:['hands','altpick','practice'],c:'technique',s:'Riffhard lessons',x:"When something will not lock in, isolate each hand. Work the fretting hand and the picking hand separately, then put them back together at a slower tempo."},
+/* ── Speed and tension ── */
 {id:'sp1',t:['speed','warmup','altpick'],c:'rhythm',s:'Riffhard lessons',x:"Start at a tempo you can play cleanly and raise it 5 BPM at a time. Speed is a byproduct of accuracy, so if the notes smear, the tempo was too high."},
 {id:'sp2',t:['speed','practice'],c:'rhythm',s:'Premier Guitar',x:"Try a ladder with a step back: after a clean pass, drop the tempo about 2 BPM, then go up about 5. Moving around your limit builds control better than only ever pushing forward."},
 {id:'te1',t:['tension','speed'],c:'mindset',s:'Riffhard lessons',x:"Tension is the biggest barrier to speed and a direct route to fatigue or injury. When your shoulder, forearm or grip tightens, stop, shake it out, and drop the tempo until you are loose again."},
+/* ── Breakdowns and rhythm ── */
 {id:'rt1',t:['breakdown','gallop'],c:'rhythm',s:'Riffhard deathcore guide',x:"A breakdown is built from rhythm and timing. Pay attention to exactly where each chug lands against the click, and treat the gaps as part of the riff, not empty space."},
-{id:'dy1',t:['dynamics','palmmute','breakdown'],c:'technique',s:'Riffhard lessons',x:"Vary your pick attack as well as your palm pressure. Mixing soft and hard strokes inside one riff gives it contrast, so the heavy hits actually land as heavy."},
-{id:'pr1',t:['practice','warmup'],c:'mindset',s:'Riffhard lessons',x:"Consistency beats duration. Fifteen to twenty focused minutes a day with one concrete goal, like a target tempo or a single riff, does more than an occasional long session."},
-{id:'pr2',t:['hands','altpick','practice'],c:'technique',s:'Riffhard lessons',x:"When something will not lock in, isolate each hand. Work the fretting hand and the picking hand separately, then put them back together at a slower tempo."},
+{id:'m1',t:['breakdown','palmmute'],g:['metalcore','deathcore','hardcore'],c:'rhythm',s:'Riffhard metalcore guide',x:"Treat the breakdown as the climax of the song: build anticipation, then release it. A simple repeating rhythm that lands on the downbeat works best, with chugs and rests for contrast."},
 {id:'mc1',t:['breakdown'],g:['metalcore','deathcore'],c:'rhythm',s:'Riffhard metalcore guide',x:"Metalcore songs split jobs: tight rhythmic verses, a melodic chorus, and the breakdown as the heavy rhythmic centerpiece. Practice each part with its own job in mind."},
+{id:'m2',t:['dissonance'],g:['metalcore','deathcore'],c:'theory',s:'Riffhard metalcore guide',x:"Minor seconds and tritones create unease. Adding a note a tritone from the root to a power chord gives it an edgier sound, so use it on purpose rather than by accident."},
+{id:'m3',t:['leads','bends'],g:['metalcore','melodic_death'],c:'technique',s:'Riffhard metalcore guide',x:"For melodic leads, bends and vibrato carry the expression. Sing the line to check that it is memorable, and think about how it sits against the chords underneath."},
 {id:'dj1',t:['palmmute'],g:['djent'],c:'technique',s:'Riffhard lessons',x:"For percussive djent playing, aim to make the guitar act like part of the drum kit: precise palm muting, a consistent picking angle, and a controlled attack."},
+/* ── Hardcore ── */
+{id:'h1',t:['hardcore','altpick','palmmute'],g:['hardcore'],c:'technique',s:'Riffhard hardcore guide',x:"Downpicking gives hardcore riffs an aggression and tightness that alternate picking cannot match. Get it accurate first, then bring the tempo up gradually with a metronome."},
+{id:'h2',t:['hardcore','breakdown'],g:['hardcore'],c:'rhythm',s:'Riffhard hardcore guide',x:"Build a breakdown on a syncopated rhythm that contrasts with the rest of the song, and use pauses on purpose so each hit lands harder."},
+{id:'h3',t:['hardcore','altpick'],g:['hardcore'],c:'technique',s:'Riffhard hardcore guide',x:"A heavier pick, around 1.0 mm or thicker, gives more control and attack for downpicked riffs. Keep the picking hand relaxed so your endurance lasts."},
+{id:'h4',t:['hardcore','breakdown'],g:['hardcore'],c:'rhythm',s:'Guitar World, Isaac Hale interview',x:"Knocked Loose's Isaac Hale says he is driven by heavily syncopated parts and names Meshuggah and Gojira as influences. Learn the rhythm of a part before you worry about the notes."},
+{id:'h5',t:['hardcore','tone'],g:['hardcore'],c:'gear',s:'Riffhard hardcore guide',x:"Keep the rig simple: high output pickups, an amp that stays clear under high gain, and a noise gate to cut hum and feedback between hits."},
+/* ── Sweeps ── */
+{id:'sw1',t:['sweep'],c:'arpeggios',s:'Riffhard sweep guide',x:"Press each note just before the pick reaches the string and release it immediately after it sounds. Overlapping notes are what turn a sweep into a smear."},
+{id:'sw2',t:['sweep','speed'],c:'arpeggios',s:'Riffhard sweep guide',x:"Practice the sweep motion on unfretted, lightly muted strings first, then add the fretting hand. Let the wrist guide the motion instead of the whole arm."},
+{id:'sw3',t:['sweep','practice'],c:'arpeggios',s:'Riffhard sweep guide',x:"Once a sweep is accurate, add short bursts of speed for a few seconds, then return to a comfortable tempo. Slow, even playing should feel easy before each burst."},
+{id:'sw4',t:['sweep','mute'],c:'arpeggios',s:'Riffhard sweep guide',x:"Lightly palm mute while you sweep to keep the strings quiet and isolate the motion."},
+/* ── Pinch harmonics ── */
+{id:'ph1',t:['harmonic'],c:'technique',s:'Guitar World lesson',x:"Angle the pick so the side of your thumb brushes the string just after the pick strikes it, almost as one motion. Pull your hand slightly away so the thumb contact stays brief, because too much contact deadens the note."},
+{id:'ph2',t:['harmonic','tone'],c:'technique',s:'Guitar World lesson',x:"Use a distorted tone and the bridge pickup, where a humbucker tends to work better than a single coil. Pick with medium to strong force, since light picking rarely squeals."},
+{id:'ph3',t:['harmonic','practice'],c:'technique',s:'Guitar World lesson',x:"Expect hit and miss at first. Search along each string for the spots that squeal and track whether your squeals are beating the dull attempts over time."},
+/* ── Injury prevention ── */
+{id:'in1',t:['injury'],c:'mindset',s:'Riffhard injury guide',x:"Start sessions with gentle finger stretches, wrist rotations and thumb circles, and set a timer for a break every 30 to 45 minutes."},
+{id:'in2',t:['injury','tension'],c:'mindset',s:'Riffhard injury guide',x:"Keep your wrist close to neutral and set the guitar height so your picking hand does not have to reach. Sharp wrist bends put pressure where you do not want it."},
+{id:'in3',t:['injury'],c:'mindset',s:'Riffhard injury guide',x:"Pain, numbness or tingling is a signal to change something, not to push through. If it persists, see a healthcare professional early rather than waiting until it is severe."},
+{id:'in4',t:['injury'],c:'mindset',s:'Lick Library',x:"Spend five to ten minutes warming up with easy material you already know, and build speed gradually. If pain starts as soon as you play, stop and rest instead of playing through it."},
+/* ── Practice habits ── */
+{id:'pr1',t:['practice','warmup'],c:'mindset',s:'Riffhard lessons',x:"Consistency beats duration. Fifteen to twenty focused minutes a day with one concrete goal, like a target tempo or a single riff, does more than an occasional long session."},
+{id:'pc1',t:['practice','warmup'],c:'mindset',s:'Riffhard practice guide',x:"Decide what you want to achieve before each session, and split the time into focused segments such as technique, theory and songs, each with its own timer."},
+{id:'pc2',t:['practice','recording'],c:'mindset',s:'Riffhard practice guide',x:"Record yourself and listen back. It shows timing and muting problems your hands miss while playing, and a mistake on tape is useful material."},
+{id:'pc3',t:['practice'],c:'mindset',s:'Riffhard practice guide',x:"Keep a practice journal. Thirty effective minutes beats two hours of unfocused playing."},
+/* ── Punk ── */
+{id:'pu1',t:['punk','altpick','palmmute'],g:['punk'],c:'technique',s:'Riffhard punk guide',x:"Punk rhythm is driven by consistent downstrokes. Keep the wrist relaxed and let the forearm provide the power, and practice the motion on muted strings first."},
+{id:'pu2',t:['punk','speed'],g:['punk'],c:'rhythm',s:'Riffhard punk guide',x:"Use a metronome and raise the tempo gradually toward punk speeds. Build stamina through consistent practice, since fast rhythm playing is demanding."},
+{id:'pu3',t:['punk','tone'],g:['punk'],c:'gear',s:'Riffhard punk guide',x:"Too much distortion muddies power chords. Keep the tone clear enough that each chord still reads, and use effects sparingly."},
+{id:'pu4',t:['punk'],g:['punk'],c:'technique',s:'Riffhard punk guide',x:"Power chords are movable shapes: the root on the low E or A string with your ring finger two frets up on the next string. Learn the shape once, then slide it."},
+/* ── Grunge and 90s alt ── */
+{id:'gr1',t:['grunge','dynamics'],g:['grunge'],c:'rhythm',s:'Riffhard grunge guide',x:"Grunge leans on contrast: quiet verses against loud choruses. Practice the same riff at two clearly different volumes so the jump is obvious."},
+{id:'gr2',t:['grunge','palmmute'],g:['grunge'],c:'technique',s:'Riffhard grunge guide',x:"Mix power chords with open chords for contrast, and use palm muting, slides and bends to give a simple, memorable riff some attitude."},
+{id:'gr3',t:['grunge'],g:['grunge'],c:'technique',s:'Riffhard grunge guide',x:"Feedback and natural harmonics can be used on purpose as intensity tools, so learn to control them instead of only avoiding them."},
+{id:'gr4',t:['grunge','mute'],g:['grunge'],c:'rhythm',s:'Guitar World, Andy Aledort lessons',x:"Soundgarden leaned on dropped tunings and odd time signatures. Count a bar out loud against a click before you play it, because the meter is the hard part."},
+{id:'gr5',t:['grunge'],g:['grunge'],c:'gear',s:'Guitar World, Kim Thayil interview',x:"Soundgarden used some unusual tunings, so a song may not match your guitar. Check the tuning before you start learning it so you are not chasing the wrong notes."},
+/* ── Indie and British rock ── */
+{id:'ai1',t:['indie','mute'],g:['indie_rock'],c:'technique',s:'Andy Guitar lessons',x:"Let your fretting thumb mute the thicker strings while you play the higher ones, so they do not all ring out together."},
+{id:'ai2',t:['indie','hands'],g:['indie_rock'],c:'technique',s:'Andy Guitar lessons',x:"A thumb over the top grip, with the elbow tucked in and fingers angled, makes big stretches easier without awkward wrist angles."},
+{id:'ai3',t:['indie','tone'],g:['indie_rock'],c:'gear',s:'Andy Guitar lessons',x:"For crunch, try a slight boost or compression with a low gain setting, around 3 out of 10. A Tube Screamer or fuzz helps a lead line cut through."},
+{id:'ai4',t:['indie','altpick','speed'],g:['indie_rock'],c:'technique',s:'Andy Guitar, Brianstorm lesson',x:"For fast tremolo picking, keep the motion small and pick closer to the bridge, where the string moves less. Keep the pick moving continuously instead of adding pauses."},
+{id:'ai5',t:['indie'],g:['indie_rock'],c:'technique',s:'Andy Guitar lessons',x:"Some slides are part of the sound. Drag down slowly enough that every fret is audible, instead of treating it as a quick glide."},
+{id:'ai6',t:['indie','practice'],g:['indie_rock'],c:'mindset',s:'Andy Guitar, Brianstorm lesson',x:"Work up to harder Arctic Monkeys parts from easier songs with similar staccato rhythms. Get comfortable on the thickest two strings and practice minor and harmonic minor scales."},
+/* ── Tuning notes (shown for the matching active guitar) ── */
 {id:'tl1',u:['low'],c:'gear',s:'Riffhard drop tuning guide',x:"In low tunings, palm muting matters more, not less, to keep riffs clear. Tighten the muting up before you chase tempo."},
 {id:'ta1',u:['dropa'],c:'gear',s:'Riffhard drop tuning guide',x:"Drop A exposes weak muting, low string tension and a loose setup quickly. If the low string feels rubbery or the pitch wobbles when you dig in, check gauge and setup before blaming your hands."},
 {id:'tc1',u:['dropc'],c:'gear',s:"D'Addario Drop C guide",x:"Drop C needs heavier strings to stay firm. D'Addario puts the sweet spot for the low C around .052 to .062, and suggests getting palm muting clean before adding speed."},
+{id:'td1',u:['dropd'],c:'gear',s:'Riffhard hardcore guide',x:"Drop D lets you play power chords with one finger, which suits percussive riffs. Drop C adds depth, but needs heavier strings and a setup to match."},
 {id:'t71',u:['str7'],c:'gear',s:'Gearank 7-string guide',x:"Six-string muting habits tend to leave the extra low string ringing. Make a point of damping it deliberately while you play on the higher strings."}
 ];
 const TUN={'7drop':['dropa','str7','low'],'7std':['str7','low'],'6drop_c':['dropc','low'],'6drop':['dropd'],'6std':[],'6std_d':[]};
-const SK={'Palm Muting':'palmmute','String Muting':'mute','Alternate Pick':'altpick','Gallop Rhythm':'gallop','Chromatic/Warmup':'warmup','Hammer/Pull':'hands','Sweep Arpeggios':'hands','Pinch Harmonics':'dynamics'};
+/* skill label -> tags */
+const SK={'Palm Muting':'palmmute','String Muting':'mute','Alternate Pick':'altpick','Gallop Rhythm':'gallop','Chromatic/Warmup':'warmup','Hammer/Pull':'hands','Sweep Arpeggios':'sweep','Pinch Harmonics':'harmonic','Bends & Vibrato':'leads'};
+/* Song Lab technique -> tags */
+const SKT={palm:'palmmute',gallop:'gallop',sweep:'sweep',legato:'hands',tapping:'hands',pinch:'harmonic',tremolo:'altpick',bends:'leads',alternate:'altpick'};
+/* Song Lab genre -> tags */
+const SKG={deathcore:['breakdown','palmmute'],metalcore:['breakdown','dissonance','leads'],hardcore:['hardcore','breakdown','altpick'],punk:['punk','altpick'],grunge:['grunge','dynamics'],indie_rock:['indie','mute'],thrash:['altpick','speed'],death_metal:['altpick','speed'],djent:['palmmute','dynamics'],prog_metal:['hands','practice'],classic_metal:['palmmute','altpick'],groove_metal:['palmmute','dynamics'],melodic_death:['leads','altpick'],black_metal:['altpick','speed','tension']};
+/* Techniques page section -> tags */
+const TT={'Palm Muting':['palmmute','mute'],'Gallop Rhythm':['gallop','palmmute'],'Bends & Vibrato':['leads'],'Alternate Picking':['altpick','speed','tension'],'Pinch Harmonics':['harmonic'],'Sweep Arpeggios':['sweep'],'String Muting':['mute']};
+
 function hash(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h);}
 function tun(){return TUN[window._GP_ACTIVE]||[];}
+function today(){try{return new Date().toISOString().slice(0,10);}catch(e){return '';}}
+/* Pick n notes. Genre-gated notes only appear when the genre matches. */
 function pick(tags,genre,n,seed){
-  const pool=DB.filter(e=>!e.u).map(e=>{
+  const pool=DB.filter(e=>!e.u&&(!e.g||(genre&&e.g.indexOf(genre)>-1))).map(e=>{
     let sc=0;(e.t||[]).forEach(t=>{if(tags.indexOf(t)>-1)sc+=3;});
-    if(e.g&&genre&&e.g.indexOf(genre)>-1)sc+=2;
+    if(sc>0&&e.g&&genre&&e.g.indexOf(genre)>-1)sc+=4;
     return sc>0?{e:e,sc:sc}:null;
   }).filter(Boolean).sort((a,b)=>b.sc-a.sc).slice(0,n+2).map(x=>x.e);
   if(!pool.length)return[];
@@ -14389,7 +14467,8 @@ function tunNote(seed){
   const t=tun();const pool=DB.filter(e=>e.u&&e.u.some(u=>t.indexOf(u)>-1));
   return pool.length?[pool[hash(seed+'tun')%pool.length]]:[];
 }
-function note(e){return '<div class="instr-note"><span class="instr-lbl">INSTRUCTOR NOTE</span>'+e.x+'<em class="instr-src">'+e.s+'</em></div>';}
+function note(e,label){return '<div class="instr-note"><span class="instr-lbl">'+(label||'INSTRUCTOR NOTE')+'</span>'+e.x+'<em class="instr-src">'+e.s+'</em></div>';}
+function first(x){const i=x.indexOf('. ');return i>0?x.slice(0,i+1):x;}
 function riffTags(r){
   const s=((r.techniques||[]).join(' ')+' '+(r.genre||'')+' '+(r.title||'')).toLowerCase(),t=[];
   if(/palm|chug|mute/.test(s))t.push('palmmute');
@@ -14409,18 +14488,46 @@ window.instrRiffHtml=function(r){
   try{
     if(!r)return '';
     const list=pick(riffTags(r),r.genre||'',1,String(r.id||r.title||'riff'));
-    return list.map(note).join('')+ladder(r.bpm);
+    return list.map(e=>note(e)).join('')+ladder(r.bpm);
   }catch(err){return '';}
 };
 window.instrCoachHtml=function(pid,skills){
   try{
     const tags=[];(skills||[]).forEach(s=>{if(SK[s])tags.push(SK[s]);});
-    if(pid==='session'||pid==='progress')tags.push('practice','speed','tension');
+    if(pid==='session'||pid==='progress')tags.push('practice','speed','tension','injury');
     if(pid==='riff')tags.push('breakdown');
     if(!tags.length)tags.push('practice');
-    const seed=pid+new Date().toISOString().slice(0,10);
+    const seed=pid+today();
     const list=pick(tags,'',1,seed).concat(tunNote(seed));
-    return list.length?'<div class="instr-wrap">'+list.map(note).join('')+'</div>':'';
+    return list.length?'<div class="instr-wrap">'+list.map(e=>note(e)).join('')+'</div>':'';
+  }catch(err){return '';}
+};
+/* Song Lab card: one compact "work on first" line matched to the song's genre and techniques */
+window.instrSongHtml=function(s){
+  try{
+    if(!s)return '';
+    const tags=(SKG[s.genre]||[]).slice();
+    (s.techniques||[]).forEach(t=>{if(SKT[t])tags.push(SKT[t]);});
+    const list=pick(tags,s.genre||'',1,String(s.id||s.title));
+    if(!list.length)return '';
+    const e=list[0];
+    return '<div class="instr-note instr-mini"><span class="instr-lbl">WORK ON FIRST</span>'+first(e.x)+'<em class="instr-src">'+e.s+'</em></div>';
+  }catch(err){return '';}
+};
+/* Techniques page: up to two notes under each section */
+window.instrTechHtml=function(title){
+  try{
+    const tags=TT[title];if(!tags)return '';
+    const list=pick(tags,'',2,title+today());
+    return list.length?'<div class="instr-wrap instr-tech">'+list.map(e=>note(e,'INSTRUCTOR NOTE')).join('')+'</div>':'';
+  }catch(err){return '';}
+};
+/* Home focus card and AI coach target: one note for the weakest skill */
+window.instrFocusHtml=function(skill){
+  try{
+    const tags=SK[skill]?[SK[skill]]:['practice'];
+    const list=pick(tags,'',1,String(skill)+today());
+    return list.length?note(list[0],'INSTRUCTOR NOTE'):'';
   }catch(err){return '';}
 };
 window.INSTR_DB=DB;
@@ -15596,6 +15703,160 @@ const SL_SONGS = [
     why:'Dense Drop C technical metalcore. Tremolo-picked passages alternate with precision gallop riffs. Demands total right-hand command.',
     skillReq:{'Gallop Rhythm':60, 'Alternate Pick':60, 'Palm Muting':55},
   },
+  /* ══════ HARDCORE (phase 2) ══════════════════════════════ */
+  {
+    id:'p2kl1', title:'Everything Is Quiet Now', artist:'Knocked Loose', diff:3, genre:'hardcore',
+    tunings:['drop_a'],
+    techniques:['palm','alternate'],
+    why:'Recent Knocked Loose material is played on a 7-string in Drop A. Use it to practice tight, syncopated palm-muted rhythm and clean stops.',
+    skillReq:{'Palm Muting':25, 'Alternate Pick':20},
+  },
+  {
+    id:'p2kl2', title:'Belleville', artist:'Knocked Loose', diff:3, genre:'hardcore',
+    tunings:['drop_a'],
+    techniques:['palm','alternate'],
+    why:'Recent Knocked Loose material is played on a 7-string in Drop A. Use it to practice tight, syncopated palm-muted rhythm and clean stops.',
+    skillReq:{'Palm Muting':25, 'Alternate Pick':20},
+  },
+  {
+    id:'p2kl3', title:'Deep in the Willow', artist:'Knocked Loose', diff:3, genre:'hardcore',
+    tunings:['drop_a'],
+    techniques:['palm','alternate'],
+    why:'Recent Knocked Loose material is played on a 7-string in Drop A. Use it to practice tight, syncopated palm-muted rhythm and clean stops.',
+    skillReq:{'Palm Muting':25, 'Alternate Pick':20},
+  },
+  {
+    id:'p2kl4', title:'Suffocate', artist:'Knocked Loose', diff:4, genre:'hardcore',
+    tunings:['drop_a'],
+    techniques:['palm','alternate'],
+    why:'Recent Knocked Loose material is played on a 7-string in Drop A. Use it to practice tight, syncopated palm-muted rhythm and clean stops.',
+    skillReq:{'Palm Muting':35, 'Alternate Pick':30},
+  },
+  {
+    id:'p2kl5', title:'Don\'t Reach for Me', artist:'Knocked Loose', diff:4, genre:'hardcore',
+    tunings:['drop_a'],
+    techniques:['palm','alternate'],
+    why:'Recent Knocked Loose material is played on a 7-string in Drop A. Use it to practice tight, syncopated palm-muted rhythm and clean stops.',
+    skillReq:{'Palm Muting':35, 'Alternate Pick':30},
+  },
+
+  /* ══════ PUNK ═════════════════════════════════════════════ */
+  {
+    id:'p2mf1', title:'Last Caress', artist:'Misfits', diff:1, genre:'punk',
+    tunings:['std_e'],
+    techniques:['alternate'],
+    why:'Fast, power-chord driven punk in standard tuning. A good workout for steady downstrokes and clean stops.',
+    skillReq:{},
+  },
+  {
+    id:'p2mf2', title:'Skulls', artist:'Misfits', diff:1, genre:'punk',
+    tunings:['std_e'],
+    techniques:['alternate'],
+    why:'Fast, power-chord driven punk in standard tuning. A good workout for steady downstrokes and clean stops.',
+    skillReq:{},
+  },
+  {
+    id:'p2mf3', title:'Where Eagles Dare', artist:'Misfits', diff:1, genre:'punk',
+    tunings:['std_e'],
+    techniques:['alternate'],
+    why:'Fast, power-chord driven punk in standard tuning. A good workout for steady downstrokes and clean stops.',
+    skillReq:{},
+  },
+  {
+    id:'p2mf4', title:'Die, Die My Darling', artist:'Misfits', diff:1, genre:'punk',
+    tunings:['std_e'],
+    techniques:['alternate'],
+    why:'Fast, power-chord driven punk in standard tuning. A good workout for steady downstrokes and clean stops.',
+    skillReq:{},
+  },
+  {
+    id:'p2mf5', title:'Horror Business', artist:'Misfits', diff:2, genre:'punk',
+    tunings:['std_e'],
+    techniques:['alternate','palm'],
+    why:'Fast, power-chord driven punk in standard tuning. A good workout for steady downstrokes and clean stops.',
+    skillReq:{'Alternate Pick':10},
+  },
+  {
+    id:'p2mf6', title:'Hybrid Moments', artist:'Misfits', diff:2, genre:'punk',
+    tunings:['std_e'],
+    techniques:['alternate'],
+    why:'Fast, power-chord driven punk in standard tuning. A good workout for steady downstrokes and clean stops.',
+    skillReq:{'Alternate Pick':10},
+  },
+
+  /* ══════ GRUNGE / 90s ALT ═════════════════════════════════ */
+  {
+    id:'p2nv1', title:'Negative Creep', artist:'Nirvana', diff:2, genre:'grunge',
+    tunings:['drop_d'],
+    techniques:['alternate'],
+    why:'Drop D grunge and 90s alt rock. Practice loud and quiet contrast and one finger power chords.',
+    skillReq:{'Alternate Pick':10},
+  },
+  {
+    id:'p2sg1', title:'Nothing to Say', artist:'Soundgarden', diff:2, genre:'grunge',
+    tunings:['drop_d'],
+    techniques:['palm'],
+    why:'Written in Drop D, per Kim Thayil. Practice heavy, steady riffing with palm muted dynamics.',
+    skillReq:{'Palm Muting':10},
+  },
+  {
+    id:'p2sg2', title:'Beyond the Wheel', artist:'Soundgarden', diff:3, genre:'grunge',
+    tunings:['drop_d'],
+    techniques:['palm','alternate'],
+    why:'Written in Drop D, per Kim Thayil. A step up in stamina and control from the easier Soundgarden tunes.',
+    skillReq:{'Palm Muting':20, 'Alternate Pick':20},
+  },
+  {
+    id:'p2ff1', title:'Everlong', artist:'Foo Fighters', diff:2, genre:'grunge',
+    tunings:['drop_d'],
+    techniques:['alternate'],
+    why:'Drop D grunge and 90s alt rock. Practice loud and quiet contrast and one finger power chords.',
+    skillReq:{'Alternate Pick':15},
+  },
+  {
+    id:'p2ff2', title:'Monkey Wrench', artist:'Foo Fighters', diff:3, genre:'grunge',
+    tunings:['drop_d'],
+    techniques:['alternate','palm'],
+    why:'Drop D grunge and 90s alt rock. Practice loud and quiet contrast and one finger power chords.',
+    skillReq:{'Alternate Pick':25, 'Palm Muting':15},
+  },
+
+  /* ══════ INDIE / BRITISH ROCK ═════════════════════════════ */
+  {
+    id:'p2am1', title:'Fluorescent Adolescent', artist:'Arctic Monkeys', diff:1, genre:'indie_rock',
+    tunings:['std_e'],
+    techniques:['alternate'],
+    why:'British indie rock with tight, staccato rhythm. Practice clean muting with your fretting thumb and crisp, even picking.',
+    skillReq:{},
+  },
+  {
+    id:'p2am2', title:'I Bet You Look Good on the Dancefloor', artist:'Arctic Monkeys', diff:2, genre:'indie_rock',
+    tunings:['std_e'],
+    techniques:['alternate'],
+    why:'British indie rock with tight, staccato rhythm. Practice clean muting with your fretting thumb and crisp, even picking.',
+    skillReq:{'Alternate Pick':15},
+  },
+  {
+    id:'p2am3', title:'Do I Wanna Know?', artist:'Arctic Monkeys', diff:2, genre:'indie_rock',
+    tunings:['std_e'],
+    techniques:['alternate'],
+    why:'British indie rock with tight, staccato rhythm. Practice clean muting with your fretting thumb and crisp, even picking.',
+    skillReq:{'Alternate Pick':10, 'String Muting':10},
+  },
+  {
+    id:'p2am4', title:'Brianstorm', artist:'Arctic Monkeys', diff:3, genre:'indie_rock',
+    tunings:['std_e'],
+    techniques:['alternate','tremolo'],
+    why:'British indie rock with tight, staccato rhythm. Practice clean muting with your fretting thumb and crisp, even picking.',
+    skillReq:{'Alternate Pick':35, 'String Muting':20},
+  },
+  {
+    id:'p2am5', title:'Pretty Visitors', artist:'Arctic Monkeys', diff:3, genre:'indie_rock',
+    tunings:['drop_d'],
+    techniques:['alternate'],
+    why:'In Drop D, which makes it a good fit for your Squier. Practice tight rhythm with clean stops.',
+    skillReq:{'Alternate Pick':30},
+  },
 ];
 
 /* ── Tuning normalizer — match song tunings to active profile ── */
@@ -15634,7 +15895,17 @@ const SL_GENRE_LABELS = {
   thrash:'Thrash Metal', prog_metal:'Progressive Metal', djent:'Djent',
   black_metal:'Black Metal', groove_metal:'Groove / Nu-Metal',
   melodic_death:'Melodic Death', classic_metal:'Classic Metal',
+  hardcore:'Hardcore', punk:'Punk', grunge:'Grunge / 90s Alt', indie_rock:'Indie / British Rock',
 };
+
+/* Keep the Song Lab header count honest as songs are added */
+function slUpdateLead() {
+  const el = document.getElementById('gp-recs-lead');
+  if (!el || typeof SL_SONGS === 'undefined') return;
+  const genres = new Set(SL_SONGS.map(x => x.genre)).size;
+  const bands = new Set(SL_SONGS.map(x => x.artist)).size;
+  el.textContent = SL_SONGS.length + ' songs across ' + genres + ' genres and ' + bands + ' artists, matched to your 6 guitars. Skill-locked cards show what to work toward.';
+}
 
 /* ── Tuning key → guitar short name ─── */
 const SL_TUNING_GUITARS = {
@@ -15660,6 +15931,7 @@ function slSongGuitars(song) {
 }
 
 function slFilterSongs() {
+  slUpdateLead();
   const genreVal  = document.getElementById('sl-filter-genre')?.value || '';
   const diffVal   = document.getElementById('sl-filter-diff')?.value || '';
   const techVal   = document.getElementById('sl-filter-tech')?.value || '';
@@ -15752,6 +16024,7 @@ function slFilterSongs() {
           <span class="sl-card-tech sl-card-genre">${SL_GENRE_LABELS[s.genre]||s.genre||''}</span>
           ${s.techniques.map(t => `<span class="sl-card-tech">${techLabels[t]||t}</span>`).join('')}
         </div>
+        ${tuningOk && window.instrSongHtml ? window.instrSongHtml(s) : ''}
         ${!unlocked && tuningOk ? `<div style="font-family:var(--mono);font-size:8px;color:var(--dim);margin-bottom:8px">Needs: ${skillNeeds}</div>` : ''}
         <div class="sl-ai-song-links" style="${tuningOk ? '' : 'opacity:.4;pointer-events:none'}">
           <a href="${slSongsterrUrl(s.title, s.artist)}" target="_blank" class="sl-songsterr-btn">🎸 Songsterr</a>
