@@ -6303,6 +6303,7 @@ function makeTabDiagram(rows, label = 'FINGER POSITIONS') {
    TAB HTML HELPER
 ═══════════════════════════════════════ */
 function makeTab(label, rows, comment, legend, showDiagram = false) {
+  const _gm = comment ? String(comment).match(/\[grid(\d+)\]/) : null; if (_gm) comment = comment.replace(_gm[0], '').trim();
   const rowsHtml = rows.map(r => `
     <div class="tab-row">
       <span class="tab-str">${r[0]}</span>
@@ -6313,7 +6314,7 @@ function makeTab(label, rows, comment, legend, showDiagram = false) {
   const cleanRows = rows.map(r => [r[0], r[1].replace(/<[^>]+>/g,'')]);
   const encodedRows = encodeURIComponent(JSON.stringify(cleanRows));
   const bpmHint = comment ? (comment.match(/(\d{2,3})\s*BPM/i)?.[1] || 80) : 80;
-  const playBtn = `<button class="tab-play-btn" onclick="event.stopPropagation();playTabBlock('${encodedRows}',${bpmHint},this)" title="Hear this tab">▶</button>${cleanRows.some(r => /\d/.test(r[1])) ? `<button class="tab-play-btn fg-tab-btn" data-rows="${encodedRows}" onclick="event.stopPropagation();fgToggleTab(this)" title="Show finger positions" aria-label="Show finger positions">🖐</button>` : ''}`;
+  const playBtn = `<button class="tab-play-btn" onclick="event.stopPropagation();playTabBlock('${encodedRows}',${bpmHint},this${_gm ? ',' + _gm[1] : ''})" title="Hear this tab">▶</button>${cleanRows.some(r => /\d/.test(r[1])) ? `<button class="tab-play-btn fg-tab-btn" data-rows="${encodedRows}" onclick="event.stopPropagation();fgToggleTab(this)" title="Show finger positions" aria-label="Show finger positions">🖐</button>` : ''}`;
   const tabBlock = `
     <div class="tab-block">
       <div class="tab-block-header"><div class="tab-block-label">${label}</div>${playBtn}</div>
@@ -12957,10 +12958,10 @@ function scheduleGuitarNoteHeavy(ctx, dest, freq, t, dur, vol = 1) {
   } catch(e) { /* scheduling errors — silently ignored */ }
 }
 
-function parseTabToNoteEvents(tab,bpm){
+function parseTabToNoteEvents(tab,bpm,div){
   const _pm=_fbTun().midi;
   const _mHz=m=>440*Math.pow(2,(m-69)/12);
-  const SEMI=Math.pow(2,1/12);const STEP=60/bpm/4;
+  const SEMI=Math.pow(2,1/12);const STEP=60/bpm/(div||4);
   const rows=tab.map((row,i)=>{const name=row[0];const line=row[1].replace(/^[^|]*\|/,'');const baseFreq=i<_pm.length?_mHz(_pm[i]):110;return{name,line,baseFreq};});
   const maxLen = Math.max(...rows.map(r => r.line.length));
   const padded = rows.map(r => ({ ...r, line: r.line.padEnd(maxLen, '-') }));
@@ -12971,9 +12972,11 @@ function parseTabToNoteEvents(tab,bpm){
   while (col < maxLen) {
     for (const row of padded) {
       const ch = row.line[col];
+      if (row._skip === col) continue;
       if (/[0-9]/.test(ch)) {
         const next = row.line[col + 1] || '';
         const fretStr = /[0-9]/.test(next) ? ch + next : ch;
+        if (fretStr.length === 2) row._skip = col + 1;
         const fret = parseInt(fretStr, 10);
         const freq = row.baseFreq * Math.pow(SEMI, fret);
         if (!events[col]) events[col] = [];
@@ -14526,13 +14529,13 @@ window.cofAddFullSet=function(){if(!selKey)return;const pp=gpGet(),majKey=selKey
 /* ════ UNIVERSAL TAB AUDIO SAMPLES ════ */
 let _tabSamplePlaying=false,_tabSampleTimer=null,_tabSampleGain=null,_tabSampleBtnEl=null;
 function _stripTabHtml(str){return str.replace(/<[^>]+>/g,'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');}
-window.playTabBlock=function(encodedRows,bpm,btnEl){
+window.playTabBlock=function(encodedRows,bpm,btnEl,div){
   try{sndStop();slPreviewStop();}catch(e){}
   if(_tabSamplePlaying){_stopTabSample();if(_tabSampleBtnEl&&_tabSampleBtnEl===btnEl)return;}
   let rows;try{rows=JSON.parse(decodeURIComponent(encodedRows));}catch(e){return;}
   if(!rows||!rows.length)return;
   const cleanRows=rows.map(r=>[r[0],_stripTabHtml(r[1])]);
-  const parsed=parseTabToNoteEvents(cleanRows,bpm||80);
+  const parsed=parseTabToNoteEvents(cleanRows,bpm||80,div);
   if(!parsed||!parsed.steps.length){if(typeof showToast==='function')showToast('No notes to play');return;}
   ensureAudio().then(ctx=>{
     _tabSamplePlaying=true;_tabSampleBtnEl=btnEl||null;
@@ -18442,7 +18445,7 @@ function lsTabHtml(d, target, label) {
   if (!ev.length) return '';
   const rows = lsRows(ev), shown = Math.min(240, Math.round(target * (d.mult || 1)));
   const legend = (d.pm ? 'Palm mute every note (PM). ' : '') + (d.mult ? 'h = hammer-on, p = pull-off. ' : '') + 'x = muted note. Lowest string is the bottom line.';
-  return makeTab(label, rows, 'Play at ' + (d.mult ? Math.round(shown / d.mult) : shown) + ' BPM. Tap ▶ to hear it, 🖐 to see the fingers.', legend).replace(/playTabBlock\('([^']*)',\d+,this\)/, "playTabBlock('$1'," + shown + ",this)");
+  return makeTab(label, rows, 'Play at ' + (d.mult ? Math.round(shown / d.mult) : shown) + ' BPM. Tap ▶ to hear it, 🖐 to see the fingers.' + (d.grid ? ' [grid' + d.grid + ']' : ''), legend).replace(/playTabBlock\('([^']*)',\d+,this(,\d+)?\)/, "playTabBlock('$1'," + shown + ",this$2)");
 }
 function lsRepsHtml(key, n) {
   const r = (_lsRun && _lsRun.reps[key]) || 0; let h = '<div class="ls-reps"><span class="ls-lbl2">CLEAN REPS</span>';
@@ -18699,9 +18702,9 @@ function lsPathHtml() {
   const h = lsHist(), done = {}; h.log.forEach(l => { done[l.id] = true; });
   const steps = LS_CORES.filter(c => c.path).sort((a, b) => a.path - b.path);
   const nd = steps.filter(c => done[c.id]).length, next = steps.find(c => !done[c.id]);
-  let html = '<div class="ls-card"><div class="ls-eyebrow">COURSE PATH · ' + nd + ' OF ' + steps.length + ' DONE</div><div class="ls-h2">Metalcore scale and riff path</div><div class="ls-sub">Fretboard map to writing riffs in a mode.</div>';
+  let html = '<div class="ls-card"><div class="ls-eyebrow">COURSE PATH · ' + nd + ' OF ' + steps.length + ' DONE</div><div class="ls-h2">Metalcore scale and riff path</div><div class="ls-sub">Fretboard map to writing riffs in a mode, then the course exercises.</div>';
   html += '<div class="ls-bar">' + steps.map(c => '<span class="ls-seg' + (done[c.id] ? ' done' : c === next ? ' cur' : '') + '"></span>').join('') + '</div>';
-  html += '<details class="ls-list"><summary>All 8 steps</summary>' + steps.map(c => '<div class="ls-plan ls-pathrow" onclick="lsStart(\'' + c.id + '\',_lsMins)"><span>' + (done[c.id] ? '✓ ' : c.path + '. ') + slEsc(c.title) + '</span><span>' + (done[c.id] ? 'done' : 'start') + '</span></div>').join('') + '</details>';
+  html += '<details class="ls-list"><summary>All ' + steps.length + ' steps</summary>' + steps.map(c => '<div class="ls-plan ls-pathrow" onclick="lsStart(\'' + c.id + '\',_lsMins)"><span>' + (done[c.id] ? '✓ ' : c.path + '. ') + slEsc(c.title) + '</span><span>' + (done[c.id] ? 'done' : 'start') + '</span></div>').join('') + '</details>';
   if (next) html += '<div class="ls-btns"><button class="ls-go" onclick="lsStart(\'' + next.id + '\',_lsMins)">▶ Next step: ' + slEsc(next.title) + '</button></div>';
   return html + '<div class="ls-src">' + slEsc(LS_SRC_THEORY) + '.</div></div>';
 }
@@ -18946,6 +18949,60 @@ function reviewWeekRender() {
 }
 window.reviewWeekRender = reviewWeekRender;
 document.addEventListener('DOMContentLoaded', () => { try { resetMount(); smLoad(); } catch (e) {} });
+
+
+/* ════ PHASE 12: COURSE EXERCISES (generated, not copied; inspired by Fretboard Mastermind Tabs, Sections 1 and 2) ════ */
+const LS_SRC_TABS2 = 'Inspired by Fretboard Mastermind, Metalcore Mastery Tabs (Sections 1 and 2). Exercises are generated for your guitar, not copied.';
+/* o = semitones above the open lowest string. Sits on string 2 when the fret is playable, else on the low string. */
+function lsPlace(o) {
+  const T = fgTun(), gap = T.midi[1] - T.midi[0], f = o - gap;
+  if (f >= 0 && f <= 17) return { s: 1, f: f };
+  return { s: 0, f: Math.min(o, 17) };
+}
+function lsLadder(modeName) {
+  const md = LS_MODES.find(m => m.n === modeName) || LS_MODES[4], out = [];
+  for (let oct = 0; oct < 2; oct++) md.ints.forEach(i => { const o = i + 12 * oct; if (o >= 5 && o <= 17) out.push(o); });
+  return out.sort((a, b) => b - a);
+}
+/* triplet runs: three notes in one beat, then two palm muted chugs, twice per bar. Grid is 12 columns per beat. */
+function lsTriplets(variant, modeName) {
+  let L = lsLadder(modeName); const asc = variant === 'up' || variant === 'rot2'; if (asc) L = L.slice().reverse();
+  const order = (variant === 'rot' || variant === 'rot2') ? [1, 2, 0] : [0, 1, 2], ev = [];
+  for (let g = 0; g < 6; g++) {
+    const bar = Math.floor(g / 2), half = g % 2, base = bar * 48 + half * 24;
+    order.forEach((k, j) => { const p = lsPlace(L[g + k]); ev.push({ c: base + j * 4, s: p.s, f: p.f }); });
+    ev.push({ c: base + 12, s: 0, f: 0 }); ev.push({ c: base + 18, s: 0, f: 0 });
+  }
+  return ev;
+}
+/* chug and answer riffs: grid is 4 columns per beat, eighth = 2 columns */
+function lsAnswerRiff(modeName, long) {
+  const md = LS_MODES.find(m => m.n === modeName) || LS_MODES[4], I = md.ints, ev = [];
+  const full = (b, a1, a2) => { for (let k = 0; k < 8; k++) { const col = b * 16 + k * 2; if (k === 2) { const p = lsPlace(a1); ev.push({ c: col, s: p.s, f: p.f }); } else if (k === 5) { const p = lsPlace(a2); ev.push({ c: col, s: p.s, f: p.f }); } else ev.push({ c: col, s: 0, f: 0 }); } };
+  const half = (b, a1, a2) => { const p1 = lsPlace(a1), p2 = lsPlace(a2); ev.push({ c: b * 16, s: p1.s, f: p1.f }); ev.push({ c: b * 16 + 2, s: 0, f: 0 }); ev.push({ c: b * 16 + 4, s: 0, f: 0 }); ev.push({ c: b * 16 + 6, s: p2.s, f: p2.f }); };
+  const pass = o => { full(o, 12 + I[1], 12 + I[0]); half(o + 1, I[5], I[6]); full(o + 2, 12 + I[3], 12 + I[2]); half(o + 3, 12 + I[0], 12 + I[1]); };
+  pass(0);
+  if (long) { pass(4); [12 + I[6], 12 + I[3], 12 + I[4]].forEach((o, j) => { const p = lsPlace(o); ev.push({ c: 8 * 16 + j * 4, s: p.s, f: p.f }); }); }
+  return ev;
+}
+LS_CORES.push(
+  { id: 'path-9', k: 'palm', t: -1, path: 9, title: 'Triplet runs over a chug', bpm: 60, style: 'rock', src: LS_SRC_TABS2,
+    idea: 'Play a run of three notes as a triplet, then answer with two palm muted chugs on the open low string. Slide the run down the scale one step at a time. The picking hand keeps a steady gallop while the fretting hand does the thinking.',
+    how: ['Pick the three notes evenly across one beat, then two chugs across the next beat.', 'Keep the chugs tight and the same volume as the notes.', 'Do the descending set first, then the ascending set, then the two that start from the middle note.'],
+    watch: 'Rushing the triplet. Say "trip-let" out loud and let the chugs land on the beat.', goal: 'Run all four sets at 60 BPM without losing the chugs.', hw: 'Run one set per day and note which one is hardest. Compare with Section 1 in your Tabs file.', drills: ['tr-down', 'tr-up', 'tr-rot', 'tr-rot2'] },
+  { id: 'path-10', k: 'palm', t: -1, path: 10, title: 'Chug and answer riffs', bpm: 80, style: 'metal', src: LS_SRC_TABS2,
+    idea: 'A classic metalcore phrase: chug the open string, answer with one high note, chug again, answer with a second note, then close the bar with a short step. The answers come from your mode, so the riff takes on its mood.',
+    how: ['Learn the four bar version first, slowly, with every chug palm muted.', 'Add the second pass and the three note ending once the first four bars are clean.', 'Notice the answers are the flat second and the octave. That is the Phrygian sound.'],
+    watch: 'Letting the answer notes ring into the chugs. Mute them as soon as the next chug starts.', goal: 'The long riff at 80 BPM, clean twice in a row.', hw: 'Write your own answers from the box in step 3. Compare with Section 2 in your Tabs file.', drills: ['pr-4', 'pr-8'] }
+);
+LS_DRILLS.path.push(
+  { id: 'tr-down', min: -9, max: -9, name: 'Triplet runs, descending', say: 'Three note runs sliding down your Phrygian scale, with two chugs after each.', cue: 'Count trip-let, then chug chug.', gen: () => lsTriplets('down', 'Phrygian'), pm: true, grid: 12 },
+  { id: 'tr-up', min: -9, max: -9, name: 'Triplet runs, ascending', say: 'The same idea climbing up the scale.', cue: 'Keep the chugs the same volume as the notes.', gen: () => lsTriplets('up', 'Phrygian'), pm: true, grid: 12 },
+  { id: 'tr-rot', min: -9, max: -9, name: 'Triplet runs, middle note first', say: 'Descending, but each run starts on its middle note.', cue: 'Think the shape, not the numbers.', gen: () => lsTriplets('rot', 'Phrygian'), pm: true, grid: 12 },
+  { id: 'tr-rot2', min: -9, max: -9, name: 'Triplet runs, ascending from the middle', say: 'Ascending with the middle note first.', cue: 'Stay relaxed in the fretting hand.', gen: () => lsTriplets('rot2', 'Phrygian'), pm: true, grid: 12 },
+  { id: 'pr-4', min: -9, max: -9, name: 'Chug and answer, four bars', say: 'Chug, answer, chug, answer, then a short step. Four bars.', cue: 'Mute the answers before the next chug.', gen: () => lsAnswerRiff('Phrygian', false), pm: true },
+  { id: 'pr-8', min: -9, max: -9, name: 'Chug and answer, long version', say: 'Two passes and a three note ending.', cue: 'Make the ending lock with the drums.', gen: () => lsAnswerRiff('Phrygian', true), pm: true }
+);
 
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
