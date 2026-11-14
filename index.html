@@ -4154,6 +4154,104 @@ body{padding-top:52px}
 .sl-tuning-chip{font-family:var(--mono);font-size:7px;padding:1px 6px;border-radius:8px;border:1px solid rgba(255,255,255,.07);background:rgba(15,8,32,.5);color:var(--dim);letter-spacing:.5px}
 .sl-tuning-chip.active{border-color:rgba(145,38,248,.5);background:rgba(145,38,248,.12);color:rgba(180,140,255,.9);font-weight:700}
 
+/* ═══════════════════════════════════════════
+   METALCORE SKIN: heavy condensed type, cut corners, grit, glitch edges
+═══════════════════════════════════════════ */
+:root{
+  --display:'Impact','Haettenschweiler','Avenir Next Condensed','Arial Narrow','Roboto Condensed','sans-serif-condensed',sans-serif;
+  --radius:0px;
+  --cut:12px;
+  --cut-s:7px;
+  --cut-clip:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,var(--cut) 100%,0 calc(100% - var(--cut)));
+  --cut-clip-s:polygon(0 0,calc(100% - var(--cut-s)) 0,100% var(--cut-s),100% 100%,var(--cut-s) 100%,0 calc(100% - var(--cut-s)));
+  --para:polygon(9px 0,100% 0,calc(100% - 9px) 100%,0 100%);
+}
+body{background:#05030c}
+/* grit: film grain over everything, and a slash texture behind it */
+html::before{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.16;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E")}
+body::before{
+  background-image:
+    radial-gradient(ellipse at 15% 0%,rgba(130,30,220,.38) 0%,transparent 55%),
+    radial-gradient(ellipse at 90% 100%,rgba(90,20,180,.32) 0%,transparent 50%),
+    radial-gradient(ellipse at 50% 120%,rgba(0,0,0,.9) 0%,transparent 60%),
+    repeating-linear-gradient(115deg,transparent 0 46px,rgba(170,90,255,.045) 46px 48px,transparent 48px 120px,rgba(0,0,0,.35) 120px 123px);
+  background-size:auto,auto,auto,auto}
+body::after{height:4px;background:repeating-linear-gradient(-45deg,#8822ee 0 10px,#0a0414 10px 18px)}
+
+/* type */
+h1,.page-title{font-weight:400;letter-spacing:1px;text-transform:uppercase;
+  text-shadow:2px 0 rgba(255,50,120,.55),-2px 0 rgba(60,210,255,.4),0 0 30px rgba(170,68,238,.55)}
+.page-title{font-size:clamp(30px,8vw,48px);line-height:.95;position:relative;padding-bottom:12px;margin-bottom:12px}
+.page-title::after{content:'';position:absolute;left:0;bottom:0;width:86px;height:5px;background:var(--ember);clip-path:polygon(0 0,100% 0,calc(100% - 8px) 100%,0 100%);box-shadow:0 0 14px rgba(168,61,255,.8)}
+.page-lead{color:#b9acc9;font-size:13px}
+h3{font-family:var(--display);font-size:15px;font-weight:400;letter-spacing:3px;color:#fff;border-bottom:0;padding:0 0 0 14px;position:relative;margin:30px 0 14px;text-shadow:1px 0 rgba(255,50,120,.4)}
+h3::before{content:'';position:absolute;left:0;top:1px;bottom:1px;width:5px;background:var(--ember);clip-path:polygon(0 0,100% 12%,100% 100%,0 88%)}
+.acc-sum,.sm-wrap>summary{font-family:var(--display);font-size:14px;letter-spacing:3px;color:#fff;font-weight:400}
+.card-title,.ls-h2,.hl-title,.rs-h{font-family:var(--display);font-weight:400;letter-spacing:1px;text-transform:uppercase}
+.hl-title{font-size:22px}.ls-h2{font-size:20px}
+.app-bar-logo{font-family:var(--display);font-size:15px;letter-spacing:4px;color:#fff;text-shadow:2px 0 rgba(255,50,120,.55),-2px 0 rgba(60,210,255,.35)}
+.app-gp-tun{font-family:var(--display);letter-spacing:1px;font-weight:400}
+
+/* plates: cut corners instead of rounded boxes */
+.card,.stat-card,.ls-card,.hl-card,.wk-card,.acc,.sm-wrap,.rs-card,.rs-box,.quick-nav-btn,.nhc,.fg-card,.tab-block,.info-box,.instr-note,.pa-dock-box{border-radius:0;clip-path:var(--cut-clip)}
+.nhc,.quick-nav-btn,.stat-card,.ls-plan,.pa-chip{clip-path:var(--cut-clip-s)}
+.card,.ls-card,.hl-card,.wk-card,.acc,.sm-wrap,.rs-card,.stat-card,.quick-nav-btn,.nhc{background-image:linear-gradient(135deg,rgba(255,255,255,.03) 0%,transparent 40%),linear-gradient(0deg,rgba(0,0,0,.35),transparent 60%)}
+.hl-card,.wk-card{border-left-width:5px;position:relative;overflow:hidden}
+.hl-card::after,.wk-card::after{content:'';position:absolute;right:-30px;top:-10px;bottom:-10px;width:90px;background:rgba(168,61,255,.12);transform:skewX(-20deg);pointer-events:none}
+.hl-card>*,.wk-card>*{position:relative;z-index:1}
+.nhc{border-color:rgba(168,61,255,.22);background-color:rgba(10,4,24,.9)}
+.nhc:hover,.quick-nav-btn:hover,.card:hover{border-color:var(--ember);box-shadow:0 0 22px rgba(168,61,255,.35)}
+.nhc-accent{border-left:4px solid var(--ember)}
+.nhc-name,.qn-label,.stat-label{font-family:var(--display);font-weight:400;letter-spacing:2px;text-transform:uppercase}
+.nhc-name{font-size:16px}.qn-label{font-size:13px}
+.stat-val{font-family:var(--display);font-weight:400;letter-spacing:1px}
+.nav-hub-panel{border-radius:0;clip-path:polygon(0 18px,18px 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%);border-top:2px solid var(--ember)}
+.nav-hub-section-label{font-family:var(--display);font-size:14px;letter-spacing:4px;color:#fff;margin-bottom:10px}
+
+/* buttons: parallelogram slabs */
+.btn,.ls-go,.ls-ghost,.fg-open,.fg-play,.pa-chip,.tab-play-btn,button.rs-danger{border-radius:0}
+.ls-go,.btn,.fg-open{clip-path:var(--para);padding-left:22px;padding-right:22px;font-family:var(--display);font-size:14px;letter-spacing:2px;text-transform:uppercase;font-weight:400;border:0;
+  background:linear-gradient(180deg,#a83dff 0%,#6d12c7 60%,#4a0b8c 100%);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.ls-go:hover,.btn:hover,.fg-open:hover{background:linear-gradient(180deg,#c466ff 0%,#8822ee 60%,#5a10aa 100%);filter:drop-shadow(0 0 10px rgba(196,102,255,.7))}
+.rs-danger{background:linear-gradient(180deg,#e0245e,#8a0e36)!important;color:#fff!important}
+.pa-chip{font-family:var(--display);letter-spacing:1.5px;text-transform:uppercase;font-weight:400}
+.fab,.fab-cluster .fab{border-radius:0;clip-path:polygon(50% 0,100% 28%,100% 72%,50% 100%,0 72%,0 28%);width:48px;height:52px;background:linear-gradient(180deg,#8822ee,#3a0a70);border:0}
+
+/* tabs: dark slab with a metal edge */
+.tab-block{background:#07040f;border-left:4px solid var(--ember)}
+.tab-notes,.tab-str{letter-spacing:.5px}
+
+/* progress and bars: jagged ends */
+.ls-seg{clip-path:polygon(4px 0,100% 0,calc(100% - 4px) 100%,0 100%);height:10px}
+.ls-seg.done{background:var(--ember);box-shadow:0 0 8px rgba(168,61,255,.8)}
+.wk-bar,.sm-seg{clip-path:polygon(0 4px,100% 0,100% 100%,0 100%)}
+.wk-t b{font-family:var(--display);font-weight:400;letter-spacing:1px}
+.sm-seg{clip-path:polygon(5px 0,100% 0,calc(100% - 5px) 100%,0 100%)}
+.hl-eye,.wk-eye,.ls-eyebrow{letter-spacing:4px;color:var(--flame)}
+
+/* footer motto */
+.footer-motto,footer{font-family:var(--display);letter-spacing:5px}
+@media (max-width:700px){.page-title{font-size:clamp(28px,9vw,42px)}}
+@media (prefers-reduced-motion:reduce){html::before{display:none}}
+/* course page */
+.crs-mech{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.crs-m{border:1px solid rgba(168,61,255,.25);background:rgba(10,4,24,.7);padding:10px;cursor:pointer;clip-path:var(--cut-clip-s)}
+.crs-m:hover{border-color:var(--ember)}
+.crs-mt{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--flame)}
+.crs-ok{color:#7ee0a0}
+.crs-mn{font-family:var(--display);font-size:15px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin:6px 0 4px;line-height:1.1}
+.crs-md{font-size:11px;color:#b9acc9;line-height:1.4}
+.crs-sec{border-top:1px solid rgba(168,61,255,.2);margin-top:10px}
+.crs-sec summary{display:flex;justify-content:space-between;padding:10px 0;cursor:pointer;font-family:var(--display);letter-spacing:2px;text-transform:uppercase;color:#fff;font-size:14px}
+.crs-cnt{font-family:var(--mono);font-size:10px;color:var(--flame);letter-spacing:1px}
+.crs-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:9px 0;border-top:1px dashed rgba(168,61,255,.15)}
+.crs-rt{flex:1 1 100%;font-size:13px;color:#fff}
+.crs-st{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:6px 10px;border:1px solid rgba(168,61,255,.4);background:transparent;color:#b9acc9;cursor:pointer;clip-path:var(--para)}
+.crs-st.s1{color:#ffd36e;border-color:#ffd36e}.crs-st.s2{color:#7ee0a0;border-color:#7ee0a0}.crs-st.s3{background:var(--ember);color:#fff;border-color:var(--ember)}
+.crs-bl{font-family:var(--mono);font-size:10px;color:#b9acc9;display:flex;align-items:center;gap:6px}
+.crs-bpm{width:64px;background:#07040f;border:1px solid rgba(168,61,255,.3);color:#fff;padding:5px;font-family:var(--mono);font-size:12px}
+@media (max-width:420px){.crs-mech{grid-template-columns:1fr}}
 </style>
   <!-- Firebase SDK for cross-device sync -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -4209,6 +4307,7 @@ body{padding-top:52px}
         <div class="nav-hub-section-label"><span class="nhs-icon">🎸</span> PLAY</div>
         <div class="nav-hub-grid">
           <button class="nhc nhc-accent" data-page="lesson" onclick="navGoTo('lesson')"><span class="nhc-icon">🎓</span><span class="nhc-name">Lesson</span><span class="nhc-sub">Guided, new each time</span></button>
+          <button class="nhc nhc-accent" data-page="course" onclick="navGoTo('course')"><span class="nhc-icon">🔥</span><span class="nhc-name">Course</span><span class="nhc-sub">Scales, riffs, tabs, tracks</span></button>
           <button class="nhc nhc-accent" data-page="session" onclick="navGoTo('session')"><span class="nhc-icon">⏱</span><span class="nhc-name">Session</span><span class="nhc-sub">Timed practice</span></button>
           <button class="nhc" data-page="riff" onclick="navGoTo('riff')"><span class="nhc-icon">⟳</span><span class="nhc-name">Riff Lab</span><span class="nhc-sub">Riffs and builder</span></button>
           <button class="nhc" data-page="recommendations" onclick="navGoTo('recommendations');buildRecommendations()"><span class="nhc-icon">🎵</span><span class="nhc-name">Song Lab</span><span class="nhc-sub">Songs to learn</span></button>
@@ -4542,6 +4641,14 @@ body{padding-top:52px}
     <div class="page-lead" id="ls-page-lead">Take a guided lesson, anywhere.</div>
   </div>
   <div id="ls-root"></div>
+</div>
+
+<div id="course" class="page">
+  <div class="page-header">
+    <div class="page-title">Course</div>
+    <div class="page-lead">Scale mastery, riff mechanics, the mastery tabs and metalcore backing tracks, in one path.</div>
+  </div>
+  <div id="crs-root"></div>
 </div>
 
 <div id="session" class="page">
@@ -5577,6 +5684,7 @@ function goTo(id, btn) {
 function onPageOpen(id) {
   if (id === 'session' && window.btRender) btRender();
   if (id === 'lesson' && window.lsRender) lsRender();
+  if (id === 'course' && window.crsRender) crsRender();
   if (id === 'dailytip' && tipCount === 0) setTimeout(fetchTip, 200);
   if (id === 'notepad') { if(!noteInited){noteInited=true;loadNotes();}else if(typeof npActiveProf!=='undefined'&&window._GP_ACTIVE!==npActiveProf){if(typeof npLoadProfile==='function')npLoadProfile(window._GP_ACTIVE);} }
   if (id === 'home') {
@@ -14648,7 +14756,7 @@ function adaptTip(skillLabel,tiers){
 
 
 /* ════ APP BAR + NAV HUB ════ */
-const _PAGE_CRUMBS={home:null,lesson:['PLAY','Lesson'],fundamentals:['LEARN','Fundamentals'],scales:['LEARN','Scales'],arpeggios:['LEARN','Arpeggios'],techniques:['LEARN','Techniques'],theory:['LEARN','Theory'],session:['PLAY','Session'],metronome:['TOOLS','Metronome'],riff:['PLAY','Riff Lab'],progress:['TRACK','Progress'],review:['TRACK','Review'],recommendations:['PLAY','Song Lab'],dailytip:['TOOLS','Daily Tip'],notepad:['TRACK','Notepad'],'ai-coach':['TOOLS','AI Coach'],roadmap:['TRACK','Roadmap']};
+const _PAGE_CRUMBS={home:null,lesson:['PLAY','Lesson'],course:['PLAY','Course'],fundamentals:['LEARN','Fundamentals'],scales:['LEARN','Scales'],arpeggios:['LEARN','Arpeggios'],techniques:['LEARN','Techniques'],theory:['LEARN','Theory'],session:['PLAY','Session'],metronome:['TOOLS','Metronome'],riff:['PLAY','Riff Lab'],progress:['TRACK','Progress'],review:['TRACK','Review'],recommendations:['PLAY','Song Lab'],dailytip:['TOOLS','Daily Tip'],notepad:['TRACK','Notepad'],'ai-coach':['TOOLS','AI Coach'],roadmap:['TRACK','Roadmap']};
 
 function _updateAppBar(pageId){
   const crumb=_PAGE_CRUMBS[pageId];const el=document.getElementById('app-bar-crumb');
@@ -17345,6 +17453,7 @@ function btImport(text) {
     cur.links.push({ title: l.title.slice(0, 120), url: l.url }); nl++;
   });
   btSave(cur);
+  try { if (typeof crsImport === 'function') crsImport(o); } catch (e) {}
   return { tracks: nt, links: nl, bad: bad };
 }
 function btHomeRoot() { try { const p = fgPcOf(gpGet().homeKey); return p >= 0 ? FG_PC[p] : null; } catch (e) { return null; } }
@@ -18761,7 +18870,7 @@ function resetKeys() {
     const k = localStorage.key(i); if (!k) continue;
     const m = k.match(/^(?:gp_[A-Za-z0-9_]+?_)?(grimoire.*)$/); if (!m) continue;
     const b = m[1];
-    if (/^grimoire(-progress|-streak|-stats|_grimoire-streak|_grimoire-stats|_seen_badges|_sess_|_bpm_|_day_|_snap_|_rm_)/.test(b) || b === 'grimoire_songs' || b.indexOf('grimoire_lessons_') === 0) out.push(k);
+    if (/^grimoire(-progress|-streak|-stats|_grimoire-streak|_grimoire-stats|_seen_badges|_sess_|_bpm_|_day_|_snap_|_rm_|_cprog)/.test(b) || b === 'grimoire_songs' || b.indexOf('grimoire_lessons_') === 0) out.push(k);
   }
   return out;
 }
@@ -19003,6 +19112,104 @@ LS_DRILLS.path.push(
   { id: 'pr-4', min: -9, max: -9, name: 'Chug and answer, four bars', say: 'Chug, answer, chug, answer, then a short step. Four bars.', cue: 'Mute the answers before the next chug.', gen: () => lsAnswerRiff('Phrygian', false), pm: true },
   { id: 'pr-8', min: -9, max: -9, name: 'Chug and answer, long version', say: 'Two passes and a three note ending.', cue: 'Make the ending lock with the drums.', gen: () => lsAnswerRiff('Phrygian', true), pm: true }
 );
+
+
+/* ════ PHASE 12: COURSE PAGE (scale mastery, riff mechanics, mastery tabs, backing tracks) ════ */
+const CRS_LIB = 'grimoire_course_lib', CRS_PROG = 'grimoire_cprog';
+const CRS_SRC = 'Inspired by Fretboard Mastermind: Metalcore Scale Mastery, Riff Mastery and the Mastery Tabs.';
+const CRS_STAT = ['New', 'Learning', 'Clean', 'At tempo'];
+const CRS_MECH = [
+  { id: 'palm1', tag: 'Right hand', note: 'Even chugs locked to the click, eighths into sixteenths.' },
+  { id: 'palm2', tag: 'Rhythm', note: 'Accent 3, 3, 2 across the bar so a chug line has a shape.' },
+  { id: 'palm3', tag: 'Dynamics', note: 'Muted chugs against open notes, the basic metalcore contrast.' },
+  { id: 'mute1', tag: 'Control', note: 'Stop notes on time so the gaps hit as hard as the notes.' },
+  { id: 'gal1', tag: 'Rhythm', note: 'Gallops with accents, the engine behind most breakdown riffs.' },
+  { id: 'path-6', tag: 'Movement', note: 'Chug on the low string, then climb with a scale shape.' },
+  { id: 'path-9', tag: 'Speed', note: 'Triplet runs over a chug. Counted in threes, played clean.' },
+  { id: 'path-10', tag: 'Writing', note: 'Chug, then answer it with a short melodic phrase.' }
+];
+function crsLib() { try { const o = JSON.parse(localStorage.getItem(CRS_LIB) || '{}') || {}; return Array.isArray(o.items) ? o.items : []; } catch (e) { return []; } }
+function crsLibSave(items) { try { localStorage.setItem(CRS_LIB, JSON.stringify({ items: items })); } catch (e) {} try { if (typeof syncSchedulePush === 'function') syncSchedulePush(); } catch (e) {} }
+function crsProg() { try { return JSON.parse(localStorage.getItem(CRS_PROG) || '{}') || {}; } catch (e) { return {}; } }
+function crsProgSave(o) { try { localStorage.setItem(CRS_PROG, JSON.stringify(o)); } catch (e) {} try { if (typeof syncSchedulePush === 'function') syncSchedulePush(); } catch (e) {} }
+function crsImport(o) {
+  const cur = crsLib(); let n = 0, bad = 0;
+  (Array.isArray(o && o.course) ? o.course : []).slice(0, 200).forEach(r => {
+    if (!r || !btIdOk(r.id) || typeof r.title !== 'string' || typeof r.sec !== 'string') { bad++; return; }
+    if (cur.some(x => x.id === r.id)) return;
+    cur.push({ sec: r.sec.slice(0, 60), title: r.title.slice(0, 80), id: r.id }); n++;
+  });
+  if (n) crsLibSave(cur);
+  return { riffs: n, bad: bad };
+}
+let _crsImp = false;
+function crsStart(id) { goTo('lesson', null); lsStart(id, 20); }
+function crsCycle(id) { const p = crsProg(), r = p[id] || {}; r.s = ((r.s || 0) + 1) % 4; p[id] = r; crsProgSave(p); crsRender(); }
+function crsBpm(id, v) { const p = crsProg(), r = p[id] || {}, n = Math.round(+v); if (n >= 40 && n <= 300) r.b = n; else delete r.b; p[id] = r; crsProgSave(p); crsRender(); }
+function crsPlay(id) {
+  const it = crsLib().find(x => x.id === id), r = crsProg()[id] || {};
+  let hasT = false; try { hasT = btLoad().tracks.length > 0; } catch (e) {}
+  paOpen({ target: r.b ? Math.min(240, r.b + 10) : 0, bpm: r.b || 0, label: it ? it.sec + ' · ' + it.title : '', src: hasT ? 'tracks' : 'drums' });
+}
+function crsToggleImp() { _crsImp = !_crsImp; crsRender(); }
+function crsRunImport() {
+  let o; try { o = JSON.parse(String((document.getElementById('crs-code') || {}).value || '').trim()); } catch (e) { try { showToast('That is not valid import code'); } catch (e2) {} return; }
+  const n0 = crsLib().length, a = btImport(JSON.stringify(o)), b = { riffs: crsLib().length - n0 };
+  try { showToast('Added ' + (b.riffs || 0) + ' riffs, ' + (a.tracks || 0) + ' tracks, ' + (a.links || 0) + ' links'); } catch (e) {}
+  _crsImp = false; crsRender();
+}
+function crsRender() {
+  const el = document.getElementById('crs-root'); if (!el) return;
+  const h = lsHist(), done = {}; h.log.forEach(l => { done[l.id] = true; });
+  const steps = LS_CORES.filter(c => c.path).sort((a, b) => a.path - b.path), nd = steps.filter(c => done[c.id]).length, next = steps.find(c => !done[c.id]);
+  let html = '';
+  /* stage 1 */
+  html += '<div class="ls-card"><div class="ls-eyebrow">STAGE 1 · SCALE MASTERY</div><div class="ls-h2">Fretboard to riffs in a mode</div><div class="ls-sub">' + nd + ' of ' + steps.length + ' steps done. Map the neck, learn the minor scale and the modes, then write with them.</div>' +
+    '<div class="ls-bar">' + steps.map(c => '<span class="ls-seg' + (done[c.id] ? ' done' : c === next ? ' cur' : '') + '"></span>').join('') + '</div>' +
+    (next ? '<div class="ls-btns"><button class="ls-go" onclick="crsStart(\'' + next.id + '\')">▶ ' + (nd ? 'Next: ' : 'Start: ') + slEsc(next.title) + '</button></div>' : '<div class="ls-sub">Path complete.</div>') + '</div>';
+  /* stage 2 */
+  html += '<div class="ls-card"><div class="ls-eyebrow">STAGE 2 · RIFF MECHANICS</div><div class="ls-h2">The moves inside every riff</div><div class="ls-sub">Short lessons built for your guitar. Each one ends with a tempo goal.</div><div class="crs-mech">';
+  CRS_MECH.forEach(m => {
+    const f = lsFind(m.id); if (!f) return;
+    html += '<div class="crs-m" onclick="crsStart(\'' + m.id + '\')"><div class="crs-mt"><span class="crs-tag">' + slEsc(m.tag) + '</span>' + (done[m.id] ? '<span class="crs-ok">✓ done</span>' : '') + '</div><div class="crs-mn">' + slEsc(f.title) + '</div><div class="crs-md">' + slEsc(m.note) + '</div></div>';
+  });
+  html += '</div></div>';
+  /* stage 3 */
+  const lib = crsLib(), prog = crsProg();
+  html += '<div class="ls-card"><div class="ls-eyebrow">STAGE 3 · MASTERY TABS</div>';
+  if (!lib.length) {
+    html += '<div class="ls-h2">Your riff library</div><div class="ls-sub">Add your course folders once and every riff gets a row here: open its tab, guitar and drum tracks, mark how it feels and log your best tempo. Private to you.</div>' +
+      '<div class="ls-btns"><button class="fg-open" onclick="crsToggleImp()">' + (_crsImp ? 'Cancel' : 'Add my riff library') + '</button></div>';
+  } else {
+    const clean = lib.filter(x => (prog[x.id] || {}).s >= 2).length;
+    html += '<div class="ls-h2">' + clean + ' of ' + lib.length + ' riffs clean</div><div class="ls-sub">Mark each riff as you go. Play along starts the dock at your best tempo.</div>';
+    const secs = []; lib.forEach(x => { if (secs.indexOf(x.sec) < 0) secs.push(x.sec); });
+    secs.forEach((s, si) => {
+      const rows = lib.filter(x => x.sec === s), c = rows.filter(x => (prog[x.id] || {}).s >= 2).length;
+      html += '<details class="crs-sec"' + (si === 0 ? ' open' : '') + '><summary><span>' + slEsc(s) + '</span><span class="crs-cnt">' + c + '/' + rows.length + '</span></summary>';
+      rows.forEach(x => {
+        const r = prog[x.id] || {}, st = r.s || 0;
+        html += '<div class="crs-row"><div class="crs-rt">' + slEsc(x.title) + '</div>' +
+          '<button class="crs-st s' + st + '" onclick="crsCycle(\'' + x.id + '\')">' + CRS_STAT[st] + '</button>' +
+          '<label class="crs-bl">Best <input class="crs-bpm" type="number" inputmode="numeric" min="40" max="300" placeholder="BPM" value="' + (r.b || '') + '" onchange="crsBpm(\'' + x.id + '\',this.value)"></label>' +
+          '<a class="fg-open" href="https://drive.google.com/drive/folders/' + encodeURIComponent(x.id) + '" target="_blank" rel="noopener">Open</a>' +
+          '<button class="fg-open" onclick="crsPlay(\'' + x.id + '\')">Play along</button></div>';
+      });
+      html += '</details>';
+    });
+    html += '<div class="ls-btns"><button class="sl-rm" onclick="crsToggleImp()">' + (_crsImp ? 'hide import' : 'add more') + '</button></div>';
+  }
+  if (_crsImp) html += '<div class="ls-form"><textarea class="ls-ta" id="crs-code" rows="5" placeholder="Paste import code"></textarea><button class="fg-open" onclick="crsRunImport()">Import</button></div>';
+  html += '</div>';
+  /* stage 4 */
+  let nt = 0; try { nt = btLoad().tracks.length; } catch (e) {}
+  html += '<div class="ls-card"><div class="ls-eyebrow">STAGE 4 · METALCORE BACKING TRACKS</div><div class="ls-h2">' + (nt ? nt + ' tracks, 80 to 170 BPM' : 'Play over real drums') + '</div><div class="ls-sub">' +
+    (nt ? 'Pick one near your tempo, play the riff, then step the tempo up when it stays clean.' : 'No tracks added yet. The built-in drums work now; add your course tracks with the import code above.') + '</div>' +
+    '<div class="ls-btns"><button class="ls-go" onclick="paOpen({src:' + (nt ? "'tracks'" : "'drums'") + '})">▶ Open play along</button></div></div>';
+  html += '<div class="ls-src">' + slEsc(CRS_SRC) + '</div>';
+  el.innerHTML = html;
+}
+window.crsRender = crsRender; window.crsStart = crsStart; window.crsCycle = crsCycle; window.crsBpm = crsBpm; window.crsPlay = crsPlay; window.crsToggleImp = crsToggleImp; window.crsRunImport = crsRunImport;
 
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
