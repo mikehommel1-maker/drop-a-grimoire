@@ -4365,6 +4365,37 @@ body .fab-cluster{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
 .crs-view iframe{width:100%;height:96px;background:#fff;border:1px solid rgba(168,61,255,.4)}
 .crs-view.pdf iframe{height:min(70vh,560px)}
 .fg-open.on{background:#3a0a70!important}
+/* live player and modern tabs */
+.tabx{overflow-x:auto;padding:4px 0 2px;-webkit-overflow-scrolling:touch}
+.tabx-svg{display:block;max-width:none}
+.tabx-key{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#8f84a3;margin:4px 0 6px}
+.tabx-key i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:-6px}
+.tab-raw{margin:2px 0 4px}.tab-raw summary{cursor:pointer;font-family:var(--mono);font-size:9px;letter-spacing:2px;color:#8f84a3;text-transform:uppercase}
+.tab-block{clip-path:none!important;border-radius:10px;border:1px solid rgba(168,61,255,.28);border-left:4px solid var(--ember);background:#0b0616;padding:12px}
+.tab-play-btn{width:auto!important;height:auto!important;padding:8px 14px!important;border-radius:999px!important;background:var(--ember)!important;color:#fff!important;border:0!important;font-family:var(--display);font-size:13px;letter-spacing:1.5px}
+.lp-overlay{display:none;position:fixed;inset:0;z-index:9300;background:rgba(3,1,8,.94);align-items:center;justify-content:center;padding:max(10px,env(safe-area-inset-top,0px)) 8px max(10px,env(safe-area-inset-bottom,0px))}
+body.lp-open{overflow:hidden}
+.lp-box{width:100%;max-width:760px;max-height:100%;overflow:auto;background:#0e0719;border:1px solid rgba(168,61,255,.45);border-radius:14px;padding:12px}
+.lp-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.lp-title{font-family:var(--display);font-size:18px;letter-spacing:1.5px;text-transform:uppercase;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp-x{background:none;border:1px solid rgba(168,61,255,.4);color:#fff;width:38px;height:38px;border-radius:50%;font-size:22px;line-height:1;cursor:pointer;flex:0 0 auto}
+.lp-now{min-height:46px;margin:8px 0 6px;display:flex;flex-direction:column;justify-content:center}
+.lp-now b{font-family:var(--display);font-weight:400;font-size:20px;letter-spacing:1px;text-transform:uppercase;line-height:1.1}
+.lp-now span{font-size:12px;color:#b9acc9}
+.lp-now .lp-count{font-size:34px;color:#fff}
+.lp-neck,.lp-lane{display:block;width:100%;border-radius:8px}
+.lp-lane{margin-top:8px;border:1px solid rgba(168,61,255,.25)}
+.lp-ctl{display:flex;gap:10px;align-items:center;justify-content:center;margin:12px 0 10px}
+.lp-play{flex:1;max-width:260px;background:linear-gradient(180deg,#a83dff,#6d12c7);color:#fff;border:0;border-radius:999px;padding:15px 10px;font-family:var(--display);font-size:20px;letter-spacing:3px;cursor:pointer}
+.lp-play.on{background:linear-gradient(180deg,#e0245e,#8a0e36)}
+.lp-stepb{width:52px;height:52px;border-radius:50%;background:#170d29;border:1px solid rgba(168,61,255,.45);color:#fff;font-size:18px;cursor:pointer}
+.lp-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;margin-bottom:8px}
+.lp-chip{background:#170d29;border:1px solid rgba(168,61,255,.35);color:#b9acc9;border-radius:999px;padding:8px 13px;font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
+.lp-chip.on{background:var(--ember);border-color:var(--ember);color:#fff}
+.lp-bpm{font-family:var(--display);font-weight:400;font-size:22px;color:#fff;min-width:64px;text-align:center}
+.lp-bpm small{font-size:9px;color:#8f84a3;margin-left:3px;font-family:var(--mono)}
+.lp-key{justify-content:center}
+.rc-top .tab-block{overflow:visible!important;margin-top:18px}
 </style>
   <!-- Firebase SDK for cross-device sync -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -6570,12 +6601,12 @@ function makeTab(label, rows, comment, legend, showDiagram = false) {
   const cleanRows = rows.map(r => [r[0], r[1].replace(/<[^>]+>/g,'')]);
   const encodedRows = encodeURIComponent(JSON.stringify(cleanRows));
   const bpmHint = comment ? (comment.match(/(\d{2,3})\s*BPM/i)?.[1] || 80) : 80;
-  const playBtn = `<button class="tab-play-btn" onclick="event.stopPropagation();playTabBlock('${encodedRows}',${bpmHint},this${_gm ? ',' + _gm[1] : ''})" title="Hear this tab">▶</button>${cleanRows.some(r => /\d/.test(r[1])) ? `<button class="tab-play-btn fg-tab-btn" data-rows="${encodedRows}" onclick="event.stopPropagation();fgToggleTab(this)" title="Show finger positions" aria-label="Show finger positions">🖐</button>` : ''}`;
+  const playBtn = `<button class="tab-play-btn" onclick="event.stopPropagation();playTabBlock('${encodedRows}',${bpmHint},this${_gm ? ',' + _gm[1] : ''})" title="Watch and play along">▶ PLAY</button>${cleanRows.some(r => /\d/.test(r[1])) ? `<button class="tab-play-btn fg-tab-btn" data-rows="${encodedRows}" onclick="event.stopPropagation();fgToggleTab(this)" title="Show finger positions" aria-label="Show finger positions">🖐</button>` : ''}`;
   const tabBlock = `
     <div class="tab-block">
       <div class="tab-block-header"><div class="tab-block-label">${label}</div>${playBtn}</div>
       ${comment ? `<div class="tab-comment">// ${comment}</div>` : ''}
-      ${rowsHtml}
+      ${(typeof lpTabBody === 'function') ? lpTabBody(cleanRows, _gm ? +_gm[1] : 4, rowsHtml) : rowsHtml}
       ${legend ? `<div class="tab-legend">${legend}</div>` : ''}
     </div>`;
   if (!showDiagram) return tabBlock;
@@ -12654,7 +12685,7 @@ function renderRiff() {
             <span class="riff-tab-genre-lbl">// ${r.genre.toUpperCase()} — TAB NOTATION (e=high, A7=low)</span>
             <span class="riff-tab-bpm">♩${r.bpm} BPM <button class="fg-open fg-riff-btn" onclick="fgToggleRiff(this)">🖐 Fingers</button> <button class="fg-open fg-riff-btn" onclick="paOpenRiff()">▶ Play along</button></span>
           </div>
-          ${tabRows}
+          ${(typeof lpTabBody === 'function') ? lpTabBody(r.tab, 4, tabRows) : tabRows}
           <div class="riff-picking-row">
             <span class="riff-picking-label">PICK: </span>${r.strum}
           </div>
@@ -12703,8 +12734,7 @@ function renderRiff() {
       <!-- ACTION FOOTER -->
       <div class="riff-actions">
         <button class="btn primary" onclick="startRiffSession()">🎸 Practice This</button>
-        <button class="riff-play-btn" id="riff-play-audio-btn" onclick="playRiffAudio(this)">▶ Play Tab</button>
-        <button class="riff-play-btn" id="riff-play-vis-btn" onclick="toggleRiffFretVis(this)" title="Watch notes on fretboard">🎸 Watch</button>
+        <button class="ls-go" id="riff-play-audio-btn" onclick="lpOpenRiff()">▶ Watch and play along</button>
         <button class="btn" onclick="generateRiff()">↻ New Riff <span style="font-size:9px;color:var(--dim)">(${poolCount} in pool)</span></button>
         <button class="btn" onclick="copyRiffTab(this)">⎘ Copy Tab</button>
         <button class="add-to-sess-btn" onclick="addRiffToSession(this)">+ Add to Session</button>
@@ -19521,7 +19551,7 @@ function hubRunImport() {
 }
 window.hubRunImport = hubRunImport;
 /* Version stamp and update check: GitHub Pages and phones hold old copies, so look for a newer build and offer a reload. */
-const APP_BUILD = '2026.11.15g';
+const APP_BUILD = '2026.11.15h';
 let _updSeen = '';
 function updCheck() {
   if (!/^https?:/.test(location.protocol)) return;
@@ -19853,7 +19883,7 @@ function rcRender() {
   h += '<div class="rc-key"><span class="k1">● chug</span><span class="k2">note</span><span class="k0">rest</span><span>Tap any block to change it</span></div>';
   h += makeTab('YOUR RIFF', lsRows(rcEvents()), 'Play at ' + _rc.bpm + ' BPM. Palm mute the 0s, let the other notes ring. [grid8]', 'Lowest string is the bottom line.');
   h += '<div class="pa-row"><button class="fg-play" onclick="rcBpm(-5)">−5</button><b class="pa-bpm">' + _rc.bpm + '</b><button class="fg-play" onclick="rcBpm(5)">+5</button><span class="ls-sub">BPM</span></div>';
-  h += '<div class="ls-btns"><button class="ls-go" onclick="paOpen({bpm:' + _rc.bpm + ',label:\'My riff\'})">▶ Play it over drums</button><button class="fg-open" onclick="tcOpen(' + _rc.bpm + ')">Check my timing</button><button class="fg-open" onclick="rcSave()">Save riff</button></div>';
+  h += '<div class="ls-btns"><button class="ls-go" onclick="lpOpen({rows:lsRows(rcEvents()),bpm:_rc.bpm,div:8,title:\'My riff\'})">▶ Watch and play along</button><button class="fg-open" onclick="paOpen({bpm:' + _rc.bpm + ',label:\'My riff\'})">Over drums</button><button class="fg-open" onclick="tcOpen(' + _rc.bpm + ')">Check my timing</button><button class="fg-open" onclick="rcSave()">Save riff</button></div>';
   h += '<div class="ls-cue"><b>Coach:</b> ' + rcCoach() + '</div></div>';
   h += '<div class="rc-step"><div class="rc-n">1</div><div class="rc-body"><div class="rc-t">Pick a feel</div><div class="plc-as">' + chips(RC_FEEL, 'feel', _rc.feel) + '</div><div class="rc-why">' + f.why + '</div></div></div>';
   h += '<div class="rc-step"><div class="rc-n">2</div><div class="rc-body"><div class="rc-t">Shape the rhythm</div><div class="ls-btns"><button class="fg-open" onclick="rcNewRhythm();rcRender()">🎲 New rhythm</button></div><div class="rc-why">Or tap blocks in the grid above. Dark is a rest, purple is a chug.</div></div></div>';
@@ -19879,6 +19909,220 @@ function rigRender() {
     card('SLOW IT DOWN', 'Practice Tool on the board', '<div class="ls-sub">The Flex Prime Practice Tool can load songs from Dropbox over Wi-Fi, then loop or slow a section. Put a course guitar track in Dropbox to slow down a riff you are learning.</div>');
 }
 window.rigRender = rigRender;
+
+
+/* ════ PHASE 16: LIVE PLAYER (moving tab, live fretboard, finger colors) ════ */
+/* These three are called while page data is being built, so they use no top-level constants. */
+function lpFingerColors() { return ['#a79bc0', '#4cc9f0', '#7ee0a0', '#e9c46a', '#ff6b8f']; }
+function lpParseRows(rows) {
+  const lines = (rows || []).map(r => String(r && r[1] != null ? r[1] : '').replace(/<[^>]+>/g, '').replace(/&[a-z]+;/g, ' ').replace(/^\s*\|/, ''));
+  const notes = [], marks = [], bars = []; let len = 0;
+  lines.forEach((l, i) => {
+    len = Math.max(len, l.length); let c = 0;
+    while (c < l.length) {
+      const ch = l[c];
+      if (ch >= '0' && ch <= '9') { let s = ch; const nx = l[c + 1] || ''; if (nx >= '0' && nx <= '9' && +(ch + nx) <= 24) s += nx; notes.push({ col: c, row: i, fret: +s, w: s.length }); c += s.length; continue; }
+      if (ch === '|') { if (bars.indexOf(c) < 0) bars.push(c); } else if (ch === 'x' || ch === 'X') notes.push({ col: c, row: i, fret: -1, w: 1 });
+      else if ('hp/\\~b^'.indexOf(ch) >= 0) marks.push({ col: c, row: i, ch: ch });
+      c++;
+    }
+  });
+  notes.sort((a, b) => a.col - b.col || a.row - b.row);
+  const groups = []; let last = -9;
+  notes.forEach(n => { if (!groups.length || n.col - last > 1) groups.push({ col: n.col, notes: [] }); groups[groups.length - 1].notes.push(n); last = n.col; });
+  /* hand positions: hold one position for as long as the notes fit in a five-fret reach */
+  let i0 = 0, lastPos = 0;
+  while (i0 < groups.length) {
+    let lo = 99, hi = 0, j = i0;
+    for (; j < groups.length; j++) {
+      const fr = groups[j].notes.filter(n => n.fret > 0).map(n => n.fret);
+      const l2 = Math.min.apply(null, [lo].concat(fr)), h2 = Math.max.apply(null, [hi].concat(fr));
+      if (fr.length && h2 - l2 > 4 && j > i0) break;
+      lo = l2; hi = h2;
+    }
+    const pos = hi ? lo : lastPos; lastPos = pos;
+    for (let k = i0; k < j; k++) { groups[k].pos = pos; groups[k].notes.forEach(n => { n.finger = n.fret > 0 ? Math.max(1, Math.min(4, n.fret - pos + 1)) : 0; }); }
+    i0 = j;
+  }
+  return { n: lines.length, names: (rows || []).map(r => String(r && r[0] != null ? r[0] : '').replace(/<[^>]+>/g, '').trim()), len: len, notes: notes, marks: marks, bars: bars, groups: groups };
+}
+function lpStaticSvg(rows, div) {
+  let P; try { P = lpParseRows(rows); } catch (e) { return ''; }
+  if (!P.notes.length || P.n < 1 || P.n > 9) return '';
+  div = div || 4;
+  const col = lpFingerColors(), cw = div <= 4 ? 11 : div <= 8 ? 9 : 6, rh = 21, top = 16, gx = 30, W = gx + P.len * cw + 14, H = top + P.n * rh + 4;
+  let s = '<svg class="tabx-svg" xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Tab">';
+  for (let c = 0, b = 0; c < P.len; c += div, b++) s += '<line x1="' + (gx + c * cw) + '" y1="' + (top - 2) + '" x2="' + (gx + c * cw) + '" y2="' + (H - 4) + '" stroke="rgba(168,61,255,' + (b % 4 === 0 ? '.45' : '.14') + ')" stroke-width="1"/><text x="' + (gx + c * cw + 2) + '" y="9" font-size="8" fill="#8f84a3" font-family="monospace">' + (b % 4 + 1) + '</text>';
+  for (let i = 0; i < P.n; i++) { const y = top + i * rh + rh / 2; s += '<line x1="' + gx + '" y1="' + y + '" x2="' + (W - 6) + '" y2="' + y + '" stroke="rgba(255,255,255,.22)" stroke-width="' + (1 + i * 0.25) + '"/><text x="4" y="' + (y + 4) + '" font-size="12" font-weight="700" fill="#c08cff" font-family="monospace">' + (P.names[i] || '').slice(0, 2).replace(/[<&]/g, '') + '</text>'; }
+  P.marks.forEach(m => { s += '<text x="' + (gx + m.col * cw + cw / 2) + '" y="' + (top + m.row * rh + rh / 2 + 4) + '" font-size="10" text-anchor="middle" fill="#d9cfe6" font-family="monospace">' + (m.ch === '\\' ? '\\' : m.ch) + '</text>'; });
+  P.notes.forEach(n => {
+    const w = n.w > 1 ? 19 : 15, x = gx + n.col * cw + (n.w * cw) / 2 - w / 2, y = top + n.row * rh + 2;
+    s += '<rect x="' + x.toFixed(1) + '" y="' + y + '" width="' + w + '" height="' + (rh - 4) + '" rx="5" fill="' + (n.fret < 0 ? '#5b5170' : col[n.finger]) + '"/><text x="' + (x + w / 2).toFixed(1) + '" y="' + (y + 12.5) + '" font-size="11" font-weight="700" text-anchor="middle" fill="#0b0616" font-family="system-ui,sans-serif">' + (n.fret < 0 ? '×' : n.fret) + '</text>';
+  });
+  return '<div class="tabx">' + s + '</svg></div><div class="tabx-key"><i style="background:' + col[1] + '"></i>index<i style="background:' + col[2] + '"></i>middle<i style="background:' + col[3] + '"></i>ring<i style="background:' + col[4] + '"></i>pinky<i style="background:' + col[0] + '"></i>open</div>';
+}
+function lpTabBody(rows, div, rawHtml) {
+  const svg = lpStaticSvg(rows, div);
+  return svg ? svg + '<details class="tab-raw"><summary>Text tab</summary>' + rawHtml + '</details>' : rawHtml;
+}
+
+const LP_FN = ['Open string', 'Index finger', 'Middle finger', 'Ring finger', 'Pinky'];
+let _lp = null;
+function lpOv() { let ov = document.getElementById('lp-overlay'); if (!ov) { ov = document.createElement('div'); ov.id = 'lp-overlay'; ov.className = 'lp-overlay'; document.body.appendChild(ov); } return ov; }
+function lpOpen(o) {
+  lpClose(true);
+  try { sndStop(); } catch (e) {} try { if (typeof _stopTabSample === 'function') _stopTabSample(); } catch (e) {} try { if (typeof stopRiffAudio === 'function') stopRiffAudio(); } catch (e) {}
+  const P = lpParseRows(o.rows); if (!P.groups.length) { try { showToast('No notes to play'); } catch (e) {} return; }
+  const tun = _fbTun().midi, div = o.div || 4;
+  P.notes.forEach(n => { n.midi = (n.row < tun.length ? tun[n.row] : 40) + Math.max(0, n.fret); });
+  const lastCol = P.groups[P.groups.length - 1].col, bar = div * 4;
+  const fr = P.notes.filter(n => n.fret > 0).map(n => n.fret), mn = fr.length ? Math.min.apply(null, fr) : 0, mx = fr.length ? Math.max.apply(null, fr) : 0;
+  const lo = mn <= 4 ? 0 : mn - 1, hi = Math.max(lo + 5, mx + 1);
+  _lp = { P: P, div: div, base: Math.max(40, Math.min(240, Math.round(o.bpm || 80))), speed: o.speed || 1, title: String(o.title || 'Play along').slice(0, 60), loopCols: Math.max(bar, Math.ceil((lastCol + 1) / bar) * bar),
+    lo: lo, hi: hi, playing: false, loop: true, click: true, guitar: true, step: 0, raf: 0 };
+  const ov = lpOv();
+  ov.innerHTML = '<div class="lp-box" role="dialog" aria-label="Play along"><div class="lp-head"><div class="lp-title">' + slEsc(_lp.title) + '</div><button class="lp-x" onclick="lpClose()" aria-label="Close">×</button></div>' +
+    '<div class="lp-now" id="lp-now"></div><canvas id="lp-neck" class="lp-neck"></canvas><canvas id="lp-lane" class="lp-lane"></canvas>' +
+    '<div class="lp-ctl"><button class="lp-stepb" onclick="lpStep(-1)" aria-label="Previous note">◀</button><button class="lp-play" id="lp-play" onclick="lpToggle()">▶ PLAY</button><button class="lp-stepb" onclick="lpStep(1)" aria-label="Next note">▶</button></div>' +
+    '<div class="lp-row" id="lp-speed"></div><div class="lp-row" id="lp-tog"></div>' +
+    '<div class="tabx-key lp-key"><i style="background:#4cc9f0"></i>index<i style="background:#7ee0a0"></i>middle<i style="background:#e9c46a"></i>ring<i style="background:#ff6b8f"></i>pinky<i style="background:#a79bc0"></i>open</div></div>';
+  ov.style.display = 'flex'; document.body.classList.add('lp-open');
+  lpCtl(); lpSize(); lpDraw();
+}
+function lpBpm() { return Math.max(30, Math.round(_lp.base * _lp.speed)); }
+function lpCtl() {
+  if (!_lp) return;
+  const sp = document.getElementById('lp-speed'), tg = document.getElementById('lp-tog'), pb = document.getElementById('lp-play');
+  if (sp) sp.innerHTML = [0.5, 0.75, 1].map(v => '<button class="lp-chip' + (_lp.speed === v ? ' on' : '') + '" onclick="lpSet(\'speed\',' + v + ')">' + (v * 100) + '%</button>').join('') + '<button class="lp-chip" onclick="lpSet(\'base\',' + (_lp.base - 5) + ')">−5</button><b class="lp-bpm">' + lpBpm() + '<small>BPM</small></b><button class="lp-chip" onclick="lpSet(\'base\',' + (_lp.base + 5) + ')">+5</button>';
+  if (tg) tg.innerHTML = [['loop', 'Loop'], ['click', 'Click'], ['guitar', _lp.guitar ? 'Guitar sound' : 'Guitar muted']].map(x => '<button class="lp-chip' + (_lp[x[0]] ? ' on' : '') + '" onclick="lpSet(\'' + x[0] + '\',' + (!_lp[x[0]]) + ')">' + x[1] + '</button>').join('');
+  if (pb) { pb.textContent = _lp.playing ? '■ STOP' : '▶ PLAY'; pb.classList.toggle('on', _lp.playing); }
+}
+function lpSet(k, v) {
+  if (!_lp) return; const was = _lp.playing;
+  if (k === 'base') v = Math.max(40, Math.min(240, v));
+  _lp[k] = v;
+  if ((k === 'speed' || k === 'base') && was) { lpStop(); lpPlay(); }
+  lpCtl(); if (!_lp.playing) lpDraw();
+}
+function lpSize() {
+  if (!_lp) return; const dpr = window.devicePixelRatio || 1;
+  [['lp-neck', 34 + _lp.P.n * 19], ['lp-lane', 30 + _lp.P.n * 27]].forEach(a => { const c = document.getElementById(a[0]); if (!c) return; const w = c.clientWidth || 340; c.style.height = a[1] + 'px'; c.width = Math.round(w * dpr); c.height = Math.round(a[1] * dpr); c._w = w; c._h = a[1]; c.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0); });
+}
+function lpStepSec() { return 60 / lpBpm() / _lp.div; }
+function lpToggle() { if (!_lp) return; if (_lp.playing) { lpStop(); lpCtl(); lpDraw(); } else lpPlay(); }
+function lpPlay() {
+  if (!_lp || _lp.playing) return;
+  ensureAudio().then(ctx => {
+    if (!_lp) return;
+    const g = ctx.createGain(); g.gain.setValueAtTime(0.6, ctx.currentTime); g.connect(ctx.destination);
+    const beat = 60 / lpBpm();
+    Object.assign(_lp, { ctx: ctx, gain: g, playing: true, startT: ctx.currentTime + 0.12 + 4 * beat, gi: 0, k: 0, cb: -4, endAt: 0 });
+    _lp.timer = setInterval(lpTick, 25); lpTick(); lpCtl();
+    cancelAnimationFrame(_lp.raf); _lp.raf = requestAnimationFrame(lpFrame);
+  });
+}
+function lpTick() {
+  if (!_lp || !_lp.playing) return;
+  const L = _lp, ctx = L.ctx, hz = ctx.currentTime + 0.2, st = lpStepSec(), beat = st * L.div, loopDur = L.loopCols * st, G = L.P.groups;
+  while (!L.endAt) {
+    const g = G[L.gi], t = L.startT + L.k * loopDur + g.col * st; if (t > hz) break;
+    if (L.guitar) { const nx = G[L.gi + 1], dur = Math.min(1.4, Math.max(0.08, ((nx ? nx.col : L.loopCols) - g.col) * st * 0.95)); g.notes.forEach(n => { try { scheduleGuitarNote(ctx, L.gain, sndMidiFreq(n.midi), t, n.fret < 0 ? 0.04 : dur, n.fret < 0 ? 0.5 : 1); } catch (e) {} }); }
+    L.gi++; if (L.gi >= G.length) { if (L.loop) { L.gi = 0; L.k++; } else { L.gi = G.length - 1; L.endAt = L.startT + (L.k + 1) * loopDur; } }
+  }
+  for (;;) { const tb = L.startT + L.cb * beat; if (tb > hz || (L.endAt && tb >= L.endAt)) break; if (L.click || L.cb < 0) paClickTone(ctx, tb, ((L.cb % 4) + 4) % 4 === 0); L.cb++; }
+  if (L.endAt && ctx.currentTime > L.endAt + 0.05) { lpStop(); lpCtl(); lpDraw(); }
+}
+function lpStop() {
+  if (!_lp) return; clearInterval(_lp.timer); cancelAnimationFrame(_lp.raf);
+  if (_lp.gain) { try { _lp.gain.gain.cancelScheduledValues(0); _lp.gain.gain.setValueAtTime(0, _lp.ctx.currentTime); const g = _lp.gain; setTimeout(() => { try { g.disconnect(); } catch (e) {} }, 60); } catch (e) {} _lp.gain = null; }
+  _lp.playing = false;
+}
+function lpClose(quiet) { if (_lp) lpStop(); _lp = null; const ov = document.getElementById('lp-overlay'); if (ov) { ov.style.display = 'none'; ov.innerHTML = ''; } document.body.classList.remove('lp-open'); }
+function lpStep(d) {
+  if (!_lp) return; if (_lp.playing) lpStop();
+  const G = _lp.P.groups; _lp.step = (_lp.step + d + G.length) % G.length; lpCtl(); lpDraw();
+  ensureAudio().then(ctx => { if (!_lp) return; const g = ctx.createGain(); g.gain.value = 0.6; g.connect(ctx.destination); G[_lp.step].notes.forEach(n => { try { scheduleGuitarNote(ctx, g, sndMidiFreq(n.midi), ctx.currentTime + 0.02, n.fret < 0 ? 0.04 : 0.5); } catch (e) {} }); });
+}
+function lpFrame() { if (!_lp || !_lp.playing) return; lpDraw(); _lp.raf = requestAnimationFrame(lpFrame); }
+/* position in columns; negative during the count-in */
+function lpPos() { const L = _lp; if (!L.playing) return { pos: L.P.groups[L.step].col, cur: L.step, count: 0 }; const raw = (L.ctx.currentTime - L.startT) / lpStepSec(); if (raw < 0) return { pos: raw, cur: -1, count: Math.min(4, Math.floor(raw / L.div) + 5) }; const pos = L.loop ? raw % L.loopCols : Math.min(raw, L.loopCols); let cur = -1; L.P.groups.forEach((g, i) => { if (g.col <= pos + 0.05) cur = i; }); return { pos: pos, cur: cur, count: 0 }; }
+function lpRR(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+function lpDraw() {
+  if (!_lp) return; const L = _lp, P = L.P, S = lpPos(), col = lpFingerColors(), G = P.groups;
+  const cur = S.cur >= 0 ? G[S.cur] : null, nxt = G[(S.cur + 1 + G.length) % G.length] || null;
+  /* text line */
+  const now = document.getElementById('lp-now');
+  if (now) {
+    let t;
+    if (S.count) t = '<b class="lp-count">' + S.count + '</b><span>Count in. First: ' + lpDesc(G[0]) + '</span>';
+    else if (cur) t = '<b style="color:' + (cur.notes.length === 1 ? (cur.notes[0].fret < 0 ? '#a79bc0' : col[cur.notes[0].finger]) : '#fff') + '">' + lpDesc(cur) + '</b><span>Next: ' + (nxt ? lpDesc(nxt) : '') + '</span>';
+    else t = '<span>Press play, or step through with the arrows.</span>';
+    if (now._t !== t) { now.innerHTML = t; now._t = t; }
+  }
+  /* neck */
+  const nk = document.getElementById('lp-neck');
+  if (nk && nk._w) {
+    const c = nk.getContext('2d'), W = nk._w, H = nk._h, px = 30, pr = 10, top = 20, sh = 19, nf = L.hi - L.lo, fw = (W - px - pr) / nf, fx = f => px + (f - L.lo) * fw, sy = i => top + i * sh + sh / 2;
+    c.clearRect(0, 0, W, H); c.fillStyle = '#120a22'; lpRR(c, px, top, W - px - pr, P.n * sh, 4); c.fill();
+    if (cur && cur.pos > 0) { const a = Math.max(L.lo, cur.pos - 1), b = Math.min(L.hi, cur.pos + 3); if (b > a) { c.fillStyle = 'rgba(168,61,255,.16)'; c.fillRect(fx(a), top, fx(b) - fx(a), P.n * sh); c.font = '700 10px system-ui'; c.textAlign = 'center'; for (let k = 0; k < 4; k++) { const f = cur.pos + k; if (f > L.lo && f <= L.hi) { c.fillStyle = col[k + 1]; c.fillText(String(k + 1), (fx(f - 1) + fx(f)) / 2, 12); } } } }
+    [3, 5, 7, 9, 12, 15, 17].forEach(f => { if (f > L.lo && f <= L.hi) { c.fillStyle = 'rgba(255,255,255,.09)'; c.beginPath(); c.arc((fx(f - 1) + fx(f)) / 2, top + P.n * sh / 2, 5, 0, 6.3); c.fill(); } });
+    for (let f = L.lo; f <= L.hi; f++) { c.strokeStyle = f === 0 ? '#e9e1f5' : 'rgba(255,255,255,.28)'; c.lineWidth = f === 0 ? 4 : 1.5; c.beginPath(); c.moveTo(fx(f), top); c.lineTo(fx(f), top + P.n * sh); c.stroke(); if (f > L.lo) { c.fillStyle = '#8f84a3'; c.font = '9px monospace'; c.textAlign = 'center'; c.fillText(String(f), (fx(f - 1) + fx(f)) / 2, H - 2); } }
+    for (let i = 0; i < P.n; i++) { c.strokeStyle = 'rgba(255,255,255,.4)'; c.lineWidth = 1 + i * 0.3; c.beginPath(); c.moveTo(px, sy(i)); c.lineTo(W - pr, sy(i)); c.stroke(); c.fillStyle = '#c08cff'; c.font = '700 11px monospace'; c.textAlign = 'left'; c.fillText((P.names[i] || '').slice(0, 2), 2, sy(i) + 4); }
+    const dot = (n, live) => {
+      const x = n.fret <= 0 ? px - 11 : (fx(n.fret - 1) + fx(n.fret)) / 2, y = sy(n.row), r = live ? 9 : 6.5, cl = n.fret < 0 ? '#a79bc0' : col[n.finger];
+      if (n.fret > 0 && (n.fret <= L.lo || n.fret > L.hi)) return;
+      c.beginPath(); c.arc(x, y, r, 0, 6.3);
+      if (live) { c.shadowColor = cl; c.shadowBlur = 14; c.fillStyle = cl; c.fill(); c.shadowBlur = 0; c.fillStyle = '#0b0616'; c.font = '700 11px system-ui'; c.textAlign = 'center'; c.fillText(n.fret < 0 ? '×' : n.fret === 0 ? 'O' : String(n.finger), x, y + 4); }
+      else { c.setLineDash([3, 2]); c.strokeStyle = cl; c.lineWidth = 1.5; c.stroke(); c.setLineDash([]); }
+    };
+    if (nxt && nxt !== cur) nxt.notes.forEach(n => dot(n, false));
+    if (cur) cur.notes.forEach(n => dot(n, true)); else if (S.count && G[0]) G[0].notes.forEach(n => dot(n, false));
+  }
+  /* lane */
+  const ln = document.getElementById('lp-lane');
+  if (ln && ln._w) {
+    const c = ln.getContext('2d'), W = ln._w, H = ln._h, gx = 26, top = 22, rh = 27, pc = Math.max(5, 68 / L.div), x0 = gx + (W - gx) * 0.26, X = cc => x0 + (cc - S.pos) * pc, bar = L.div * 4;
+    c.clearRect(0, 0, W, H); c.fillStyle = '#0b0616'; c.fillRect(0, 0, W, H);
+    const first = Math.floor((S.pos - x0 / pc) / L.div) * L.div, lastC = S.pos + (W - x0) / pc + L.div;
+    for (let cc = first; cc <= lastC; cc += L.div) { const x = X(cc); if (x < gx) continue; const b = ((cc / L.div) % 4 + 4) % 4; c.strokeStyle = b === 0 ? 'rgba(168,61,255,.6)' : 'rgba(168,61,255,.18)'; c.lineWidth = b === 0 ? 2 : 1; c.beginPath(); c.moveTo(x, top - 4); c.lineTo(x, H - 4); c.stroke(); c.fillStyle = b === 0 ? '#c08cff' : '#6f6486'; c.font = (b === 0 ? '700 ' : '') + '10px monospace'; c.textAlign = 'left'; c.fillText(String(b + 1), x + 3, 12); }
+    for (let i = 0; i < P.n; i++) { const y = top + i * rh + rh / 2; c.strokeStyle = 'rgba(255,255,255,.2)'; c.lineWidth = 1 + i * 0.3; c.beginPath(); c.moveTo(gx, y); c.lineTo(W, y); c.stroke(); }
+    const reps = L.loop || !L.playing ? [-1, 0, 1, 2] : [0];
+    reps.forEach(m => {
+      if (m < 0 && S.pos < 0) return;
+      G.forEach((g, gi) => {
+        const cc = g.col + m * L.loopCols, x = X(cc); if (x < gx - 30 || x > W + 30) return;
+        const live = m === 0 && gi === S.cur && (L.playing ? S.pos - g.col < Math.max(1.2, L.div / 3) : true), past = cc < S.pos - 0.05 && !live;
+        g.notes.forEach(n => {
+          const w = n.w > 1 ? 26 : 21, h = 21, y = top + n.row * rh + rh / 2 - h / 2, cl = n.fret < 0 ? '#5b5170' : col[n.finger], sc = live ? 1.22 : 1;
+          c.globalAlpha = past ? 0.28 : 1; c.fillStyle = cl;
+          if (live) { c.shadowColor = cl; c.shadowBlur = 16; }
+          lpRR(c, x - w * sc / 2, y - h * (sc - 1) / 2, w * sc, h * sc, 6); c.fill(); c.shadowBlur = 0;
+          c.fillStyle = '#0b0616'; c.font = '700 ' + (live ? 15 : 13) + 'px system-ui'; c.textAlign = 'center'; c.fillText(n.fret < 0 ? '×' : String(n.fret), x, y + h / 2 + 5);
+          c.globalAlpha = 1;
+        });
+      });
+    });
+    c.fillStyle = '#0b0616'; c.fillRect(0, 0, gx, H);
+    for (let i = 0; i < P.n; i++) { c.fillStyle = '#c08cff'; c.font = '700 12px monospace'; c.textAlign = 'left'; c.fillText((P.names[i] || '').slice(0, 2), 3, top + i * rh + rh / 2 + 4); }
+    c.strokeStyle = '#fff'; c.lineWidth = 2.5; c.shadowColor = '#c466ff'; c.shadowBlur = 12; c.beginPath(); c.moveTo(x0, 14); c.lineTo(x0, H - 2); c.stroke(); c.shadowBlur = 0;
+    c.fillStyle = '#fff'; c.beginPath(); c.moveTo(x0 - 6, 6); c.lineTo(x0 + 6, 6); c.lineTo(x0, 15); c.closePath(); c.fill();
+  }
+}
+function lpDesc(g) {
+  if (!g) return ''; const ns = g.notes, P = _lp.P;
+  if (ns.length === 1) { const n = ns[0], s = (P.names[n.row] || '') + ' string'; return n.fret < 0 ? 'Muted hit · ' + s : n.fret === 0 ? 'Open ' + s : LP_FN[n.finger] + ' · fret ' + n.fret + ' · ' + s; }
+  if (ns.every(n => n.fret === 0)) return 'Open ' + ns.map(n => P.names[n.row] || '').reverse().join(' + ') + ' together';
+  return 'Chord · ' + ns.slice().reverse().map(n => (P.names[n.row] || '') + (n.fret < 0 ? '×' : n.fret)).join(' ');
+}
+function lpOpenRiff() { try { const r = typeof gpAdaptRiff === 'function' ? gpAdaptRiff(currentRiff) : currentRiff; lpOpen({ rows: r.tab, bpm: r.bpm, title: r.title || 'Riff', speed: 0.75 }); } catch (e) {} }
+window.addEventListener('resize', () => { if (_lp) { lpSize(); lpDraw(); } });
+window.lpOpen = lpOpen; window.lpClose = lpClose; window.lpToggle = lpToggle; window.lpStep = lpStep; window.lpSet = lpSet; window.lpOpenRiff = lpOpenRiff; window.lpParseRows = lpParseRows; window.lpStaticSvg = lpStaticSvg;
+/* every tab's play button now opens the live player */
+window.playTabBlock = function (encodedRows, bpm, btnEl, div) {
+  let rows; try { rows = JSON.parse(decodeURIComponent(encodedRows)); } catch (e) { return; }
+  let title = 'Play along'; try { const b = btnEl && btnEl.closest('.tab-block'); const l = b && b.querySelector('.tab-block-label'); if (l) title = l.textContent.trim(); } catch (e) {}
+  lpOpen({ rows: rows, bpm: bpm || 80, div: div || 4, title: title });
+};
 
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
