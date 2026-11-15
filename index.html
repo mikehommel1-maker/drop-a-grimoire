@@ -4294,6 +4294,24 @@ body .fab-cluster{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
 .subtabs{display:flex;gap:6px;margin-bottom:14px}
 .subtab{flex:1;background:#0a0418;border:1px solid rgba(168,61,255,.3);color:#b9acc9;padding:9px 2px;font-family:var(--display);font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;clip-path:var(--para)}
 .subtab.on{background:var(--ember);color:#fff;border-color:var(--ember)}
+/* placement and tuner */
+.plc-box,.tn-box{max-height:88vh;overflow:auto;clip-path:none}
+.plc-q{margin-top:14px;border-top:1px solid rgba(168,61,255,.2);padding-top:10px}
+.plc-t{font-family:var(--display);font-size:15px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.plc-d{font-size:12px;color:#b9acc9;margin:2px 0 8px}
+.plc-as{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.plc-a{background:#0a0418;border:1px solid rgba(168,61,255,.3);color:#b9acc9;padding:9px 4px;font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
+.plc-a.on{background:var(--ember);color:#fff;border-color:var(--ember)}
+.tdy-place{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px dashed rgba(168,61,255,.5);padding:9px 10px;margin-bottom:12px;font-size:12px;color:#d9cfe6}
+.tn-note{font-family:var(--display);font-size:86px;line-height:1;text-align:center;color:#fff;margin:14px 0 10px;text-shadow:2px 0 rgba(255,50,120,.5),-2px 0 rgba(60,210,255,.4)}
+.tn-note.ok{color:#7ee0a0;text-shadow:0 0 24px rgba(126,224,160,.7)}
+.tn-meter{position:relative;height:26px;background:#07040f;border:1px solid rgba(168,61,255,.35)}
+.tn-mid{position:absolute;left:50%;top:0;bottom:0;width:10%;transform:translateX(-50%);background:rgba(126,224,160,.18);border-left:1px solid rgba(126,224,160,.6);border-right:1px solid rgba(126,224,160,.6)}
+.tn-needle{position:absolute;top:-3px;bottom:-3px;left:50%;width:4px;margin-left:-2px;background:var(--flame);box-shadow:0 0 10px var(--flame);transition:left .1s linear;opacity:.2}
+.tn-cents{text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:1px;color:#d9cfe6;margin:10px 0}
+.tn-strs{display:flex;gap:6px;justify-content:center;margin-bottom:14px}
+.tn-s{min-width:34px;text-align:center;padding:7px 4px;border:1px solid rgba(168,61,255,.3);font-family:var(--display);font-size:15px;color:#8f84a3}
+.tn-s.on{border-color:var(--flame);color:#fff}.tn-s.ok{border-color:#7ee0a0;color:#7ee0a0}
 </style>
   <!-- Firebase SDK for cross-device sync -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -18657,7 +18675,7 @@ function lsRenderRun(keepScroll) {
   if (st.k === 'hello') {
     const last = h.log.length ? h.log[h.log.length - 1] : null, lf = last ? lsFind(last.id) : null;
     body = '<div class="ls-say">Welcome back. Let us get set up and then dig into <b>' + slEsc(f.title) + '</b>' + (f.k && !(f.core && f.core.path) ? ' (' + slEsc(sk.short.toLowerCase()) + ', ' + LS_TIERS[tier.tier].toLowerCase() + ' level)' : '') + '.</div>' +
-      '<div class="ls-cue"><b>Tune up first.</b> Your ' + slEsc(pp.display) + ' should read ' + fgTun().names.join(' ') + ' from the lowest string to the highest. A guitar that is slightly out of tune makes everything you practice sound worse.</div>' +
+      '<div class="ls-cue"><b>Tune up first.</b> Your ' + slEsc(pp.display) + ' should read ' + fgTun().names.join(' ') + ' from the lowest string to the highest. A guitar that is slightly out of tune makes everything you practice sound worse.</div><div class="ls-btns"><button class="fg-open" onclick="tnOpen()">🎤 Open the tuner</button></div>' +
       (last && lf && lf.core ? '<div class="ls-card ls-inner"><div class="ls-eyebrow">LAST TIME</div><div>' + slEsc(lf.title) + ': ' + slEsc((LS_RATINGS[last.result] || LS_RATINGS.close).label) + '</div><div class="ls-hw"><b>Homework was:</b> ' + slEsc(lf.core.hw) + '</div></div>' : '') +
       '<div class="ls-card ls-inner"><div class="ls-eyebrow">TODAY\'S PLAN (ABOUT ' + run.mins + ' MIN)</div>' + stages.map((s, i) => '<div class="ls-plan"><span>' + (i + 1) + '. ' + slEsc(s.title) + '</span><span>' + s.mins + ' min</span></div>').join('') + '</div>';
   } else if (st.k === 'warm') {
@@ -18935,14 +18953,14 @@ function resetKeys() {
     const k = localStorage.key(i); if (!k) continue;
     const m = k.match(/^(?:gp_[A-Za-z0-9_]+?_)?(grimoire.*)$/); if (!m) continue;
     const b = m[1];
-    if (/^grimoire(-progress|-streak|-stats|_grimoire-streak|_grimoire-stats|_seen_badges|_sess_|_bpm_|_day_|_snap_|_rm_|_cprog)/.test(b) || b === 'grimoire_songs' || b.indexOf('grimoire_lessons_') === 0) out.push(k);
+    if (/^grimoire(-progress|-streak|-stats|_grimoire-streak|_grimoire-stats|_seen_badges|_sess_|_bpm_|_day_|_snap_|_rm_|_cprog|_placed)/.test(b) || b === 'grimoire_songs' || b.indexOf('grimoire_lessons_') === 0) out.push(k);
   }
   return out;
 }
 function resetCardHtml() {
   let undo = null; try { undo = JSON.parse(localStorage.getItem(RESET_UNDO_KEY) || 'null'); } catch (e) {}
   return '<div class="rs-card"><div class="rs-h">Start fresh</div><div class="rs-sub">Wipe your progress and be treated like a new user. Your links, walkthroughs, notes and settings stay.</div>' +
-    '<div class="rs-btns"><button class="btn rs-danger" onclick="resetOpen()">Reset my progress</button>' + (undo && undo.data ? '<button class="btn" onclick="resetUndo()">Undo last reset</button>' : '') + '</div></div>';
+    '<div class="rs-btns"><button class="btn" onclick="plcOpen()">Set my levels</button><button class="btn rs-danger" onclick="resetOpen()">Reset my progress</button>' + (undo && undo.data ? '<button class="btn" onclick="resetUndo()">Undo last reset</button>' : '') + '</div></div>';
 }
 function resetMount() {
   const pg = document.getElementById('progress'); if (!pg) return;
@@ -19338,6 +19356,7 @@ function homeLessonRender() {
   el.innerHTML = '<div class="tdy-card"><div class="tdy-eye">' + (run ? 'IN PROGRESS' : done ? '✓ DONE TODAY' : 'TODAY') + ' · ' + mins + ' MIN</div>' +
     '<div class="tdy-title">' + slEsc(title) + '</div><div class="tdy-sub">' + slEsc(run ? 'Pick up where you left off.' : done ? 'Today is logged. Go again if you want more.' : p.why) + '</div>' +
     '<div class="tdy-steps">' + steps.map((s, i) => '<div class="tdy-step' + (i < stage ? ' done' : i === stage ? ' cur' : '') + '"><span class="tdy-n">' + (i < stage ? '✓' : i + 1) + '</span><span class="tdy-st"><b>' + s[0] + '</b><i>' + slEsc(s[1]) + '</i></span></div>').join('') + '</div>' +
+    (!run && !done && !plcPlaced() && !h.log.length ? '<div class="tdy-place"><span>New here? Set your levels first so lessons start in the right place.</span><button class="fg-open" onclick="plcOpen()">1 min check</button></div>' : '') +
     (run ? '' : '<div class="tdy-chips">' + [10, 15, 20, 30].map(m => '<button class="plan-chip' + (m === mins ? ' active' : '') + '" onclick="tdySetMins(' + m + ')">' + m + ' MIN</button>').join('') + '</div>') +
     '<button class="ls-go tdy-go" onclick="' + (run ? 'tdyResume()' : 'tdyStart()') + '">▶ ' + (run ? 'Resume' : done ? 'Go again' : 'Start today') + '</button>' +
     (typeof modeOfDayHtml === 'function' ? modeOfDayHtml() : '') + '</div>';
@@ -19391,7 +19410,8 @@ function hubRender(id) {
     }
     h += '<div class="bt-link"><a href="' + tdyYt(cur) + '" target="_blank" rel="noopener">More drum tracks on YouTube at ' + cur + ' BPM</a></div></div>';
     h += '<div class="hub-lbl">PLAY</div>' + hubCard('recommendations', '🎵', 'Song Lab', 'Songs with Spotify, YouTube and Songsterr links') + hubCard('riff', '⟳', 'Riff Lab', 'Riffs and the riff builder');
-    h += '<div class="hub-lbl">TOOLS</div>' + hubCard('session', '⏱', 'Custom session', 'Build your own timed practice') + hubCard('metronome', '♩', 'Metronome', 'Click and tempo ramp');
+    h += '<div class="hub-lbl">TOOLS</div>' + hubCard('session', '⏱', 'Custom session', 'Build your own timed practice') + hubCard('metronome', '♩', 'Metronome', 'Click and tempo ramp') +
+      '<button class="hub-c" onclick="tnOpen()"><span class="hub-i">🎤</span><span class="hub-t"><b>Tuner</b><i>Listens through your mic, set to ' + slEsc(gpGet().display) + '</i></span><span class="hub-a">›</span></button>';
   }
   el.innerHTML = h;
 }
@@ -19410,6 +19430,114 @@ function setupFromHash() {
 }
 document.addEventListener('DOMContentLoaded', () => { setTimeout(() => { try { setupFromHash(); tabSync('home'); } catch (e) {} }, 300); });
 window.tdyStart = tdyStart; window.tdyResume = tdyResume; window.tdySetMins = tdySetMins; window.tdyCycle = tdyCycle; window.tabGo = tabGo; window.tabSync = tabSync; window.hubRender = hubRender;
+
+
+/* ════ PHASE 14: PLACEMENT CHECK AND TUNER ════ */
+const PLC_KEY = 'grimoire_placed';
+const PLC_Q = [
+  { t: 'Rhythm hand', d: 'Palm muting, alternate picking and gallops', ks: ['palm', 'alt', 'gal'] },
+  { t: 'Clean playing', d: 'Hitting the right fret and keeping other strings quiet', ks: ['chrom', 'mute'] },
+  { t: 'Scales', d: 'Natural minor, Phrygian and harmonic minor', ks: ['nmin', 'phry', 'hmin'] },
+  { t: 'Lead touch', d: 'Hammer-ons, pull-offs, bends and vibrato', ks: ['legato', 'bend'] },
+  { t: 'Flash', d: 'Sweep arpeggios and pinch harmonics', ks: ['sweep', 'pinch'] }
+];
+const PLC_A = [['Never tried', 0], ['Learning', 15], ['Comfortable', 40], ['Solid', 65]];
+let _plc = {};
+function plcPlaced() { try { return !!localStorage.getItem(PLC_KEY); } catch (e) { return true; } }
+function plcOv() { let ov = document.getElementById('plc-overlay'); if (!ov) { ov = document.createElement('div'); ov.id = 'plc-overlay'; ov.className = 'rs-overlay'; document.body.appendChild(ov); } return ov; }
+function plcOpen() { _plc = {}; plcDraw(); plcOv().style.display = 'flex'; }
+function plcClose() { plcOv().style.display = 'none'; }
+function plcSet(i, a) { _plc[i] = a; plcDraw(); }
+function plcDraw() {
+  const n = Object.keys(_plc).length;
+  plcOv().innerHTML = '<div class="rs-box plc-box" role="dialog" aria-label="Set my levels"><div class="rs-h">Where are you at?</div><div class="rs-sub">Five quick picks. Be honest, it only changes what you get taught first.</div>' +
+    PLC_Q.map((q, i) => '<div class="plc-q"><div class="plc-t">' + q.t + '</div><div class="plc-d">' + q.d + '</div><div class="plc-as">' + PLC_A.map((a, j) => '<button class="plc-a' + (_plc[i] === j ? ' on' : '') + '" onclick="plcSet(' + i + ',' + j + ')">' + a[0] + '</button>').join('') + '</div></div>').join('') +
+    '<div class="rs-btns"><button class="btn"' + (n < PLC_Q.length ? ' disabled style="opacity:.4"' : '') + ' onclick="plcApply()">Set my levels</button><button class="btn" onclick="plcClose()">Cancel</button></div></div>';
+}
+function plcApply() {
+  if (Object.keys(_plc).length < PLC_Q.length) return;
+  PLC_Q.forEach((q, i) => q.ks.forEach(k => { progValues[lsSkill(k).label] = PLC_A[_plc[i]][1]; }));
+  try { saveProgress(); } catch (e) {}
+  try { localStorage.setItem(PLC_KEY, '1'); } catch (e) {}
+  plcClose();
+  try { showToast('Levels set. Your lessons now start where you are.'); } catch (e) {}
+  try { homeLessonRender(); refreshHomeStats(); } catch (e) {}
+  try { if (document.getElementById('progress').classList.contains('active')) location.reload(); } catch (e) {}
+}
+window.plcOpen = plcOpen; window.plcClose = plcClose; window.plcSet = plcSet; window.plcApply = plcApply;
+
+/* ── Tuner: microphone pitch detection, matched to the active guitar ── */
+let _tn = null;
+function tnDetect(buf, sr) {
+  const n = buf.length; let e = 0; for (let i = 0; i < n; i++) e += buf[i] * buf[i];
+  if (Math.sqrt(e / n) < 0.008) return null;
+  const lo = Math.max(2, Math.floor(sr / 700)), hi = Math.min(n >> 1, Math.floor(sr / 36)), ns = new Float32Array(hi + 2);
+  let gmax = 0;
+  for (let l = lo - 1; l <= hi + 1; l++) {
+    let ac = 0, m = 0; const lim = n - l;
+    for (let i = 0; i < lim; i++) { const a = buf[i], b = buf[i + l]; ac += a * b; m += a * a + b * b; }
+    ns[l] = m > 0 ? 2 * ac / m : 0; if (l >= lo && l <= hi && ns[l] > gmax) gmax = ns[l];
+  }
+  if (gmax < 0.5) return null;
+  let l = lo; while (l <= hi && ns[l] > 0) l++;
+  for (; l <= hi; l++) {
+    if (ns[l] >= 0.9 * gmax && ns[l] >= ns[l - 1] && ns[l] >= ns[l + 1]) {
+      const a = ns[l - 1], b = ns[l], c = ns[l + 1], den = a - 2 * b + c, sh = den ? 0.5 * (a - c) / den : 0;
+      return sr / (l + sh);
+    }
+  }
+  return null;
+}
+function tnOv() { let ov = document.getElementById('tn-overlay'); if (!ov) { ov = document.createElement('div'); ov.id = 'tn-overlay'; ov.className = 'rs-overlay'; document.body.appendChild(ov); } return ov; }
+function tnStrings() { const T = fgTun(); return T.midi.map((m, i) => ({ m: m, name: T.names[i] })); }
+function tnOpen() {
+  const st = tnStrings();
+  tnOv().innerHTML = '<div class="rs-box tn-box" role="dialog" aria-label="Tuner"><div class="rs-h">Tuner</div><div class="rs-sub" id="tn-msg">Allow the microphone, then pick one string at a time.</div>' +
+    '<div class="tn-note" id="tn-note">·</div><div class="tn-meter"><span class="tn-mid"></span><span class="tn-needle" id="tn-needle"></span></div><div class="tn-cents" id="tn-cents">&nbsp;</div>' +
+    '<div class="tn-strs">' + st.map((s, i) => '<span class="tn-s" id="tn-s' + i + '">' + slEsc(s.name) + '</span>').join('') + '</div>' +
+    '<div class="rs-btns"><button class="btn" onclick="tnClose()">Done</button></div></div>';
+  tnOv().style.display = 'flex';
+  tnStartMic();
+}
+async function tnStartMic() {
+  const msg = document.getElementById('tn-msg');
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
+    const ctx = new (window.AudioContext || window.webkitAudioContext)(), src = ctx.createMediaStreamSource(stream), an = ctx.createAnalyser();
+    an.fftSize = 8192; src.connect(an);
+    _tn = { stream: stream, ctx: ctx, an: an, buf: new Float32Array(an.fftSize), hist: [], t: 0 };
+    if (msg) msg.textContent = 'Pick one string and let it ring.';
+    _tn.timer = setInterval(tnTick, 110);
+  } catch (e) { if (msg) msg.textContent = 'The microphone is blocked. Allow it in your browser settings to use the tuner.'; }
+}
+function tnTick() {
+  if (!_tn) return; _tn.an.getFloatTimeDomainData(_tn.buf);
+  const D = 4, n = _tn.buf.length / D, ds = new Float32Array(n);
+  for (let i = 0; i < n; i++) ds[i] = (_tn.buf[i * D] + _tn.buf[i * D + 1] + _tn.buf[i * D + 2] + _tn.buf[i * D + 3]) / 4;
+  const f = tnDetect(ds, _tn.ctx.sampleRate / D);
+  if (f) { _tn.hist.push(f); if (_tn.hist.length > 5) _tn.hist.shift(); _tn.t = Date.now(); } else if (Date.now() - _tn.t > 1500) _tn.hist = [];
+  tnShow(_tn.hist.length >= 2 ? _tn.hist.slice().sort((a, b) => a - b)[_tn.hist.length >> 1] : 0);
+}
+function tnRead(f) {
+  const st = tnStrings(), midi = 69 + 12 * Math.log2(f / 440);
+  let bi = 0; st.forEach((s, i) => { if (Math.abs(s.m - midi) < Math.abs(st[bi].m - midi)) bi = i; });
+  return { i: bi, name: st[bi].name, cents: Math.round((midi - st[bi].m) * 100) };
+}
+function tnShow(f) {
+  const note = document.getElementById('tn-note'), nd = document.getElementById('tn-needle'), cs = document.getElementById('tn-cents'); if (!note) return;
+  document.querySelectorAll('.tn-s').forEach(x => x.classList.remove('on', 'ok'));
+  if (!f) { note.textContent = '·'; note.className = 'tn-note'; cs.innerHTML = '&nbsp;'; nd.style.left = '50%'; nd.style.opacity = '.2'; return; }
+  const r = tnRead(f), far = Math.abs(r.cents) > 250, ok = Math.abs(r.cents) <= 5;
+  note.textContent = r.name; note.className = 'tn-note' + (ok ? ' ok' : '');
+  nd.style.opacity = '1'; nd.style.left = (50 + Math.max(-50, Math.min(50, r.cents)) * 0.9) + '%';
+  cs.textContent = ok ? 'In tune' : far ? (r.cents < 0 ? 'Way low. Tune up to ' + r.name : 'Way high. Tune down to ' + r.name) : (r.cents < 0 ? 'Tune up ↑ ' : 'Tune down ↓ ') + Math.abs(r.cents) + ' cents';
+  const el = document.getElementById('tn-s' + r.i); if (el) el.classList.add('on', ok ? 'ok' : 'on');
+}
+function tnClose() {
+  if (_tn) { clearInterval(_tn.timer); try { _tn.stream.getTracks().forEach(t => t.stop()); } catch (e) {} try { _tn.ctx.close(); } catch (e) {} _tn = null; }
+  tnOv().style.display = 'none';
+}
+window.tnOpen = tnOpen; window.tnClose = tnClose; window.tnDetect = tnDetect; window.tnRead = tnRead;
 
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
