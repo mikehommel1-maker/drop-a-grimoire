@@ -4317,6 +4317,50 @@ body .fab-cluster{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
 .hub-setup textarea{width:100%;box-sizing:border-box;margin-bottom:8px;font-size:16px}
 .app-build{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:#8f84a3;text-align:right;margin:-8px 0 14px}
 .upd-bar{position:fixed;left:12px;right:12px;top:calc(60px + env(safe-area-inset-top,0px));z-index:9500;background:#7ee0a0;color:#06210f;border:0;padding:13px;font-family:var(--display);font-size:16px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.6)}
+/* timing check, riff coach, rig */
+.tc-box{max-height:90vh;overflow:auto;clip-path:none}
+.tc-live{font-family:var(--display);font-size:30px;letter-spacing:2px;text-align:center;color:#fff;margin:18px 0 8px}
+.tc-beats{display:flex;gap:10px;justify-content:center;margin:14px 0}
+.tc-beats span{width:44px;height:44px;border:2px solid rgba(168,61,255,.5);background:#0a0418;clip-path:polygon(50% 0,100% 28%,100% 72%,50% 100%,0 72%,0 28%)}
+.tc-beats span.on{background:var(--flame);box-shadow:0 0 18px var(--flame)}
+.tc-score{text-align:center;margin:10px 0}
+.tc-score b{display:block;font-family:var(--display);font-weight:400;font-size:84px;line-height:1;color:#fff;text-shadow:2px 0 rgba(255,50,120,.5),-2px 0 rgba(60,210,255,.4)}
+.tc-score span{font-family:var(--display);font-size:18px;letter-spacing:4px;text-transform:uppercase;color:var(--flame)}
+.tc-strip{position:relative;height:40px;background:#07040f;border:1px solid rgba(168,61,255,.35);margin-top:12px;overflow:hidden}
+.tc-strip::after{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.5)}
+.tc-zone{position:absolute;left:50%;top:0;bottom:0;transform:translateX(-50%);background:rgba(126,224,160,.16)}
+.tc-strip i{position:absolute;top:6px;bottom:6px;width:3px;margin-left:-1px;background:#ff6b8f;opacity:.85}
+.tc-strip i.ok{background:#7ee0a0}
+.tc-axis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;letter-spacing:1px;color:#8f84a3;margin:4px 0 10px;text-transform:uppercase}
+.tc-tip{font-size:14px;color:#f1eafa;border-left:4px solid var(--ember);padding:8px 10px;background:rgba(168,61,255,.1);margin-bottom:12px}
+.tc-row{margin:12px 0 8px}.tc-divs{grid-template-columns:repeat(3,1fr);margin-bottom:10px}
+.tc-hp{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#b9acc9;margin-bottom:10px}
+.mic-pick{display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:1px;color:#b9acc9;margin-bottom:10px;text-transform:uppercase}
+.mic-pick select{flex:1;min-width:0;background:#07040f;color:#fff;border:1px solid rgba(168,61,255,.35);padding:7px;font-size:13px}
+.rc-top{border:1px solid rgba(168,61,255,.45);border-left:5px solid var(--ember);background:rgba(10,4,24,.9);padding:14px 12px;margin-bottom:16px}
+.rc-grid{display:grid;grid-template-columns:repeat(16,1fr);gap:2px;margin:10px 0 6px}
+.rc-b{background:#0d0719;border:1px solid rgba(168,61,255,.18);padding:0;height:58px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;cursor:pointer;color:#fff;min-width:0}
+.rc-b.beat{margin-left:3px;border-left-color:rgba(168,61,255,.7)}
+.rc-b.chug{background:#6d12c7}.rc-b.note{background:#e9c46a;color:#1a0f00}
+.rc-b b{font-family:var(--display);font-weight:400;font-size:13px;line-height:1;margin-top:10px}
+.rc-b i{font-style:normal;font-family:var(--mono);font-size:8px;color:#b9acc9;margin-bottom:3px}
+.rc-b.note i{color:#4a3a10}
+.rc-key{display:flex;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:9px;letter-spacing:1px;color:#8f84a3;text-transform:uppercase;margin-bottom:10px}
+.rc-key .k1{color:#c08cff}.rc-key .k2{color:#e9c46a}
+.rc-step{display:flex;gap:12px;padding:14px 0;border-top:1px solid rgba(168,61,255,.2)}
+.rc-n{flex:0 0 34px;height:34px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:17px;color:#fff;background:var(--ember);clip-path:polygon(50% 0,100% 28%,100% 72%,50% 100%,0 72%,0 28%)}
+.rc-body{flex:1;min-width:0}
+.rc-t{font-family:var(--display);font-size:17px;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:8px}
+.rc-why{font-size:12px;color:#b9acc9;margin-top:8px}
+.rc-3{grid-template-columns:repeat(3,1fr)}.rc-4{grid-template-columns:repeat(4,1fr)}
+.plc-a small{display:block;font-size:8px;opacity:.75;text-transform:none;letter-spacing:0;margin-top:2px}
+.rc-saved{display:flex;gap:8px;align-items:center}.rc-saved .hub-c{flex:1}
+.rig-ol{margin:8px 0 8px 18px;padding:0;color:#d9cfe6;font-size:14px;display:grid;gap:6px}
+.rig-ol b{color:#fff}
+.rig-tone{border-top:1px solid rgba(168,61,255,.2);padding:9px 0}
+.rig-tone b{display:block;font-family:var(--display);font-weight:400;letter-spacing:2px;text-transform:uppercase;color:#fff;font-size:14px}
+.rig-tone span{font-size:13px;color:#b9acc9}
+.rc-top .tab-block{overflow-x:auto;clip-path:none}.rc-top .tab-notes{white-space:pre}
 </style>
   <!-- Firebase SDK for cross-device sync -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -4722,6 +4766,22 @@ body .fab-cluster{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
     <div class="page-lead">Backing tracks, songs and riffs.</div>
   </div>
   <div id="play-root"></div>
+</div>
+
+<div id="write" class="page">
+  <div class="page-header">
+    <div class="page-title">Write a riff</div>
+    <div class="page-lead">Five small steps. Tap, listen, change one thing.</div>
+  </div>
+  <div id="write-root"></div>
+</div>
+
+<div id="rig" class="page">
+  <div class="page-header">
+    <div class="page-title">My rig</div>
+    <div class="page-lead">Using the app with your HeadRush Flex Prime.</div>
+  </div>
+  <div id="rig-root"></div>
 </div>
 
 <div id="course" class="page">
@@ -5766,6 +5826,8 @@ function onPageOpen(id) {
   if (id === 'session' && window.btRender) btRender();
   if (id === 'lesson' && window.lsRender) lsRender();
   if (id === 'course' && window.crsRender) crsRender();
+  if (id === 'write' && window.rcRender) rcRender();
+  if (id === 'rig' && window.rigRender) rigRender();
   try { if (window.tabSync) tabSync(id); } catch (e) {}
   if (id === 'dailytip' && tipCount === 0) setTimeout(fetchTip, 200);
   if (id === 'notepad') { if(!noteInited){noteInited=true;loadNotes();}else if(typeof npActiveProf!=='undefined'&&window._GP_ACTIVE!==npActiveProf){if(typeof npLoadProfile==='function')npLoadProfile(window._GP_ACTIVE);} }
@@ -18704,7 +18766,7 @@ function lsRenderRun(keepScroll) {
     body = tdyRiffHtml(run, target);
   } else if (st.k === 'show') {
     body = '<div class="ls-say">Time to show me. Play the goal for the lesson with a drum track: <b>' + slEsc(f.core ? f.core.goal : 'the idea from this lesson') + '</b> Four bars, no stopping, no fixing. If you can, record it.</div>' +
-      '<div class="ls-btns"><button class="ls-go" onclick="paOpen({target:' + target + ',label:\'Show me\'})">▶ Start the test with a count-in</button></div>' +
+      '<div class="ls-btns"><button class="ls-go" onclick="paOpen({target:' + target + ',label:\'Show me\'})">▶ Start the test with a count-in</button><button class="fg-open" onclick="tcOpen(' + (run.reached || target) + ')">🎯 Score my timing</button></div>' +
       '<div class="ls-lbl">HOW DID IT GO?</div><div class="ls-chips">' + Object.keys(LS_RATINGS).map(r => '<button class="pa-chip' + (run.rating === r ? ' on' : '') + '" onclick="lsRate(\'' + r + '\')">' + LS_RATINGS[r].label + '</button>').join('') + '</div>' +
       '<div class="ls-lbl">FASTEST TEMPO YOU PLAYED CLEANLY</div><div class="pa-row"><button class="fg-play" onclick="lsReached(-5)">−5</button><b class="pa-bpm">' + run.reached + '</b><button class="fg-play" onclick="lsReached(5)">+5</button><span class="ls-sub">BPM. Next lesson on this skill builds from here.</span></div>';
   } else if (st.k === 'wrap') {
@@ -19422,8 +19484,10 @@ function hubRender(id) {
     }
     h += '<details class="hub-setup"' + (tr.length ? '' : ' open') + '><summary>' + (tr.length ? 'Add or update course tracks' : 'Setup link') + '</summary><textarea class="ls-ta" id="hub-code" rows="4" placeholder="Press and hold here, then tap Paste"></textarea><button class="ls-go" onclick="hubRunImport()">Import</button></details>';
     h += '<div class="bt-link"><a href="' + tdyYt(cur) + '" target="_blank" rel="noopener">More drum tracks on YouTube at ' + cur + ' BPM</a></div></div>';
+    h += '<div class="hub-lbl">CREATE</div>' + hubCard('write', '✍️', 'Write a riff', 'Build your own in five small steps');
     h += '<div class="hub-lbl">PLAY</div>' + hubCard('recommendations', '🎵', 'Song Lab', 'Songs with Spotify, YouTube and Songsterr links') + hubCard('riff', '⟳', 'Riff Lab', 'Riffs and the riff builder');
     h += '<div class="hub-lbl">TOOLS</div>' + hubCard('session', '⏱', 'Custom session', 'Build your own timed practice') + hubCard('metronome', '♩', 'Metronome', 'Click and tempo ramp') +
+      '<button class="hub-c" onclick="tcOpen()"><span class="hub-i">🎯</span><span class="hub-t"><b>Timing check</b><i>Play to the click and get a score</i></span><span class="hub-a">›</span></button>' + hubCard('rig', '🎛', 'My rig', 'HeadRush Flex Prime hookup and tones') +
       '<button class="hub-c" onclick="tnOpen()"><span class="hub-i">🎤</span><span class="hub-t"><b>Tuner</b><i>Listens through your mic, set to ' + slEsc(gpGet().display) + '</i></span><span class="hub-a">›</span></button>';
   }
   el.innerHTML = h;
@@ -19436,7 +19500,7 @@ function hubRunImport() {
 }
 window.hubRunImport = hubRunImport;
 /* Version stamp and update check: GitHub Pages and phones hold old copies, so look for a newer build and offer a reload. */
-const APP_BUILD = '2026.11.15e';
+const APP_BUILD = '2026.11.15f';
 let _updSeen = '';
 function updCheck() {
   if (!/^https?:/.test(location.protocol)) return;
@@ -19530,14 +19594,15 @@ function tnOpen() {
   tnOv().innerHTML = '<div class="rs-box tn-box" role="dialog" aria-label="Tuner"><div class="rs-h">Tuner</div><div class="rs-sub" id="tn-msg">Allow the microphone, then pick one string at a time.</div>' +
     '<div class="tn-note" id="tn-note">·</div><div class="tn-meter"><span class="tn-mid"></span><span class="tn-needle" id="tn-needle"></span></div><div class="tn-cents" id="tn-cents">&nbsp;</div>' +
     '<div class="tn-strs">' + st.map((s, i) => '<span class="tn-s" id="tn-s' + i + '">' + slEsc(s.name) + '</span>').join('') + '</div>' +
-    '<div class="rs-btns"><button class="btn" onclick="tnClose()">Done</button></div></div>';
+    '<div id="tn-mic"></div><div class="rs-btns"><button class="btn" onclick="tnClose()">Done</button></div></div>';
   tnOv().style.display = 'flex';
   tnStartMic();
 }
 async function tnStartMic() {
   const msg = document.getElementById('tn-msg');
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
+    const stream = await navigator.mediaDevices.getUserMedia(micConstraints(false));
+    micPickerHtml().then(x => { const p = document.getElementById('tn-mic'); if (p) p.innerHTML = x; });
     const ctx = new (window.AudioContext || window.webkitAudioContext)(), src = ctx.createMediaStreamSource(stream), an = ctx.createAnalyser();
     an.fftSize = 8192; src.connect(an);
     _tn = { stream: stream, ctx: ctx, an: an, buf: new Float32Array(an.fftSize), hist: [], t: 0 };
@@ -19573,6 +19638,226 @@ function tnClose() {
   tnOv().style.display = 'none';
 }
 window.tnOpen = tnOpen; window.tnClose = tnClose; window.tnDetect = tnDetect; window.tnRead = tnRead;
+
+
+/* ════ PHASE 15: TIMING CHECK, RIFF COACH, RIG (HEADRUSH) ════ */
+/* ── Input device choice, shared by tuner and timing check ── */
+const MIC_KEY = 'grimoire_mic_dev';
+function micConstraints(aec) {
+  let id = ''; try { id = localStorage.getItem(MIC_KEY) || ''; } catch (e) {}
+  const a = { echoCancellation: !!aec, noiseSuppression: false, autoGainControl: false };
+  if (id) a.deviceId = { ideal: id };
+  return { audio: a };
+}
+async function micPickerHtml() {
+  try {
+    const l = (await navigator.mediaDevices.enumerateDevices()).filter(d => d.kind === 'audioinput' && d.label);
+    if (l.length < 2) return '';
+    let cur = ''; try { cur = localStorage.getItem(MIC_KEY) || ''; } catch (e) {}
+    return '<label class="mic-pick">Input <select onchange="micSet(this.value)">' + l.map(d => '<option value="' + slEsc(d.deviceId) + '"' + (d.deviceId === cur ? ' selected' : '') + '>' + slEsc(d.label) + '</option>').join('') + '</select></label>';
+  } catch (e) { return ''; }
+}
+function micSet(id) { try { localStorage.setItem(MIC_KEY, id); } catch (e) {} if (_tn) { tnClose(); tnOpen(); } }
+window.micSet = micSet;
+
+/* ── Timing check: play to the click, get scored ── */
+const TC_LAT = 'grimoire_tc_lat';
+let _tc = { bpm: 100, div: 2, hp: false, state: 'idle', res: null };
+function tcOnsets(x, sr) {
+  const hop = Math.max(32, Math.round(sr * 0.003)), n = Math.floor(x.length / hop), env = new Float32Array(n);
+  let prev = 0;
+  for (let i = 0; i < n; i++) { let e = 0; const o = i * hop; for (let j = 0; j < hop; j++) { const v = x[o + j], d = v - prev; prev = v; e += v * v + 4 * d * d; } env[i] = Math.log(1e-7 + e / hop); }
+  const k = Math.max(2, Math.round(0.012 * sr / hop)), flux = new Float32Array(n);
+  let mx = 0; for (let i = k; i < n; i++) { const f = env[i] - env[i - k]; flux[i] = f > 0 ? f : 0; if (flux[i] > mx) mx = flux[i]; }
+  let peakE = -99; for (let i = 0; i < n; i++) if (env[i] > peakE) peakE = env[i];
+  const out = [], thr = Math.max(1.2, mx * 0.3), gap = Math.round(0.07 * sr / hop);
+  for (let i = k + 1; i < n - 1; i++) {
+    if (flux[i] >= thr && flux[i] >= flux[i - 1] && flux[i] > flux[i + 1] && env[Math.min(n - 1, i + 1)] > peakE - 5.5) {
+      if (out.length && i - out[out.length - 1].i < gap) continue;
+      let j = i; while (j > i - k && flux[j - 1] > 0.15 * flux[i]) j--;
+      out.push({ i: i, t: j * hop / sr });
+    }
+  }
+  return out.map(o => o.t);
+}
+function tcScore(on, bpm, div, t0, bars, lat) {
+  const step = 60 / bpm / div, total = bars * 4 * div, hits = [];
+  on.forEach(t => { const r = (t - t0) / step, g = Math.round(r); if (g >= 0 && g < total) hits.push({ g: g, off: (r - g) * step * 1000 }); });
+  const by = {}; hits.forEach(h => { if (!(h.g in by) || Math.abs(h.off) < Math.abs(by[h.g].off)) by[h.g] = h; });
+  const u = Object.keys(by).map(g => by[g]).sort((a, b) => a.g - b.g);
+  if (u.length < 4) return { ok: false, n: u.length, total: total };
+  const s = u.map(h => h.off).sort((a, b) => a - b), med = s[s.length >> 1], cal = lat !== null && lat !== undefined;
+  const base = cal ? lat : med;
+  u.forEach(h => { h.d = h.off - base; });
+  const tol = Math.min(30, step * 1000 * 0.2), on2 = u.filter(h => Math.abs(h.d) <= tol).length;
+  const mean = u.reduce((a, h) => a + h.d, 0) / u.length, sd = Math.sqrt(u.reduce((a, h) => a + (h.d - mean) * (h.d - mean), 0) / u.length);
+  const half = u.length >> 1, m1 = u.slice(0, half).reduce((a, h) => a + h.d, 0) / half, m2 = u.slice(half).reduce((a, h) => a + h.d, 0) / (u.length - half);
+  return { ok: true, n: u.length, total: total, pct: Math.round(100 * on2 / total), hitPct: Math.round(100 * on2 / u.length), sd: Math.round(sd), mean: Math.round(mean), drift: Math.round(m2 - m1), cal: cal, tol: Math.round(tol), hits: u };
+}
+function tcOv() { let ov = document.getElementById('tc-overlay'); if (!ov) { ov = document.createElement('div'); ov.id = 'tc-overlay'; ov.className = 'rs-overlay'; document.body.appendChild(ov); } return ov; }
+function tcOpen(bpm) { if (bpm >= 40) _tc.bpm = Math.min(220, Math.round(bpm)); _tc.state = 'idle'; _tc.res = null; tcDraw(); tcOv().style.display = 'flex'; }
+function tcClose() { tcStop(); tcOv().style.display = 'none'; }
+function tcSet(k, v) { if (_tc.state === 'run') return; _tc[k] = v; if (k === 'bpm') _tc.bpm = Math.max(40, Math.min(220, v)); tcDraw(); }
+function tcVerdict(r) {
+  if (!r.ok) return ['Not enough hits heard', 'I only heard ' + r.n + ' of ' + r.total + '. Turn the guitar up, move the phone closer, or pick the right input.'];
+  const tips = [];
+  if (r.n < r.total * 0.8) tips.push('You played ' + r.n + ' of ' + r.total + ' hits. Slow down 10 BPM until every hit lands.');
+  if (Math.abs(r.drift) >= 12) tips.push(r.drift < 0 ? 'You speed up as the bars go on. Tap your foot on the quarter notes.' : 'You fall behind as the bars go on. Relax the picking hand and keep the motion small.');
+  if (r.cal && Math.abs(r.mean) >= 12) tips.push(r.mean < 0 ? 'You sit ahead of the beat (rushing) by about ' + Math.abs(r.mean) + ' ms.' : 'You sit behind the beat (dragging) by about ' + r.mean + ' ms.');
+  if (r.sd >= 22 && tips.length < 2) tips.push('Your hits are uneven (spread ' + r.sd + ' ms). Accent the first hit of every beat.');
+  if (!tips.length) tips.push(r.pct >= 90 ? 'Locked in. Add 5 BPM and go again.' : 'Close. Get three takes over 90, then add 5 BPM.');
+  return [r.pct >= 90 ? 'Locked in' : r.pct >= 75 ? 'Tight' : r.pct >= 55 ? 'Getting there' : 'Loose', tips.join(' ')];
+}
+function tcDraw() {
+  const r = _tc.res, run = _tc.state === 'run', divs = [[1, 'Quarters'], [2, 'Eighths'], [4, 'Sixteenths']];
+  let h = '<div class="rs-box tc-box" role="dialog" aria-label="Timing check"><div class="rs-h">Timing check</div>';
+  if (run) h += '<div class="tc-live" id="tc-live">GET READY</div><div class="rs-sub">One bar of clicks to count you in, then play four bars of steady ' + divs.find(d => d[0] === _tc.div)[1].toLowerCase() + '.</div><div class="tc-beats" id="tc-beats">' + [0, 1, 2, 3].map(i => '<span></span>').join('') + '</div><div class="rs-btns"><button class="btn" onclick="tcStop();tcDraw()">Stop</button></div>';
+  else {
+    if (r) {
+      const v = tcVerdict(r);
+      h += '<div class="tc-score"><b>' + (r.ok ? r.pct : '·') + '</b><span>' + v[0] + '</span></div>';
+      if (r.ok) h += '<div class="tc-strip"><span class="tc-zone" style="width:' + (r.tol * 2 / 1.6) + '%"></span>' + r.hits.map(x => '<i class="' + (Math.abs(x.d) <= r.tol ? 'ok' : '') + '" style="left:' + (50 + Math.max(-78, Math.min(78, x.d)) / 1.6) + '%"></i>').join('') + '</div><div class="tc-axis"><span>early</span><span>on the beat</span><span>late</span></div>';
+      h += '<div class="tc-tip">' + v[1] + '</div>';
+    } else h += '<div class="rs-sub">Palm mute the low string and play steady hits to the click. You get a score and one thing to fix.</div>';
+    h += '<div class="pa-row tc-row"><button class="fg-play" onclick="tcSet(\'bpm\',_tc.bpm-5)">−5</button><b class="pa-bpm">' + _tc.bpm + '</b><button class="fg-play" onclick="tcSet(\'bpm\',_tc.bpm+5)">+5</button><span class="ls-sub">BPM</span></div>' +
+      '<div class="plc-as tc-divs">' + divs.map(d => '<button class="plc-a' + (_tc.div === d[0] ? ' on' : '') + '" onclick="tcSet(\'div\',' + d[0] + ')">' + d[1] + '</button>').join('') + '</div>' +
+      '<label class="tc-hp"><input type="checkbox"' + (_tc.hp ? ' checked' : '') + ' onchange="tcSet(\'hp\',this.checked)"> I hear the click in headphones or through my board</label><div id="tc-mic"></div>' +
+      '<div class="rs-btns"><button class="btn" onclick="tcRun()">▶ ' + (r ? 'Go again' : 'Start') + '</button><button class="btn" onclick="tcClose()">Done</button></div>';
+  }
+  tcOv().innerHTML = h + '</div>';
+  if (!run) micPickerHtml().then(x => { const el = document.getElementById('tc-mic'); if (el) el.innerHTML = x; });
+}
+function tcStop() {
+  if (_tc.timer) clearInterval(_tc.timer); _tc.timer = null;
+  if (_tc.proc) { try { _tc.proc.disconnect(); _tc.src.disconnect(); } catch (e) {} _tc.proc = null; }
+  if (_tc.stream) { try { _tc.stream.getTracks().forEach(t => t.stop()); } catch (e) {} _tc.stream = null; }
+  if (_tc.ctx) { try { _tc.ctx.close(); } catch (e) {} _tc.ctx = null; }
+  if (_tc.state === 'run') _tc.state = 'idle';
+}
+async function tcRun() {
+  tcStop(); _tc.res = null;
+  let stream; try { stream = await navigator.mediaDevices.getUserMedia(micConstraints(!_tc.hp)); } catch (e) { try { showToast('The microphone is blocked. Allow it to use the timing check.'); } catch (e2) {} return; }
+  const ctx = new (window.AudioContext || window.webkitAudioContext)(), src = ctx.createMediaStreamSource(stream), proc = ctx.createScriptProcessor(2048, 1, 1), mute = ctx.createGain();
+  mute.gain.value = 0; src.connect(proc); proc.connect(mute); mute.connect(ctx.destination);
+  const chunks = []; let recStart = null;
+  proc.onaudioprocess = e => { if (recStart === null) recStart = ctx.currentTime - 2048 / ctx.sampleRate; chunks.push(new Float32Array(e.inputBuffer.getChannelData(0))); };
+  Object.assign(_tc, { stream: stream, ctx: ctx, src: src, proc: proc, state: 'run' });
+  const beat = 60 / _tc.bpm, bars = 4, t0 = ctx.currentTime + 0.5, play0 = t0 + 4 * beat, end = play0 + bars * 4 * beat;
+  for (let i = 0; i < 4 + bars * 4; i++) paClickTone(ctx, t0 + i * beat, i % 4 === 0);
+  tcDraw();
+  _tc.timer = setInterval(() => {
+    if (!_tc.ctx) return; const t = ctx.currentTime, b = Math.floor((t - t0) / beat), live = document.getElementById('tc-live'), dots = document.querySelectorAll('#tc-beats span');
+    if (live) live.textContent = b < 0 ? 'GET READY' : b < 4 ? 'COUNT IN · ' + (b + 1) : 'PLAY · BAR ' + Math.min(bars, Math.floor((b - 4) / 4) + 1) + ' OF ' + bars;
+    dots.forEach((d, i) => d.classList.toggle('on', b >= 0 && b % 4 === i));
+    if (t > end + 0.35) {
+      let n = 0; chunks.forEach(c => { n += c.length; }); const x = new Float32Array(n); let o = 0; chunks.forEach(c => { x.set(c, o); o += c.length; });
+      const sr = ctx.sampleRate, st = recStart || 0, lat = null;
+      const on = tcOnsets(x, sr).map(v => v + st);
+      _tc.res = tcScore(on, _tc.bpm, _tc.div, play0, bars, lat); _tc.res.bpm = _tc.bpm;
+      tcStop(); _tc.state = 'idle'; tcDraw();
+    }
+  }, 60);
+}
+window.tcOpen = tcOpen; window.tcClose = tcClose; window.tcSet = tcSet; window.tcRun = tcRun; window.tcStop = tcStop; window.tcDraw = tcDraw; window.tcOnsets = tcOnsets; window.tcScore = tcScore;
+
+/* ── Riff coach: build your own riff in four small steps ── */
+const RC_KEY = 'grimoire_myriffs';
+const RC_FEEL = {
+  breakdown: { name: 'Breakdown', bpm: 90, why: 'Slow, heavy, lots of space. The gaps are what make it hit.', pats: ['1000100010100000', '1010000010001010', '1000001010000010', '1001000010010000', '1010001000001010'] },
+  driving: { name: 'Driving', bpm: 140, why: 'Steady chugs that push forward. Notes replace chugs, the engine never stops.', pats: ['1111111111111111', '1011101110111011', '1111101111111011', '1110111011101110'] },
+  gallop: { name: 'Gallop', bpm: 120, why: 'Long, short short. One, and-a, two, and-a.', pats: ['1011101110111011', '1011101110101010', '1011100010111000', '1011101110001011'] },
+  bounce: { name: 'Bounce', bpm: 110, why: 'Groups of 3, 3 and 2 against the beat. This is the classic metalcore bounce.', pats: ['1001001010010010', '1001001000100100', '1001001010100100', '1011001011001010'] }
+};
+const RC_MOOD = {
+  dark: { name: 'Dark', sub: 'natural minor', iv: [0, 2, 3, 5, 7, 8, 10], pick: [3, 5, 7, 2, 8, 10] },
+  evil: { name: 'Evil', sub: 'Phrygian', iv: [0, 1, 3, 5, 7, 8, 10], pick: [1, 3, 1, 5, 7, 8] },
+  exotic: { name: 'Exotic', sub: 'harmonic minor', iv: [0, 2, 3, 5, 7, 8, 11], pick: [11, 8, 7, 3, 2, 5] }
+};
+const RC_AMT = [['None', 0], ['A few', 2], ['More', 4], ['Run', 6]];
+let _rc = { feel: 'breakdown', mood: 'evil', amt: 1, slots: null, bpm: 90, name: '' };
+function rcRand(a) { return a[Math.floor(Math.random() * a.length)]; }
+function rcNewRhythm() { const f = RC_FEEL[_rc.feel]; let p = rcRand(f.pats), tries = 0; const cur = (_rc.slots || []).map(v => v ? 1 : 0).join(''); while (p === cur && tries++ < 6) p = rcRand(f.pats); _rc.slots = p.split('').map(c => c === '1' ? { t: 1 } : null); rcNewNotes(true); }
+function rcNewNotes(keep) {
+  const m = RC_MOOD[_rc.mood], want = RC_AMT[_rc.amt][1], idx = [];
+  _rc.slots.forEach((s, i) => { if (s) { s.t = 1; delete s.o; idx.push(i); } });
+  if (!want || idx.length < 2) return;
+  const cand = idx.filter(i => i > 0), n = Math.min(want, cand.length - (want >= 6 ? 0 : 1));
+  let chosen = [];
+  if (want >= 6) chosen = cand.slice(-n);                                   /* a run at the end of the bar */
+  else { const pool = cand.slice(); while (chosen.length < n && pool.length) { const pref = pool.filter(i => i % 4 === 2 || i >= 12); const src = pref.length && Math.random() < 0.7 ? pref : pool; const i = rcRand(src); chosen.push(i); pool.splice(pool.indexOf(i), 1); } }
+  chosen.sort((a, b) => a - b);
+  let last = -1; chosen.forEach((i, k) => { let o = want >= 6 ? m.iv[(k + 1) % m.iv.length] : rcRand(m.pick); if (o === last) o = m.pick[(m.pick.indexOf(o) + 1) % m.pick.length]; last = o; _rc.slots[i].t = 2; _rc.slots[i].o = o; });
+}
+function rcEvents() {
+  const ev = []; _rc.slots.forEach((s, i) => { if (!s) return; if (s.t === 1) ev.push({ c: i * 2, s: 0, f: 0 }); else { const p = s.o <= 8 ? { s: 0, f: s.o } : lsPlace(s.o); ev.push({ c: i * 2, s: p.s, f: p.f }); } });
+  return ev;
+}
+function rcNoteName(o) { return FG_PC[(lsKeyPc() + o) % 12]; }
+function rcSet(k, v) {
+  _rc[k] = v;
+  if (k === 'feel') { _rc.bpm = RC_FEEL[v].bpm; rcNewRhythm(); } else if (k === 'mood' || k === 'amt') rcNewNotes();
+  rcRender();
+}
+function rcTap(i) {
+  const s = _rc.slots[i], m = RC_MOOD[_rc.mood];
+  if (!s) _rc.slots[i] = { t: 1 }; else if (s.t === 1) { s.t = 2; s.o = rcRand(m.pick); } else { const k = m.pick.indexOf(s.o); if (k >= 0 && k < 2) s.o = m.pick[k + 1 + Math.floor(Math.random() * 2)]; else _rc.slots[i] = null; }
+  rcRender();
+}
+function rcBpm(d) { _rc.bpm = Math.max(50, Math.min(220, _rc.bpm + d)); rcRender(); }
+function rcList() { try { const a = JSON.parse(localStorage.getItem(RC_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+function rcSave() {
+  const l = rcList(), f = RC_FEEL[_rc.feel], m = RC_MOOD[_rc.mood], base = m.name + ' ' + f.name.toLowerCase(); let n = 1; while (l.some(x => x.name === base + ' ' + n)) n++;
+  l.unshift({ name: base + ' ' + n, feel: _rc.feel, mood: _rc.mood, bpm: _rc.bpm, slots: _rc.slots.map(s => s ? (s.t === 1 ? 1 : [s.o]) : 0), ts: Date.now() });
+  try { localStorage.setItem(RC_KEY, JSON.stringify(l.slice(0, 40))); } catch (e) {} try { if (typeof syncSchedulePush === 'function') syncSchedulePush(); } catch (e) {}
+  try { showToast('Saved as ' + base + ' ' + n); } catch (e) {} rcRender();
+}
+function rcLoad(i) { const x = rcList()[i]; if (!x) return; _rc.feel = RC_FEEL[x.feel] ? x.feel : 'breakdown'; _rc.mood = RC_MOOD[x.mood] ? x.mood : 'dark'; _rc.bpm = x.bpm || 100; _rc.slots = x.slots.map(s => s === 1 ? { t: 1 } : Array.isArray(s) ? { t: 2, o: s[0] } : null); rcRender(); try { window.scrollTo(0, 0); } catch (e) {} }
+function rcDel(i) { const l = rcList(); l.splice(i, 1); try { localStorage.setItem(RC_KEY, JSON.stringify(l)); } catch (e) {} rcRender(); }
+function rcCoach() {
+  const n = _rc.slots.filter(s => s && s.t === 2).length, c = _rc.slots.filter(s => s).length, tips = [];
+  if (c >= 15 && _rc.feel !== 'driving') tips.push('It is very full. Tap two purple blocks to turn them into rests and let it breathe.');
+  if (c <= 4) tips.push('Lots of space. That works for a breakdown, but try adding one chug right before beat 3.');
+  if (!n) tips.push('All chugs: this is your rhythm skeleton. Loop it until it feels automatic, then set Notes to "A few".');
+  else if (n <= 2) tips.push('The bright blocks are your hook. Play the riff twice, then change only the last bright note the second time.');
+  else tips.push('Busy riff. Make sure the chugs stay palm muted and the bright notes ring out, so the two parts sound different.');
+  return tips[0];
+}
+function rcRender() {
+  const el = document.getElementById('write-root'); if (!el) return;
+  if (!_rc.slots) rcNewRhythm();
+  const f = RC_FEEL[_rc.feel], m = RC_MOOD[_rc.mood], cnt = ['1', 'e', '&', 'a'];
+  const chips = (obj, key, cur) => Object.keys(obj).map(k => '<button class="plc-a' + (cur === k ? ' on' : '') + '" onclick="rcSet(\'' + key + '\',\'' + k + '\')">' + obj[k].name + (obj[k].sub ? '<small>' + obj[k].sub + '</small>' : '') + '</button>').join('');
+  let h = '<div class="rc-top"><div class="ls-eyebrow">YOUR RIFF · ' + m.name.toUpperCase() + ' ' + f.name.toUpperCase() + ' · ' + rcNoteName(0) + ' ' + m.sub.toUpperCase() + '</div>';
+  h += '<div class="rc-grid">' + _rc.slots.map((s, i) => '<button class="rc-b' + (s ? (s.t === 2 ? ' note' : ' chug') : '') + (i % 4 === 0 ? ' beat' : '') + '" onclick="rcTap(' + i + ')"><b>' + (s ? (s.t === 2 ? rcNoteName(s.o) : '●') : '') + '</b><i>' + (i % 4 === 0 ? (i / 4 + 1) : cnt[i % 4]) + '</i></button>').join('') + '</div>';
+  h += '<div class="rc-key"><span class="k1">● chug</span><span class="k2">note</span><span class="k0">rest</span><span>Tap any block to change it</span></div>';
+  h += makeTab('YOUR RIFF', lsRows(rcEvents()), 'Play at ' + _rc.bpm + ' BPM. Palm mute the 0s, let the other notes ring. [grid8]', 'Lowest string is the bottom line.');
+  h += '<div class="pa-row"><button class="fg-play" onclick="rcBpm(-5)">−5</button><b class="pa-bpm">' + _rc.bpm + '</b><button class="fg-play" onclick="rcBpm(5)">+5</button><span class="ls-sub">BPM</span></div>';
+  h += '<div class="ls-btns"><button class="ls-go" onclick="paOpen({bpm:' + _rc.bpm + ',label:\'My riff\'})">▶ Play it over drums</button><button class="fg-open" onclick="tcOpen(' + _rc.bpm + ')">Check my timing</button><button class="fg-open" onclick="rcSave()">Save riff</button></div>';
+  h += '<div class="ls-cue"><b>Coach:</b> ' + rcCoach() + '</div></div>';
+  h += '<div class="rc-step"><div class="rc-n">1</div><div class="rc-body"><div class="rc-t">Pick a feel</div><div class="plc-as">' + chips(RC_FEEL, 'feel', _rc.feel) + '</div><div class="rc-why">' + f.why + '</div></div></div>';
+  h += '<div class="rc-step"><div class="rc-n">2</div><div class="rc-body"><div class="rc-t">Shape the rhythm</div><div class="ls-btns"><button class="fg-open" onclick="rcNewRhythm();rcRender()">🎲 New rhythm</button></div><div class="rc-why">Or tap blocks in the grid above. Dark is a rest, purple is a chug.</div></div></div>';
+  h += '<div class="rc-step"><div class="rc-n">3</div><div class="rc-body"><div class="rc-t">Pick a mood</div><div class="plc-as rc-3">' + chips(RC_MOOD, 'mood', _rc.mood) + '</div><div class="rc-why">Notes come from ' + rcNoteName(0) + ' ' + m.sub + ': ' + m.iv.map(rcNoteName).join(' ') + '</div></div></div>';
+  h += '<div class="rc-step"><div class="rc-n">4</div><div class="rc-body"><div class="rc-t">Add notes</div><div class="plc-as rc-4">' + RC_AMT.map((a, i) => '<button class="plc-a' + (_rc.amt === i ? ' on' : '') + '" onclick="rcSet(\'amt\',' + i + ')">' + a[0] + '</button>').join('') + '</div><div class="ls-btns"><button class="fg-open" onclick="rcNewNotes();rcRender()">🎲 New notes</button></div></div></div>';
+  h += '<div class="rc-step"><div class="rc-n">5</div><div class="rc-body"><div class="rc-t">Make it yours</div><div class="rc-why">Loop the riff on your board\'s looper, then play it again an octave up, or change the last two notes. When it sticks, save it.</div></div></div>';
+  const l = rcList();
+  if (l.length) h += '<div class="hub-lbl">MY RIFFS</div>' + l.map((x, i) => '<div class="rc-saved"><button class="hub-c" onclick="rcLoad(' + i + ')"><span class="hub-t"><b>' + slEsc(x.name) + '</b><i>' + (x.bpm || '') + ' BPM</i></span><span class="hub-a">›</span></button><button class="sl-rm" onclick="rcDel(' + i + ')">remove</button></div>').join('');
+  el.innerHTML = h;
+}
+window.rcRender = rcRender; window.rcSet = rcSet; window.rcTap = rcTap; window.rcBpm = rcBpm; window.rcSave = rcSave; window.rcLoad = rcLoad; window.rcDel = rcDel; window.rcNewRhythm = rcNewRhythm; window.rcNewNotes = rcNewNotes;
+TAB_OF.write = 'play'; TAB_OF.rig = 'play';
+/* ── Rig page: HeadRush Flex Prime ── */
+function rigRender() {
+  const el = document.getElementById('rig-root'); if (!el) return;
+  const card = (eye, t, body) => '<div class="ls-card"><div class="ls-eyebrow">' + eye + '</div><div class="ls-h2">' + t + '</div>' + body + '</div>';
+  const ol = a => '<ol class="rig-ol">' + a.map(x => '<li>' + x + '</li>').join('') + '</ol>';
+  el.innerHTML =
+    card('HOOKUP 1 · PHONE OR LAPTOP', 'Hear the app through your board', ol(['Run a 3.5 mm cable from your phone or laptop headphone output to the <b>AUX IN</b> on the Flex Prime.', 'Plug your headphones into the board.', 'Backing tracks, the click and your guitar now come out together, at your amp tone.']) + '<div class="ls-sub">A phone with no headphone jack needs its small adapter.</div>') +
+    card('HOOKUP 2 · MAC', 'Cleaner tuner and timing check', ol(['Connect the Flex Prime to your Mac with USB and open this app on the Mac.', 'Open the Tuner or Timing check and choose the HeadRush under <b>Input</b>.', 'In Timing check, tick "I hear the click in headphones or through my board".']) + '<div class="ls-sub">The app then hears your guitar directly, with no room noise. On a phone it uses the phone microphone.</div><div class="ls-btns"><button class="fg-open" onclick="tnOpen()">🎤 Tuner</button><button class="fg-open" onclick="tcOpen()">Timing check</button></div>') +
+    card('WRITE WITH THE LOOPER', 'Loop it, then answer it', ol(['Build a riff in <b>Write a riff</b> and learn the rhythm with all chugs first.', 'Record one bar of it on the Flex Prime looper.', 'While it loops, try the bright notes from the grid on top, one change at a time.', 'Keep what sounds good and save the riff in the app.']) + '<div class="ls-btns"><button class="ls-go" onclick="goTo(\'write\',null)">▶ Write a riff</button></div>') +
+    card('TONE STARTING POINTS', 'Three presets worth saving', '<div class="rig-tone"><b>Tight rhythm</b><span>Noise gate first. Overdrive in front with drive near 0 and level up. High-gain amp with gain around 5, bass 4, mids 5 to 6, treble 6. Low cut near 90 Hz so the low string stays clear.</span></div><div class="rig-tone"><b>Lead</b><span>Same amp, mids up a little. Add a delay around 350 ms at a low mix and a small reverb.</span></div><div class="rig-tone"><b>Clean</b><span>Clean amp, light compressor, a touch of chorus and reverb.</span></div><div class="ls-sub">These are starting points to adjust by ear, not exact HeadRush model names.</div>') +
+    card('SLOW IT DOWN', 'Practice Tool on the board', '<div class="ls-sub">The Flex Prime Practice Tool can load songs from Dropbox over Wi-Fi, then loop or slow a section. Put a course guitar track in Dropbox to slow down a riff you are learning.</div>');
+}
+window.rigRender = rigRender;
 
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
