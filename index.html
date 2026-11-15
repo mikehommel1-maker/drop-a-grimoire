@@ -4396,6 +4396,15 @@ body.lp-open{overflow:hidden}
 .lp-bpm small{font-size:9px;color:#8f84a3;margin-left:3px;font-family:var(--mono)}
 .lp-key{justify-content:center}
 .rc-top .tab-block{overflow:visible!important;margin-top:18px}
+/* coach voice */
+.ls-say{position:relative;padding:10px 12px 10px 58px;min-height:48px;background:rgba(168,61,255,.1);border:1px solid rgba(168,61,255,.3);border-radius:4px 14px 14px 14px;font-size:15px;line-height:1.35;color:#f1eafa;margin:10px 0 12px}
+.ls-say::before{content:'VEX';position:absolute;left:8px;top:8px;width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:12px;letter-spacing:1px;color:#fff;background:linear-gradient(180deg,#a83dff,#4a0b8c);clip-path:polygon(50% 0,100% 28%,100% 72%,50% 100%,0 72%,0 28%)}
+.tdy-say{margin:4px 0 14px}
+.rc-why,.riff-desc,.tab-comment{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
+.rc-why.open,.riff-desc.open,.tab-comment.open{display:block}
+.lp-lbl{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:#8f84a3}
+.lp-bar{padding:8px 11px;min-width:36px}
+.lp-hint{font-size:10px;color:#8f84a3;width:100%;text-align:center}
 </style>
   <!-- Firebase SDK for cross-device sync -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -18751,7 +18760,7 @@ function lsDrillHtml(d, f, target, key, label) {
   if (d.feel && !d.gen) h += lsFeelHtml();
   if (d.scale && f) { const nm = lsScaleNames(d.name.indexOf('raised') >= 0 || f.k === 'hmin' ? [0, 2, 3, 5, 7, 8, 11] : f.k === 'phry' ? [0, 1, 3, 5, 7, 8, 10] : [0, 2, 3, 5, 7, 8, 10]); h += '<div class="ls-notes">Notes: ' + nm.join(' ') + '</div>'; }
   h += '<div class="ls-cue"><b>Listen for:</b> ' + slEsc(d.cue) + '</div>';
-  h += '<div class="ls-tempo">Start at <b>' + Math.max(40, Math.round(target * 0.75 / 5) * 5) + ' BPM</b>. After three clean reps in a row, add 5 BPM. Work up toward <b>' + target + ' BPM</b>.</div>';
+  h += '<div class="ls-tempo">Start <b>' + Math.max(40, Math.round(target * 0.75 / 5) * 5) + '</b>. Three clean reps, add 5. Goal <b>' + target + ' BPM</b>.</div>';
   h += '<div class="ls-btns"><button class="ls-go" onclick="paOpen({target:' + target + ',label:\'' + slEsc(d.name).replace(/&#39;/g, '') + '\'})">▶ Play along with a count-in</button></div>' + lsRepsHtml(key, 3);
   return h;
 }
@@ -18775,13 +18784,13 @@ function lsRenderRun(keepScroll) {
   let body = '';
   if (st.k === 'hello') {
     const last = h.log.length ? h.log[h.log.length - 1] : null, lf = last ? lsFind(last.id) : null;
-    body = '<div class="ls-say">Welcome back. Let us get set up and then dig into <b>' + slEsc(f.title) + '</b>' + (f.k && !(f.core && f.core.path) ? ' (' + slEsc(sk.short.toLowerCase()) + ', ' + LS_TIERS[tier.tier].toLowerCase() + ' level)' : '') + '.</div>' +
-      '<div class="ls-cue"><b>Tune up first.</b> Your ' + slEsc(pp.display) + ' should read ' + fgTun().names.join(' ') + ' from the lowest string to the highest. A guitar that is slightly out of tune makes everything you practice sound worse.</div><div class="ls-btns"><button class="fg-open" onclick="tnOpen()">🎤 Open the tuner</button></div>' +
+    body = '<div class="ls-say">Alright. Today is <b>' + slEsc(f.title) + '</b>' + (f.k && !(f.core && f.core.path) ? ' (' + slEsc(sk.short.toLowerCase()) + ', ' + LS_TIERS[tier.tier].toLowerCase() + ' level)' : '') + '. Tune up, then we work.</div>' +
+      '<div class="ls-cue"><b>Tune up first.</b> Your ' + slEsc(pp.display) + ' should read ' + fgTun().names.join(' ') + ' low to high. Out of tune means wasted reps.</div><div class="ls-btns"><button class="fg-open" onclick="tnOpen()">🎤 Open the tuner</button></div>' +
       (last && lf && lf.core ? '<div class="ls-card ls-inner"><div class="ls-eyebrow">LAST TIME</div><div>' + slEsc(lf.title) + ': ' + slEsc((LS_RATINGS[last.result] || LS_RATINGS.close).label) + '</div><div class="ls-hw"><b>Homework was:</b> ' + slEsc(lf.core.hw) + '</div></div>' : '') +
       '<div class="ls-card ls-inner"><div class="ls-eyebrow">TODAY\'S PLAN (ABOUT ' + run.mins + ' MIN)</div>' + stages.map((s, i) => '<div class="ls-plan"><span>' + (i + 1) + '. ' + slEsc(s.title) + '</span><span>' + s.mins + ' min</span></div>').join('') + '</div>';
   } else if (st.k === 'warm') {
     const w = LS_WARM.find(x => x.id === run.warm) || LS_WARM[0], wt = Math.round(target * (w.bpmMul || 0.8) / 5) * 5;
-    body = '<div class="ls-say">Warm up first. Nothing fast, nothing forced.</div>' + lsDrillHtml({ name: w.name, say: w.say, cue: 'Relaxed hands and an even sound.', gen: w.gen }, null, Math.max(40, wt), 'warm', 'WARM-UP');
+    body = '<div class="ls-say">Warm up. Slow and loose. Speed comes later.</div>' + lsDrillHtml({ name: w.name, say: w.say, cue: 'Relaxed hands and an even sound.', gen: w.gen }, null, Math.max(40, wt), 'warm', 'WARM-UP');
   } else if (st.k === 'learn') {
     const c = f.core, sk2 = f.k;
     body = '<div class="ls-h2">' + slEsc(c.title) + '</div><div class="ls-say">' + slEsc(c.idea) + '</div>' + (c.visual ? lsVisual(c.visual) : '') + '<div class="ls-lbl">HERE IS HOW</div><ol class="ls-steps">' + c.how.map(x => '<li>' + slEsc(x) + '</li>').join('') + '</ol>' +
@@ -18799,13 +18808,13 @@ function lsRenderRun(keepScroll) {
   } else if (st.k === 'riff') {
     body = tdyRiffHtml(run, target);
   } else if (st.k === 'show') {
-    body = '<div class="ls-say">Time to show me. Play the goal for the lesson with a drum track: <b>' + slEsc(f.core ? f.core.goal : 'the idea from this lesson') + '</b> Four bars, no stopping, no fixing. If you can, record it.</div>' +
+    body = '<div class="ls-say">Show me. <b>' + slEsc(f.core ? f.core.goal : 'The idea from this lesson.') + '</b> Four bars. No stopping.</div>' +
       '<div class="ls-btns"><button class="ls-go" onclick="paOpen({target:' + target + ',label:\'Show me\'})">▶ Start the test with a count-in</button><button class="fg-open" onclick="tcOpen(' + (run.reached || target) + ')">🎯 Score my timing</button></div>' +
       '<div class="ls-lbl">HOW DID IT GO?</div><div class="ls-chips">' + Object.keys(LS_RATINGS).map(r => '<button class="pa-chip' + (run.rating === r ? ' on' : '') + '" onclick="lsRate(\'' + r + '\')">' + LS_RATINGS[r].label + '</button>').join('') + '</div>' +
       '<div class="ls-lbl">FASTEST TEMPO YOU PLAYED CLEANLY</div><div class="pa-row"><button class="fg-play" onclick="lsReached(-5)">−5</button><b class="pa-bpm">' + run.reached + '</b><button class="fg-play" onclick="lsReached(5)">+5</button><span class="ls-sub">BPM. Next lesson on this skill builds from here.</span></div>';
   } else if (st.k === 'wrap') {
     const rt = LS_RATINGS[run.rating] || null;
-    body = '<div class="ls-say">' + (run.rating === 'nailed' ? 'That is what I wanted to see. ' : run.rating === 'more' ? 'That is fine. Some ideas take a few passes, and I will bring it back. ' : 'Good work. ') + 'Here is what to do before next time.</div>' +
+    body = '<div class="ls-say">' + (run.rating === 'nailed' ? 'That is the one. Bank it. ' : run.rating === 'more' ? 'Not there yet. Fine. I will bring it back. ' : 'Solid work. ') + 'Homework is below.</div>' +
       (f.core ? '<div class="ls-hw"><b>Homework:</b> ' + slEsc(f.core.hw) + '</div>' : '<div class="ls-hw"><b>Homework:</b> Revisit the steps from this walkthrough once a day.</div>') +
       '<div class="ls-sub">' + (rt && f.k ? 'Saving this lesson adds ' + rt.inc + '% to ' + slEsc(sk.label) + '. ' : '') + (!run.rating ? 'You have not rated how it went. You can go back to the last step, or finish and it will count as close.' : '') + '</div>' +
       '<div class="ls-btns"><button class="ls-go" onclick="lsFinish()">Save lesson and finish</button></div>';
@@ -19322,6 +19331,7 @@ function crsImport(o) {
     if (!r || !btIdOk(r.id) || typeof r.title !== 'string' || typeof r.sec !== 'string') { bad++; return; }
     const it = { sec: r.sec.slice(0, 60), title: r.title.slice(0, 80), id: r.id };
     ['pdf', 'demo', 'drum'].forEach(k => { if (btIdOk(r[k])) it[k] = r[k]; });
+    try { const t = r.tab; if (t && Array.isArray(t.rows) && t.rows.length >= 4 && t.rows.length <= 9 && t.rows.every(x => Array.isArray(x) && typeof x[0] === 'string' && typeof x[1] === 'string' && x[0].length < 4 && x[1].length < 6000 && /^[-0-9xXhp\/\\~b^| ]*$/.test(x[1]))) it.tab = { rows: t.rows.map(x => [x[0], x[1]]), div: [4, 8, 12, 16, 24, 48].indexOf(t.div) >= 0 ? t.div : 4, bpm: (t.bpm >= 40 && t.bpm <= 300) ? Math.round(t.bpm) : 100, tun: Array.isArray(t.tun) && t.tun.length === t.rows.length && t.tun.every(m => m >= 10 && m <= 90) ? t.tun.map(Number) : null }; } catch (e) {}
     const ex = cur.find(x => x.id === r.id);
     if (ex) { if (JSON.stringify(ex) !== JSON.stringify(Object.assign({}, ex, it))) { Object.assign(ex, it); upd++; } return; }
     cur.push(it); n++;
@@ -19331,9 +19341,11 @@ function crsImport(o) {
 }
 let _crsImp = false, _crsView = null;
 function crsView(id, kind) { _crsView = (_crsView && _crsView.id === id && _crsView.kind === kind) ? null : { id: id, kind: kind }; if (_lsRun) { try { lsRenderRun(true); } catch (e) {} } else crsRender(); }
+function crsPlayTab(id) { const x = crsLib().find(y => y.id === id); if (x && x.tab) lpOpen({ rows: x.tab.rows, div: x.tab.div, bpm: x.tab.bpm, tun: x.tab.tun, title: x.sec + ' · ' + x.title, speed: 0.75 }); }
+window.crsPlayTab = crsPlayTab;
 function crsViewBtns(x) {
   const on = k => _crsView && _crsView.id === x.id && _crsView.kind === k;
-  return (x.pdf ? '<button class="fg-open' + (on('pdf') ? ' on' : '') + '" onclick="crsView(\'' + x.id + '\',\'pdf\')">' + (on('pdf') ? 'Hide tab' : 'Show tab') + '</button>' : '') +
+  return (x.tab ? '<button class="ls-go" onclick="crsPlayTab(\'' + x.id + '\')">▶ Play along</button>' : '') + (x.pdf ? '<button class="fg-open' + (on('pdf') ? ' on' : '') + '" onclick="crsView(\'' + x.id + '\',\'pdf\')">' + (on('pdf') ? 'Hide tab' : 'Show tab') + '</button>' : '') +
     (x.demo ? '<button class="fg-open' + (on('demo') ? ' on' : '') + '" onclick="crsView(\'' + x.id + '\',\'demo\')">' + (on('demo') ? 'Hide player' : 'Hear it') + '</button>' : '') +
     (x.drum ? '<button class="fg-open' + (on('drum') ? ' on' : '') + '" onclick="crsView(\'' + x.id + '\',\'drum\')">' + (on('drum') ? 'Hide drums' : 'Its drum track') + '</button>' : '');
 }
@@ -19448,12 +19460,24 @@ function tdyLogMins(m) {
     d.mins = (d.mins || 0) + m; d.date = today; saveDayData(today, d);
   } catch (e) {}
 }
+function tdyCoach(run, done) {
+  let h = null; try { h = lsHist(); } catch (e) {}
+  const log = h ? h.log : [], last = log.length ? log[log.length - 1] : null, gap = last ? Math.floor((Date.now() - last.ts) / 864e5) : -1;
+  let streak = 0; try { streak = +(document.getElementById('stat-streak') || {}).textContent || 0; } catch (e) {}
+  if (run) return 'You left one unfinished. Pick it up.';
+  if (done) return streak >= 3 ? streak + ' days straight. That is how it gets built.' : 'Logged. Go again, or rest those hands.';
+  if (!last) return 'First session. Show me where you are at.';
+  if (gap >= 3) return 'Been ' + gap + ' days. Easy start, then we push.';
+  if (streak >= 3) return streak + ' days running. Do not break the chain.';
+  if (last.result === 'more') return 'Last one fought back. Good. That is where you grow.';
+  return 'Guitar in hand. Let us work.';
+}
 function tdyStart() { const p = tdyPick(); if (!p) { goTo('lesson', null); return; } goTo('lesson', null); lsStart(p.id, tdyMins(), { today: 1 }); }
 function tdyResume() { goTo('lesson', null); lsResume(); }
 function tdyCycle(id) { const p = crsProg(), r = p[id] || {}; r.s = ((r.s || 0) + 1) % 4; p[id] = r; crsProgSave(p); try { lsRenderRun(true); } catch (e) {} }
 function tdyRiffHtml(run, target) {
   const bpm = run.reached || target || 100, r = tdyRiff(), t = tdyTrack(bpm);
-  let h = '<div class="ls-say">Now play for real. Take a riff and put it over a drum track, start to finish, without stopping to fix things.</div>';
+  let h = '<div class="ls-say">Now play it for real. Drums on, start to finish. No stopping to fix things.</div>';
   if (r) {
     const st = (crsProg()[r.id] || {}).s || 0;
     h += '<div class="ls-card ls-inner"><div class="ls-eyebrow">FROM YOUR RIFF LIBRARY</div><div class="ls-h2">' + slEsc(r.sec + ' · ' + r.title) + '</div>' +
@@ -19479,7 +19503,7 @@ function homeLessonRender() {
   let stage = -1; if (run) { const st = lsBuildStages(run)[run.stage]; stage = !st ? 0 : (st.k === 'hello' || st.k === 'warm') ? 0 : st.k === 'riff' ? 2 : (st.k === 'show' || st.k === 'wrap') ? 3 : 1; }
   const steps = [['Warm up', 'Hands and timing'], ['Learn', title], ['Riff and track', riff ? riff.sec + ' · ' + riff.title : 'Over real drums'], ['Show and save', 'Logs your progress']];
   el.innerHTML = '<div class="tdy-card"><div class="tdy-eye">' + (run ? 'IN PROGRESS' : done ? '✓ DONE TODAY' : 'TODAY') + ' · ' + mins + ' MIN</div>' +
-    '<div class="tdy-title">' + slEsc(title) + '</div><div class="tdy-sub">' + slEsc(run ? 'Pick up where you left off.' : done ? 'Today is logged. Go again if you want more.' : p.why) + '</div>' +
+    '<div class="tdy-title">' + slEsc(title) + '</div><div class="ls-say tdy-say">' + slEsc(tdyCoach(run, done)) + '</div>' +
     '<div class="tdy-steps">' + steps.map((s, i) => '<div class="tdy-step' + (i < stage ? ' done' : i === stage ? ' cur' : '') + '"><span class="tdy-n">' + (i < stage ? '✓' : i + 1) + '</span><span class="tdy-st"><b>' + s[0] + '</b><i>' + slEsc(s[1]) + '</i></span></div>').join('') + '</div>' +
     (!run && !done && !plcPlaced() && !h.log.length ? '<div class="tdy-place"><span>New here? Set your levels first so lessons start in the right place.</span><button class="fg-open" onclick="plcOpen()">1 min check</button></div>' : '') +
     (run ? '' : '<div class="tdy-chips">' + [10, 15, 20, 30].map(m => '<button class="plan-chip' + (m === mins ? ' active' : '') + '" onclick="tdySetMins(' + m + ')">' + m + ' MIN</button>').join('') + '</div>') +
@@ -19551,7 +19575,7 @@ function hubRunImport() {
 }
 window.hubRunImport = hubRunImport;
 /* Version stamp and update check: GitHub Pages and phones hold old copies, so look for a newer build and offer a reload. */
-const APP_BUILD = '2026.11.15h';
+const APP_BUILD = '2026.11.15i';
 let _updSeen = '';
 function updCheck() {
   if (!/^https?:/.test(location.protocol)) return;
@@ -19564,6 +19588,7 @@ function updCheck() {
   }).catch(() => {});
 }
 document.addEventListener('DOMContentLoaded', () => { setTimeout(updCheck, 1500); });
+document.addEventListener('click', e => { const t = e.target.closest ? e.target.closest('.ls-cue,.ls-hw,.rc-why,.riff-desc,.tab-comment') : null; if (t && !e.target.closest('button,a')) t.classList.toggle('open'); });
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') updCheck(); });
 /* One-tap private setup link: #setup=<base64 json>. The hash never leaves the browser. */
 function setupFromHash() {
@@ -19752,11 +19777,11 @@ function tcSet(k, v) { if (_tc.state === 'run') return; _tc[k] = v; if (k === 'b
 function tcVerdict(r) {
   if (!r.ok) return ['Not enough hits heard', 'I only heard ' + r.n + ' of ' + r.total + '. Turn the guitar up, move the phone closer, or pick the right input.'];
   const tips = [];
-  if (r.n < r.total * 0.8) tips.push('You played ' + r.n + ' of ' + r.total + ' hits. Slow down 10 BPM until every hit lands.');
-  if (Math.abs(r.drift) >= 12) tips.push(r.drift < 0 ? 'You speed up as the bars go on. Tap your foot on the quarter notes.' : 'You fall behind as the bars go on. Relax the picking hand and keep the motion small.');
+  if (r.n < r.total * 0.8) tips.push(r.n + ' of ' + r.total + ' hits. Too fast for today. Drop 10 BPM.');
+  if (Math.abs(r.drift) >= 12) tips.push(r.drift < 0 ? 'You are rushing. Tap your foot and sit back.' : 'You are dragging. Smaller pick motion, stay loose.');
   if (r.cal && Math.abs(r.mean) >= 12) tips.push(r.mean < 0 ? 'You sit ahead of the beat (rushing) by about ' + Math.abs(r.mean) + ' ms.' : 'You sit behind the beat (dragging) by about ' + r.mean + ' ms.');
-  if (r.sd >= 22 && tips.length < 2) tips.push('Your hits are uneven (spread ' + r.sd + ' ms). Accent the first hit of every beat.');
-  if (!tips.length) tips.push(r.pct >= 90 ? 'Locked in. Add 5 BPM and go again.' : 'Close. Get three takes over 90, then add 5 BPM.');
+  if (r.sd >= 22 && tips.length < 2) tips.push('Uneven hits. Accent the first one of every beat.');
+  if (!tips.length) tips.push(r.pct >= 90 ? 'That is tight. Add 5 BPM. Again.' : 'Close. Three takes over 90, then we speed up.');
   return [r.pct >= 90 ? 'Locked in' : r.pct >= 75 ? 'Tight' : r.pct >= 55 ? 'Getting there' : 'Loose', tips.join(' ')];
 }
 function tcDraw() {
@@ -19768,7 +19793,7 @@ function tcDraw() {
       const v = tcVerdict(r);
       h += '<div class="tc-score"><b>' + (r.ok ? r.pct : '·') + '</b><span>' + v[0] + '</span></div>';
       if (r.ok) h += '<div class="tc-strip"><span class="tc-zone" style="width:' + (r.tol * 2 / 1.6) + '%"></span>' + r.hits.map(x => '<i class="' + (Math.abs(x.d) <= r.tol ? 'ok' : '') + '" style="left:' + (50 + Math.max(-78, Math.min(78, x.d)) / 1.6) + '%"></i>').join('') + '</div><div class="tc-axis"><span>early</span><span>on the beat</span><span>late</span></div>';
-      h += '<div class="tc-tip">' + v[1] + '</div>';
+      h += '<div class="ls-say">' + v[1] + '</div>';
     } else h += '<div class="rs-sub">Palm mute the low string and play steady hits to the click. You get a score and one thing to fix.</div>';
     h += '<div class="pa-row tc-row"><button class="fg-play" onclick="tcSet(\'bpm\',_tc.bpm-5)">−5</button><b class="pa-bpm">' + _tc.bpm + '</b><button class="fg-play" onclick="tcSet(\'bpm\',_tc.bpm+5)">+5</button><span class="ls-sub">BPM</span></div>' +
       '<div class="plc-as tc-divs">' + divs.map(d => '<button class="plc-a' + (_tc.div === d[0] ? ' on' : '') + '" onclick="tcSet(\'div\',' + d[0] + ')">' + d[1] + '</button>').join('') + '</div>' +
@@ -19866,11 +19891,11 @@ function rcLoad(i) { const x = rcList()[i]; if (!x) return; _rc.feel = RC_FEEL[x
 function rcDel(i) { const l = rcList(); l.splice(i, 1); try { localStorage.setItem(RC_KEY, JSON.stringify(l)); } catch (e) {} rcRender(); }
 function rcCoach() {
   const n = _rc.slots.filter(s => s && s.t === 2).length, c = _rc.slots.filter(s => s).length, tips = [];
-  if (c >= 15 && _rc.feel !== 'driving') tips.push('It is very full. Tap two purple blocks to turn them into rests and let it breathe.');
-  if (c <= 4) tips.push('Lots of space. That works for a breakdown, but try adding one chug right before beat 3.');
-  if (!n) tips.push('All chugs: this is your rhythm skeleton. Loop it until it feels automatic, then set Notes to "A few".');
-  else if (n <= 2) tips.push('The bright blocks are your hook. Play the riff twice, then change only the last bright note the second time.');
-  else tips.push('Busy riff. Make sure the chugs stay palm muted and the bright notes ring out, so the two parts sound different.');
+  if (c >= 15 && _rc.feel !== 'driving') tips.push('Too crowded. Kill two purple blocks. Let it breathe.');
+  if (c <= 4) tips.push('Lots of air. Add one chug right before beat 3.');
+  if (!n) tips.push('That is the skeleton. Loop it until it is automatic. Then add a few notes.');
+  else if (n <= 2) tips.push('Gold blocks are your hook. Second time through, change only the last one.');
+  else tips.push('Busy. Chugs muted, gold notes ringing. Make them sound like two parts.');
   return tips[0];
 }
 function rcRender() {
@@ -19884,7 +19909,7 @@ function rcRender() {
   h += makeTab('YOUR RIFF', lsRows(rcEvents()), 'Play at ' + _rc.bpm + ' BPM. Palm mute the 0s, let the other notes ring. [grid8]', 'Lowest string is the bottom line.');
   h += '<div class="pa-row"><button class="fg-play" onclick="rcBpm(-5)">−5</button><b class="pa-bpm">' + _rc.bpm + '</b><button class="fg-play" onclick="rcBpm(5)">+5</button><span class="ls-sub">BPM</span></div>';
   h += '<div class="ls-btns"><button class="ls-go" onclick="lpOpen({rows:lsRows(rcEvents()),bpm:_rc.bpm,div:8,title:\'My riff\'})">▶ Watch and play along</button><button class="fg-open" onclick="paOpen({bpm:' + _rc.bpm + ',label:\'My riff\'})">Over drums</button><button class="fg-open" onclick="tcOpen(' + _rc.bpm + ')">Check my timing</button><button class="fg-open" onclick="rcSave()">Save riff</button></div>';
-  h += '<div class="ls-cue"><b>Coach:</b> ' + rcCoach() + '</div></div>';
+  h += '<div class="ls-say">' + rcCoach() + '</div></div>';
   h += '<div class="rc-step"><div class="rc-n">1</div><div class="rc-body"><div class="rc-t">Pick a feel</div><div class="plc-as">' + chips(RC_FEEL, 'feel', _rc.feel) + '</div><div class="rc-why">' + f.why + '</div></div></div>';
   h += '<div class="rc-step"><div class="rc-n">2</div><div class="rc-body"><div class="rc-t">Shape the rhythm</div><div class="ls-btns"><button class="fg-open" onclick="rcNewRhythm();rcRender()">🎲 New rhythm</button></div><div class="rc-why">Or tap blocks in the grid above. Dark is a rest, purple is a chug.</div></div></div>';
   h += '<div class="rc-step"><div class="rc-n">3</div><div class="rc-body"><div class="rc-t">Pick a mood</div><div class="plc-as rc-3">' + chips(RC_MOOD, 'mood', _rc.mood) + '</div><div class="rc-why">Notes come from ' + rcNoteName(0) + ' ' + m.sub + ': ' + m.iv.map(rcNoteName).join(' ') + '</div></div></div>';
@@ -19973,28 +19998,46 @@ function lpOpen(o) {
   lpClose(true);
   try { sndStop(); } catch (e) {} try { if (typeof _stopTabSample === 'function') _stopTabSample(); } catch (e) {} try { if (typeof stopRiffAudio === 'function') stopRiffAudio(); } catch (e) {}
   const P = lpParseRows(o.rows); if (!P.groups.length) { try { showToast('No notes to play'); } catch (e) {} return; }
-  const tun = _fbTun().midi, div = o.div || 4;
+  const tun = (Array.isArray(o.tun) && o.tun.length) ? o.tun : _fbTun().midi, div = o.div || 4;
   P.notes.forEach(n => { n.midi = (n.row < tun.length ? tun[n.row] : 40) + Math.max(0, n.fret); });
   const lastCol = P.groups[P.groups.length - 1].col, bar = div * 4;
   const fr = P.notes.filter(n => n.fret > 0).map(n => n.fret), mn = fr.length ? Math.min.apply(null, fr) : 0, mx = fr.length ? Math.max.apply(null, fr) : 0;
   const lo = mn <= 4 ? 0 : mn - 1, hi = Math.max(lo + 5, mx + 1);
   _lp = { P: P, div: div, base: Math.max(40, Math.min(240, Math.round(o.bpm || 80))), speed: o.speed || 1, title: String(o.title || 'Play along').slice(0, 60), loopCols: Math.max(bar, Math.ceil((lastCol + 1) / bar) * bar),
-    lo: lo, hi: hi, playing: false, loop: true, click: true, guitar: true, step: 0, raf: 0 };
+    lo: lo, hi: hi, playing: false, loop: true, beat: 'click', guitar: true, step: 0, raf: 0, selA: null, selB: null };
+  lpView();
   const ov = lpOv();
   ov.innerHTML = '<div class="lp-box" role="dialog" aria-label="Play along"><div class="lp-head"><div class="lp-title">' + slEsc(_lp.title) + '</div><button class="lp-x" onclick="lpClose()" aria-label="Close">×</button></div>' +
     '<div class="lp-now" id="lp-now"></div><canvas id="lp-neck" class="lp-neck"></canvas><canvas id="lp-lane" class="lp-lane"></canvas>' +
     '<div class="lp-ctl"><button class="lp-stepb" onclick="lpStep(-1)" aria-label="Previous note">◀</button><button class="lp-play" id="lp-play" onclick="lpToggle()">▶ PLAY</button><button class="lp-stepb" onclick="lpStep(1)" aria-label="Next note">▶</button></div>' +
-    '<div class="lp-row" id="lp-speed"></div><div class="lp-row" id="lp-tog"></div>' +
+    '<div class="lp-row" id="lp-sec"></div><div class="lp-row" id="lp-speed"></div><div class="lp-row" id="lp-tog"></div>' +
     '<div class="tabx-key lp-key"><i style="background:#4cc9f0"></i>index<i style="background:#7ee0a0"></i>middle<i style="background:#e9c46a"></i>ring<i style="background:#ff6b8f"></i>pinky<i style="background:#a79bc0"></i>open</div></div>';
   ov.style.display = 'flex'; document.body.classList.add('lp-open');
   lpCtl(); lpSize(); lpDraw();
 }
+function lpView() {
+  const L = _lp, bar = L.div * 4, nb = L.loopCols / bar; let a = 0, b = nb - 1;
+  if (L.selA != null) { a = Math.min(L.selA, L.selB); b = Math.max(L.selA, L.selB); }
+  let c0 = a * bar, cl = (b - a + 1) * bar, G = L.P.groups.filter(g => g.col >= c0 && g.col < c0 + cl).map(g => ({ col: g.col - c0, notes: g.notes, pos: g.pos }));
+  if (!G.length) { L.selA = L.selB = null; c0 = 0; cl = L.loopCols; G = L.P.groups; }
+  L.G = G; L.len = cl; L.c0 = c0; L.step = 0;
+}
+function lpSec(i) {
+  if (!_lp) return; const was = _lp.playing; if (was) lpStop();
+  if (i < 0) _lp.selA = _lp.selB = null; else if (_lp.selA == null || _lp.selA !== _lp.selB) _lp.selA = _lp.selB = i; else _lp.selB = i;
+  lpView(); lpCtl(); if (was) lpPlay(); else lpDraw();
+}
+function lpBeatMode() { if (!_lp) return; _lp.beat = _lp.beat === 'click' ? 'drums' : _lp.beat === 'drums' ? 'off' : 'click'; lpCtl(); }
+window.lpSec = lpSec; window.lpBeatMode = lpBeatMode;
 function lpBpm() { return Math.max(30, Math.round(_lp.base * _lp.speed)); }
 function lpCtl() {
   if (!_lp) return;
   const sp = document.getElementById('lp-speed'), tg = document.getElementById('lp-tog'), pb = document.getElementById('lp-play');
   if (sp) sp.innerHTML = [0.5, 0.75, 1].map(v => '<button class="lp-chip' + (_lp.speed === v ? ' on' : '') + '" onclick="lpSet(\'speed\',' + v + ')">' + (v * 100) + '%</button>').join('') + '<button class="lp-chip" onclick="lpSet(\'base\',' + (_lp.base - 5) + ')">−5</button><b class="lp-bpm">' + lpBpm() + '<small>BPM</small></b><button class="lp-chip" onclick="lpSet(\'base\',' + (_lp.base + 5) + ')">+5</button>';
-  if (tg) tg.innerHTML = [['loop', 'Loop'], ['click', 'Click'], ['guitar', _lp.guitar ? 'Guitar sound' : 'Guitar muted']].map(x => '<button class="lp-chip' + (_lp[x[0]] ? ' on' : '') + '" onclick="lpSet(\'' + x[0] + '\',' + (!_lp[x[0]]) + ')">' + x[1] + '</button>').join('');
+  if (tg) tg.innerHTML = [['loop', 'Loop'], ['guitar', _lp.guitar ? 'Guitar sound' : 'Guitar muted']].map(x => '<button class="lp-chip' + (_lp[x[0]] ? ' on' : '') + '" onclick="lpSet(\'' + x[0] + '\',' + (!_lp[x[0]]) + ')">' + x[1] + '</button>').join('') +
+    '<button class="lp-chip' + (_lp.beat !== 'off' ? ' on' : '') + '" onclick="lpBeatMode()">' + (_lp.beat === 'drums' ? 'Drums' : _lp.beat === 'click' ? 'Click' : 'No beat') + '</button>';
+  const sc = document.getElementById('lp-sec'), nb = _lp.loopCols / (_lp.div * 4);
+  if (sc) { if (nb < 2) sc.innerHTML = ''; else { const a = _lp.selA == null ? -1 : Math.min(_lp.selA, _lp.selB), b = _lp.selA == null ? -1 : Math.max(_lp.selA, _lp.selB); let h = '<span class="lp-lbl">BARS</span><button class="lp-chip' + (a < 0 ? ' on' : '') + '" onclick="lpSec(-1)">All</button>'; for (let i = 0; i < nb; i++) h += '<button class="lp-chip lp-bar' + (i >= a && i <= b ? ' on' : '') + '" onclick="lpSec(' + i + ')">' + (i + 1) + '</button>'; sc.innerHTML = h + (a >= 0 && a === b && nb > 2 ? '<span class="lp-hint">tap another bar to extend</span>' : ''); } }
   if (pb) { pb.textContent = _lp.playing ? '■ STOP' : '▶ PLAY'; pb.classList.toggle('on', _lp.playing); }
 }
 function lpSet(k, v) {
@@ -20016,20 +20059,26 @@ function lpPlay() {
     if (!_lp) return;
     const g = ctx.createGain(); g.gain.setValueAtTime(0.6, ctx.currentTime); g.connect(ctx.destination);
     const beat = 60 / lpBpm();
-    Object.assign(_lp, { ctx: ctx, gain: g, playing: true, startT: ctx.currentTime + 0.12 + 4 * beat, gi: 0, k: 0, cb: -4, endAt: 0 });
+    Object.assign(_lp, { ctx: ctx, gain: g, playing: true, startT: ctx.currentTime + 0.12 + 4 * beat, gi: 0, k: 0, cb: -16, endAt: 0 });
     _lp.timer = setInterval(lpTick, 25); lpTick(); lpCtl();
     cancelAnimationFrame(_lp.raf); _lp.raf = requestAnimationFrame(lpFrame);
   });
 }
 function lpTick() {
   if (!_lp || !_lp.playing) return;
-  const L = _lp, ctx = L.ctx, hz = ctx.currentTime + 0.2, st = lpStepSec(), beat = st * L.div, loopDur = L.loopCols * st, G = L.P.groups;
+  const L = _lp, ctx = L.ctx, hz = ctx.currentTime + 0.2, st = lpStepSec(), beat = st * L.div, loopDur = L.len * st, G = L.G;
   while (!L.endAt) {
     const g = G[L.gi], t = L.startT + L.k * loopDur + g.col * st; if (t > hz) break;
-    if (L.guitar) { const nx = G[L.gi + 1], dur = Math.min(1.4, Math.max(0.08, ((nx ? nx.col : L.loopCols) - g.col) * st * 0.95)); g.notes.forEach(n => { try { scheduleGuitarNote(ctx, L.gain, sndMidiFreq(n.midi), t, n.fret < 0 ? 0.04 : dur, n.fret < 0 ? 0.5 : 1); } catch (e) {} }); }
+    if (L.guitar) { const nx = G[L.gi + 1], dur = Math.min(1.4, Math.max(0.08, ((nx ? nx.col : L.len) - g.col) * st * 0.95)); g.notes.forEach(n => { try { scheduleGuitarNote(ctx, L.gain, sndMidiFreq(n.midi), t, n.fret < 0 ? 0.04 : dur, n.fret < 0 ? 0.5 : 1); } catch (e) {} }); }
     L.gi++; if (L.gi >= G.length) { if (L.loop) { L.gi = 0; L.k++; } else { L.gi = G.length - 1; L.endAt = L.startT + (L.k + 1) * loopDur; } }
   }
-  for (;;) { const tb = L.startT + L.cb * beat; if (tb > hz || (L.endAt && tb >= L.endAt)) break; if (L.click || L.cb < 0) paClickTone(ctx, tb, ((L.cb % 4) + 4) % 4 === 0); L.cb++; }
+  for (;;) {
+    const q = beat / 4, tb = L.startT + L.cb * q; if (tb > hz || (L.endAt && tb >= L.endAt)) break;
+    const s16 = ((L.cb % 16) + 16) % 16;
+    if (L.cb < 0 || L.beat === 'click') { if (s16 % 4 === 0) paClickTone(ctx, tb, s16 === 0); }
+    else if (L.beat === 'drums') { try { const ps = PA_STYLES.rock; if (ps.kick.indexOf(s16) >= 0) playKick(ctx, tb); if (ps.snare.indexOf(s16) >= 0) playSnare(ctx, tb); if (ps.hat.indexOf(s16) >= 0) playHihat(ctx, tb, false); } catch (e) {} }
+    L.cb++;
+  }
   if (L.endAt && ctx.currentTime > L.endAt + 0.05) { lpStop(); lpCtl(); lpDraw(); }
 }
 function lpStop() {
@@ -20040,15 +20089,15 @@ function lpStop() {
 function lpClose(quiet) { if (_lp) lpStop(); _lp = null; const ov = document.getElementById('lp-overlay'); if (ov) { ov.style.display = 'none'; ov.innerHTML = ''; } document.body.classList.remove('lp-open'); }
 function lpStep(d) {
   if (!_lp) return; if (_lp.playing) lpStop();
-  const G = _lp.P.groups; _lp.step = (_lp.step + d + G.length) % G.length; lpCtl(); lpDraw();
+  const G = _lp.G; _lp.step = (_lp.step + d + G.length) % G.length; lpCtl(); lpDraw();
   ensureAudio().then(ctx => { if (!_lp) return; const g = ctx.createGain(); g.gain.value = 0.6; g.connect(ctx.destination); G[_lp.step].notes.forEach(n => { try { scheduleGuitarNote(ctx, g, sndMidiFreq(n.midi), ctx.currentTime + 0.02, n.fret < 0 ? 0.04 : 0.5); } catch (e) {} }); });
 }
 function lpFrame() { if (!_lp || !_lp.playing) return; lpDraw(); _lp.raf = requestAnimationFrame(lpFrame); }
 /* position in columns; negative during the count-in */
-function lpPos() { const L = _lp; if (!L.playing) return { pos: L.P.groups[L.step].col, cur: L.step, count: 0 }; const raw = (L.ctx.currentTime - L.startT) / lpStepSec(); if (raw < 0) return { pos: raw, cur: -1, count: Math.min(4, Math.floor(raw / L.div) + 5) }; const pos = L.loop ? raw % L.loopCols : Math.min(raw, L.loopCols); let cur = -1; L.P.groups.forEach((g, i) => { if (g.col <= pos + 0.05) cur = i; }); return { pos: pos, cur: cur, count: 0 }; }
+function lpPos() { const L = _lp; if (!L.playing) return { pos: L.G[L.step].col, cur: L.step, count: 0 }; const raw = (L.ctx.currentTime - L.startT) / lpStepSec(); if (raw < 0) return { pos: raw, cur: -1, count: Math.min(4, Math.floor(raw / L.div) + 5) }; const pos = L.loop ? raw % L.len : Math.min(raw, L.len); let cur = -1; L.G.forEach((g, i) => { if (g.col <= pos + 0.05) cur = i; }); return { pos: pos, cur: cur, count: 0 }; }
 function lpRR(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
 function lpDraw() {
-  if (!_lp) return; const L = _lp, P = L.P, S = lpPos(), col = lpFingerColors(), G = P.groups;
+  if (!_lp) return; const L = _lp, P = L.P, S = lpPos(), col = lpFingerColors(), G = L.G;
   const cur = S.cur >= 0 ? G[S.cur] : null, nxt = G[(S.cur + 1 + G.length) % G.length] || null;
   /* text line */
   const now = document.getElementById('lp-now');
@@ -20090,7 +20139,7 @@ function lpDraw() {
     reps.forEach(m => {
       if (m < 0 && S.pos < 0) return;
       G.forEach((g, gi) => {
-        const cc = g.col + m * L.loopCols, x = X(cc); if (x < gx - 30 || x > W + 30) return;
+        const cc = g.col + m * L.len, x = X(cc); if (x < gx - 30 || x > W + 30) return;
         const live = m === 0 && gi === S.cur && (L.playing ? S.pos - g.col < Math.max(1.2, L.div / 3) : true), past = cc < S.pos - 0.05 && !live;
         g.notes.forEach(n => {
           const w = n.w > 1 ? 26 : 21, h = 21, y = top + n.row * rh + rh / 2 - h / 2, cl = n.fret < 0 ? '#5b5170' : col[n.finger], sc = live ? 1.22 : 1;
