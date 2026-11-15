@@ -4252,6 +4252,48 @@ h3::before{content:'';position:absolute;left:0;top:1px;bottom:1px;width:5px;back
 .crs-bl{font-family:var(--mono);font-size:10px;color:#b9acc9;display:flex;align-items:center;gap:6px}
 .crs-bpm{width:64px;background:#07040f;border:1px solid rgba(168,61,255,.3);color:#fff;padding:5px;font-family:var(--mono);font-size:12px}
 @media (max-width:420px){.crs-mech{grid-template-columns:1fr}}
+/* today card, tab bar, hubs */
+#home-plan-card,.home-jump-label,#home .quick-nav{display:none!important}
+.tdy-card{border:1px solid rgba(168,61,255,.45);border-left:5px solid var(--ember);background:linear-gradient(135deg,rgba(136,34,238,.22),rgba(10,4,24,.92) 55%);padding:18px 16px;margin-bottom:16px;clip-path:var(--cut-clip)}
+.tdy-eye{font-family:var(--mono);font-size:10px;letter-spacing:4px;color:var(--flame)}
+.tdy-title{font-family:var(--display);font-size:28px;line-height:1;text-transform:uppercase;letter-spacing:1px;color:#fff;margin:8px 0 6px}
+.tdy-sub{font-size:13px;color:#b9acc9;margin-bottom:14px}
+.tdy-steps{display:grid;gap:0;margin-bottom:14px}
+.tdy-step{display:flex;gap:12px;align-items:center;padding:8px 0;position:relative}
+.tdy-step+.tdy-step::before{content:'';position:absolute;left:13px;top:-8px;height:16px;width:2px;background:rgba(168,61,255,.35)}
+.tdy-n{flex:0 0 28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:14px;color:#fff;border:1px solid rgba(168,61,255,.5);background:#0a0418;clip-path:polygon(50% 0,100% 28%,100% 72%,50% 100%,0 72%,0 28%)}
+.tdy-step.cur .tdy-n,.tdy-step.done .tdy-n{background:var(--ember)}
+.tdy-st{display:flex;flex-direction:column;min-width:0}
+.tdy-st b{font-family:var(--display);font-weight:400;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.tdy-st i{font-style:normal;font-size:12px;color:#b9acc9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tdy-chips{display:flex;gap:6px;margin-bottom:12px}
+.tdy-go{width:100%;font-size:18px!important;padding-top:15px!important;padding-bottom:15px!important}
+.tdy-card .plan-more{margin-top:12px}
+body{padding-bottom:calc(70px + env(safe-area-inset-bottom,0px))}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:290;display:flex;background:rgba(5,3,12,.97);border-top:2px solid var(--ember);padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -6px 24px rgba(0,0,0,.6)}
+.tab{flex:1;background:none;border:0;color:#8f84a3;padding:9px 2px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;font-family:var(--display);font-size:12px;letter-spacing:2px;text-transform:uppercase}
+.tab span{font-size:18px;line-height:1;filter:grayscale(1);opacity:.7}
+.tab.on{color:#fff;background:linear-gradient(180deg,rgba(168,61,255,.28),transparent)}
+.tab.on span{filter:none;opacity:1}
+body.pa-open .tabbar{display:none}
+body .fab-cluster{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+.hub-lbl{font-family:var(--display);font-size:13px;letter-spacing:4px;color:var(--flame);margin:22px 0 8px}
+.hub-c{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:rgba(10,4,24,.85);border:1px solid rgba(168,61,255,.22);color:#fff;padding:13px 12px;margin-bottom:8px;cursor:pointer;clip-path:var(--cut-clip-s)}
+.hub-c:hover{border-color:var(--ember)}
+.hub-i{font-size:20px;flex:0 0 28px;text-align:center}
+.hub-t{flex:1;display:flex;flex-direction:column;min-width:0}
+.hub-t b{font-family:var(--display);font-weight:400;font-size:16px;letter-spacing:1.5px;text-transform:uppercase}
+.hub-t i{font-style:normal;font-size:12px;color:#b9acc9}
+.hub-a{font-size:22px;color:var(--flame)}
+.hub-tracks{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0}
+.hub-tr{background:#0a0418;border:1px solid rgba(168,61,255,.35);color:#fff;padding:9px 2px;cursor:pointer;clip-path:var(--cut-clip-s);min-height:64px}
+.hub-tr:hover{border-color:var(--ember);background:rgba(168,61,255,.2)}
+.hub-tr b{display:block;font-family:var(--display);font-weight:400;font-size:20px;line-height:1}
+.hub-tr i{font-style:normal;font-family:var(--mono);font-size:8px;color:#b9acc9;letter-spacing:.5px}
+.hub-back{background:none;border:0;color:var(--flame);font-family:var(--display);font-size:13px;letter-spacing:3px;text-transform:uppercase;padding:0 0 10px;cursor:pointer}
+.subtabs{display:flex;gap:6px;margin-bottom:14px}
+.subtab{flex:1;background:#0a0418;border:1px solid rgba(168,61,255,.3);color:#b9acc9;padding:9px 2px;font-family:var(--display);font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;clip-path:var(--para)}
+.subtab.on{background:var(--ember);color:#fff;border-color:var(--ember)}
 </style>
   <!-- Firebase SDK for cross-device sync -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -4641,6 +4683,22 @@ h3::before{content:'';position:absolute;left:0;top:1px;bottom:1px;width:5px;back
     <div class="page-lead" id="ls-page-lead">Take a guided lesson, anywhere.</div>
   </div>
   <div id="ls-root"></div>
+</div>
+
+<div id="learn" class="page">
+  <div class="page-header">
+    <div class="page-title">Learn</div>
+    <div class="page-lead">Your course, lessons and reference.</div>
+  </div>
+  <div id="learn-root"></div>
+</div>
+
+<div id="play" class="page">
+  <div class="page-header">
+    <div class="page-title">Play</div>
+    <div class="page-lead">Backing tracks, songs and riffs.</div>
+  </div>
+  <div id="play-root"></div>
 </div>
 
 <div id="course" class="page">
@@ -5685,6 +5743,7 @@ function onPageOpen(id) {
   if (id === 'session' && window.btRender) btRender();
   if (id === 'lesson' && window.lsRender) lsRender();
   if (id === 'course' && window.crsRender) crsRender();
+  try { if (window.tabSync) tabSync(id); } catch (e) {}
   if (id === 'dailytip' && tipCount === 0) setTimeout(fetchTip, 200);
   if (id === 'notepad') { if(!noteInited){noteInited=true;loadNotes();}else if(typeof npActiveProf!=='undefined'&&window._GP_ACTIVE!==npActiveProf){if(typeof npLoadProfile==='function')npLoadProfile(window._GP_ACTIVE);} }
   if (id === 'home') {
@@ -18418,15 +18477,17 @@ function lsBuildStages(run) {
     f.custom.steps.forEach((s, i) => st.push({ k: 'step', i: i, title: 'Step ' + (i + 1), mins: Math.max(2, Math.round(m / Math.max(3, f.custom.steps.length))) }));
     if (f.custom.links.length) st.push({ k: 'extra', title: 'Resources', mins: 2 });
   }
+  if (run.today) st.push({ k: 'riff', title: 'Riff and backing track', mins: 4 });
   st.push({ k: 'show', title: 'Show me', mins: 2 }, { k: 'wrap', title: 'Wrap up', mins: 1 });
   return st;
 }
 function lsExtras(k) {
   return lsCustomLoad().items.filter(c => c.skill === k && c.links.length && !c.steps.length);
 }
-function lsStart(id, mins) {
+function lsStart(id, mins, opt) {
   const f = lsFind(id); if (!f) return;
   const run = { id: id, mins: [10, 15, 20, 30].indexOf(mins) >= 0 ? mins : 20, stage: 0, reps: {}, rating: '', reached: 0, hw: '', started: Date.now() };
+  if (opt && opt.today) run.today = 1;
   run.warm = lsPickWarm();
   run.drills = f.kind === 'core' ? lsPickDrills(f.core, run.mins) : [];
   run.reached = Math.round(lsTarget(f.k || 'chrom', f.core) * 0.85 / 5) * 5;
@@ -18451,7 +18512,8 @@ function lsHwSet(v) { if (!_lsRun) return; _lsRun.hw = v; lsPersist(); lsRenderR
 function lsFinish() {
   if (!_lsRun) return; const run = _lsRun, f = lsFind(run.id); if (!f) { lsDiscard(); return; }
   const h = lsHist(), rt = LS_RATINGS[run.rating] || LS_RATINGS.close;
-  h.log.push({ id: run.id, k: f.k, t: f.t, ts: Date.now(), mins: run.mins, result: run.rating || 'close', bpm: run.reached || 0, hw: run.hw || '' });
+  h.log.push({ id: run.id, k: f.k, t: f.t, ts: Date.now(), mins: run.mins, result: run.rating || 'close', bpm: run.reached || 0, hw: run.hw || '', td: run.today ? 1 : 0 });
+  if (run.today) tdyLogMins(run.mins);
   if (f.k && run.reached && !(f.core && f.core.path)) h.best[f.k] = run.reached;
   h.seen = h.seen.concat([run.warm]).concat(run.drills);
   h.run = null; lsSaveHist(h);
@@ -18461,6 +18523,7 @@ function lsFinish() {
   clearInterval(_lsClock); _lsRun = null; _lsSkip = 0;
   try { showToast('Lesson saved' + (gain ? '. ' + gain : '')); } catch (e) {}
   lsRender();
+  if (run.today) { try { goTo('home', null); } catch (e) {} }
   try { window.scrollTo(0, 0); } catch (e) {}
 }
 
@@ -18614,6 +18677,8 @@ function lsRenderRun(keepScroll) {
   } else if (st.k === 'extra') {
     const links = f.kind === 'custom' ? f.custom.links : lsExtras(f.k).reduce((a, c) => a.concat(c.links), []).concat(f.core && f.core.path ? lsCourseLinks() : []);
     body = '<div class="ls-say">If you want to go further, here are your saved resources for this skill. Pick one and spend a few minutes with it.</div>' + links.map(l => '<div class="bt-link"><a href="' + slEsc(l.url) + '" target="_blank" rel="noopener">' + slEsc(l.title) + '</a></div>').join('');
+  } else if (st.k === 'riff') {
+    body = tdyRiffHtml(run, target);
   } else if (st.k === 'show') {
     body = '<div class="ls-say">Time to show me. Play the goal for the lesson with a drum track: <b>' + slEsc(f.core ? f.core.goal : 'the idea from this lesson') + '</b> Four bars, no stopping, no fixing. If you can, record it.</div>' +
       '<div class="ls-btns"><button class="ls-go" onclick="paOpen({target:' + target + ',label:\'Show me\'})">▶ Start the test with a count-in</button></div>' +
@@ -18822,7 +18887,7 @@ function lsPathHtml() {
 
 
 /* ════ PHASE 10: CLEANUP HELPERS ════ */
-function homeLessonRender() {
+function _homeLessonOld() {
   const el = document.getElementById('home-lesson-card'); if (!el) return;
   let pick = null, h = null;
   try { h = lsHist(); pick = lsNextPick(); } catch (e) {}
@@ -19211,6 +19276,141 @@ function crsRender() {
 }
 window.crsRender = crsRender; window.crsStart = crsStart; window.crsCycle = crsCycle; window.crsBpm = crsBpm; window.crsPlay = crsPlay; window.crsToggleImp = crsToggleImp; window.crsRunImport = crsRunImport;
 
+
+/* ════ PHASE 13: TODAY FLOW, TABS, HUBS, SETUP LINK ════ */
+const TDY_KEY = 'grimoire_today_mins';
+function tdyMins() { let m = 20; try { m = +localStorage.getItem(TDY_KEY) || 20; } catch (e) {} return [10, 15, 20, 30].indexOf(m) >= 0 ? m : 20; }
+function tdySetMins(m) { try { localStorage.setItem(TDY_KEY, String(m)); } catch (e) {} homeLessonRender(); }
+function tdyDayStr(ts) { const d = new Date(ts); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+function tdyDone() { try { const t = tdyDayStr(Date.now()); return lsHist().log.some(l => l.td && tdyDayStr(l.ts) === t); } catch (e) { return false; } }
+function tdyPick() {
+  const h = lsHist(), done = {}; h.log.forEach(l => { done[l.id] = true; });
+  const steps = LS_CORES.filter(c => c.path).sort((a, b) => a.path - b.path), next = steps.find(c => !done[c.id]);
+  const last = h.log.length ? h.log[h.log.length - 1] : null, lastPath = last && /^path-/.test(last.id);
+  let pick = null; try { pick = lsNextPick(); } catch (e) {}
+  const course = next ? { id: next.id, title: next.title, why: 'Course step ' + next.path + ' of ' + steps.length } : null;
+  if (course && (!lastPath || !pick)) return course;
+  return pick ? { id: pick.id, title: pick.title, why: pick.why } : course;
+}
+function tdyRiff() {
+  let lib = [], p = {}; try { lib = crsLib(); p = crsProg(); } catch (e) {}
+  return lib.find(x => (p[x.id] || {}).s === 1) || lib.find(x => !(p[x.id] || {}).s) || null;
+}
+function tdyTrack(bpm) { let l = []; try { l = btLoad().tracks; } catch (e) {} return l.slice().sort((a, b) => Math.abs(a.bpm - bpm) - Math.abs(b.bpm - bpm))[0] || null; }
+function tdyYt(bpm) { return 'https://www.youtube.com/results?search_query=' + encodeURIComponent('metalcore drum backing track ' + bpm + ' bpm'); }
+function tdyLogMins(m) {
+  try {
+    const today = new Date().toISOString().slice(0, 10), d = getDayData(today);
+    if (d._priorMins !== undefined) d._priorMins += m;
+    d.mins = (d.mins || 0) + m; d.date = today; saveDayData(today, d);
+  } catch (e) {}
+}
+function tdyStart() { const p = tdyPick(); if (!p) { goTo('lesson', null); return; } goTo('lesson', null); lsStart(p.id, tdyMins(), { today: 1 }); }
+function tdyResume() { goTo('lesson', null); lsResume(); }
+function tdyCycle(id) { const p = crsProg(), r = p[id] || {}; r.s = ((r.s || 0) + 1) % 4; p[id] = r; crsProgSave(p); try { lsRenderRun(true); } catch (e) {} }
+function tdyRiffHtml(run, target) {
+  const bpm = run.reached || target || 100, r = tdyRiff(), t = tdyTrack(bpm);
+  let h = '<div class="ls-say">Now play for real. Take a riff and put it over a drum track, start to finish, without stopping to fix things.</div>';
+  if (r) {
+    const st = (crsProg()[r.id] || {}).s || 0;
+    h += '<div class="ls-card ls-inner"><div class="ls-eyebrow">FROM YOUR RIFF LIBRARY</div><div class="ls-h2">' + slEsc(r.sec + ' · ' + r.title) + '</div>' +
+      '<div class="ls-btns"><a class="fg-open" href="https://drive.google.com/drive/folders/' + encodeURIComponent(r.id) + '" target="_blank" rel="noopener">Open tab and tracks</a>' +
+      '<button class="crs-st s' + st + '" onclick="tdyCycle(\'' + r.id + '\')">' + CRS_STAT[st] + '</button></div><div class="ls-sub">Tap the marker when it gets cleaner. Learning riffs come back here until they are clean.</div></div>';
+  } else {
+    h += '<div class="ls-cue"><b>Riff:</b> use the last drill from this lesson, four times through.</div>';
+  }
+  h += '<div class="ls-card ls-inner"><div class="ls-eyebrow">BACKING TRACK</div>';
+  if (t) h += '<div class="ls-h2">' + slEsc(t.title) + '</div><div class="ls-sub">' + t.bpm + ' BPM' + (t.key ? ' · ' + slEsc(t.key) : '') + '. Closest to your tempo of ' + bpm + '.</div><div class="ls-btns"><button class="ls-go" onclick="paOpen({bpm:' + t.bpm + ',src:\'tracks\',label:\'Riff and track\'})">▶ Play with this track</button></div>';
+  else h += '<div class="ls-sub">No course tracks on this device yet, so this uses the built-in drums.</div><div class="ls-btns"><button class="ls-go" onclick="paOpen({bpm:' + bpm + ',label:\'Riff and track\'})">▶ Play with drums at ' + bpm + '</button></div>';
+  h += '<div class="bt-link"><a href="' + tdyYt(bpm) + '" target="_blank" rel="noopener">More drum tracks on YouTube at ' + bpm + ' BPM</a></div></div>';
+  return h + lsRepsHtml('rf', 3);
+}
+/* Home: one card, one button */
+function homeLessonRender() {
+  const el = document.getElementById('home-lesson-card'); if (!el) return;
+  let h = null, p = null; try { h = lsHist(); p = tdyPick(); } catch (e) {}
+  const run = h && h.run && lsFind(h.run.id) ? h.run : null, rf = run ? lsFind(run.id) : null;
+  if (!p && !run) { el.innerHTML = ''; return; }
+  const done = tdyDone(), mins = run ? run.mins : tdyMins(), riff = tdyRiff();
+  const title = run ? rf.title : p.title;
+  let stage = -1; if (run) { const st = lsBuildStages(run)[run.stage]; stage = !st ? 0 : (st.k === 'hello' || st.k === 'warm') ? 0 : st.k === 'riff' ? 2 : (st.k === 'show' || st.k === 'wrap') ? 3 : 1; }
+  const steps = [['Warm up', 'Hands and timing'], ['Learn', title], ['Riff and track', riff ? riff.sec + ' · ' + riff.title : 'Over real drums'], ['Show and save', 'Logs your progress']];
+  el.innerHTML = '<div class="tdy-card"><div class="tdy-eye">' + (run ? 'IN PROGRESS' : done ? '✓ DONE TODAY' : 'TODAY') + ' · ' + mins + ' MIN</div>' +
+    '<div class="tdy-title">' + slEsc(title) + '</div><div class="tdy-sub">' + slEsc(run ? 'Pick up where you left off.' : done ? 'Today is logged. Go again if you want more.' : p.why) + '</div>' +
+    '<div class="tdy-steps">' + steps.map((s, i) => '<div class="tdy-step' + (i < stage ? ' done' : i === stage ? ' cur' : '') + '"><span class="tdy-n">' + (i < stage ? '✓' : i + 1) + '</span><span class="tdy-st"><b>' + s[0] + '</b><i>' + slEsc(s[1]) + '</i></span></div>').join('') + '</div>' +
+    (run ? '' : '<div class="tdy-chips">' + [10, 15, 20, 30].map(m => '<button class="plan-chip' + (m === mins ? ' active' : '') + '" onclick="tdySetMins(' + m + ')">' + m + ' MIN</button>').join('') + '</div>') +
+    '<button class="ls-go tdy-go" onclick="' + (run ? 'tdyResume()' : 'tdyStart()') + '">▶ ' + (run ? 'Resume' : done ? 'Go again' : 'Start today') + '</button>' +
+    (typeof modeOfDayHtml === 'function' ? modeOfDayHtml() : '') + '</div>';
+}
+window.homeLessonRender = homeLessonRender;
+/* Tabs and hubs */
+const TAB_OF = { home: 'home', learn: 'learn', course: 'learn', lesson: 'learn', fundamentals: 'learn', scales: 'learn', arpeggios: 'learn', techniques: 'learn', theory: 'learn', dailytip: 'learn', 'ai-coach': 'learn',
+  play: 'play', riff: 'play', recommendations: 'play', session: 'play', metronome: 'play', progress: 'progress', review: 'progress', notepad: 'progress', roadmap: 'progress' };
+const TAB_NAME = { learn: 'Learn', play: 'Play' };
+function tabGo(t) { if (t === 'recommendations') { try { buildRecommendations(); } catch (e) {} } goTo(t, null); }
+function tabSync(id) {
+  const t = TAB_OF[id] || 'home';
+  document.querySelectorAll('#tabbar .tab').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  const pg = document.getElementById(id); if (!pg) return;
+  if (id === 'home') { try { homeLessonRender(); } catch (e) {} }
+  if (id === 'learn' || id === 'play') { hubRender(id); return; }
+  if (t === 'progress' && !pg.querySelector('.subtabs')) {
+    const d = document.createElement('div'); d.className = 'subtabs';
+    d.innerHTML = [['progress', 'Skills'], ['review', 'Review'], ['notepad', 'Notes'], ['roadmap', 'Roadmap']].map(x => '<button class="subtab' + (x[0] === id ? ' on' : '') + '" onclick="goTo(\'' + x[0] + '\',null)">' + x[1] + '</button>').join('');
+    pg.insertBefore(d, pg.firstChild);
+  }
+  if (TAB_NAME[t] && !pg.querySelector('.hub-back')) {
+    const b = document.createElement('button'); b.className = 'hub-back'; b.textContent = '‹ ' + TAB_NAME[t]; b.onclick = () => goTo(t, null);
+    pg.insertBefore(b, pg.firstChild);
+  }
+}
+function hubCard(page, icon, name, sub) { return '<button class="hub-c" onclick="tabGo(\'' + page + '\')"><span class="hub-i">' + icon + '</span><span class="hub-t"><b>' + name + '</b><i>' + sub + '</i></span><span class="hub-a">›</span></button>'; }
+function hubRender(id) {
+  const el = document.getElementById(id + '-root'); if (!el) return;
+  let h = '';
+  if (id === 'learn') {
+    const hist = lsHist(), done = {}; hist.log.forEach(l => { done[l.id] = true; });
+    const steps = LS_CORES.filter(c => c.path), nd = steps.filter(c => done[c.id]).length;
+    let nl = 0; try { nl = crsLib().length; } catch (e) {}
+    h += '<div class="ls-card"><div class="ls-eyebrow">YOUR COURSE</div><div class="ls-h2">Scales, riff mechanics, mastery tabs</div><div class="ls-sub">' + nd + ' of ' + steps.length + ' path steps done' + (nl ? ' · ' + nl + ' riffs in your library' : '') + '.</div>' +
+      '<div class="ls-bar">' + steps.map(c => '<span class="ls-seg' + (done[c.id] ? ' done' : '') + '"></span>').join('') + '</div><div class="ls-btns"><button class="ls-go" onclick="goTo(\'course\',null)">▶ Open the course</button></div></div>';
+    h += '<div class="hub-lbl">LESSONS</div>' + hubCard('lesson', '🎓', 'Pick a lesson', 'Choose a skill, get a guided lesson');
+    h += '<div class="hub-lbl">REFERENCE</div>' + hubCard('techniques', '⚡', 'Techniques', 'Chugs, gallops, legato, sweeps') + hubCard('scales', '≡', 'Scales and chords', 'Fretboard explorer') + hubCard('arpeggios', '◈', 'Arpeggios', 'Sweep shapes') +
+      hubCard('fundamentals', '⊞', 'Fundamentals', 'Tuning and chords for your guitar') + hubCard('theory', '◎', 'Theory', 'Circle of fifths, intervals');
+    h += '<div class="hub-lbl">COACHING</div>' + hubCard('dailytip', '💡', 'Daily tip', 'One thing to focus on') + hubCard('ai-coach', '🤖', 'AI coach', 'Ask a question');
+  } else {
+    let tr = []; try { tr = btLoad().tracks.slice().sort((a, b) => a.bpm - b.bpm); } catch (e) {}
+    const cur = (typeof bpm === 'number') ? bpm : 100;
+    h += '<div class="ls-card"><div class="ls-eyebrow">BACKING TRACKS</div>';
+    if (tr.length) {
+      h += '<div class="ls-h2">' + tr.length + ' course tracks</div><div class="ls-sub">Tap a tempo to play along with a count-in.</div><div class="hub-tracks">' +
+        tr.map(t => '<button class="hub-tr" onclick="paOpen({bpm:' + t.bpm + ',src:\'tracks\',label:\'' + slEsc(t.title).replace(/&#39;/g, '') + '\'});paSet(\'track\',\'' + t.id + '\')"><b>' + t.bpm + '</b><i>' + (t.kind === 'drums+bass' ? 'drums + bass' : 'drums') + (t.key ? '<br>' + slEsc(t.key) : '') + '</i></button>').join('') + '</div>';
+    } else {
+      h += '<div class="ls-h2">Play over drums</div><div class="ls-sub">Your course tracks are not on this device yet. Open your setup link once and they appear here. Until then, use the built-in drums.</div>' +
+        '<div class="ls-btns"><button class="ls-go" onclick="paOpen({})">▶ Built-in drums</button></div>';
+    }
+    h += '<div class="bt-link"><a href="' + tdyYt(cur) + '" target="_blank" rel="noopener">More drum tracks on YouTube at ' + cur + ' BPM</a></div></div>';
+    h += '<div class="hub-lbl">PLAY</div>' + hubCard('recommendations', '🎵', 'Song Lab', 'Songs with Spotify, YouTube and Songsterr links') + hubCard('riff', '⟳', 'Riff Lab', 'Riffs and the riff builder');
+    h += '<div class="hub-lbl">TOOLS</div>' + hubCard('session', '⏱', 'Custom session', 'Build your own timed practice') + hubCard('metronome', '♩', 'Metronome', 'Click and tempo ramp');
+  }
+  el.innerHTML = h;
+}
+/* One-tap private setup link: #setup=<base64 json>. The hash never leaves the browser. */
+function setupFromHash() {
+  const m = String(location.hash || '').match(/^#setup=([A-Za-z0-9_\-=]+)$/); if (!m) return;
+  try {
+    const bin = atob(m[1].replace(/-/g, '+').replace(/_/g, '/')), bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    const n0 = crsLib().length, r = btImport(new TextDecoder().decode(bytes));
+    if (r.err) { showToast('That setup link did not work'); }
+    else showToast('Course loaded: ' + (crsLib().length - n0) + ' riffs, ' + r.tracks + ' tracks, ' + r.links + ' links');
+  } catch (e) { try { showToast('That setup link did not work'); } catch (e2) {} }
+  try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+  try { homeLessonRender(); } catch (e) {}
+}
+document.addEventListener('DOMContentLoaded', () => { setTimeout(() => { try { setupFromHash(); tabSync('home'); } catch (e) {} }, 300); });
+window.tdyStart = tdyStart; window.tdyResume = tdyResume; window.tdySetMins = tdySetMins; window.tdyCycle = tdyCycle; window.tabGo = tabGo; window.tabSync = tabSync; window.hubRender = hubRender;
+
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
   const id = window._GP_ACTIVE || '7drop';
@@ -19556,6 +19756,13 @@ if ('serviceWorker' in navigator) {
     <div style="font-size:11px;color:var(--mid);margin-bottom:10px;line-height:1.5">Not linked. Set up sync to keep devices in lock-step automatically.</div>
     <button class="sync-qp-setup" onclick="closeSyncQuick();openSyncPanel()">⇄ Set Up Auto Sync</button>
   </div>
+</div>
+
+<div class="tabbar" id="tabbar">
+  <button class="tab on" data-tab="home" onclick="tabGo('home')"><span>🔥</span>Today</button>
+  <button class="tab" data-tab="learn" onclick="tabGo('learn')"><span>📖</span>Learn</button>
+  <button class="tab" data-tab="play" onclick="tabGo('play')"><span>🎸</span>Play</button>
+  <button class="tab" data-tab="progress" onclick="tabGo('progress')"><span>📊</span>Progress</button>
 </div>
 
 <div class="fab-cluster" id="fab-cluster">
