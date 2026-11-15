@@ -19575,7 +19575,7 @@ function hubRunImport() {
 }
 window.hubRunImport = hubRunImport;
 /* Version stamp and update check: GitHub Pages and phones hold old copies, so look for a newer build and offer a reload. */
-const APP_BUILD = '2026.11.15i';
+const APP_BUILD = '2026.11.15j';
 let _updSeen = '';
 function updCheck() {
   if (!/^https?:/.test(location.protocol)) return;
@@ -20003,7 +20003,7 @@ function lpOpen(o) {
   const lastCol = P.groups[P.groups.length - 1].col, bar = div * 4;
   const fr = P.notes.filter(n => n.fret > 0).map(n => n.fret), mn = fr.length ? Math.min.apply(null, fr) : 0, mx = fr.length ? Math.max.apply(null, fr) : 0;
   const lo = mn <= 4 ? 0 : mn - 1, hi = Math.max(lo + 5, mx + 1);
-  _lp = { P: P, div: div, base: Math.max(40, Math.min(240, Math.round(o.bpm || 80))), speed: o.speed || 1, title: String(o.title || 'Play along').slice(0, 60), loopCols: Math.max(bar, Math.ceil((lastCol + 1) / bar) * bar),
+  _lp = { P: P, div: div, base: Math.max(40, Math.min(240, Math.round(o.bpm || 80))), speed: o.speed || 1, title: String(o.title || 'Play along').slice(0, 60), loopCols: Math.max(bar, Math.ceil(Math.max(lastCol + 1, P.len - bar / 2) / bar) * bar),
     lo: lo, hi: hi, playing: false, loop: true, beat: 'click', guitar: true, step: 0, raf: 0, selA: null, selB: null };
   lpView();
   const ov = lpOv();
