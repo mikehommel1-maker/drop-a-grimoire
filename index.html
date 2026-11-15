@@ -4312,6 +4312,11 @@ body .fab-cluster{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
 .tn-strs{display:flex;gap:6px;justify-content:center;margin-bottom:14px}
 .tn-s{min-width:34px;text-align:center;padding:7px 4px;border:1px solid rgba(168,61,255,.3);font-family:var(--display);font-size:15px;color:#8f84a3}
 .tn-s.on{border-color:var(--flame);color:#fff}.tn-s.ok{border-color:#7ee0a0;color:#7ee0a0}
+.hub-setup{margin-top:12px;border-top:1px solid rgba(168,61,255,.25);padding-top:10px}
+.hub-setup summary{cursor:pointer;font-family:var(--display);font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:8px}
+.hub-setup textarea{width:100%;box-sizing:border-box;margin-bottom:8px;font-size:16px}
+.app-build{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:#8f84a3;text-align:right;margin:-8px 0 14px}
+.upd-bar{position:fixed;left:12px;right:12px;top:calc(60px + env(safe-area-inset-top,0px));z-index:9500;background:#7ee0a0;color:#06210f;border:0;padding:13px;font-family:var(--display);font-size:16px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.6)}
 </style>
   <!-- Firebase SDK for cross-device sync -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -19366,7 +19371,7 @@ function homeLessonRender() {
     (!run && !done && !plcPlaced() && !h.log.length ? '<div class="tdy-place"><span>New here? Set your levels first so lessons start in the right place.</span><button class="fg-open" onclick="plcOpen()">1 min check</button></div>' : '') +
     (run ? '' : '<div class="tdy-chips">' + [10, 15, 20, 30].map(m => '<button class="plan-chip' + (m === mins ? ' active' : '') + '" onclick="tdySetMins(' + m + ')">' + m + ' MIN</button>').join('') + '</div>') +
     '<button class="ls-go tdy-go" onclick="' + (run ? 'tdyResume()' : 'tdyStart()') + '">▶ ' + (run ? 'Resume' : done ? 'Go again' : 'Start today') + '</button>' +
-    (typeof modeOfDayHtml === 'function' ? modeOfDayHtml() : '') + '</div>';
+    (typeof modeOfDayHtml === 'function' ? modeOfDayHtml() : '') + '</div><div class="app-build">Version ' + APP_BUILD + '</div>';
 }
 window.homeLessonRender = homeLessonRender;
 /* Tabs and hubs */
@@ -19412,9 +19417,10 @@ function hubRender(id) {
       h += '<div class="ls-h2">' + tr.length + ' course tracks</div><div class="ls-sub">Tap a tempo to play along with a count-in.</div><div class="hub-tracks">' +
         tr.map(t => '<button class="hub-tr" onclick="paOpen({bpm:' + t.bpm + ',src:\'tracks\',label:\'' + slEsc(t.title).replace(/&#39;/g, '') + '\'});paSet(\'track\',\'' + t.id + '\')"><b>' + t.bpm + '</b><i>' + (t.kind === 'drums+bass' ? 'drums + bass' : 'drums') + (t.key ? '<br>' + slEsc(t.key) : '') + '</i></button>').join('') + '</div>';
     } else {
-      h += '<div class="ls-h2">Play over drums</div><div class="ls-sub">Your course tracks are not on this device yet. Paste your setup link once and they appear here.</div>' +
-        '<div class="ls-btns"><button class="ls-go" onclick="crsPasteOpen()">Paste my setup link</button><button class="ls-ghost" onclick="paOpen({})">Built-in drums</button></div>';
+      h += '<div class="ls-h2">Add your course tracks</div><div class="ls-sub">Paste your setup link in the box below and tap Import. Until then you can use the built-in drums.</div>' +
+        '<div class="ls-btns"><button class="ls-ghost" onclick="paOpen({})">▶ Built-in drums</button></div>';
     }
+    h += '<details class="hub-setup"' + (tr.length ? '' : ' open') + '><summary>' + (tr.length ? 'Add or update course tracks' : 'Setup link') + '</summary><textarea class="ls-ta" id="hub-code" rows="4" placeholder="Press and hold here, then tap Paste"></textarea><button class="ls-go" onclick="hubRunImport()">Import</button></details>';
     h += '<div class="bt-link"><a href="' + tdyYt(cur) + '" target="_blank" rel="noopener">More drum tracks on YouTube at ' + cur + ' BPM</a></div></div>';
     h += '<div class="hub-lbl">PLAY</div>' + hubCard('recommendations', '🎵', 'Song Lab', 'Songs with Spotify, YouTube and Songsterr links') + hubCard('riff', '⟳', 'Riff Lab', 'Riffs and the riff builder');
     h += '<div class="hub-lbl">TOOLS</div>' + hubCard('session', '⏱', 'Custom session', 'Build your own timed practice') + hubCard('metronome', '♩', 'Metronome', 'Click and tempo ramp') +
@@ -19422,6 +19428,28 @@ function hubRender(id) {
   }
   el.innerHTML = h;
 }
+function hubRunImport() {
+  let o; try { o = crsDecode((document.getElementById('hub-code') || {}).value); } catch (e) { try { showToast('That did not work. Paste the whole setup link.'); } catch (e2) {} return; }
+  const n0 = crsLib().length, a = btImport(JSON.stringify(o));
+  try { showToast(a.err ? 'That did not work. Paste the whole setup link.' : 'Added ' + (crsLib().length - n0) + ' riffs, ' + (a.tracks || 0) + ' tracks, ' + (a.links || 0) + ' links'); } catch (e) {}
+  hubRender('play'); try { window.scrollTo(0, 0); } catch (e) {}
+}
+window.hubRunImport = hubRunImport;
+/* Version stamp and update check: GitHub Pages and phones hold old copies, so look for a newer build and offer a reload. */
+const APP_BUILD = '2026.11.15e';
+let _updSeen = '';
+function updCheck() {
+  if (!/^https?:/.test(location.protocol)) return;
+  fetch(location.pathname + '?cb=' + Date.now(), { cache: 'no-store' }).then(r => r.text()).then(t => {
+    const m = t.match(/const APP_BUILD = '([0-9a-z.]+)'/); if (!m || m[1] === APP_BUILD || m[1] === _updSeen) return;
+    _updSeen = m[1];
+    let b = document.getElementById('upd-bar'); if (!b) { b = document.createElement('button'); b.id = 'upd-bar'; b.className = 'upd-bar'; document.body.appendChild(b); }
+    b.textContent = 'New version ready. Tap to update.';
+    b.onclick = () => { location.replace(location.pathname + '?v=' + encodeURIComponent(m[1])); };
+  }).catch(() => {});
+}
+document.addEventListener('DOMContentLoaded', () => { setTimeout(updCheck, 1500); });
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') updCheck(); });
 /* One-tap private setup link: #setup=<base64 json>. The hash never leaves the browser. */
 function setupFromHash() {
   const m = String(location.hash || '').match(/^#setup=([A-Za-z0-9_\-=]+)$/); if (!m) return;
