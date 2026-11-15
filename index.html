@@ -4361,6 +4361,10 @@ body .fab-cluster{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
 .rig-tone b{display:block;font-family:var(--display);font-weight:400;letter-spacing:2px;text-transform:uppercase;color:#fff;font-size:14px}
 .rig-tone span{font-size:13px;color:#b9acc9}
 .rc-top .tab-block{overflow-x:auto;clip-path:none}.rc-top .tab-notes{white-space:pre}
+.crs-view{flex:1 1 100%;margin-top:8px}
+.crs-view iframe{width:100%;height:96px;background:#fff;border:1px solid rgba(168,61,255,.4)}
+.crs-view.pdf iframe{height:min(70vh,560px)}
+.fg-open.on{background:#3a0a70!important}
 </style>
   <!-- Firebase SDK for cross-device sync -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -19283,16 +19287,33 @@ function crsLibSave(items) { try { localStorage.setItem(CRS_LIB, JSON.stringify(
 function crsProg() { try { return JSON.parse(localStorage.getItem(CRS_PROG) || '{}') || {}; } catch (e) { return {}; } }
 function crsProgSave(o) { try { localStorage.setItem(CRS_PROG, JSON.stringify(o)); } catch (e) {} try { if (typeof syncSchedulePush === 'function') syncSchedulePush(); } catch (e) {} }
 function crsImport(o) {
-  const cur = crsLib(); let n = 0, bad = 0;
+  const cur = crsLib(); let n = 0, bad = 0, upd = 0;
   (Array.isArray(o && o.course) ? o.course : []).slice(0, 200).forEach(r => {
     if (!r || !btIdOk(r.id) || typeof r.title !== 'string' || typeof r.sec !== 'string') { bad++; return; }
-    if (cur.some(x => x.id === r.id)) return;
-    cur.push({ sec: r.sec.slice(0, 60), title: r.title.slice(0, 80), id: r.id }); n++;
+    const it = { sec: r.sec.slice(0, 60), title: r.title.slice(0, 80), id: r.id };
+    ['pdf', 'demo', 'drum'].forEach(k => { if (btIdOk(r[k])) it[k] = r[k]; });
+    const ex = cur.find(x => x.id === r.id);
+    if (ex) { if (JSON.stringify(ex) !== JSON.stringify(Object.assign({}, ex, it))) { Object.assign(ex, it); upd++; } return; }
+    cur.push(it); n++;
   });
-  if (n) crsLibSave(cur);
-  return { riffs: n, bad: bad };
+  if (n || upd) crsLibSave(cur);
+  return { riffs: n, bad: bad, upd: upd };
 }
-let _crsImp = false;
+let _crsImp = false, _crsView = null;
+function crsView(id, kind) { _crsView = (_crsView && _crsView.id === id && _crsView.kind === kind) ? null : { id: id, kind: kind }; if (_lsRun) { try { lsRenderRun(true); } catch (e) {} } else crsRender(); }
+function crsViewBtns(x) {
+  const on = k => _crsView && _crsView.id === x.id && _crsView.kind === k;
+  return (x.pdf ? '<button class="fg-open' + (on('pdf') ? ' on' : '') + '" onclick="crsView(\'' + x.id + '\',\'pdf\')">' + (on('pdf') ? 'Hide tab' : 'Show tab') + '</button>' : '') +
+    (x.demo ? '<button class="fg-open' + (on('demo') ? ' on' : '') + '" onclick="crsView(\'' + x.id + '\',\'demo\')">' + (on('demo') ? 'Hide player' : 'Hear it') + '</button>' : '') +
+    (x.drum ? '<button class="fg-open' + (on('drum') ? ' on' : '') + '" onclick="crsView(\'' + x.id + '\',\'drum\')">' + (on('drum') ? 'Hide drums' : 'Its drum track') + '</button>' : '');
+}
+function crsViewHtml(x) {
+  if (!_crsView || _crsView.id !== x.id || !x[_crsView.kind]) return '';
+  const k = _crsView.kind, src = 'https://drive.google.com/file/d/' + encodeURIComponent(x[k]) + '/preview';
+  return '<div class="crs-view ' + k + '"><iframe title="' + slEsc(x.title) + '" src="' + src + '" allow="autoplay" frameborder="0"></iframe>' +
+    '<div class="fg-note">' + (k === 'pdf' ? 'The course tab. Pinch to zoom. ' : 'Plays in Google Drive\'s player. ') + '<a href="https://drive.google.com/file/d/' + encodeURIComponent(x[k]) + '/view" target="_blank" rel="noopener">Open full screen</a></div></div>';
+}
+window.crsView = crsView;
 function crsStart(id) { goTo('lesson', null); lsStart(id, 20); }
 function crsCycle(id) { const p = crsProg(), r = p[id] || {}; r.s = ((r.s || 0) + 1) % 4; p[id] = r; crsProgSave(p); crsRender(); }
 function crsBpm(id, v) { const p = crsProg(), r = p[id] || {}, n = Math.round(+v); if (n >= 40 && n <= 300) r.b = n; else delete r.b; p[id] = r; crsProgSave(p); crsRender(); }
@@ -19312,7 +19333,7 @@ window.crsPasteOpen = crsPasteOpen;
 function crsRunImport() {
   let o; try { o = crsDecode((document.getElementById('crs-code') || {}).value); } catch (e) { try { showToast('That did not work. Paste the whole setup link.'); } catch (e2) {} return; }
   const n0 = crsLib().length, a = btImport(JSON.stringify(o)), b = { riffs: crsLib().length - n0 };
-  try { showToast('Added ' + (b.riffs || 0) + ' riffs, ' + (a.tracks || 0) + ' tracks, ' + (a.links || 0) + ' links'); } catch (e) {}
+  try { showToast('Loaded: ' + crsLib().length + ' riffs (' + crsLib().filter(x => x.pdf).length + ' with tabs), ' + btLoad().tracks.length + ' tracks'); } catch (e) {}
   _crsImp = false; crsRender();
 }
 function crsRender() {
@@ -19349,8 +19370,8 @@ function crsRender() {
         html += '<div class="crs-row"><div class="crs-rt">' + slEsc(x.title) + '</div>' +
           '<button class="crs-st s' + st + '" onclick="crsCycle(\'' + x.id + '\')">' + CRS_STAT[st] + '</button>' +
           '<label class="crs-bl">Best <input class="crs-bpm" type="number" inputmode="numeric" min="40" max="300" placeholder="BPM" value="' + (r.b || '') + '" onchange="crsBpm(\'' + x.id + '\',this.value)"></label>' +
-          '<a class="fg-open" href="https://drive.google.com/drive/folders/' + encodeURIComponent(x.id) + '" target="_blank" rel="noopener">Open</a>' +
-          '<button class="fg-open" onclick="crsPlay(\'' + x.id + '\')">Play along</button></div>';
+          crsViewBtns(x) + '<button class="fg-open" onclick="crsPlay(\'' + x.id + '\')">Play along</button>' +
+          '<a class="sl-rm" href="https://drive.google.com/drive/folders/' + encodeURIComponent(x.id) + '" target="_blank" rel="noopener">folder</a></div>' + crsViewHtml(x);
       });
       html += '</details>';
     });
@@ -19406,8 +19427,8 @@ function tdyRiffHtml(run, target) {
   if (r) {
     const st = (crsProg()[r.id] || {}).s || 0;
     h += '<div class="ls-card ls-inner"><div class="ls-eyebrow">FROM YOUR RIFF LIBRARY</div><div class="ls-h2">' + slEsc(r.sec + ' · ' + r.title) + '</div>' +
-      '<div class="ls-btns"><a class="fg-open" href="https://drive.google.com/drive/folders/' + encodeURIComponent(r.id) + '" target="_blank" rel="noopener">Open tab and tracks</a>' +
-      '<button class="crs-st s' + st + '" onclick="tdyCycle(\'' + r.id + '\')">' + CRS_STAT[st] + '</button></div><div class="ls-sub">Tap the marker when it gets cleaner. Learning riffs come back here until they are clean.</div></div>';
+      '<div class="ls-btns">' + (r.pdf || r.demo ? crsViewBtns(r) : '<a class="fg-open" href="https://drive.google.com/drive/folders/' + encodeURIComponent(r.id) + '" target="_blank" rel="noopener">Open tab and tracks</a>') +
+      '<button class="crs-st s' + st + '" onclick="tdyCycle(\'' + r.id + '\')">' + CRS_STAT[st] + '</button></div>' + crsViewHtml(r) + '<div class="ls-sub">Tap the marker when it gets cleaner. Learning riffs come back here until they are clean.</div></div>';
   } else {
     h += '<div class="ls-cue"><b>Riff:</b> use the last drill from this lesson, four times through.</div>';
   }
@@ -19495,12 +19516,12 @@ function hubRender(id) {
 function hubRunImport() {
   let o; try { o = crsDecode((document.getElementById('hub-code') || {}).value); } catch (e) { try { showToast('That did not work. Paste the whole setup link.'); } catch (e2) {} return; }
   const n0 = crsLib().length, a = btImport(JSON.stringify(o));
-  try { showToast(a.err ? 'That did not work. Paste the whole setup link.' : 'Added ' + (crsLib().length - n0) + ' riffs, ' + (a.tracks || 0) + ' tracks, ' + (a.links || 0) + ' links'); } catch (e) {}
+  try { showToast(a.err ? 'That did not work. Paste the whole setup link.' : 'Loaded: ' + crsLib().length + ' riffs (' + crsLib().filter(x => x.pdf).length + ' with tabs), ' + btLoad().tracks.length + ' tracks'); } catch (e) {}
   hubRender('play'); try { window.scrollTo(0, 0); } catch (e) {}
 }
 window.hubRunImport = hubRunImport;
 /* Version stamp and update check: GitHub Pages and phones hold old copies, so look for a newer build and offer a reload. */
-const APP_BUILD = '2026.11.15f';
+const APP_BUILD = '2026.11.15g';
 let _updSeen = '';
 function updCheck() {
   if (!/^https?:/.test(location.protocol)) return;
