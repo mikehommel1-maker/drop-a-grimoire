@@ -4405,6 +4405,7 @@ body.lp-open{overflow:hidden}
 .lp-lbl{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:#8f84a3}
 .lp-bar{padding:8px 11px;min-width:36px}
 .lp-hint{font-size:10px;color:#8f84a3;width:100%;text-align:center}
+.grv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 </style>
   <!-- Firebase SDK for cross-device sync -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -4826,6 +4827,14 @@ body.lp-open{overflow:hidden}
     <div class="page-lead">Using the app with your HeadRush Flex Prime.</div>
   </div>
   <div id="rig-root"></div>
+</div>
+
+<div id="grooves" class="page">
+  <div class="page-header">
+    <div class="page-title">Breakdowns</div>
+    <div class="page-lead">Real breakdown beats. Your guitar locks to the kick.</div>
+  </div>
+  <div id="grooves-root"></div>
 </div>
 
 <div id="course" class="page">
@@ -5871,6 +5880,7 @@ function onPageOpen(id) {
   if (id === 'lesson' && window.lsRender) lsRender();
   if (id === 'course' && window.crsRender) crsRender();
   if (id === 'write' && window.rcRender) rcRender();
+  if (id === 'grooves' && window.grvRender) grvRender();
   if (id === 'rig' && window.rigRender) rigRender();
   try { if (window.tabSync) tabSync(id); } catch (e) {}
   if (id === 'dailytip' && tipCount === 0) setTimeout(fetchTip, 200);
@@ -17641,6 +17651,7 @@ function btImport(text) {
   });
   btSave(cur);
   try { if (typeof crsImport === 'function') crsImport(o); } catch (e) {}
+  try { if (typeof grvImport === 'function') grvImport(o); } catch (e) {}
   return { tracks: nt, links: nl, bad: bad };
 }
 function btHomeRoot() { try { const p = fgPcOf(gpGet().homeKey); return p >= 0 ? FG_PC[p] : null; } catch (e) { return null; } }
@@ -19375,7 +19386,7 @@ window.crsPasteOpen = crsPasteOpen;
 function crsRunImport() {
   let o; try { o = crsDecode((document.getElementById('crs-code') || {}).value); } catch (e) { try { showToast('That did not work. Paste the whole setup link.'); } catch (e2) {} return; }
   const n0 = crsLib().length, a = btImport(JSON.stringify(o)), b = { riffs: crsLib().length - n0 };
-  try { showToast('Loaded: ' + crsLib().length + ' riffs (' + crsLib().filter(x => x.pdf).length + ' with tabs), ' + btLoad().tracks.length + ' tracks'); } catch (e) {}
+  try { showToast('Loaded: ' + crsLib().length + ' riffs, ' + btLoad().tracks.length + ' tracks, ' + grvList().length + ' breakdown beats'); } catch (e) {}
   _crsImp = false; crsRender();
 }
 function crsRender() {
@@ -19559,7 +19570,7 @@ function hubRender(id) {
     }
     h += '<details class="hub-setup"' + (tr.length ? '' : ' open') + '><summary>' + (tr.length ? 'Add or update course tracks' : 'Setup link') + '</summary><textarea class="ls-ta" id="hub-code" rows="4" placeholder="Press and hold here, then tap Paste"></textarea><button class="ls-go" onclick="hubRunImport()">Import</button></details>';
     h += '<div class="bt-link"><a href="' + tdyYt(cur) + '" target="_blank" rel="noopener">More drum tracks on YouTube at ' + cur + ' BPM</a></div></div>';
-    h += '<div class="hub-lbl">CREATE</div>' + hubCard('write', '✍️', 'Write a riff', 'Build your own in five small steps');
+    h += '<div class="hub-lbl">CREATE</div>' + hubCard('write', '✍️', 'Write a riff', 'Build your own in five small steps') + hubCard('grooves', '🥁', 'Breakdowns', (grvList().length || 'Real') + ' drum beats, chug on the kick');
     h += '<div class="hub-lbl">PLAY</div>' + hubCard('recommendations', '🎵', 'Song Lab', 'Songs with Spotify, YouTube and Songsterr links') + hubCard('riff', '⟳', 'Riff Lab', 'Riffs and the riff builder');
     h += '<div class="hub-lbl">TOOLS</div>' + hubCard('session', '⏱', 'Custom session', 'Build your own timed practice') + hubCard('metronome', '♩', 'Metronome', 'Click and tempo ramp') +
       '<button class="hub-c" onclick="tcOpen()"><span class="hub-i">🎯</span><span class="hub-t"><b>Timing check</b><i>Play to the click and get a score</i></span><span class="hub-a">›</span></button>' + hubCard('rig', '🎛', 'My rig', 'HeadRush Flex Prime hookup and tones') +
@@ -19570,12 +19581,12 @@ function hubRender(id) {
 function hubRunImport() {
   let o; try { o = crsDecode((document.getElementById('hub-code') || {}).value); } catch (e) { try { showToast('That did not work. Paste the whole setup link.'); } catch (e2) {} return; }
   const n0 = crsLib().length, a = btImport(JSON.stringify(o));
-  try { showToast(a.err ? 'That did not work. Paste the whole setup link.' : 'Loaded: ' + crsLib().length + ' riffs (' + crsLib().filter(x => x.pdf).length + ' with tabs), ' + btLoad().tracks.length + ' tracks'); } catch (e) {}
+  try { showToast(a.err ? 'That did not work. Paste the whole setup link.' : 'Loaded: ' + crsLib().length + ' riffs, ' + btLoad().tracks.length + ' tracks, ' + grvList().length + ' breakdown beats'); } catch (e) {}
   hubRender('play'); try { window.scrollTo(0, 0); } catch (e) {}
 }
 window.hubRunImport = hubRunImport;
 /* Version stamp and update check: GitHub Pages and phones hold old copies, so look for a newer build and offer a reload. */
-const APP_BUILD = '2026.11.15j';
+const APP_BUILD = '2026.11.15k';
 let _updSeen = '';
 function updCheck() {
   if (!/^https?:/.test(location.protocol)) return;
@@ -20004,7 +20015,7 @@ function lpOpen(o) {
   const fr = P.notes.filter(n => n.fret > 0).map(n => n.fret), mn = fr.length ? Math.min.apply(null, fr) : 0, mx = fr.length ? Math.max.apply(null, fr) : 0;
   const lo = mn <= 4 ? 0 : mn - 1, hi = Math.max(lo + 5, mx + 1);
   _lp = { P: P, div: div, base: Math.max(40, Math.min(240, Math.round(o.bpm || 80))), speed: o.speed || 1, title: String(o.title || 'Play along').slice(0, 60), loopCols: Math.max(bar, Math.ceil(Math.max(lastCol + 1, P.len - bar / 2) / bar) * bar),
-    lo: lo, hi: hi, playing: false, loop: true, beat: 'click', guitar: true, step: 0, raf: 0, selA: null, selB: null };
+    lo: lo, hi: hi, playing: false, loop: true, beat: o.groove ? 'groove' : 'click', groove: o.groove || null, guitar: true, step: 0, raf: 0, selA: null, selB: null };
   lpView();
   const ov = lpOv();
   ov.innerHTML = '<div class="lp-box" role="dialog" aria-label="Play along"><div class="lp-head"><div class="lp-title">' + slEsc(_lp.title) + '</div><button class="lp-x" onclick="lpClose()" aria-label="Close">×</button></div>' +
@@ -20027,7 +20038,7 @@ function lpSec(i) {
   if (i < 0) _lp.selA = _lp.selB = null; else if (_lp.selA == null || _lp.selA !== _lp.selB) _lp.selA = _lp.selB = i; else _lp.selB = i;
   lpView(); lpCtl(); if (was) lpPlay(); else lpDraw();
 }
-function lpBeatMode() { if (!_lp) return; _lp.beat = _lp.beat === 'click' ? 'drums' : _lp.beat === 'drums' ? 'off' : 'click'; lpCtl(); }
+function lpBeatMode() { if (!_lp) return; const o = ['click', 'drums'].concat(_lp.groove ? ['groove'] : []).concat(['off']); _lp.beat = o[(o.indexOf(_lp.beat) + 1) % o.length]; lpCtl(); }
 window.lpSec = lpSec; window.lpBeatMode = lpBeatMode;
 function lpBpm() { return Math.max(30, Math.round(_lp.base * _lp.speed)); }
 function lpCtl() {
@@ -20035,7 +20046,7 @@ function lpCtl() {
   const sp = document.getElementById('lp-speed'), tg = document.getElementById('lp-tog'), pb = document.getElementById('lp-play');
   if (sp) sp.innerHTML = [0.5, 0.75, 1].map(v => '<button class="lp-chip' + (_lp.speed === v ? ' on' : '') + '" onclick="lpSet(\'speed\',' + v + ')">' + (v * 100) + '%</button>').join('') + '<button class="lp-chip" onclick="lpSet(\'base\',' + (_lp.base - 5) + ')">−5</button><b class="lp-bpm">' + lpBpm() + '<small>BPM</small></b><button class="lp-chip" onclick="lpSet(\'base\',' + (_lp.base + 5) + ')">+5</button>';
   if (tg) tg.innerHTML = [['loop', 'Loop'], ['guitar', _lp.guitar ? 'Guitar sound' : 'Guitar muted']].map(x => '<button class="lp-chip' + (_lp[x[0]] ? ' on' : '') + '" onclick="lpSet(\'' + x[0] + '\',' + (!_lp[x[0]]) + ')">' + x[1] + '</button>').join('') +
-    '<button class="lp-chip' + (_lp.beat !== 'off' ? ' on' : '') + '" onclick="lpBeatMode()">' + (_lp.beat === 'drums' ? 'Drums' : _lp.beat === 'click' ? 'Click' : 'No beat') + '</button>';
+    '<button class="lp-chip' + (_lp.beat !== 'off' ? ' on' : '') + '" onclick="lpBeatMode()">' + (_lp.beat === 'groove' ? 'Real drums' : _lp.beat === 'drums' ? 'Drums' : _lp.beat === 'click' ? 'Click' : 'No beat') + '</button>';
   const sc = document.getElementById('lp-sec'), nb = _lp.loopCols / (_lp.div * 4);
   if (sc) { if (nb < 2) sc.innerHTML = ''; else { const a = _lp.selA == null ? -1 : Math.min(_lp.selA, _lp.selB), b = _lp.selA == null ? -1 : Math.max(_lp.selA, _lp.selB); let h = '<span class="lp-lbl">BARS</span><button class="lp-chip' + (a < 0 ? ' on' : '') + '" onclick="lpSec(-1)">All</button>'; for (let i = 0; i < nb; i++) h += '<button class="lp-chip lp-bar' + (i >= a && i <= b ? ' on' : '') + '" onclick="lpSec(' + i + ')">' + (i + 1) + '</button>'; sc.innerHTML = h + (a >= 0 && a === b && nb > 2 ? '<span class="lp-hint">tap another bar to extend</span>' : ''); } }
   if (pb) { pb.textContent = _lp.playing ? '■ STOP' : '▶ PLAY'; pb.classList.toggle('on', _lp.playing); }
@@ -20059,7 +20070,7 @@ function lpPlay() {
     if (!_lp) return;
     const g = ctx.createGain(); g.gain.setValueAtTime(0.6, ctx.currentTime); g.connect(ctx.destination);
     const beat = 60 / lpBpm();
-    Object.assign(_lp, { ctx: ctx, gain: g, playing: true, startT: ctx.currentTime + 0.12 + 4 * beat, gi: 0, k: 0, cb: -16, endAt: 0 });
+    Object.assign(_lp, { ctx: ctx, gain: g, playing: true, startT: ctx.currentTime + 0.12 + 4 * beat, gi: 0, k: 0, cb: -96, endAt: 0 });
     _lp.timer = setInterval(lpTick, 25); lpTick(); lpCtl();
     cancelAnimationFrame(_lp.raf); _lp.raf = requestAnimationFrame(lpFrame);
   });
@@ -20073,10 +20084,11 @@ function lpTick() {
     L.gi++; if (L.gi >= G.length) { if (L.loop) { L.gi = 0; L.k++; } else { L.gi = G.length - 1; L.endAt = L.startT + (L.k + 1) * loopDur; } }
   }
   for (;;) {
-    const q = beat / 4, tb = L.startT + L.cb * q; if (tb > hz || (L.endAt && tb >= L.endAt)) break;
-    const s16 = ((L.cb % 16) + 16) % 16;
-    if (L.cb < 0 || L.beat === 'click') { if (s16 % 4 === 0) paClickTone(ctx, tb, s16 === 0); }
-    else if (L.beat === 'drums') { try { const ps = PA_STYLES.rock; if (ps.kick.indexOf(s16) >= 0) playKick(ctx, tb); if (ps.snare.indexOf(s16) >= 0) playSnare(ctx, tb); if (ps.hat.indexOf(s16) >= 0) playHihat(ctx, tb, false); } catch (e) {} }
+    const q = beat / 24, tb = L.startT + L.cb * q; if (tb > hz || (L.endAt && tb >= L.endAt)) break;
+    const u96 = ((L.cb % 96) + 96) % 96;
+    if (L.cb < 0 || L.beat === 'click') { if (u96 % 24 === 0) paClickTone(ctx, tb, u96 === 0); }
+    else if (L.beat === 'groove' && L.groove) { const lenU = Math.round(L.len * 24 / L.div), u = Math.round(L.c0 * 24 / L.div) + (L.loop ? L.cb % lenU : L.cb); grvHit(ctx, L.groove, u % (L.groove.bars * 96), tb); }
+    else if (L.beat === 'drums' && u96 % 6 === 0) { try { const ps = PA_STYLES.rock, s16 = u96 / 6; if (ps.kick.indexOf(s16) >= 0) playKick(ctx, tb); if (ps.snare.indexOf(s16) >= 0) playSnare(ctx, tb); if (ps.hat.indexOf(s16) >= 0) playHihat(ctx, tb, false); } catch (e) {} }
     L.cb++;
   }
   if (L.endAt && ctx.currentTime > L.endAt + 0.05) { lpStop(); lpCtl(); lpDraw(); }
@@ -20172,6 +20184,68 @@ window.playTabBlock = function (encodedRows, bpm, btnEl, div) {
   let title = 'Play along'; try { const b = btnEl && btnEl.closest('.tab-block'); const l = b && b.querySelector('.tab-block-label'); if (l) title = l.textContent.trim(); } catch (e) {}
   lpOpen({ rows: rows, bpm: bpm || 80, div: div || 4, title: title });
 };
+
+
+/* ════ PHASE 17: BREAKDOWN GROOVES (real drum patterns, guitar locks to the kick) ════ */
+const GRV_KEY = 'grimoire_grooves';
+let _grvCache = null, _grvMood = 'evil', _grvAmt = 0;
+function grvList() { if (_grvCache) return _grvCache; try { const a = JSON.parse(localStorage.getItem(GRV_KEY) || '[]'); _grvCache = Array.isArray(a) ? a : []; } catch (e) { _grvCache = []; } return _grvCache; }
+function grvImport(o) {
+  const src = Array.isArray(o && o.grooves) ? o.grooves : []; if (!src.length) return 0;
+  const out = [];
+  src.slice(0, 120).forEach(x => {
+    if (!x || !(x.bpm >= 40 && x.bpm <= 300) || !(x.bars >= 1 && x.bars <= 32) || !Array.isArray(x.k)) return;
+    const g = { n: Math.round(+x.n) || out.length + 1, bpm: Math.round(x.bpm), bars: Math.round(x.bars) }, max = g.bars * 96;
+    'kshocxrt'.split('').forEach(k => { if (Array.isArray(x[k])) g[k] = x[k].filter(u => Number.isInteger(u) && u >= 0 && u < max).slice(0, 1200); });
+    out.push(g);
+  });
+  if (!out.length) return 0;
+  try { localStorage.setItem(GRV_KEY, JSON.stringify(out)); } catch (e) {} _grvCache = out;
+  return out.length;
+}
+function grvSets(g) { if (!g._s) { const s = {}; 'kshocxrt'.split('').forEach(k => { s[k] = new Set(g[k] || []); }); Object.defineProperty(g, '_s', { value: s, enumerable: false }); } return g._s; }
+function grvHit(ctx, g, u, t) {
+  const s = grvSets(g);
+  try {
+    if (s.k.has(u)) playKick(ctx, t);
+    if (s.s.has(u)) playSnare(ctx, t);
+    if (s.h.has(u) || s.r.has(u)) playHihat(ctx, t, false);
+    if (s.o.has(u)) playHihat(ctx, t, true);
+    if (s.c.has(u) || s.x.has(u)) playCymbalCrash(ctx, t);
+    if (s.t.has(u)) { playKick(ctx, t); playHihat(ctx, t, false); }
+  } catch (e) {}
+}
+function grvRows(g) {
+  const T = fgTun(), m = RC_MOOD[_grvMood] || RC_MOOD.evil, want = RC_AMT[_grvAmt][1], bars = Math.min(g.bars, 8), ev = [];
+  const ks = (g.k || []).filter(u => u < bars * 96);
+  let lastNoteBar = -1, k = 0;
+  ks.forEach((u, i) => {
+    const bar = Math.floor(u / 96), nextGap = (i + 1 < ks.length ? ks[i + 1] : bars * 96) - u;
+    let f = 0;
+    if (want && nextGap >= 18 && u % 96 >= 24 && (bar !== lastNoteBar || want >= 4) && (i * 7 + g.n) % (want >= 4 ? 2 : 3) === 0) { f = m.pick[(k++ + g.n) % m.pick.length]; lastNoteBar = bar; }
+    const p = f <= 8 ? { s: 0, f: f } : lsPlace(f);
+    ev.push({ c: u, s: p.s, f: p.f });
+  });
+  const rows = lsRows(ev), need = bars * 96;
+  return rows.map(r => [r[0], r[1].length < need ? r[1] + '-'.repeat(need - r[1].length) : r[1].slice(0, need)]);
+}
+function grvJam(n) {
+  const g = grvList().find(x => x.n === n); if (!g) return;
+  lpOpen({ rows: grvRows(g), div: 24, bpm: g.bpm, title: 'Breakdown ' + g.n + ' · ' + g.bpm + ' BPM', groove: g, speed: 0.75 });
+}
+function grvSet(k, v) { if (k === 'mood') _grvMood = v; else _grvAmt = v; grvRender(); }
+function grvRender() {
+  const el = document.getElementById('grooves-root'); if (!el) return;
+  const l = grvList();
+  if (!l.length) { el.innerHTML = '<div class="ls-card"><div class="ls-h2">No grooves loaded yet</div><div class="ls-say">Paste your setup link on the Play tab. Then I have 52 real breakdown beats for you.</div><div class="ls-btns"><button class="ls-go" onclick="goTo(\'play\',null)">Go to Play</button></div></div>'; return; }
+  let h = '<div class="ls-say">Rule one of breakdowns: your right hand is the kick drum. Pick a beat. Chug where the kick hits.</div>';
+  h += '<div class="rc-step"><div class="rc-n">1</div><div class="rc-body"><div class="rc-t">Notes on top</div><div class="plc-as rc-4">' + RC_AMT.slice(0, 3).map((a, i) => '<button class="plc-a' + (_grvAmt === i ? ' on' : '') + '" onclick="grvSet(\'amt\',' + i + ')">' + (i === 0 ? 'Chugs only' : a[0]) + '</button>').join('') + '</div>' +
+    (_grvAmt ? '<div class="plc-as rc-3" style="margin-top:6px">' + Object.keys(RC_MOOD).map(k => '<button class="plc-a' + (_grvMood === k ? ' on' : '') + '" onclick="grvSet(\'mood\',\'' + k + '\')">' + RC_MOOD[k].name + '</button>').join('') + '</div>' : '') + '</div></div>';
+  h += '<div class="rc-step"><div class="rc-n">2</div><div class="rc-body"><div class="rc-t">Pick a beat</div><div class="grv-grid">' + l.slice().sort((a, b) => a.bpm - b.bpm || a.n - b.n).map(g => '<button class="hub-tr" onclick="grvJam(' + g.n + ')"><b>' + g.bpm + '</b><i>#' + g.n + ' · ' + g.bars + ' bars</i></button>').join('') + '</div><div class="rc-why">Sorted slow to fast. Each opens at 75% speed with the tab, the drums and the fretboard.</div></div></div>';
+  el.innerHTML = h;
+}
+window.grvJam = grvJam; window.grvSet = grvSet; window.grvRender = grvRender;
+TAB_OF.grooves = 'play';
 
 /* ── Tuning normalizer — match song tunings to active profile ── */
 function slGetActiveTuningKey() {
