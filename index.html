@@ -19235,8 +19235,15 @@ function crsPlay(id) {
   paOpen({ target: r.b ? Math.min(240, r.b + 10) : 0, bpm: r.b || 0, label: it ? it.sec + ' · ' + it.title : '', src: hasT ? 'tracks' : 'drums' });
 }
 function crsToggleImp() { _crsImp = !_crsImp; crsRender(); }
+function crsDecode(txt) {
+  txt = String(txt || '').trim(); const m = txt.match(/#setup=([A-Za-z0-9_\-=]+)/);
+  if (m) { const bin = atob(m[1].replace(/-/g, '+').replace(/_/g, '/')), by = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) by[i] = bin.charCodeAt(i); txt = new TextDecoder().decode(by); }
+  return JSON.parse(txt);
+}
+function crsPasteOpen() { _crsImp = true; goTo('course', null); setTimeout(() => { const t = document.getElementById('crs-code'); if (t) { t.scrollIntoView({ block: 'center' }); t.focus(); } }, 200); }
+window.crsPasteOpen = crsPasteOpen;
 function crsRunImport() {
-  let o; try { o = JSON.parse(String((document.getElementById('crs-code') || {}).value || '').trim()); } catch (e) { try { showToast('That is not valid import code'); } catch (e2) {} return; }
+  let o; try { o = crsDecode((document.getElementById('crs-code') || {}).value); } catch (e) { try { showToast('That did not work. Paste the whole setup link.'); } catch (e2) {} return; }
   const n0 = crsLib().length, a = btImport(JSON.stringify(o)), b = { riffs: crsLib().length - n0 };
   try { showToast('Added ' + (b.riffs || 0) + ' riffs, ' + (a.tracks || 0) + ' tracks, ' + (a.links || 0) + ' links'); } catch (e) {}
   _crsImp = false; crsRender();
@@ -19282,7 +19289,7 @@ function crsRender() {
     });
     html += '<div class="ls-btns"><button class="sl-rm" onclick="crsToggleImp()">' + (_crsImp ? 'hide import' : 'add more') + '</button></div>';
   }
-  if (_crsImp) html += '<div class="ls-form"><textarea class="ls-ta" id="crs-code" rows="5" placeholder="Paste import code"></textarea><button class="fg-open" onclick="crsRunImport()">Import</button></div>';
+  if (_crsImp) html += '<div class="ls-form"><textarea class="ls-ta" id="crs-code" rows="5" placeholder="Paste your setup link here"></textarea><button class="fg-open" onclick="crsRunImport()">Import</button></div>';
   html += '</div>';
   /* stage 4 */
   let nt = 0; try { nt = btLoad().tracks.length; } catch (e) {}
@@ -19405,8 +19412,8 @@ function hubRender(id) {
       h += '<div class="ls-h2">' + tr.length + ' course tracks</div><div class="ls-sub">Tap a tempo to play along with a count-in.</div><div class="hub-tracks">' +
         tr.map(t => '<button class="hub-tr" onclick="paOpen({bpm:' + t.bpm + ',src:\'tracks\',label:\'' + slEsc(t.title).replace(/&#39;/g, '') + '\'});paSet(\'track\',\'' + t.id + '\')"><b>' + t.bpm + '</b><i>' + (t.kind === 'drums+bass' ? 'drums + bass' : 'drums') + (t.key ? '<br>' + slEsc(t.key) : '') + '</i></button>').join('') + '</div>';
     } else {
-      h += '<div class="ls-h2">Play over drums</div><div class="ls-sub">Your course tracks are not on this device yet. Open your setup link once and they appear here. Until then, use the built-in drums.</div>' +
-        '<div class="ls-btns"><button class="ls-go" onclick="paOpen({})">▶ Built-in drums</button></div>';
+      h += '<div class="ls-h2">Play over drums</div><div class="ls-sub">Your course tracks are not on this device yet. Paste your setup link once and they appear here.</div>' +
+        '<div class="ls-btns"><button class="ls-go" onclick="crsPasteOpen()">Paste my setup link</button><button class="ls-ghost" onclick="paOpen({})">Built-in drums</button></div>';
     }
     h += '<div class="bt-link"><a href="' + tdyYt(cur) + '" target="_blank" rel="noopener">More drum tracks on YouTube at ' + cur + ' BPM</a></div></div>';
     h += '<div class="hub-lbl">PLAY</div>' + hubCard('recommendations', '🎵', 'Song Lab', 'Songs with Spotify, YouTube and Songsterr links') + hubCard('riff', '⟳', 'Riff Lab', 'Riffs and the riff builder');
